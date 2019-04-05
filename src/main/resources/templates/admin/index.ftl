@@ -180,7 +180,7 @@
                 var template = $('#chat')[0].text;
                 var html = [];
                 J.each(result, function (i, n) {
-                    var row = J.format(template, n.author.avatar, n.author.id, n.created, n.author.name, n.content);
+                    var row = J.format(template, n.author.avatar, n.author.domainHack, n.created, n.author.name, n.content);
                     html.push(row);
                 })
                 $('#chat-box').html(html);

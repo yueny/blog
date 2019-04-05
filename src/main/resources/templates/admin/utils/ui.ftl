@@ -55,7 +55,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="/" title="跳转到前台" target="_blank"><i class="fa fa-television"></i></a></li>
                     <li class="messages-menu">
-                        <a href="${base}/users/${profile.id}/messages">
+                        <a href="${base}/users/${profile.domainHack}/messages">
                             <i class="fa fa-envelope-o"></i>
                             <#if (profile.badgesCount.messages > 0)>
                             <span class="label label-success">${profile.badgesCount.messages}</span>

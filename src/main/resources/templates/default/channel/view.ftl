@@ -153,7 +153,7 @@
                 if (data.pid > 0 && !(data.parent === null)) {
                     var pat = data.parent;
                     var pcontent = pat.content;
-                    quoto = '<div class="quote"><a href="${base}/users/' + pat.author.id + '">@' + pat.author.name + '</a>: ' + pcontent + '</div>';
+                    quoto = '<div class="quote"><a href="${base}/users/' + pat.author.domainHack + '">@' + pat.author.name + '</a>: ' + pcontent + '</div>';
                 }
                 var item = jQuery.format(template,
                         data.author.domainHack,
