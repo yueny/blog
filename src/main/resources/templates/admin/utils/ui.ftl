@@ -8,8 +8,8 @@
     <title>后台管理 - ${options['site_name']}</title>
 
     <!-- Favicons -->
-    <link rel="apple-touch-icon-precomposed" href="http://mtons.com/dist/images/logo.png"/>
-    <link rel="shortcut icon" href="http://mtons.com/dist/images/logo.png"/>
+    <link rel="apple-touch-icon-precomposed" href="https://static.codealy.com/favicon.ico"/>
+    <link rel="shortcut icon" href="https://static.codealy.com/favicon.ico"/>
 
     <!-- Bootstrap -->
     <link href="${base}/dist/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -126,7 +126,7 @@
         <!-- To the right -->
         <div class="pull-right hidden-xs">${site.version}</div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2019 <a href="#">mtons</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2019 <a href="#">codealy</a>.</strong> All rights reserved.
     </footer>
 </body>
 </html>
