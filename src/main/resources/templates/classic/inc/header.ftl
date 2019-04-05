@@ -80,17 +80,22 @@
                 <ul class="nav navbar-nav">
 					<#if profile??>
 						<li data="user">
-							<a href="${base}/users/${profile.id}" nav="user">我的主页</a>
+							<a href="${base}/users/${profile.domainHack}" nav="user">我的主页</a>
 						</li>
 					</#if>
 					<#list channels as row>
 						<li>
-							<a href="${base}/channel/${row.id}" nav="${row.name}">${row.name}</a>
+							<a href="${base}/channel/${row.flag}" nav="${row.name}">${row.name}</a>
 						</li>
 					</#list>
                         <li>
                             <a href="${base}/tags" nav="tags">标签</a>
                         </li>
+                        <#--
+                        <li>
+                            <a href="${base}/tags" nav="tags">标签</a>
+                        </li>
+                        -->
                 </ul>
                 <ul class="navbar-button list-inline" id="header_user">
                     <li view="search" class="hidden-xs hidden-sm">

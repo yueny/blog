@@ -32,9 +32,14 @@ public class ChannelServiceImpl implements ChannelService {
 	@Autowired
 	private ChannelRepository channelRepository;
 
+	private Sort sort = Sort.by(
+			new Sort.Order(Sort.Direction.DESC, "weight"),
+			new Sort.Order(Sort.Direction.ASC, "id")
+	);
+//	Sort sort = Sort.by(Sort.Direction.DESC, "weight", "id");
+
 	@Override
 	public List<Channel> findAll(int status) {
-		Sort sort = Sort.by(Sort.Direction.DESC, "weight", "id");
 		List<Channel> list;
 		if (status > Consts.IGNORE) {
 			list = channelRepository.findAllByStatus(status, sort);
@@ -62,7 +67,7 @@ public class ChannelServiceImpl implements ChannelService {
 	public void update(Channel channel) {
 		Optional<Channel> optional = channelRepository.findById(channel.getId());
 		Channel po = optional.orElse(new Channel());
-		BeanUtils.copyProperties(channel, po);
+		BeanUtils.copyProperties(channel, po, "flag"); // flag 不改变
 		channelRepository.save(po);
 	}
 
@@ -88,6 +93,20 @@ public class ChannelServiceImpl implements ChannelService {
 	@Override
 	public long count() {
 		return channelRepository.count();
+	}
+
+	@Override
+	public Channel getByFlag(String flag) {
+		return channelRepository.findByFlag(flag);
+	}
+
+	@Override
+	public Map<String, Channel> findMapByFlags(Collection<String> flags) {
+		List<Channel> list = channelRepository.findAllByFlagIn(flags);
+
+		Map<String, Channel> rets = new HashMap<>();
+		list.forEach(po -> rets.put(po.getFlag(), po));
+		return rets;
 	}
 
 }

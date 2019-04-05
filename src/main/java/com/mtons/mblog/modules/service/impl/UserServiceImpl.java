@@ -156,6 +156,13 @@ public class UserServiceImpl implements UserService {
         User po = userRepository.findById(user.getId()).get();
         po.setName(user.getName());
         po.setSignature(user.getSignature());
+
+        if(StringUtils.isNotEmpty(user.getDomainHack())){
+            po.setDomainHack(user.getDomainHack());
+        }else{
+            po.setDomainHack(String.valueOf(user.getId()));
+        }
+
         userRepository.save(po);
         return BeanMapUtils.copyPassport(po);
     }
@@ -242,6 +249,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public long count() {
         return userRepository.count();
+    }
+
+    @Override
+    public UserVO getByDomainHack(String domainHack) {
+        return BeanMapUtils.copy(userRepository.findByDomainHack(domainHack));
     }
 
 }

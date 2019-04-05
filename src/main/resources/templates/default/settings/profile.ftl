@@ -28,6 +28,16 @@
 						<textarea name="signature" class="form-control" rows="3" maxlength="128">${view.signature}</textarea>
 					</div>
 				</div>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-3" for="nickname">个性化域名</label>
+                    <div class="col-lg-4">
+                        <input type="text" class="form-control" name="domainHack"
+                               value="${view.domainHack}" maxlength="256"
+                               placeholder="如${base}/hahaha">
+                    </div>
+                </div>
+
 				<div class="form-group">
 					<div class="text-center">
 						<button type="submit" class="btn btn-primary">提交</button>

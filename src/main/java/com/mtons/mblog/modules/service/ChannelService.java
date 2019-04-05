@@ -29,4 +29,7 @@ public interface ChannelService {
 	void updateWeight(int id, int weighted);
 	void delete(int id);
 	long count();
+
+	Channel getByFlag(String flag);
+	Map<String, Channel> findMapByFlags(Collection<String> flags);
 }

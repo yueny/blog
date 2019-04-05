@@ -11,22 +11,35 @@ package com.mtons.mblog.modules.data;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.mtons.mblog.modules.entity.Role;
+import com.yueny.rapid.lang.mask.annotation.Mask;
+import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class UserVO implements Serializable {
+public class UserVO extends AbstractMaskBo implements Serializable {
 	private static final long serialVersionUID = 107193816173103116L;
 
 	private long id;
 	private String username;
 
 	@JSONField(serialize = false)
+	@Mask
 	private String password;
 	private String avatar;
 	private String name;
+
+	/**
+	 * 自定义个性域名
+	 */
+	@Getter
+	@Setter
+	private String domainHack;
+
 	private String email;
 
 	private int posts; // 文章数

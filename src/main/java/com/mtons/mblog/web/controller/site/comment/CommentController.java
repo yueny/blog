@@ -77,6 +77,7 @@ public class CommentController extends BaseController {
 
         commentService.post(c);
 
+        // 回复人的ID 与 评论文章所有者ID 不同, 则评论数+1. 即自己给自己评论, 不做加1
         if (toId != profile.getId()) {
             sendMessage(profile.getId(), toId, pid);
         }

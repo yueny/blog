@@ -39,14 +39,14 @@ public class ChannelController extends BaseController {
 	@Autowired
 	private PostService postService;
 	
-	@RequestMapping("/channel/{id}")
-	public String channel(@PathVariable Integer id, ModelMap model,
+	@RequestMapping("/channel/{flag}")
+	public String channel(@PathVariable String flag, ModelMap model,
 			HttpServletRequest request) {
 		// init params
 		String order = ServletRequestUtils.getStringParameter(request, "order", Consts.order.NEWEST);
 		int pageNo = ServletRequestUtils.getIntParameter(request, "pageNo", 1);
 
-		Channel channel = channelService.getById(id);
+		Channel channel = channelService.getByFlag(flag);
 		// callback params
 		model.put("channel", channel);
 		model.put("order", order);
@@ -54,6 +54,9 @@ public class ChannelController extends BaseController {
 		return view(Views.POST_INDEX);
 	}
 
+	/**
+	 * 查看文章详情
+	 */
 	@RequestMapping("/post/{id:\\d*}")
 	public String view(@PathVariable Long id, ModelMap model) {
 		PostVO view = postService.get(id);

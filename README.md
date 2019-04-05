@@ -36,8 +36,19 @@
 # Future
 * 是否允许匿名评论功能开发
   + author_id 由bugint 改为 varchar
+  + [栏目管理]新增栏目编号字段, 仅新增生成, 不可被修改, 作为栏目关联的唯一标示
 
- 
+
+### 版本(3.6-GA)更新内容：
+* 允许登录按钮隐藏, 配置为 site.controls.login_show
+* site.controls 配置优化为动态生效, 不需要项目重新启动
+* yml 配置的进一步拆分, 区分dev和prod环境
+* [栏目管理] 新增栏目对外释义列, 用于栏目的链接展示和查询
+* [个人信息] 新增自定义个性化域名
+
+
+
+
 ### 版本(3.5)更新内容：
     1. 文件存储目录可配置, 见 site.location, 默认为 user.dir
     2. 支持在${site.location}/storage/templates 目录下扩展自己的主题(${site.location}具体位置见启动日志)

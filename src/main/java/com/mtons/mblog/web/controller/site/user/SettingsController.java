@@ -12,6 +12,7 @@ import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.web.controller.site.Views;
 import com.mtons.mblog.web.controller.site.posts.UploadController;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -33,6 +34,9 @@ public class SettingsController extends BaseController {
     @Autowired
     private SecurityCodeService securityCodeService;
 
+    /**
+     * 查看个人基本信息
+     */
     @GetMapping(value = "/profile")
     public String view(ModelMap model) {
         AccountProfile profile = getProfile();
@@ -56,8 +60,16 @@ public class SettingsController extends BaseController {
         return view(Views.SETTINGS_PASSWORD);
     }
 
+    /**
+     * 个人基本信息提交
+     * @param name 昵称
+     * @param signature 个性签名
+     * @param domainHack 个性域名, 如 https://muzinuo.com/{domainHack}
+     * @param model
+     * @return
+     */
     @PostMapping(value = "/profile")
-    public String updateProfile(String name, String signature, ModelMap model) {
+    public String updateProfile(String name, String signature, String domainHack, ModelMap model) {
         Result data;
         AccountProfile profile = getProfile();
 
@@ -66,6 +78,11 @@ public class SettingsController extends BaseController {
             user.setId(profile.getId());
             user.setName(name);
             user.setSignature(signature);
+            if(StringUtils.isNotEmpty(domainHack)){
+                // TODO 判断 domainHack 是否已经被定义
+                //.
+                user.setDomainHack(domainHack);
+            }
 
             putProfile(userService.update(user));
 
@@ -90,7 +107,7 @@ public class SettingsController extends BaseController {
             Assert.hasLength(code, "请输入验证码");
 
             securityCodeService.verify(String.valueOf(profile.getId()), Consts.CODE_BIND, code);
-            // 先执行修改，判断邮箱是否更改，或邮箱是否被人使用
+            // 先执行修改，内部判断邮箱是否更改，或邮箱是否被人使用
             AccountProfile p = userService.updateEmail(profile.getId(), email);
             putProfile(p);
 

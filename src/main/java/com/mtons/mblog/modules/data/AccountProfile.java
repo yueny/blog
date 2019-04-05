@@ -9,6 +9,9 @@
 */
 package com.mtons.mblog.modules.data;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -26,6 +29,10 @@ public class AccountProfile implements Serializable {
 
     private Date lastLogin;
     private int status;
+
+    @Getter
+    @Setter
+    private String domainHack;
 
     private BadgesCount badgesCount;
 

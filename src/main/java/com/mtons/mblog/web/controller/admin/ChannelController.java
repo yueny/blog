@@ -52,7 +52,10 @@ public class ChannelController extends BaseController {
 		}
 		return "/admin/channel/view";
 	}
-	
+
+	/**
+	 * 新增和修改栏目
+	 */
 	@RequestMapping("/update")
 //	@RequiresPermissions("channel:update")
 	public String update(Channel view) {

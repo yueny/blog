@@ -38,7 +38,7 @@ public class RegisterController extends BaseController {
 	public String view() {
 		AccountProfile profile = getProfile();
 		if (profile != null) {
-			return String.format(Views.REDIRECT_USER_HOME, profile.getId());
+			return String.format(Views.REDIRECT_USER_HOME, profile.getDomainHack());
 		}
 		return view(Views.REGISTER);
 	}
@@ -56,7 +56,7 @@ public class RegisterController extends BaseController {
 			post.setAvatar(Consts.AVATAR);
 			userService.register(post);
 			Result<AccountProfile> result = executeLogin(post.getUsername(), post.getPassword(), false);
-			view = String.format(Views.REDIRECT_USER_HOME, result.getData().getId());
+			view = String.format(Views.REDIRECT_USER_HOME, result.getData().getDomainHack());
 		} catch (Exception e) {
             model.addAttribute("post", post);
 			model.put("data", Result.failure(e.getMessage()));

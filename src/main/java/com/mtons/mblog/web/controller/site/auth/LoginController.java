@@ -52,7 +52,7 @@ public class LoginController extends BaseController {
         Result<AccountProfile> result = executeLogin(username, password, rememberMe);
 
         if (result.isOk()) {
-            view = String.format(Views.REDIRECT_USER_HOME, result.getData().getId());
+            view = String.format(Views.REDIRECT_USER_HOME, result.getData().getDomainHack());
         } else {
             model.put("message", result.getMessage());
         }

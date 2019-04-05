@@ -27,4 +27,8 @@ public interface ChannelRepository extends JpaRepository<Channel, Integer>, JpaS
 
 	@Query("select coalesce(max(weight), 0) from Channel")
 	int maxWeight();
+
+	Channel findByFlag(String flag);
+
+	List<Channel> findAllByFlagIn(Collection<String> flag);
 }

@@ -383,7 +383,7 @@ public class CallbackController extends BaseController {
         if (StringUtils.isNotBlank(username)) {
             Result<AccountProfile> result = executeLogin(username, accessToken, false);
             if (result.isOk()) {
-                view = String.format(Views.REDIRECT_USER_HOME, result.getData().getId());
+                view = String.format(Views.REDIRECT_USER_HOME, result.getData().getDomainHack());
             }
             return view;
         }

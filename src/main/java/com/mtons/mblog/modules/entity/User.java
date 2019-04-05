@@ -9,6 +9,9 @@
 */
 package com.mtons.mblog.modules.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -30,6 +33,14 @@ public class User implements Serializable {
 
 	@Column(name = "username", unique = true, nullable = false, length = 64)
 	private String username; // 用户名
+
+	/**
+	 * 自定义个性域名
+	 */
+	@Getter
+	@Setter
+	@Column(name = "domain_hack", unique = true, nullable = false, length = 64)
+	private String domainHack;
 
 	@Column(name = "password", length = 64)
 	private String password; // 密码
@@ -168,4 +179,5 @@ public class User implements Serializable {
 	public void setSignature(String signature) {
 		this.signature = signature;
 	}
+
 }

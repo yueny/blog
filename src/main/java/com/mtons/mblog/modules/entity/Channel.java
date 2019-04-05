@@ -9,6 +9,9 @@
 */
 package com.mtons.mblog.modules.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -31,6 +34,14 @@ public class Channel implements Serializable {
 	 */
 	@Column(length = 32)
 	private String name;
+
+	/**
+	 * 对外释义标识
+	 */
+	@Column(name = "flag", unique = true, length = 256)
+	@Getter
+	@Setter
+	private String flag;
 
 	/**
 	 * 唯一关键字

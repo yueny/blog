@@ -118,4 +118,9 @@ public interface UserService {
 
 	long count();
 
+	/**
+	 * 查询个性化域名的所有人信息. 不存在则返回null
+	 */
+	UserVO getByDomainHack(String domainHack);
+
 }

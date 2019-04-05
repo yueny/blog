@@ -11,6 +11,7 @@ package com.mtons.mblog.web.controller.site.user;
 
 import com.mtons.mblog.base.lang.MtonsException;
 import com.mtons.mblog.modules.data.AccountProfile;
+import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.service.MessageService;
 import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.web.controller.BaseController;
@@ -41,33 +42,41 @@ public class UsersController extends BaseController {
 
     /**
      * 用户文章
-     * @param userId 用户ID
+     * @param domainHack 用户个性化域名地址
      * @param model  ModelMap
      * @return template name
      */
-    @GetMapping(value = "/{userId}")
-    public String posts(@PathVariable(value = "userId") Long userId,
+    @GetMapping(value = "/{domainHack}")
+    public String posts(@PathVariable(value = "domainHack") String domainHack,
                         ModelMap model, HttpServletRequest request) {
-        return method(userId, Views.METHOD_POSTS, model, request);
+        return method(domainHack, Views.METHOD_POSTS, model, request);
     }
 
     /**
      * 通用方法, 访问 users 目录下的页面
-     * @param userId 用户ID
+     * @param domainHack 用户个性化域名地址
      * @param method 调用方法
      * @param model  ModelMap
      * @return template name
      */
-    @GetMapping(value = "/{userId}/{method}")
-    public String method(@PathVariable(value = "userId") Long userId,
+    @GetMapping(value = "/{domainHack}/{method}")
+    public String method(@PathVariable(value = "domainHack") String domainHack,
                          @PathVariable(value = "method") String method,
                          ModelMap model, HttpServletRequest request) {
         model.put("pageNo", ServletRequestUtils.getIntParameter(request, "pageNo", 1));
+
+        UserVO userVo = userService.getByDomainHack(domainHack);
+        if(userVo == null){
+            throw new MtonsException("无效或已失效的地址");
+        }
+
+        long userId = userVo.getId();
 
         // 访问消息页, 判断登录
         if (Views.METHOD_MESSAGES.equals(method)) {
             // 标记已读
             AccountProfile profile = getProfile();
+
             if (null == profile || profile.getId() != userId) {
                 throw new MtonsException("您没有权限访问该页面");
             }

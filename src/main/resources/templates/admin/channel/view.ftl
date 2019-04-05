@@ -29,6 +29,14 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-lg-2 control-label">对外释义标识</label>
+                            <div class="col-lg-3">
+                                <input type="text" name="flag" class="form-control" value="${view.flag}" required
+                                   <#if view??>readonly</#if><#-- 如果view有值, 则为修改, 对外释义不允许再次修改-->
+                                >
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-lg-2 control-label">唯一标识</label>
                             <div class="col-lg-3">
                                 <input type="text" name="key" class="form-control" value="${view.key}" required>

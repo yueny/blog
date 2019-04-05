@@ -112,6 +112,9 @@ public interface Views {
      */
     String POST_VIEW = "/channel/view";
 
+    /**
+     * url for getDomainHack
+     */
     String REDIRECT_USER_HOME = "redirect:/users/%d";
     String REDIRECT_INDEX = "redirect:/index";
 }
