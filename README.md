@@ -35,7 +35,7 @@
 
 # Future
 * 是否允许匿名评论功能开发
-  + author_id 由bugint 改为 varchar
+  + author_id 由bigint 改为 varchar
   + [栏目管理]新增栏目编号字段, 仅新增生成, 不可被修改, 作为栏目关联的唯一标示
 
 
