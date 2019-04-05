@@ -17,7 +17,8 @@
                             <div class="avatar">
                                 <img src="<@resource src=row.author.avatar + '?t=' + .now?time/>" class="lazy avatar avatar-50 photo" height="50" width="50">
                             </div>
-                            <a href="${base}/users/${row.author.id}" target="_blank">${row.author.name}</a>
+                            <#-- 创建者链接 -->
+                            <a href="${base}/users/${row.author.id}" target="_blank">${row.author.name}创建者链接</a>
                         </li>
                         <li class="ico-cat"><@utils.showChannel row/></li>
                         <li class="ico-time"><i class="icon-clock"></i>${timeAgo(row.created)}</li>

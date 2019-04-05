@@ -74,6 +74,8 @@ public class ShiroConfiguration {
         hashMap.put("/theme/**", "anon");
         hashMap.put("/storage/**", "anon");
         hashMap.put("/login", "anon");
+
+        /* https://host/users/.. 路径属于前端展示, 不拦截  */
         hashMap.put("/user/**", "authc");
         hashMap.put("/settings/**", "authc");
         hashMap.put("/post/editing", "authc");

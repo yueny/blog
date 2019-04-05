@@ -12,7 +12,7 @@
             <div class="infos panel-heading">
                 <h1 class="panel-title topic-title">${view.title}</h1>
                 <div class="meta inline-block">
-                    <a class="author" href="${base}/users/${view.author.id}">
+                    <a class="author" href="${base}/users/${view.author.domainHack}">
                     ${view.author.name}
                     </a>
                     <abbr class="timeago">${timeAgo(view.created)}</abbr>
@@ -159,7 +159,7 @@
                     quoto = '<div class="quote"><a href="${base}/users/' + pat.author.id + '">@' + pat.author.name + '</a>: ' + pcontent + '</div>';
                 }
                 var item = jQuery.format(template,
-                        data.author.id,
+                        data.author.domainHack,
                         data.author.avatar,
                         data.author.name,
                         data.created,

@@ -11,6 +11,7 @@
             <@user_messages userId=user.id pageNo=pageNo>
                 <div class="panel-body remove-padding-horizontal">
                     <ul class="list-group topic-list notify">
+                        <#-- 此处为 PageImpl 实现  -->
                         <#list results.content as row>
                             <li class="list-group-item " style="padding: 0 15px;">
                                 <a class="reply_count_area hidden-xs pull-right" href="#">
@@ -24,7 +25,7 @@
                                 <div class="infos">
                                     <div class="media-heading">
                                     <#--<span class="hidden-xs label label-warning">${row.channel.name}</span>-->
-                                        <a href="${base}/users/${row.from.id}">${row.from.name}</a>
+                                        <a href="${base}/users/${row.from.domainHack}">${row.from.name}</a>
                                         <span>
                                             <#if (row.event == 1)>
                                                 收藏了你的文章 - <a href="${base}/post/${row.postId}">${row.post.title}</a>

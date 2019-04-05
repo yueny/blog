@@ -113,8 +113,8 @@ public interface Views {
     String POST_VIEW = "/channel/view";
 
     /**
-     * url for getDomainHack
+`     * url for getDomainHack. %d 整数类型（十进制）; s% 字符串类型
      */
-    String REDIRECT_USER_HOME = "redirect:/users/%d";
+    String REDIRECT_USER_HOME = "redirect:/users/%s";
     String REDIRECT_INDEX = "redirect:/index";
 }
