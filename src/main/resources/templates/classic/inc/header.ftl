@@ -120,7 +120,7 @@
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="${base}/users/${profile.id}">我的主页</a>
+                                <a href="${base}/users/${profile.domainHack}">我的主页</a>
                             </li>
                             <li>
                                 <a href="${base}/settings/profile">编辑资料</a>
