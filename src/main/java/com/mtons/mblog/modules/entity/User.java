@@ -31,6 +31,14 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	/**
+	 * 用户唯一标示
+	 */
+	@Getter
+	@Setter
+	@Column(name = "uid", unique = true, nullable = false)
+	private String uid;
+
 	@Column(name = "username", unique = true, nullable = false, length = 64)
 	private String username; // 用户名
 

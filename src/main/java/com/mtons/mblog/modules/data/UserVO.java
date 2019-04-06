@@ -16,6 +16,7 @@ import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,6 +40,12 @@ public class UserVO extends AbstractMaskBo implements Serializable {
 	@Getter
 	@Setter
 	private String domainHack;
+	/**
+	 * 用户唯一标示
+	 */
+	@Getter
+	@Setter
+	private String uid;
 
 	private String email;
 
