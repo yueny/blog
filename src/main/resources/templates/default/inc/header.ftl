@@ -97,6 +97,13 @@
                         </li>
                         -->
                 </ul>
+
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a disabled>优于别人，并不高贵，真正的高贵应该是优于过去的自己</a>
+                    </li>
+                </ul>
+
                 <ul class="navbar-button list-inline" id="header_user">
                     <li view="search" class="hidden-xs hidden-sm">
                         <form method="GET" action="${base}/search" accept-charset="UTF-8" class="navbar-form navbar-left">
@@ -107,39 +114,38 @@
                         </form>
                     </li>
 
-				<#if profile??>
-                    <@controls name="post">
-                        <li>
-                            <a href="${base}/post/editing" class="plus"><i class="icon icon-note"></i> 写文章</a>
+                    <#if profile??>
+                        <@controls name="post">
+                            <li>
+                                <a href="${base}/post/editing" class="plus"><i class="icon icon-note"></i> 写文章</a>
+                            </li>
+                        </@controls>
+                        <li class="dropdown">
+                            <a href="#" class="user dropdown-toggle" data-toggle="dropdown">
+                                <img class="img-circle" src="<@resource src=profile.avatar + '?t=' + .now?time />">
+                                <span>${profile.name}</span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="${base}/users/${profile.domainHack}">我的主页</a>
+                                </li>
+                                <li>
+                                    <a href="${base}/settings/profile">编辑资料</a>
+                                </li>
+                                <@shiro.hasPermission name="admin">
+                                    <li><a href="${base}/admin">后台管理</a></li>
+                                </@shiro.hasPermission>
+                                <li><a href="${base}/logout">退出</a></li>
+                            </ul>
                         </li>
-                    </@controls>
-                    <li class="dropdown">
-                        <a href="#" class="user dropdown-toggle" data-toggle="dropdown">
-                            <img class="img-circle" src="<@resource src=profile.avatar + '?t=' + .now?time />">
-                            <span>${profile.name}</span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <a href="${base}/users/${profile.domainHack}">我的主页</a>
-                            </li>
-                            <li>
-                                <a href="${base}/settings/profile">编辑资料</a>
-                            </li>
-                            <@shiro.hasPermission name="admin">
-                                <li><a href="${base}/admin">后台管理</a></li>
-                            </@shiro.hasPermission>
-                            <li><a href="${base}/logout">退出</a></li>
-                        </ul>
-                    </li>
-				<#else>
-                    <@controls name="login_show">
-                        <li><a href="${base}/login" class="btn btn-default btn-sm signup">登录</a></li>
-                    </@controls>
-                    <@controls name="register">
-                        <li><a href="${base}/register" class="btn btn-primary btn-sm signup">注册</a></li>
-                    </@controls>
-				</#if>
-
+                    <#else>
+                        <@controls name="login_show">
+                            <li><a href="${base}/login" class="btn btn-default btn-sm signup">登录</a></li>
+                        </@controls>
+                        <@controls name="register">
+                            <li><a href="${base}/register" class="btn btn-primary btn-sm signup">注册</a></li>
+                        </@controls>
+                    </#if>
                 </ul>
             </div>
         </nav>
