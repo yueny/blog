@@ -9,6 +9,8 @@
 */
 package com.mtons.mblog.modules.entity;
 
+import com.mtons.mblog.base.api.IEntry;
+
 import javax.persistence.*;
 
 /**
@@ -18,7 +20,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "mto_options")
-public class Options {
+public class Options implements IEntry {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;

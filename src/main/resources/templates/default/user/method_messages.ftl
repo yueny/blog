@@ -16,7 +16,7 @@
                             <li class="list-group-item " style="padding: 0 15px;">
                                 <a class="reply_count_area hidden-xs pull-right" href="#">
                                     <div class="count_set">
-                                        <abbr class="timeago">${timeAgo(row.created)}</abbr>
+                                        <abbr class="timeago" title="${row.created}">${timeAgo(row.created)}</abbr>
                                     </div>
                                 </a>
                                 <div class="avatar pull-left">

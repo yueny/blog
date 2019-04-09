@@ -32,7 +32,7 @@
                                             <span class="count_seperator">/</span>
                                             <span class="count_of_visits" data-toggle="tooltip" title="点赞数">${row.favors}</span>
                                             <span class="count_seperator">|</span>
-                                            <abbr class="timeago">${timeAgo(row.created)}</abbr>
+                                            <abbr class="timeago" title="${row.created}">${timeAgo(row.created)}</abbr>
                                         </div>
                                     </a>
                                     <div class="avatar pull-left">

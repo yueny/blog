@@ -1,5 +1,6 @@
 package com.mtons.mblog.modules.entity;
 
+import com.mtons.mblog.base.api.IEntry;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "mto_post_attribute")
-public class PostAttribute implements Serializable {
+public class PostAttribute implements IEntry, Serializable {
 	private static final long serialVersionUID = 7829351358884064647L;
 
 	@Id

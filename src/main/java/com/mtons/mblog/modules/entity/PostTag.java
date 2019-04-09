@@ -1,5 +1,7 @@
 package com.mtons.mblog.modules.entity;
 
+import com.mtons.mblog.base.api.IEntry;
+
 import javax.persistence.*;
 
 /**
@@ -9,7 +11,7 @@ import javax.persistence.*;
 @Table(name = "mto_post_tag", indexes = {
         @Index(name = "IK_TAG_ID", columnList = "tag_id")
 })
-public class PostTag {
+public class PostTag implements IEntry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @Transactional(readOnly = true)
-public class TagServiceImpl implements TagService {
+public class TagServiceImpl extends BaseService implements TagService {
     @Autowired
     private TagRepository tagRepository;
     @Autowired
@@ -40,14 +40,11 @@ public class TagServiceImpl implements TagService {
     public Page<TagVO> pagingQueryTags(Pageable pageable) {
         Page<Tag> page = tagRepository.findAll(pageable);
 
-        Set<Long> postIds = new HashSet<>();
-        List<TagVO> rets = page.getContent().stream().map(po -> {
-            postIds.add(po.getLatestPostId());
-            return BeanMapUtils.copy(po);
-        }).collect(Collectors.toList());
-
-        Map<Long, PostVO> posts = postService.findMapByIds(postIds);
-        rets.forEach(n -> n.setPost(posts.get(n.getLatestPostId())));
+        List<TagVO> rets = map(page.getContent(), TagVO.class);
+        rets.forEach(n -> {
+            // 根据 postid 查询post信息
+            n.setPost(postService.get(n.getLatestPostId()));
+        });
         return new PageImpl<>(rets, pageable, page.getTotalElements());
     }
 

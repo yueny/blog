@@ -19,7 +19,7 @@
                                     <span> ⋅ </span>
                                     ${row.comments} 回复
                                     <span> ⋅ </span>
-                                    <span class="timeago">${timeAgo(row.created)}</span>
+                                    <span class="timeago" title="${row.created}">${timeAgo(row.created)}</span>
                                 </span>
 
                                 <div class="pull-right hidden-xs">

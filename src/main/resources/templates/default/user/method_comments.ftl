@@ -19,7 +19,7 @@
                                     <a href="javascript:;" class="remove-padding-left">文章已删除</a>
                                 </#if>
                                 <span class="meta">
-                                    <span class="timeago">${timeAgo(row.created)}</span>
+                                    <span class="timeago" title="${row.created}">${timeAgo(row.created)}</span>
                                 </span>
 
                                 <div class="pull-right hidden-xs">

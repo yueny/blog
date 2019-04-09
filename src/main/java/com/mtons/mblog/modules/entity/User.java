@@ -9,6 +9,7 @@
 */
 package com.mtons.mblog.modules.entity;
 
+import com.mtons.mblog.base.api.IEntry;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,7 +25,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "mto_user")
-public class User implements Serializable {
+public class User implements IEntry, Serializable {
 	private static final long serialVersionUID = -3629784071225214858L;
 
 	@Id

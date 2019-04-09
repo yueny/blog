@@ -9,6 +9,8 @@
 */
 package com.mtons.mblog.modules.entity;
 
+import com.mtons.mblog.base.api.IEntry;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -18,7 +20,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "mto_security_code")
-public class SecurityCode {
+public class SecurityCode implements IEntry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

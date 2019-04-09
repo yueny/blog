@@ -1,5 +1,7 @@
 package com.mtons.mblog.modules.entity;
 
+import com.mtons.mblog.base.api.IEntry;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -9,7 +11,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "mto_message")
-public class Message {
+public class Message implements IEntry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

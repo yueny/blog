@@ -1,5 +1,6 @@
 package com.mtons.mblog.modules.entity;
 
+import com.mtons.mblog.base.api.IEntry;
 import lombok.Data;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
 @Table(name = "mto_resource",
         uniqueConstraints = {@UniqueConstraint(name = "UK_MD5", columnNames = {"md5"})}
 )
-public class Resource implements Serializable {
+public class Resource implements IEntry, Serializable {
     private static final long serialVersionUID = -2263990565349962964L;
 
     @Id

@@ -9,6 +9,7 @@
 */
 package com.mtons.mblog.modules.entity;
 
+import com.mtons.mblog.base.api.IEntry;
 import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
@@ -35,7 +36,7 @@ import java.util.Date;
 @Filters({ @Filter(name = "POST_STATUS_FILTER") })
 @Indexed(index = "post")
 @Analyzer(impl = SmartChineseAnalyzer.class)
-public class Post implements Serializable {
+public class Post implements IEntry, Serializable {
 	private static final long serialVersionUID = 7144425803920583495L;
 
 	@Id

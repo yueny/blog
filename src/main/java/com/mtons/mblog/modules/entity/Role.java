@@ -1,5 +1,7 @@
 package com.mtons.mblog.modules.entity;
 
+import com.mtons.mblog.base.api.IEntry;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "shiro_role")
-public class Role implements Serializable {
+public class Role implements IEntry, Serializable {
     private static final long serialVersionUID = -1153854616385727165L;
 
     public static int STATUS_NORMAL = 0;

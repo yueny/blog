@@ -1,5 +1,7 @@
 package com.mtons.mblog.modules.entity;
 
+import com.mtons.mblog.base.api.IEntry;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -11,7 +13,7 @@ import java.util.Date;
 @Table(name = "mto_favorite", indexes = {
         @Index(name = "IK_USER_ID", columnList = "user_id")
 })
-public class Favorite {
+public class Favorite implements IEntry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

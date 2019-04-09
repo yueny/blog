@@ -10,5 +10,10 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface TagRepository extends JpaRepository<Tag, Long>, JpaSpecificationExecutor<Tag> {
+    /**
+     * 根据name查询tag信息
+     * @param name
+     * @return
+     */
     Tag findByName(String name);
 }

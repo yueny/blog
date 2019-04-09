@@ -9,6 +9,8 @@
 */
 package com.mtons.mblog.modules.entity;
 
+import com.mtons.mblog.base.api.IEntry;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -21,7 +23,7 @@ import java.util.Date;
 @Table(name = "mto_comment", indexes = {
         @Index(name = "IK_POST_ID", columnList = "post_id")
 })
-public class Comment {
+public class Comment implements IEntry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

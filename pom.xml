@@ -24,6 +24,7 @@
 		<flyway.version>5.2.4</flyway.version>
 		<commonmark.version>0.12.1</commonmark.version>
 
+		<rapid.version>1.0.1-SNAPSHOT</rapid.version>
 		<cfg.diamond.client.version>3.4-GA-SNAPSHOT</cfg.diamond.client.version>
 	</properties>
 
@@ -83,7 +84,57 @@
 		<dependency>
 			<groupId>com.yueny.rapid.message</groupId>
 			<artifactId>rapid-ok-email</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
+			<version>${rapid.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.yueny.rapid</groupId>
+			<artifactId>rapid-lang-dozer</artifactId>
+			<version>${rapid.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.yueny.rapid</groupId>
+			<artifactId>rapid-lang-userAgent</artifactId>
+			<version>${rapid.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.yueny.rapid</groupId>
+			<artifactId>rapid-lang-util</artifactId>
+			<version>${rapid.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.yueny.rapid</groupId>
+			<artifactId>rapid-lang-thread</artifactId>
+			<version>${rapid.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.yueny.rapid</groupId>
+			<artifactId>rapid-lang-timer</artifactId>
+			<version>${rapid.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.yueny.rapid</groupId>
+			<artifactId>rapid-lang-json</artifactId>
+			<version>${rapid.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.yueny.rapid</groupId>
+			<artifactId>rapid-lang-exception</artifactId>
+			<version>${rapid.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.yueny.rapid</groupId>
+			<artifactId>rapid-lang-dozer</artifactId>
+			<version>${rapid.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.yueny.rapid</groupId>
+			<artifactId>rapid-lang-date</artifactId>
+			<version>${rapid.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.yueny.rapid</groupId>
+			<artifactId>rapid-util-strategy</artifactId>
+			<version>${rapid.version}</version>
 		</dependency>
 
 		<dependency>
