@@ -1,4 +1,4 @@
-<#include "/classic/inc/layout.ftl"/>
+<#include "/default/inc/layout.ftl"/>
 <@layout "标签列表">
     <div class="row">
         <div class="col-xs-12 col-md-9 side-left">
@@ -42,7 +42,7 @@
         </div>
 
         <div class="col-xs-12 col-md-3 side-right">
-            <#include "/classic/inc/right.ftl" />
+            <#include "/default/inc/right.ftl" />
         </div>
 
     </div>

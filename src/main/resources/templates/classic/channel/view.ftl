@@ -16,7 +16,8 @@
                     ${view.author.name}
                     </a>
                     <abbr class="timeago">${timeAgo(view.created)}</abbr>
-                    <abbr>⋅ ${view.views} 阅读</abbr>
+                    ⋅
+                    ${view.views} 阅读
                 </div>
                 <div class="clearfix"></div>
             </div>
