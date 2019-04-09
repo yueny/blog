@@ -55,11 +55,14 @@ public class Channel implements Serializable {
 	@Column(length = 128)
 	private String thumbnail;
 
+	/**
+	 * 状态， 0显示； 1隐藏
+	 */
 	@Column(length = 5)
 	private int status;
 
 	/**
-	 * 排序值
+	 * 排序值， 值越高， 排序越靠前
 	 */
 	private int weight;
 
