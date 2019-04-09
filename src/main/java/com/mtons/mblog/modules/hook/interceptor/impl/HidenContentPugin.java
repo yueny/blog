@@ -1,6 +1,5 @@
 package com.mtons.mblog.modules.hook.interceptor.impl;
 
-import com.mtons.mblog.base.utils.PreviewTextUtils;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.data.PostVO;
 import com.mtons.mblog.modules.hook.interceptor.InterceptorHookSupport;
@@ -42,16 +41,10 @@ public class HidenContentPugin extends InterceptorHookSupport {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, HandlerMethod handler, ModelAndView modelAndView) throws Exception {
         PostVO ret = (PostVO) modelAndView.getModelMap().get("view");
         Object editing = modelAndView.getModel().get("editing");
-        if (null == editing && ret != null) {
+        if (null == editing && ret != null && check(ret.getId(), ret.getAuthor().getId())) {
             PostVO post = new PostVO();
             BeanUtils.copyProperties(ret, post);
-            if (check(ret.getId(), ret.getAuthor().getId())) {
-                String c = post.getContent().replaceAll("\\[hide\\]([\\s\\S]*)\\[\\/hide\\]", SHOW);
-                post.setContent(c);
-            } else {
-                String c = post.getContent().replaceAll("\\[hide\\]([\\s\\S]*)\\[\\/hide\\]", "$1");
-                post.setContent(c);
-            }
+            post.setContent(replace(post.getContent()));
             modelAndView.getModelMap().put("view", post);
         }
     }
@@ -64,6 +57,12 @@ public class HidenContentPugin extends InterceptorHookSupport {
     @Override
     public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, HandlerMethod handler) throws Exception {
 
+    }
+
+    private String replace(String content) {
+        String c = content.replaceAll("<hide>([\\s\\S]*)</hide>", SHOW);
+        c = c.replaceAll("&lt;hide&gt;([\\s\\S]*)&lt;/hide&gt;", SHOW);
+        return c;
     }
 
     private boolean check(long id, long userId) {

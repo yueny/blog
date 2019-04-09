@@ -17,7 +17,6 @@ import com.mtons.mblog.modules.entity.PostAttribute;
 import com.mtons.mblog.modules.service.ChannelService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.web.controller.BaseController;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -65,10 +64,7 @@ public class ChannelController extends BaseController {
 		Assert.notNull(view, "该文章已被删除");
 
 		if ("markdown".endsWith(view.getEditor())) {
-			PostVO post = new PostVO();
-			BeanUtils.copyProperties(view, post);
-			post.setContent(MarkdownUtils.renderMarkdown(view.getContent()));
-			view = post;
+			view.setContent(MarkdownUtils.renderMarkdown(view.getContent()));
 		}
 		postService.identityViews(id);
 		model.put("view", view);

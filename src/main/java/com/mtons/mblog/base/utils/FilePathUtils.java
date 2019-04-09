@@ -3,7 +3,10 @@
  */
 package com.mtons.mblog.base.utils;
 
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.text.RandomStringGenerator;
+
+import java.util.Date;
 
 /**
  * @author langhsu
@@ -13,7 +16,7 @@ public class FilePathUtils {
 	private static final int[]  AVATAR_GRIDS = new int[] {3,3,3};
 	private static final int    AVATAR_LENGTH = 9;
 
-	private static final String Y = "/yyyy/";
+	private static final String YMDHMS = "/yyyy/MMdd/ddHHmmss";
 
 	private static RandomStringGenerator randomString = new RandomStringGenerator.Builder().withinRange('a', 'z').build();
 	
@@ -39,22 +42,22 @@ public class FilePathUtils {
 	 * @param originalFilename 原始文件名
 	 * @return 10位长度文件名+文件后缀
 	 */
-	public static String wholePathName(String originalFilename, String key) {
-		StringBuilder builder = new StringBuilder(52);
-		builder.append("/_signature/");
-		builder.append(key);
+	public static String wholePathName(String originalFilename) {
+		StringBuilder builder = new StringBuilder(28);
+		builder.append(DateFormatUtils.format(new Date(), YMDHMS));
+		builder.append(randomString.generate(4));
 		builder.append(FileKit.getSuffix(originalFilename));
 		return builder.toString();
 	}
 
-	public static String wholePathName(String basePath, String ext, String key) {
-		return basePath + wholePathName(ext, key);
+	public static String wholePathName(String basePath, String ext) {
+		return basePath + wholePathName(ext);
 	}
 	
 	public static void main(String[] args) {
 		String base = FilePathUtils.getAvatar(50);
 		System.out.println(String.format("/%s_%d.jpg", base, 100));
-		System.out.println(FilePathUtils.wholePathName("a.jpg", "123"));
+		System.out.println(FilePathUtils.wholePathName("a.jpg"));
 	}
 	
 }

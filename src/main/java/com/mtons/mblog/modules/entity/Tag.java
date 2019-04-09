@@ -9,22 +9,13 @@ import java.util.Date;
 @Entity
 @Table(name = "mto_tag")
 public class Tag {
-    /**
-     * 数据库主键
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    /**
-     * 标签名称
-     */
     @Column(unique = true, nullable = false, updatable = false, length = 32)
     private String name;
 
-    /**
-     * 缩略图
-     */
     @Column(length = 128)
     private String thumbnail;
 
@@ -32,15 +23,9 @@ public class Tag {
 
     private long latestPostId;
 
-    /**
-     * 创建时间
-     */
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date created;
 
-    /**
-     * 修改时间
-     */
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updated;
 
