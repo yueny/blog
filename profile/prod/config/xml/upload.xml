@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <settings>
 	<!-- blog站点的静态资源地址  -->
-    <root>/data/www/static/project/blog</root>
-    <!-- 图片服务器根服务-->
-	<uri>static.codealy.com/blog</uri>
+    <location>/data/www/static/project/blog</location>
+	<!-- 图片服务器根服务-->
+	<location-uri>/storage</location-uri>
 	<!-- 图片上传根文件夹-->
 	<upload-base>uploads</upload-base>
     
