@@ -38,10 +38,6 @@ public class UploadConfigConfiguration {
 	@PostConstruct
 	public void loadConfig() {
 		configModelData = uploadConfig("/config/xml/upload.xml");//.getValue();
-
-        // 在工具类中， 上下文初始化
-        //ApplicationContextHolder.setApplicationContext(applicationContext);
-
     }
 
 	private UploadConfigModelData uploadConfig(String xmlSettingPaths) {

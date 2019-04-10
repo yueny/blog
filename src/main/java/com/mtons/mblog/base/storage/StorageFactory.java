@@ -9,10 +9,7 @@
 */
 package com.mtons.mblog.base.storage;
 
-import com.mtons.mblog.base.storage.impl.AliyunStorageImpl;
-import com.mtons.mblog.base.storage.impl.NativeStorageImpl;
-import com.mtons.mblog.base.storage.impl.QiniuStorageImpl;
-import com.mtons.mblog.base.storage.impl.UpYunStorageImpl;
+import com.mtons.mblog.base.storage.impl.*;
 import com.mtons.mblog.config.SiteOptions;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +39,7 @@ public class StorageFactory {
         fileRepoMap.put("upyun", applicationContext.getBean(UpYunStorageImpl.class));
         fileRepoMap.put("aliyun", applicationContext.getBean(AliyunStorageImpl.class));
         fileRepoMap.put("qiniu", applicationContext.getBean(QiniuStorageImpl.class));
+        fileRepoMap.put("image", applicationContext.getBean(ImageServerStorageImpl.class));
     }
 
     public Storage get() {

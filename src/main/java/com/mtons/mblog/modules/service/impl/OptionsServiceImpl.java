@@ -61,12 +61,14 @@ public class OptionsServiceImpl implements OptionsService {
 			Options entity = optionsRepository.findByKey(key);
 			String val = StringUtils.trim(value);
 			if (entity != null) {
+				// 如果值在数据库中已存在， 则只更新值
 				entity.setValue(val);
 			} else {
 				entity = new Options();
 				entity.setKey(key);
 				entity.setValue(val);
 			}
+			// 更新数据库储存的 option 配置信息
 			optionsRepository.save(entity);
 		});
 	}

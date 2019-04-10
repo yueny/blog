@@ -9,6 +9,7 @@
 */
 package com.mtons.mblog.config;
 
+import com.mtons.mblog.config.xml.UploadConfigUtil;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.taobao.diamond.extend.DynamicProperties;
 import lombok.Getter;
@@ -32,27 +33,7 @@ import java.util.Map;
 @Configuration
 @ConfigurationProperties(prefix = "site")
 //@RefreshScope
-public class SiteOptions {
-    private static final String SITE_VERSION_KEY = "site.version";
-    /* 注册开关 */
-    private static final String SITE_CONTROLS_REGISTER_KEY = "site.controls.register";
-    /*  登陆开关是否显示 */
-    private static final String SITE_CONTROLS_LOGIN_SHOW_KEY = "site.controls.login_show";
-    /* 发布文章开关 */
-    private static final String SITE_CONTROLS_POST_KEY = "site.controls.post";
-    /* 评论开关, true 为允许评论 */
-    private static final String SITE_CONTROLS_COMMENT_KEY = "site.controls.comment";
-    /* 是否允许匿名评论开关, true 为允许匿名评论 */
-    private static final String SITE_CONTROLS_COMMENT_ALLOW_ANONYMOUS_KEY = "site.controls.comment.allow.anonymous";
-
-    //    site.controls.register_email_validate=false
-
-    /**
-     * 系统版本号
-     */
-//    @Value("${site.version}")
-    private String version;
-
+public class SiteOptions extends SiteConfigOption {
     /**
      * 运行文件存储路径
      */
@@ -68,17 +49,8 @@ public class SiteOptions {
      */
     private Map<String, String> options = new HashMap<>();
 
-    public String getVersion() {
-        return DynamicProperties.staticProperties.getProperty(SITE_VERSION_KEY);
-//        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
     public String getLocation() {
-        return location;
+        return UploadConfigUtil.getUploadConfig().getLocation();
     }
 
     public void setLocation(String location) {
@@ -124,56 +96,13 @@ public class SiteOptions {
         return StringUtils.isNotBlank(options.get(key));
     }
 
-    public static class Controls {
-        @Setter
-        private boolean register;
+    public static class Controls extends Control {
         @Setter
         private boolean register_email_validate;
-        @Setter
-        private boolean post;
-        @Setter
-        private boolean comment;
-
-        @Setter
-        private boolean login_show; // 是否显示注册按钮
-
-        /* 是否允许匿名评论开关, true 为允许匿名评论 */
-        @Setter
-        private boolean commentAllowAnonymous;
-
-        public boolean isRegister() {
-            String val = DynamicProperties.staticProperties.getProperty(SITE_CONTROLS_REGISTER_KEY);
-            return Boolean.valueOf(val);
-//            return register;
-        }
-
-        public boolean isLogin_show() {
-            String val = DynamicProperties.staticProperties.getProperty(SITE_CONTROLS_LOGIN_SHOW_KEY);
-            return Boolean.valueOf(val);
-//            return login_show;
-        }
 
         public boolean isRegister_email_validate() {
             return register_email_validate;
         }
-
-        public boolean isPost() {
-            String val = DynamicProperties.staticProperties.getProperty(SITE_CONTROLS_POST_KEY);
-            return Boolean.valueOf(val);
-//            return post;
-        }
-
-        public boolean isComment() {
-            String val = DynamicProperties.staticProperties.getProperty(SITE_CONTROLS_COMMENT_KEY);
-            return Boolean.valueOf(val);
-//            return comment;
-        }
-
-        public boolean isCommentAllowAnonymous() {
-            String val = DynamicProperties.staticProperties.getProperty(SITE_CONTROLS_COMMENT_ALLOW_ANONYMOUS_KEY);
-            return Boolean.valueOf(val);
-        }
-
     }
 
 }

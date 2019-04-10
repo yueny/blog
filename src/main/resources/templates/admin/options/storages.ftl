@@ -4,23 +4,24 @@
         <div class="col-sm-3">
             <select class="form-control" name="storage_scheme" data-select="${options['storage_scheme']}">
                 <option value="native">本地存储</option>
+                <option value="image">自有图片服务器</option>
                 <option value="upyun">又拍云</option>
                 <option value="aliyun">阿里云</option>
                 <option value="qiniu">七牛云</option>
             </select>
         </div>
     </div>
-    <div class="scheme" data-scheme="native">
+    <div class="scheme" data-scheme="image">
         <div class="form-group">
-            <label class="col-sm-2 control-label">文件服务器根目录</label>
+            <label class="col-sm-2 control-label">图片服务器根目录</label>
             <div class="col-sm-6">
-                <input type="text" name="native_location" class="form-control" value="${options['native_location']}" placeholder="文件服务器根目录">
+                <input type="text" name="image_server_location" class="form-control" value="${options['image_server_location']}" placeholder="图片服务器根目录">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">文件服务器uri</label>
+            <label class="col-sm-2 control-label">图片服务器uri</label>
             <div class="col-sm-6">
-                <input type="text" name="native_location_uri" class="form-control" value="${options['native_location_uri']}" placeholder="文件服务器uri">
+                <input type="text" name="image_server_uri" class="form-control" value="${options['image_server_uri']}" placeholder="图片服务器uri">
             </div>
         </div>
     </div>

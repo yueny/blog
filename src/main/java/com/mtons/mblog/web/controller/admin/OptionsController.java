@@ -48,6 +48,7 @@ public class OptionsController extends BaseController {
 	
 	@RequestMapping("/update")
 	public String update(@RequestParam Map<String, String> body, ModelMap model) {
+		// body 为整个表单元素， 不论是否有值
 		optionsService.update(body);
 		contextStartup.reloadOptions(false);
 		model.put("data", Result.success());

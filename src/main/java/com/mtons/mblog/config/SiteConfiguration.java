@@ -38,6 +38,10 @@ public class SiteConfiguration {
         map.forEach((k, v) -> configuration.setSharedVariable(v.getName(), v));
         configuration.setSharedVariable("timeAgo", new TimeAgoMethod());
         configuration.setSharedVariable("shiro", new ShiroTags());
+
+
+        // 在工具类中， 上下文初始化
+        ApplicationContextHolder.setApplicationContext(applicationContext);
     }
 
     @Bean

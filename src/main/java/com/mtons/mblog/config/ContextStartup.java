@@ -53,6 +53,10 @@ public class ContextStartup implements ApplicationRunner, ServletContextAware {
         this.servletContext = servletContext;
     }
 
+    /**
+     * 重新加载配置
+     * @param startup 是否重启应用
+     */
     public void reloadOptions(boolean startup) {
         List<Options> options = optionsService.findAll();
 
@@ -73,6 +77,7 @@ public class ContextStartup implements ApplicationRunner, ServletContextAware {
             }
         }
 
+        // 获取站点相关的配置， 将数据库的配置信息存入站点配置集合中
         Map<String, String> map = siteOptions.getOptions();
         options.forEach(opt -> {
             if (StringUtils.isNoneBlank(opt.getKey(), opt.getValue())) {

@@ -52,5 +52,10 @@ public interface Storage {
 	 */
 	void deleteFile(String storePath);
 
+	/**
+	 *
+	 * @param pathAndFileName 项目内的文件相对路径， 含文件名
+	 * @return 文件全局路径
+	 */
 	String writeToStore(byte[] bytes, String pathAndFileName) throws Exception;
 }

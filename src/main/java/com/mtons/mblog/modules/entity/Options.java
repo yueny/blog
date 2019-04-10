@@ -25,12 +25,21 @@ public class Options implements IEntry {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	/**
+	 * 类型。 0为
+	 */
 	@Column(length = 5)
 	private int type;
-	
+
+	/**
+	 * 配置的键
+	 */
 	@Column(name = "key_", unique = true, length = 32)
 	private String key;
 
+	/**
+	 * 配置的值
+	 */
 	@Column(length = 300)
 	private String value;
 
