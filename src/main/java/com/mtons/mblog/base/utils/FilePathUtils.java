@@ -3,6 +3,7 @@
  */
 package com.mtons.mblog.base.utils;
 
+import com.mtons.mblog.base.lang.StorageConsts;
 import org.apache.commons.text.RandomStringGenerator;
 
 /**
@@ -41,7 +42,7 @@ public class FilePathUtils {
 	 */
 	public static String wholePathName(String originalFilename, String key) {
 		StringBuilder builder = new StringBuilder(52);
-		builder.append("/_signature/");
+		builder.append("/"+ StorageConsts._signature+"/");
 		builder.append(key);
 		builder.append(FileKit.getSuffix(originalFilename));
 		return builder.toString();

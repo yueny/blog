@@ -3,6 +3,7 @@ package com.mtons.mblog.web.controller.site.auth;
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.base.lang.MtonsException;
 import com.mtons.mblog.base.lang.Result;
+import com.mtons.mblog.base.lang.StorageConsts;
 import com.mtons.mblog.base.oauth.*;
 import com.mtons.mblog.base.oauth.utils.OpenOauthBean;
 import com.mtons.mblog.base.oauth.utils.TokenUtil;
@@ -354,7 +355,7 @@ public class CallbackController extends BaseController {
                 UserVO u = userService.register(wrapUser(openOauth));
 
                 // 将远程图片下载到本地
-                String ava100 = Consts.avatarPath + getAvaPath(u.getId(), 100);
+                String ava100 = StorageConsts.avatarPath + getAvaPath(u.getId(), 100);
                 byte[] bytes = ImageUtils.download(openOauth.getAvatar());
                 storageFactory.get().writeToStore(bytes, ava100);
                 userService.updateAvatar(u.getId(), ava100);
@@ -400,7 +401,8 @@ public class CallbackController extends BaseController {
             //FIXME: 这里使用网络路径，前端应做对应处理
             user.setAvatar(openOauth.getAvatar());
         } else {
-            user.setAvatar(Consts.AVATAR);
+            // 设置默认头像
+            user.setAvatar(StorageConsts.AVATAR);
         }
         return user;
     }

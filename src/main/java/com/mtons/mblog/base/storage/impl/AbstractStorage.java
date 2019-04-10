@@ -10,6 +10,7 @@
 package com.mtons.mblog.base.storage.impl;
 
 import com.mtons.mblog.base.lang.MtonsException;
+import com.mtons.mblog.base.storage.NailPathData;
 import com.mtons.mblog.base.storage.Storage;
 import com.mtons.mblog.base.utils.*;
 import com.mtons.mblog.config.SiteOptions;
@@ -41,39 +42,39 @@ public abstract class AbstractStorage implements Storage {
     }
 
     @Override
-    public String store(MultipartFile file, String basePath) throws Exception {
+    public String store(MultipartFile file, NailPathData nailPath) throws Exception {
         validateFile(file);
-        return writeToStore(file.getBytes(), basePath, file.getOriginalFilename());
+        return writeToStore(file.getBytes(), nailPath, file.getOriginalFilename());
     }
 
     @Override
-    public String storeScale(MultipartFile file, String basePath, int maxWidth) throws Exception {
+    public String storeScale(MultipartFile file, NailPathData nailPath, int maxWidth) throws Exception {
         validateFile(file);
         byte[] bytes = ImageUtils.scaleByWidth(file, maxWidth);
-        return writeToStore(bytes, basePath, file.getOriginalFilename());
+        return writeToStore(bytes, nailPath, file.getOriginalFilename());
     }
 
     @Override
-    public String storeScale(MultipartFile file, String basePath, int width, int height) throws Exception {
+    public String storeScale(MultipartFile file, NailPathData nailPath, int width, int height) throws Exception {
         validateFile(file);
         byte[] bytes = ImageUtils.screenshot(file, width, height);
-        return writeToStore(bytes, basePath, file.getOriginalFilename());
+        return writeToStore(bytes, nailPath, file.getOriginalFilename());
     }
 
-    public String writeToStore(byte[] bytes, String src, String originalFilename) throws Exception {
+    public String writeToStore(byte[] bytes, NailPathData nailPath, String originalFilename) throws Exception {
         String md5 = MD5.md5File(bytes);
         Resource resource = resourceRepository.findByMd5(md5);
         if (resource != null){
             return resource.getPath();
         }
-        String path = FilePathUtils.wholePathName(src, originalFilename, md5);
+        String path = FilePathUtils.wholePathName(nailPath.get(), originalFilename, md5);
         String fullPath = writeToStore(bytes, path);
-        // 图片入库
+        // 图片入库s
         resource = new Resource();
         resource.setMd5(md5);
         resource.setPath(fullPath);
         resourceRepository.save(resource);
-        return path;
+        return fullPath;
     }
 
 }

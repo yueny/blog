@@ -5,6 +5,7 @@ package com.mtons.mblog.web.controller.site.auth;
 
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.base.lang.Result;
+import com.mtons.mblog.base.lang.StorageConsts;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.service.SecurityCodeService;
@@ -53,7 +54,7 @@ public class RegisterController extends BaseController {
 				Assert.state(StringUtils.isNotBlank(code), "请输入邮箱验证码");
 				securityCodeService.verify(post.getEmail(), Consts.CODE_REGISTER, code);
 			}
-			post.setAvatar(Consts.AVATAR);
+			post.setAvatar(StorageConsts.AVATAR);
 			userService.register(post);
 			Result<AccountProfile> result = executeLogin(post.getUsername(), post.getPassword(), false);
 			view = String.format(Views.REDIRECT_USER_HOME, result.getData().getDomainHack());

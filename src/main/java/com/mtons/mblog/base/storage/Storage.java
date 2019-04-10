@@ -22,29 +22,29 @@ public interface Storage {
 	/**
 	 * 存储图片
 	 * @param file
-	 * @param basePath
+	 * @param nailPath
 	 * @return
 	 * @throws IOException
 	 */
-	String store(MultipartFile file, String basePath) throws Exception;
+	String store(MultipartFile file, NailPathData nailPath) throws Exception;
 
 	/**
 	 * 存储压缩图片
 	 * @param file
-	 * @param basePath
+	 * @param nailPath
 	 * @return
 	 * @throws IOException
 	 */
-	String storeScale(MultipartFile file, String basePath, int maxWidth) throws Exception;
+	String storeScale(MultipartFile file, NailPathData nailPath, int maxWidth) throws Exception;
 
 	/**
 	 * 存储压缩图片
 	 * @param file
-	 * @param basePath
+	 * @param nailPath
 	 * @return
 	 * @throws IOException
 	 */
-	String storeScale(MultipartFile file, String basePath, int width, int height) throws Exception;
+	String storeScale(MultipartFile file, NailPathData nailPath, int width, int height) throws Exception;
 
 	/**
 	 * 存储路径

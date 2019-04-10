@@ -41,10 +41,15 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         registry.addResourceHandler("/theme/*/dist/**")
                 .addResourceLocations("classpath:/templates/")
                 .addResourceLocations(location + "/storage/templates/");
+
         registry.addResourceHandler("/storage/avatars/**")
                 .addResourceLocations(location + "/storage/avatars/");
         registry.addResourceHandler("/storage/thumbnails/**")
                 .addResourceLocations(location + "/storage/thumbnails/");
+        registry.addResourceHandler("/storage/blognails/**")
+                .addResourceLocations(location + "/storage/blognails/");
+        registry.addResourceHandler("/storage/vague/**")
+                .addResourceLocations(location + "/storage/vague/");
     }
 
     @Override

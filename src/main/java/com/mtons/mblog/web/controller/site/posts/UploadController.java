@@ -10,7 +10,10 @@
 package com.mtons.mblog.web.controller.site.posts;
 
 import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.base.storage.NailPathData;
+import com.mtons.mblog.base.storage.NailType;
 import com.mtons.mblog.base.utils.FileKit;
+import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.web.controller.BaseController;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -47,9 +50,17 @@ public class UploadController extends BaseController {
         errorInfo.put("UNKNOWN", "未知错误");
     }
 
+    /**
+     * 文章中的图片上传， 预览图
+     *
+     * @param file 上传的文件
+     * @param uType 上传类型， blog 博文 | channel 栏目 | thumb 缩略图 | avatar 头像
+     * @param request
+     */
     @PostMapping("/upload")
     @ResponseBody
     public UploadResult upload(@RequestParam(value = "file", required = false) MultipartFile file,
+                               @RequestParam(value = "uType", required = false, defaultValue = "blog") String uType,
                                HttpServletRequest request) throws IOException {
         UploadResult result = new UploadResult();
         String crop = request.getParameter("crop");
@@ -76,6 +87,10 @@ public class UploadController extends BaseController {
             return result.error(errorInfo.get("SIZE"));
         }
 
+        // 获取用户信息
+        AccountProfile profile = getProfile();
+        NailPathData nailPath = NailPathData.builder().nailType(NailType.get(uType)).placeVal(String.valueOf(profile.getId())).build();
+
         // 保存图片
         try {
             String path;
@@ -83,9 +98,9 @@ public class UploadController extends BaseController {
                 Integer[] imageSize = siteOptions.getIntegerArrayValue(crop, Consts.SEPARATOR_X);
                 int width = ServletRequestUtils.getIntParameter(request, "width", imageSize[0]);
                 int height = ServletRequestUtils.getIntParameter(request, "height", imageSize[1]);
-                path = storageFactory.get().storeScale(file, Consts.thumbnailPath, width, height);
+                path = storageFactory.get().storeScale(file, nailPath, width, height);
             } else {
-                path = storageFactory.get().storeScale(file, Consts.thumbnailPath, size);
+                path = storageFactory.get().storeScale(file, nailPath, size);
             }
             result.ok(errorInfo.get("SUCCESS"));
             result.setName(fileName);
