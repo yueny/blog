@@ -81,6 +81,8 @@ public class ContextStartup implements ApplicationRunner, ServletContextAware {
         });
         servletContext.setAttribute("options", map);
         servletContext.setAttribute("site", siteOptions);
+
+        // 邮件配置重置
         mailService.config();
 
         System.setProperty("site.location", siteOptions.getLocation());

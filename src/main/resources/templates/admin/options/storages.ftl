@@ -10,6 +10,20 @@
             </select>
         </div>
     </div>
+    <div class="scheme" data-scheme="native">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">文件服务器根目录</label>
+            <div class="col-sm-6">
+                <input type="text" name="native_location" class="form-control" value="${options['native_location']}" placeholder="文件服务器根目录">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">文件服务器uri</label>
+            <div class="col-sm-6">
+                <input type="text" name="native_location_uri" class="form-control" value="${options['native_location_uri']}" placeholder="文件服务器uri">
+            </div>
+        </div>
+    </div>
     <div class="scheme" data-scheme="upyun">
         <div class="form-group">
             <label class="col-sm-2 control-label">空间名称</label>
