@@ -25,3 +25,5 @@ update `mto_resource` set thumbnail_code=id
 where thumbnail_code is null;
 
 alter table `mto_channel` add column thumbnail_code varchar(128) NOT NULL DEFAULT '' COMMENT '图片资源编号' after status;
+
+alter table `mto_channel` drop column thumbnail;

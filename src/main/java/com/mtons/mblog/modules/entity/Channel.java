@@ -50,12 +50,12 @@ public class Channel implements IEntry, Serializable {
 	@Column(name = "key_", unique = true, length = 32)
 	private String key;
 
-	/**
-	 * 预览图路径
-	 */
-	@Column(length = 128)
-	@Deprecated
-	private String thumbnail;
+//	/**
+//	 * 预览图路径
+//	 */
+//	@Column(length = 128)
+//	@Deprecated
+//	private String thumbnail;
 	/**
 	 * 图片资源编号， 取自 Resource 表
 	 */
@@ -102,14 +102,6 @@ public class Channel implements IEntry, Serializable {
 
 	public void setStatus(int status) {
 		this.status = status;
-	}
-
-	public String getThumbnail() {
-		return thumbnail;
-	}
-
-	public void setThumbnail(String thumbnail) {
-		this.thumbnail = thumbnail;
 	}
 
 	public int getWeight() {
