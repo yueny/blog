@@ -245,8 +245,10 @@ abbr[data-original-title], abbr[title] {
 }
 
 .dropdown-menu > li > a {
-    line-height: 2.3;
+    line-height: 1.8;
+    /* 下拉框每个格子都出现分割线， 类似于 class="divider" 的效果
     border-bottom: 1px solid #d8d8d8;
+     */
 }
 
 .dropdown-menu > li:last-child > a {
