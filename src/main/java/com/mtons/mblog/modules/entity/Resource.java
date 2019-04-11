@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 图片
+ * 图片资源表
  *
  * @author saxing 2019/4/3 21:24
  */
@@ -26,9 +26,15 @@ public class Resource implements IEntry, Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    /**
+     * md5唯一值
+     */
     @Column(name = "md5", columnDefinition = "varchar(100) NOT NULL DEFAULT ''")
     private String md5;
 
+    /**
+     * 保存路径
+     */
     @Column(name = "path", columnDefinition = "varchar(255) NOT NULL DEFAULT ''")
     private String path;
 
