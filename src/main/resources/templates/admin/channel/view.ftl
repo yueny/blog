@@ -17,6 +17,8 @@
                 </#if>
                 <input type="hidden" name="weight" value="${view.weight!0}">
                 <input type="hidden" id="thumbnail" name="thumbnail" value="${view.thumbnail}">
+                <input type="hidden" id="thumbnailCode" name="thumbnailCode" value="${view.thumbnailCode}">
+
                 <div class="box">
                     <div class="box-header with-border">
                         <h3 class="box-title">修改栏目</h3>
@@ -85,6 +87,7 @@ $(function() {
                 var path = data.path;
                 $("#thumbnail_image").css("background", "url(" + path + ") no-repeat scroll center 0 rgba(0, 0, 0, 0)");
                 $("#thumbnail").val(path);
+                $("#thumbnailCode").val(data.thumbnailCode);
             }
         });
     });

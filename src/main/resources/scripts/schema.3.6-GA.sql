@@ -15,3 +15,11 @@ where domain_hack is null;
 alter table `mto_user` add column uid varchar(256) COMMENT 'uid' after id;
 update `mto_user` set uid=id
 where uid is null;
+
+-- 20190411
+-- 图片资源整合
+alter table `mto_resource` add column thumbnail_code varchar(128) NOT NULL DEFAULT '' COMMENT '图片资源编号' after id;
+update `mto_resource` set thumbnail_code=id
+where thumbnail_code is null;
+
+alter table `mto_channel` add column thumbnail_code varchar(128) NOT NULL DEFAULT '' COMMENT '图片资源编号' after status;

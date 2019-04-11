@@ -15,6 +15,8 @@ import com.mtons.mblog.base.storage.NailType;
 import com.mtons.mblog.base.utils.FileKit;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.web.controller.BaseController;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestUtils;
@@ -27,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Ueditor 文件上传
@@ -93,18 +96,19 @@ public class UploadController extends BaseController {
 
         // 保存图片
         try {
-            String path;
+            Map.Entry<String, String> entry;
             if (StringUtils.isNotBlank(crop)) {
                 Integer[] imageSize = siteOptions.getIntegerArrayValue(crop, Consts.SEPARATOR_X);
                 int width = ServletRequestUtils.getIntParameter(request, "width", imageSize[0]);
                 int height = ServletRequestUtils.getIntParameter(request, "height", imageSize[1]);
-                path = storageFactory.get().storeScale(file, nailPath, width, height);
+                entry = storageFactory.get().storeScale(file, nailPath, width, height);
             } else {
-                path = storageFactory.get().storeScale(file, nailPath, size);
+                entry = storageFactory.get().storeScale(file, nailPath, size);
             }
             result.ok(errorInfo.get("SUCCESS"));
             result.setName(fileName);
-            result.setPath(path);
+            result.setPath(entry.getValue());
+            result.setThumbnailCode(entry.getKey());
             result.setSize(file.getSize());
 
         } catch (Exception e) {
@@ -143,6 +147,12 @@ public class UploadController extends BaseController {
          * 文件存放路径
          */
         private String path;
+        /**
+         * 图片编号
+         */
+        @Setter
+        @Getter
+        private String thumbnailCode;
 
         public UploadResult ok(String message) {
             this.status = OK;

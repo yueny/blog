@@ -5,6 +5,7 @@ package com.mtons.mblog.modules.template.directive;
 
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.base.utils.BeanMapUtils;
+import com.mtons.mblog.modules.data.ChannelVO;
 import com.mtons.mblog.modules.data.PostVO;
 import com.mtons.mblog.modules.entity.Channel;
 import com.mtons.mblog.modules.service.ChannelService;
@@ -50,7 +51,7 @@ public class ContentsDirective extends TemplateDirective {
         Set<Integer> excludeChannelIds = new HashSet<>();
 
         if (channelId <= 0) {
-            List<Channel> channels = channelService.findAll(Consts.STATUS_CLOSED);
+            List<ChannelVO> channels = channelService.findAll(Consts.STATUS_CLOSED);
             if (channels != null) {
                 channels.forEach((c) -> excludeChannelIds.add(c.getId()));
             }

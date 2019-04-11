@@ -2,12 +2,15 @@ package com.mtons.mblog.modules.entity;
 
 import com.mtons.mblog.base.api.IEntry;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * 图片资源表
@@ -24,7 +27,15 @@ public class Resource implements IEntry, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
+
+    /**
+     * 图片资源编号
+     */
+    @Column(name = "thumbnail_code", columnDefinition = "varchar(128) NOT NULL DEFAULT ''")
+    @Getter
+    @Setter
+    private String thumbnailCode;
 
     /**
      * md5唯一值
@@ -43,10 +54,12 @@ public class Resource implements IEntry, Serializable {
 
     @Column(name = "create_time", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP")
     @Generated(GenerationTime.INSERT)
-    private LocalDateTime createTime;
+    @Temporal(value = TemporalType.TIMESTAMP)
+    private Date createTime;
 
     @Column(name = "update_time", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     @Generated(GenerationTime.ALWAYS)
-    private LocalDateTime updateTime;
+    @Temporal(value = TemporalType.TIMESTAMP)
+    private Date updateTime;
 
 }

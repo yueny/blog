@@ -14,6 +14,7 @@ import com.mtons.mblog.base.utils.BeanMapUtils;
 import com.mtons.mblog.base.utils.MarkdownUtils;
 import com.mtons.mblog.base.utils.PreviewTextUtils;
 import com.mtons.mblog.modules.aspect.PostStatusFilter;
+import com.mtons.mblog.modules.data.ChannelVO;
 import com.mtons.mblog.modules.data.PostVO;
 import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.entity.Channel;
@@ -172,7 +173,7 @@ public class PostServiceImpl implements PostService {
 		onPushEvent(po, PostUpdateEvent.ACTION_PUBLISH);
 		return po.getId();
 	}
-	
+
 	@Override
 	public PostVO get(long id) {
 		Optional<Post> po = postRepository.findById(id);
@@ -313,7 +314,7 @@ public class PostServiceImpl implements PostService {
 
 		Set<Integer> excludeChannelIds = new HashSet<>();
 
-		List<Channel> channels = channelService.findAll(Consts.STATUS_CLOSED);
+		List<ChannelVO> channels = channelService.findAll(Consts.STATUS_CLOSED);
 		if (channels != null) {
 			channels.forEach((c) -> excludeChannelIds.add(c.getId()));
 		}
@@ -367,7 +368,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	private void buildGroups(Collection<PostVO> posts, Set<Integer> groupIds) {
-		Map<Integer, Channel> map = channelService.findMapByIds(groupIds);
+		Map<Integer, ChannelVO> map = channelService.findMapByIds(groupIds);
 		posts.forEach(p -> p.setChannel(map.get(p.getChannelId())));
 	}
 

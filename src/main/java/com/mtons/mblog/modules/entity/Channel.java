@@ -51,10 +51,18 @@ public class Channel implements IEntry, Serializable {
 	private String key;
 
 	/**
-	 * 预览图
+	 * 预览图路径
 	 */
 	@Column(length = 128)
+	@Deprecated
 	private String thumbnail;
+	/**
+	 * 图片资源编号， 取自 Resource 表
+	 */
+	@Column(name = "thumbnail_code")
+	@Getter
+	@Setter
+	private String thumbnailCode;
 
 	@Column(length = 5)
 	private int status;

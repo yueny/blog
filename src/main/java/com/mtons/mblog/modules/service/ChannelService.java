@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.modules.service;
 
-import com.mtons.mblog.modules.entity.Channel;
+import com.mtons.mblog.modules.data.ChannelVO;
 
 import java.util.Collection;
 import java.util.List;
@@ -22,14 +22,14 @@ import java.util.Map;
  *
  */
 public interface ChannelService {
-	List<Channel> findAll(int status);
-	Map<Integer, Channel> findMapByIds(Collection<Integer> ids);
-	Channel getById(int id);
-	void update(Channel channel);
+	List<ChannelVO> findAll(int status);
+	Map<Integer, ChannelVO> findMapByIds(Collection<Integer> ids);
+	ChannelVO getById(int id);
+	void update(ChannelVO channel);
 	void updateWeight(int id, int weighted);
 	void delete(int id);
 	long count();
 
-	Channel getByFlag(String flag);
-	Map<String, Channel> findMapByFlags(Collection<String> flags);
+	ChannelVO getByFlag(String flag);
+	Map<String, ChannelVO> findMapByFlags(Collection<String> flags);
 }

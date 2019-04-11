@@ -11,6 +11,7 @@ package com.mtons.mblog.web.controller.site;
 
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.base.utils.MarkdownUtils;
+import com.mtons.mblog.modules.data.ChannelVO;
 import com.mtons.mblog.modules.data.PostVO;
 import com.mtons.mblog.modules.entity.Channel;
 import com.mtons.mblog.modules.entity.PostAttribute;
@@ -46,7 +47,7 @@ public class ChannelController extends BaseController {
 		String order = ServletRequestUtils.getStringParameter(request, "order", Consts.order.NEWEST);
 		int pageNo = ServletRequestUtils.getIntParameter(request, "pageNo", 1);
 
-		Channel channel = channelService.getByFlag(flag);
+		ChannelVO channel = channelService.getByFlag(flag);
 		// callback params
 		model.put("channel", channel);
 		model.put("order", order);

@@ -14,6 +14,8 @@ import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.modules.entity.Post;
 import com.mtons.mblog.modules.entity.Channel;
 import com.mtons.mblog.modules.entity.PostAttribute;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
@@ -29,7 +31,10 @@ public class PostVO extends Post implements Serializable {
 	private String content;
 
 	private UserVO author;
-	private Channel channel;
+
+	@Getter
+	@Setter
+	private ChannelVO channel;
 	
 	@JSONField(serialize = false)
 	private PostAttribute attribute;
@@ -73,11 +78,4 @@ public class PostVO extends Post implements Serializable {
 		this.content = content;
 	}
 
-	public Channel getChannel() {
-		return channel;
-	}
-
-	public void setChannel(Channel channel) {
-		this.channel = channel;
-	}
 }
