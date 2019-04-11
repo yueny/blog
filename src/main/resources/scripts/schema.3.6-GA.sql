@@ -15,6 +15,8 @@ where domain_hack is null;
 alter table `mto_user` add column uid varchar(256) COMMENT 'uid' after id;
 update `mto_user` set uid=id
 where uid is null;
+--  ok
+
 
 -- 20190411
 -- 图片资源整合
