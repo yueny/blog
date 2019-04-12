@@ -5,7 +5,12 @@
 
 <div class="panel panel-default widget">
 	<div class="panel-heading">
-		<h3 class="panel-title"><i class="fa fa-area-chart"></i> 热门文章</h3>
+		<h3 class="panel-title">
+			<i class="fa fa-area-chart"></i> 热门文章
+			<#--
+			<span class="badge">21</span>
+			-->
+		</h3>
 	</div>
 	<div class="panel-body">
 		<@sidebar method="hottest_posts">
