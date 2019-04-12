@@ -1,3 +1,8 @@
+<#-- 时钟 -->
+<div>
+    <#include "/classic/inc/clock.ftl"/>
+</div>
+
 <div class="panel panel-default widget">
 	<div class="panel-heading">
 		<h3 class="panel-title"><i class="fa fa-area-chart"></i> 热门文章</h3>
