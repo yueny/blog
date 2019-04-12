@@ -118,12 +118,6 @@
                         -->
                 </ul>
 
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a disabled>优于别人，并不高贵，真正的高贵应该是优于过去的自己</a>
-                    </li>
-                </ul>
-
                 <ul class="navbar-button list-inline" id="header_user">
                     <li view="search" class="hidden-xs hidden-sm">
                         <form method="GET" action="${base}/search" accept-charset="UTF-8" class="navbar-form navbar-left">

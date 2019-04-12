@@ -1,6 +1,18 @@
-<#-- 时钟 -->
-<div>
-    <#include "/classic/inc/clock.ftl"/>
+<#-- 每日箴言 -->
+<div class="panel panel-default widget">
+    <div class="panel-heading">
+        <h4 class="panel-info">
+            <i class="fa fa-at"></i>每日箴言<i class="fa fa-at"></i>
+        </h4>
+    </div>
+    <div class="panel-body">
+        <a disabled>优于别人，并不高贵，真正的高贵应该是优于过去的自己</a>
+    </div>
+
+	<#-- 时钟 -->
+    <div>
+    	<#include "/classic/inc/clock.ftl"/>
+    </div>
 </div>
 
 <div class="panel panel-default widget">

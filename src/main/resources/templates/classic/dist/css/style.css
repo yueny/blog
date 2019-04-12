@@ -1292,6 +1292,10 @@ abbr[data-original-title], abbr[title] {
     border-bottom: 2px solid #080808;
 }
 
+.widget .panel-info {
+    font-size: 16px;
+}
+
 .widget ul.list {
     margin: 0;
     padding-left: 2px;
