@@ -49,7 +49,7 @@ public interface ChannelService {
 	List<ChannelTreeVO> findAllForTree(int status, String parentChannelCode);
 
 	Map<Integer, ChannelVO> findMapByIds(Collection<Integer> ids);
-	ChannelVO getById(int id);
+	ChannelVO getById(Integer id);
 
 	ChannelVO getByChannelCode(String channelCode);
 

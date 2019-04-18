@@ -58,7 +58,10 @@ shiro:
     rememberMeManager:
         cookie:
             maxAge: 604800
+
+#日志配置
 logging:
+    #config: classpath:logback-mblog-perf.xml
     level:
         org.springframework: WARN
         org.hibernate: WARN

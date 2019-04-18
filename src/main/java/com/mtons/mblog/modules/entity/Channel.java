@@ -28,7 +28,7 @@ public class Channel implements IEntry, Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private int id;
 
 	/**
 	 * 名称

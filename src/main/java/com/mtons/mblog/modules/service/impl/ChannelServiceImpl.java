@@ -59,6 +59,7 @@ public class ChannelServiceImpl extends BaseService implements ChannelService {
         if(CollectionUtils.isEmpty(entrys)){
             return Collections.emptyList();
         }
+
         List<ChannelVO> list =  map(entrys, ChannelVO.class);
         list.forEach(po -> {
             assemblyChannel(po, po.getThumbnailCode());
@@ -146,9 +147,15 @@ public class ChannelServiceImpl extends BaseService implements ChannelService {
 	}
 
 	@Override
-	public ChannelVO getById(int id) {
-		Channel channel = channelRepository.findById(id).get();
+	public ChannelVO getById(Integer id) {
+    	if(id == null){
+    		return null;
+		}
 
+		// Channel channel = channelRepository.findById(id).get();
+		Optional<Channel> optional = channelRepository.findById(id);
+
+		Channel channel = optional.orElse(null);
 		if(channel == null){
 			return null;
 		}
@@ -191,21 +198,24 @@ public class ChannelServiceImpl extends BaseService implements ChannelService {
 			channelVo.setParentChannelCode("-1");
 		}
 
-		Optional<Channel> optional = channelRepository.findById(channelVo.getId());
+		Channel entry = map(channelVo, Channel.class);
 
-		Channel po = optional.orElse(map(channelVo, Channel.class));
+		ChannelVO channelVal = getById(channelVo.getId());
+		if(channelVal != null){
+			// flag 不改变
+			entry.setFlag(channelVal.getFlag());
+		}
 
-		// flag 不改变
-		po.setFlag(channelVo.getFlag());
 		// BeanUtils.copyProperties(channelVo, po, "flag");
 
-		channelRepository.save(po);
+		channelRepository.save(entry);
 	}
 
 	@Override
 	@Transactional
 	public void updateWeight(int id, int weighted) {
-		Channel po = channelRepository.findById(id).get();
+		ChannelVO channelVal = getById(id);
+		Channel po = map(channelVal, Channel.class);
 
 		int max = Consts.ZERO;
 		if (Consts.FEATURED_ACTIVE == weighted) {
@@ -272,9 +282,11 @@ public class ChannelServiceImpl extends BaseService implements ChannelService {
 	}
 
 	private void assemblyParentChannel(ChannelVO channelVO){
-		if(StringUtils.equals(channelVO.getParentChannelCode(), "-1") ){
+		if(StringUtils.isEmpty(channelVO.getParentChannelCode())){
+			// nothing
+		}else if(StringUtils.equals(channelVO.getParentChannelCode(), "-1") ){
 			channelVO.setParentChannelVo(new ChannelVO("-1", "/"));
-		}else{
+		}else {
 			ChannelVO cvo = getByChannelCode(channelVO.getParentChannelCode());
 			if(cvo != null){
 				channelVO.setParentChannelVo(cvo);
