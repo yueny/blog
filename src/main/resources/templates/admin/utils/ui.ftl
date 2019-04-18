@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>后台管理 - ${options['site_name']}</title>
+    <title> - ${options['site_name']}</title>
 
     <!-- Favicons -->
     <link rel="apple-touch-icon-precomposed" href="https://static.codealy.com/favicon.ico"/>
@@ -21,6 +21,11 @@
     <link href="${base}/theme/admin/dist/css/site.addons.css" rel="stylesheet">
     <link href="${base}/theme/admin/dist/css/skins/skin-blue.css" rel="stylesheet">
 
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="${base}/dist/vendors/bootstrap-select/1.13.7/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="${base}/dist/vendors/bootstrap-switch/css/bootstrap3/bootstrap-switch.css">
+    <link rel="stylesheet" href="${base}/dist/css/checkbox.css">
+
     <script type="text/javascript">
         var _MTONS = _MTONS || {};
         _MTONS.BASE_PATH = '${base}';
@@ -32,6 +37,13 @@
     <script src="${base}/dist/js/plugins.js"></script>
     <!-- Bootstrap -->
     <script src="${base}/dist/vendors/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="${base}/dist/vendors/bootstrap-select/1.13.7/js/bootstrap-select.min.js"></script>
+    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+    <script src="${base}/dist/vendors/bootstrap-select/1.13.7/js/i18n/defaults-zh_CN.js"></script>
+    <script src="${base}/dist/vendors/bootstrap-switch/js/bootstrap-switch.js"></script>
+
     <script src='${base}/dist/vendors/jquery-validation/jquery.validate.min.js'></script>
     <script src='${base}/dist/vendors/jquery-validation/additional-methods.js'></script>
     <script src='${base}/dist/vendors/jquery-validation/localization/messages_zh.min.js'></script>
@@ -44,8 +56,8 @@
     <!-- Main Header -->
     <header class="main-header">
         <a href="${base}/index" class="logo">
-            <span class="logo-mini">MBG</span>
-            <span class="logo-lg"><b>M</b>BLOG</span>
+            <span class="logo-mini">muzinuo</span>
+            <span class="logo-lg"><b>C</b>odealy</span>
         </a>
         <nav class="navbar navbar-static-top">
             <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
@@ -128,6 +140,22 @@
         <!-- Default to the left -->
         <strong>Copyright &copy; 2019 <a href="#">codealy</a>.</strong> All rights reserved.
     </footer>
+
+    <script type="text/javascript">
+        $(function () {
+            /* */
+            $('.selectpicker').selectpicker({
+                /* 当设置为true，增加了一个搜索框的下拉selectpicker的顶部。 */
+                liveSearch:true
+            });
+            /*
+            $('select').selectpicker();
+            */
+
+            $(".switch").bootstrapSwitch();
+        });
+    </script>
+
 </body>
 </html>
 </#macro>

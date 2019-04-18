@@ -84,38 +84,51 @@
 						</li>
 					</#if>
 					<#list channels as row>
-						<li>
-							<a href="${base}/channel/${row.flag}" nav="${row.name}">${row.name}</a>
-						</li>
+                        <#--  是否为叶子节点。1为是叶子节点，0为不是叶子节点(存在后续分支) isLeaf  -->
+                        <#if row.nodeType?? && row.nodeType.isLeaf == 1>
+                            <li>
+                                <a href="${base}/channel/${row.flag}" nav="${row.name}">${row.name}</a>
+                            </li>
+                        <#else>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    ${row.name}
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <#if row.childrenList??>
+                                        <#list row.childrenList as cc>
+                                            <li><a href="${base}/channel/${cc.flag}" nav="${cc.name}">${cc.name}</a></li>
+                                        </#list>
+                                    <#else>
+                                        <li role="presentation" class="dropdown-header">无</li>
+                                    </#if>
+
+                                    <#--
+                                    <li role="presentation" class="dropdown-header">下拉菜单标题</li>
+                                    <li><a href="#">jmeter</a></li>
+                                    <li><a href="#">EJB</a></li>
+                                    <li><a href="#">Jasper Report</a></li>
+                                    <li><a href="#">分离的链接</a></li>
+
+                                    <li class="divider"></li>
+                                    <li role="presentation" class="dropdown-header">下拉菜单标题</li>
+                                    <li><a href="#">另一个分离的链接</a></li>
+                                    -->
+                                </ul>
+                            </li>
+                        </#if>
+
 					</#list>
-                        <#--
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                Java
-                                <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li role="presentation" class="dropdown-header">下拉菜单标题</li>
-                                <li><a href="#">jmeter</a></li>
-                                <li><a href="#">EJB</a></li>
-                                <li><a href="#">Jasper Report</a></li>
-                                <li><a href="#">分离的链接</a></li>
 
-                                <li class="divider"></li>
-                                <li role="presentation" class="dropdown-header">下拉菜单标题</li>
-                                <li><a href="#">另一个分离的链接</a></li>
-                            </ul>
-                        </li>
-                        -->
-
-                        <li>
-                            <a href="${base}/tags" nav="tags">标签</a>
-                        </li>
-                        <#--
-                        <li>
-                            <a href="${base}/tags" nav="tags">标签</a>
-                        </li>
-                        -->
+                    <li>
+                        <a href="${base}/tags" nav="tags">标签</a>
+                    </li>
+                    <#--
+                    <li>
+                        <a href="${base}/tags" nav="tags">标签</a>
+                    </li>
+                    -->
                 </ul>
 
                 <ul class="navbar-button list-inline" id="header_user">

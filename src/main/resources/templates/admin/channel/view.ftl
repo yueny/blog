@@ -30,20 +30,81 @@
                                 <input type="text" name="name" class="form-control" value="${view.name}" required>
                             </div>
                         </div>
+
                         <div class="form-group">
-                            <label class="col-lg-2 control-label">对外释义标识</label>
+                            <label class="col-lg-2 control-label">渠道编号</label>
                             <div class="col-lg-3">
-                                <input type="text" name="flag" class="form-control" value="${view.flag}" required
-                                   <#if view??>readonly</#if><#-- 如果view有值, 则为修改, 对外释义不允许再次修改-->
-                                >
+                                <input type="hidden" name="channelCode" class="form-control" value="${view.channelCode}">
+                                <label class="control-label">${view.channelCode}</label>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">父渠道名称</label>
+                            <div class="col-lg-3">
+                                <#-- 此处后续会修改 -->
+                                <input type="hidden" name="parentChannelCode" class="form-control" value="${view.parentChannelCode}">
+                                <label class="control-label">
+                                    <a <#if view.parentChannelVo?? && view.parentChannelVo.id??>
+                                            href="${base}/admin/channel/view?id=${view.parentChannelVo.id}"
+                                       </#if>
+                                    >${view.parentChannelVo.name}</a>
+                                </label>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label class="col-lg-2 control-label">唯一标识</label>
                             <div class="col-lg-3">
-                                <input type="text" name="key" class="form-control" value="${view.key}" required>
+                                <input type="hidden" name="key" class="form-control" value="${view.key}" readonly>
+                                <label class="control-label">
+                                    <#if view.key??>
+                                        ${view.key}
+                                    <#else>
+                                        系统生成...
+                                    </#if>
+                                </label>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label"><a title="如果是节点，则存在链接" disabled>是否为节点</a></label>
+                            <div class="col-lg-3">
+                                <#list nodeTypeList as nodeType>
+                                    <div class="radio radio-danger">
+                                        <input type="radio" name="nodeType" value="${nodeType}" required
+                                            <#if view.nodeType??>
+                                                <#-- 修改 -->
+                                                <#if (view.nodeType == '' || view.nodeType == nodeType)>
+                                                    checked
+                                                </#if>
+                                            <#else>
+                                                <#-- 新增 -->
+                                                <#if nodeType_index == 0>
+                                                    checked
+                                                </#if>
+                                            </#if>>
+                                        </input>
+                                        <label for="nodeType">
+                                            ${nodeType} / ${nodeType.desc}
+                                        </label>
+                                    </div>
+                                </#list>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">下挂节点</label>
+                            <div class="col-lg-3">
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">对外释义链接</label>
+                            <div class="col-lg-3">
+                                <input type="text" name="flag" class="form-control" value="${view.flag}"
+                                   <#if view.flag??>readonly</#if><#-- 如果view.flag有值, 则为修改, 对外释义不允许再次修改-->
+                                >
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label class="col-lg-2 control-label">导航栏状态</label>
                             <div class="col-lg-3">
@@ -53,6 +114,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label class="col-lg-2 control-label">缩略图</label>
                             <div class="col-lg-3">
@@ -71,6 +133,7 @@
                     </div>
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">提交</button>
+                        <a href="${base}/admin/channel/list">返回</a>
                     </div>
                 </div>
             </form>

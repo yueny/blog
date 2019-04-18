@@ -10,6 +10,8 @@
             <div class="panel-body">
                 <div id="message"><#include "/default/inc/action_message.ftl"/></div>
                 <form method="POST" action="login" accept-charset="UTF-8">
+                    <input class="form-control" name="ru" type="hidden" value="${ru}">
+
                     <div class="form-group">
                         <label class="control-label" for="username">账号</label>
                         <input class="form-control" name="username" type="text" required>

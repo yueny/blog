@@ -23,10 +23,10 @@
                     <form id="qForm" class="form-inline search-row">
                         <input type="hidden" name="pageNo" value="${page.number + 1}"/>
                         <div class="form-group">
-                            <select class="form-control" name="channelId" data-select="${channelId}">
-                                <option value="0">查询所有栏目</option>
+                            <select class="selectpicker show-tick form-control" name="channelId">
+                                <option value="0">所有栏目</option>
                                 <#list channels as row>
-                                    <option value="${row.id}">${row.name}</option>
+                                    <option value="${row.id}" <#if (channelId == row.id)> selected </#if>>${row.name}</option>
                                 </#list>
                             </select>
                         </div>

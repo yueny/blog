@@ -57,7 +57,7 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label>栏目</label>
-                            <select class="form-control" name="channelId">
+                            <select class="selectpicker show-tick form-control" name="channelId">
                                 <#list channels as row>
                                     <option value="${row.id}" <#if (view.channelId == row.id)> selected </#if>>${row.name}</option>
                                 </#list>
