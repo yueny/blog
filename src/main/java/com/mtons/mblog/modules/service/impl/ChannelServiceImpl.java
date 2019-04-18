@@ -193,10 +193,10 @@ public class ChannelServiceImpl extends BaseService implements ChannelService {
 
 		Optional<Channel> optional = channelRepository.findById(channelVo.getId());
 
-		Channel po = map(channelVo, Channel.class);
+		Channel po = optional.orElse(map(channelVo, Channel.class));
+
 		// flag 不改变
 		po.setFlag(channelVo.getFlag());
-		//Channel po = optional.orElse(new Channel());
 		// BeanUtils.copyProperties(channelVo, po, "flag");
 
 		channelRepository.save(po);
