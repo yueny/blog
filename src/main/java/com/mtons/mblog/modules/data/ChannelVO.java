@@ -9,10 +9,13 @@
 */
 package com.mtons.mblog.modules.data;
 
+import com.mtons.mblog.base.enums.ChannelNodeType;
 import com.yueny.superclub.api.pojo.IBo;
 import com.yueny.superclub.api.pojo.instance.AbstractBo;
 import lombok.Getter;
 import lombok.Setter;
+
+
 
 /**
  * 渠道信息实体
@@ -21,7 +24,7 @@ public class ChannelVO extends AbstractBo implements IBo {
 
 	@Getter
 	@Setter
-	private int id;
+	private Integer id;
 
 	/**
 	 * 名称
@@ -31,7 +34,22 @@ public class ChannelVO extends AbstractBo implements IBo {
 	private String name;
 
 	/**
-	 * 对外释义标识
+	 * 渠道编号
+	 */
+	@Getter
+	@Setter
+	private String channelCode;
+
+	/**
+	 * 父渠道编号
+	 */
+	@Getter
+	@Setter
+	private String parentChannelCode;
+
+
+	/**
+	 * 对外释义链接url
 	 */
 	@Getter
 	@Setter
@@ -44,6 +62,9 @@ public class ChannelVO extends AbstractBo implements IBo {
 	@Setter
 	private String key;
 
+	/**
+	 * 状态，0显示； 1隐藏
+	 */
 	@Getter
 	@Setter
 	private int status;
@@ -68,4 +89,26 @@ public class ChannelVO extends AbstractBo implements IBo {
 	@Setter
 	private String thumbnailCode;
 
+	/**
+	 * 渠道节点类型
+	 */
+	@Getter
+	@Setter
+	private ChannelNodeType nodeType;
+
+	/**
+	 * 父渠道
+	 */
+	@Getter
+	@Setter
+	private ChannelVO parentChannelVo;
+
+	public ChannelVO(){
+		//.
+	}
+
+	public ChannelVO(String channelCode, String name){
+		this.channelCode = channelCode;
+		this.name = name;
+	}
 }

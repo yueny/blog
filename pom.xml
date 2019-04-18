@@ -131,9 +131,16 @@
 			<artifactId>rapid-lang-date</artifactId>
 			<version>${rapid.version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>com.yueny.rapid</groupId>
 			<artifactId>rapid-util-strategy</artifactId>
+			<version>${rapid.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.yueny.rapid</groupId>
+			<artifactId>rapid-data-resp</artifactId>
 			<version>${rapid.version}</version>
 		</dependency>
 

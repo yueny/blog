@@ -7,7 +7,6 @@ import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.base.utils.BeanMapUtils;
 import com.mtons.mblog.modules.data.ChannelVO;
 import com.mtons.mblog.modules.data.PostVO;
-import com.mtons.mblog.modules.entity.Channel;
 import com.mtons.mblog.modules.service.ChannelService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
@@ -26,8 +25,14 @@ import java.util.Set;
  * 文章内容查询
  * <p>
  * 示例：
- * 请求：http://mtons.com/index?order=newest&pn=2
- * 使用：@contents group=x pn=pn order=order
+ * 请求：http://mtons.com/index?order=newest&pageNo=2
+ * 使用：@contents channelId=channelId pageNo=pageNo order=order
+ * </p>
+ *
+ * channelId
+ * pageNo 页数
+ * order 排序
+ * size 煤业数量
  *
  * @author langhsu
  */
@@ -51,7 +56,7 @@ public class ContentsDirective extends TemplateDirective {
         Set<Integer> excludeChannelIds = new HashSet<>();
 
         if (channelId <= 0) {
-            List<ChannelVO> channels = channelService.findAll(Consts.STATUS_CLOSED);
+            List<ChannelVO> channels = channelService.findAllByRoot(Consts.STATUS_CLOSED);
             if (channels != null) {
                 channels.forEach((c) -> excludeChannelIds.add(c.getId()));
             }

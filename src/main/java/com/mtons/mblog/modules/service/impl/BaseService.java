@@ -23,7 +23,7 @@ import java.util.List;
  */
 abstract class BaseService implements IBiz {
 	/**
-	 * Logger available to subclasses.
+	 * LoggerUtil available to subclasses.
 	 */
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	/** */

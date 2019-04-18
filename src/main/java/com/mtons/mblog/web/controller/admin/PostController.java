@@ -55,7 +55,7 @@ public class PostController extends BaseController {
 		model.put("title", title);
 		model.put("id", id);
 		model.put("channelId", channelId);
-		model.put("channels", channelService.findAll(Consts.IGNORE));
+		model.put("channels", channelService.findAllByRoot(Consts.IGNORE));
 		return "/admin/post/list";
 	}
 	
@@ -76,7 +76,7 @@ public class PostController extends BaseController {
 			model.put("view", view);
 		}
 		model.put("editor", editor);
-		model.put("channels", channelService.findAll(Consts.IGNORE));
+		model.put("channels", channelService.findAllByRoot(Consts.IGNORE));
 		return "/admin/post/view";
 	}
 	

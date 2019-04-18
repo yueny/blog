@@ -15,6 +15,9 @@ import com.mtons.mblog.base.utils.MD5;
 import com.mtons.mblog.config.SiteOptions;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.web.formatter.StringEscapeEditor;
+import com.yueny.rapid.lang.agent.UserAgentResource;
+import com.yueny.rapid.lang.agent.handler.UserAgentUtils;
+import com.yueny.superclub.api.biz.Action;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -27,9 +30,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -44,11 +49,20 @@ import java.util.Date;
  * @since 3.0
  */
 @Slf4j
-public class BaseController {
+public class BaseController implements Action {
     @Autowired
     protected StorageFactory storageFactory;
     @Autowired
     protected SiteOptions siteOptions;
+
+    /**
+     * 存放当前线程的HttpServletRequest对象
+     */
+    private final static ThreadLocal<HttpServletRequest> httpServletRequestThreadLocal = new ThreadLocal<>();
+    /**
+     * 存放当前线程的Model对象
+     */
+    private final static ThreadLocal<Model> modelThreadLocal = new ThreadLocal<>();
 
     @InitBinder
     public void initBinder(ServletRequestDataBinder binder) {
@@ -111,6 +125,92 @@ public class BaseController {
             pageSize = 10;
         }
         return PageRequest.of(pn - 1, pageSize);
+    }
+
+    /**
+     * 获取当前线程的UserAgent
+     */
+    protected UserAgentResource getCurrentUserAgent() {
+        return UserAgentUtils.getCurrentUserAgent(getRequest());
+    }
+
+    /**
+     * 获取当前线程的Model对象
+     *
+     * @return 当前线程的Model对象
+     */
+    protected Model getModel() {
+        return modelThreadLocal.get();
+    }
+
+    /**
+     * 获取当前线程的HttpServletRequest对象
+     *
+     * @return 当前线程的HttpServletRequest对象
+     */
+    protected HttpServletRequest getRequest() {
+        return httpServletRequestThreadLocal.get();
+    }
+
+    /**
+     * 使用@ModelAttribute注解标识的方法会在每个控制器中的方法访问之前先调用
+     *
+     * @param request
+     * @param model
+     */
+    @ModelAttribute
+    protected void setThreadLocal(final HttpServletRequest request, final Model model) {
+        httpServletRequestThreadLocal.set(request);
+        modelThreadLocal.set(model);
+    }
+
+    /**
+     * 从 HttpServletRequest 中获取属性值
+     *
+     * @param name
+     *            属性名
+     * @return 属性值
+     */
+    protected Object getRequestAttribute(final String name) {
+        final HttpServletRequest request = this.getRequest();
+        final Object value = request.getAttribute(name);
+        return value;
+    }
+
+    /**
+     * 向 Model 设置属性值
+     *
+     * @param name
+     *            属性名
+     * @param value
+     *            属性值
+     */
+    protected void setModelAttribute(final String name, final Object value) {
+        getModel().addAttribute(name, value);
+    }
+
+    /**
+     * 向 HttpServletRequest 设置属性值
+     *
+     * @param name
+     *            属性名
+     * @param value
+     *            属性值
+     */
+    protected void setRequestAttribute(final String name, final Object value) {
+        final HttpServletRequest request = this.getRequest();
+        request.setAttribute(name, value);
+    }
+
+    /**
+     * 请求重定向
+     *
+     * @param url
+     *            重定向请求
+     * @return 重定向请求
+     */
+    protected String redirectAction(final String url) {
+        return String.format("redirect:%s", url);
     }
 
     protected String view(String view) {

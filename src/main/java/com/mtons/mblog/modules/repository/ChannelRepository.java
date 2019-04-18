@@ -25,10 +25,16 @@ import java.util.List;
 public interface ChannelRepository extends JpaRepository<Channel, Integer>, JpaSpecificationExecutor<Channel> {
 	List<Channel> findAllByStatus(int status, Sort sort);
 
+	List<Channel> findAllByStatusAndParentChannelCode(int status, String parentChannelCode, Sort sort);
+
+	List<Channel> findAllByParentChannelCode(String parentChannelCode, Sort sort);
+
 	@Query("select coalesce(max(weight), 0) from Channel")
 	int maxWeight();
 
 	Channel findByFlag(String flag);
+
+	Channel findByChannelCode(String channelCode);
 
 	List<Channel> findAllByFlagIn(Collection<String> flag);
 }

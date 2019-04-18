@@ -13,6 +13,7 @@ import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.web.controller.site.Views;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +32,8 @@ public class LoginController extends BaseController {
      * @return
      */
 	@GetMapping(value = "/login")
-	public String view() {
+	public String view(String ru, ModelMap model) {
+        model.put("ru", ru);
 		return view(Views.LOGIN);
 	}
 
@@ -46,13 +48,19 @@ public class LoginController extends BaseController {
 	public String login(String username,
                         String password,
                         @RequestParam(value = "rememberMe",defaultValue = "0") Boolean rememberMe,
+                        String ru,
                         ModelMap model) {
 		String view = view(Views.LOGIN);
 
         Result<AccountProfile> result = executeLogin(username, password, rememberMe);
 
         if (result.isOk()) {
-            view = String.format(Views.REDIRECT_USER_HOME, result.getData().getDomainHack());
+            if(StringUtils.isEmpty(ru)){
+                view = String.format(Views.REDIRECT_USER_HOME, result.getData().getDomainHack());
+            }else{
+                // 重定向
+                return redirectAction(ru);
+            }
         } else {
             model.put("message", result.getMessage());
         }

@@ -28,7 +28,7 @@ public class Channel implements IEntry, Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
 	/**
 	 * 名称
@@ -37,7 +37,23 @@ public class Channel implements IEntry, Serializable {
 	private String name;
 
 	/**
-	 * 对外释义标识
+	 * 渠道编号
+	 */
+	@Column(name = "channel_code", unique = true, length = 64)
+	@Getter
+	@Setter
+	private String channelCode;
+
+	/**
+	 * 父渠道编号
+	 */
+	@Column(name = "parent_channel_code", length = 64)
+	@Getter
+	@Setter
+	private String parentChannelCode;
+
+	/**
+	 * 对外释义标识url
 	 */
 	@Column(name = "flag", unique = true, length = 256)
 	@Getter
@@ -64,6 +80,17 @@ public class Channel implements IEntry, Serializable {
 	@Setter
 	private String thumbnailCode;
 
+	/**
+	 * 渠道节点类型
+	 */
+	@Column(name = "node_type")
+	@Getter
+	@Setter
+	private String nodeType;
+
+	/**
+	 * 状态，0显示； 1隐藏
+	 */
 	@Column(length = 5)
 	private int status;
 

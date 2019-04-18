@@ -9,10 +9,12 @@
 */
 package com.mtons.mblog.web.controller.admin;
 
+import com.mtons.mblog.base.enums.ChannelNodeType;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.config.ContextStartup;
 import com.mtons.mblog.modules.data.ChannelVO;
+import com.mtons.mblog.modules.data.model.ChannelNodeVO;
 import com.mtons.mblog.modules.service.ChannelService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,11 +48,25 @@ public class ChannelController extends BaseController {
 	
 	@RequestMapping("/view")
 	public String view(Integer id, ModelMap model) {
+		model.put("nodeTypeList", ChannelNodeType.values());
+
 		if (id != null) {
 			ChannelVO view = channelService.getById(id);
 			model.put("view", view);
 		}
 		return "/admin/channel/view";
+	}
+
+	@RequestMapping("/view/node")
+	public String viewNode(Integer id, ModelMap model) {
+		model.put("nodeTypeList", ChannelNodeType.values());
+
+
+
+		ChannelNodeVO channelNodeVO = ChannelNodeVO.builder().parentChannelId(1).nodeType(ChannelNodeType.LEAF_NODE).build();
+		model.put("channelNodeVO", channelNodeVO);
+
+		return "/admin/channel/channel_node_view";
 	}
 
 	/**

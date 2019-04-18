@@ -10,12 +10,14 @@
 package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.modules.data.ChannelTreeVO;
 import com.mtons.mblog.modules.data.ChannelVO;
 import com.mtons.mblog.modules.data.ResourceVO;
 import com.mtons.mblog.modules.repository.ChannelRepository;
 import com.mtons.mblog.modules.service.ChannelService;
 import com.mtons.mblog.modules.entity.Channel;
 import com.mtons.mblog.modules.service.ResourceService;
+import com.yueny.rapid.lang.util.UuidUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -45,13 +47,46 @@ public class ChannelServiceImpl extends BaseService implements ChannelService {
 	);
 //	Sort sort = Sort.by(Sort.Direction.DESC, "weight", "id");
 
+    @Override
+    public List<ChannelVO> findAll(int status) {
+        List<Channel> entrys;
+        if (status > Consts.IGNORE) {
+            entrys = channelRepository.findAllByStatus(status, sort);
+        } else {
+            entrys = channelRepository.findAll(sort);
+        }
+
+        if(CollectionUtils.isEmpty(entrys)){
+            return Collections.emptyList();
+        }
+        List<ChannelVO> list =  map(entrys, ChannelVO.class);
+        list.forEach(po -> {
+            assemblyChannel(po, po.getThumbnailCode());
+
+			// 组装 parentChannelVo
+			assemblyParentChannel(po);
+        });
+
+        return list;
+    }
+
+    @Override
+	public List<ChannelVO> findAllByRoot(int status) {
+		return findAll(status, "-1");
+	}
+
 	@Override
-	public List<ChannelVO> findAll(int status) {
+	public List<ChannelTreeVO> findAllByRootForTree(int status) {
+		return findAllForTree(status, "-1");
+	}
+
+	@Override
+	public List<ChannelVO> findAll(int status, String parentChannelCode) {
 		List<Channel> entrys;
 		if (status > Consts.IGNORE) {
-			entrys = channelRepository.findAllByStatus(status, sort);
+			entrys = channelRepository.findAllByStatusAndParentChannelCode(status, parentChannelCode, sort);
 		} else {
-			entrys = channelRepository.findAll(sort);
+			entrys = channelRepository.findAllByParentChannelCode(parentChannelCode, sort);
 		}
 
 		if(CollectionUtils.isEmpty(entrys)){
@@ -60,9 +95,35 @@ public class ChannelServiceImpl extends BaseService implements ChannelService {
 		List<ChannelVO> list =  map(entrys, ChannelVO.class);
 		list.forEach(po -> {
 			assemblyChannel(po, po.getThumbnailCode());
+
+			// 组装 parentChannelVo
+			assemblyParentChannel(po);
 		});
 
 		return list;
+	}
+
+	@Override
+	public List<ChannelTreeVO> findAllForTree(int status, String parentChannelCode) {
+		List<ChannelVO> list = findAll(status, parentChannelCode);
+
+		List<ChannelTreeVO> treeTmpList = new ArrayList<>();
+		list.forEach(channelVO -> {
+			// 组装 parentChannelVo
+			assemblyParentChannel(channelVO);
+
+			ChannelTreeVO treeVo = new ChannelTreeVO();
+			BeanUtils.copyProperties(channelVO, treeVo);
+
+			List<ChannelTreeVO> childrenList = findAllForTree(status, channelVO.getChannelCode());
+			if(CollectionUtils.isNotEmpty(childrenList)){
+				treeVo.setChildrenList(childrenList);
+			}
+
+			treeTmpList.add(treeVo);
+		});
+
+		return treeTmpList;
 	}
 
 	@Override
@@ -76,6 +137,8 @@ public class ChannelServiceImpl extends BaseService implements ChannelService {
 		Map<Integer, ChannelVO> rets = new HashMap<>();
 		map(list, ChannelVO.class).forEach(po -> {
 			assemblyChannel(po, po.getThumbnailCode());
+			// 组装 parentChannelVo
+			assemblyParentChannel(po);
 
 			rets.put(po.getId(), po);
 		});
@@ -92,6 +155,24 @@ public class ChannelServiceImpl extends BaseService implements ChannelService {
 		ChannelVO channelVO =  map(channel, ChannelVO.class);
 
 		assemblyChannel(channelVO, channelVO.getThumbnailCode());
+		// 组装 parentChannelVo
+		assemblyParentChannel(channelVO);
+
+		return channelVO;
+	}
+
+	@Override
+	public ChannelVO getByChannelCode(String channelCode) {
+		Channel channel = channelRepository.findByChannelCode(channelCode);
+
+		if(channel == null){
+			return null;
+		}
+		ChannelVO channelVO =  map(channel, ChannelVO.class);
+
+		assemblyChannel(channelVO, channelVO.getThumbnailCode());
+		// 组装 parentChannelVo
+		assemblyParentChannel(channelVO);
 
 		return channelVO;
 	}
@@ -99,10 +180,25 @@ public class ChannelServiceImpl extends BaseService implements ChannelService {
 	@Override
 	@Transactional
 	public void update(ChannelVO channelVo) {
+		//
+		if(StringUtils.isEmpty(channelVo.getKey())){
+			channelVo.setKey(UuidUtil.getUuidForString12());
+		}
+		if(StringUtils.isEmpty(channelVo.getChannelCode())){
+			channelVo.setChannelCode(UuidUtil.getUUIDForNumber10X("C"));
+		}
+		if(StringUtils.isEmpty(channelVo.getParentChannelCode())){
+			channelVo.setParentChannelCode("-1");
+		}
+
 		Optional<Channel> optional = channelRepository.findById(channelVo.getId());
 
-		Channel po = optional.orElse(new Channel());
-		BeanUtils.copyProperties(channelVo, po, "flag"); // flag 不改变
+		Channel po = map(channelVo, Channel.class);
+		// flag 不改变
+		po.setFlag(channelVo.getFlag());
+		//Channel po = optional.orElse(new Channel());
+		// BeanUtils.copyProperties(channelVo, po, "flag");
+
 		channelRepository.save(po);
 	}
 
@@ -140,6 +236,9 @@ public class ChannelServiceImpl extends BaseService implements ChannelService {
 		ChannelVO channelVO = map(channel, ChannelVO.class);
 
 		assemblyChannel(channelVO, channelVO.getThumbnailCode());
+		// 组装 parentChannelVo
+		assemblyParentChannel(channelVO);
+
 		return channelVO;
 	}
 
@@ -154,6 +253,8 @@ public class ChannelServiceImpl extends BaseService implements ChannelService {
 		Map<String, ChannelVO> rets = new HashMap<>();
 		map(list, ChannelVO.class).forEach(po -> {
 			assemblyChannel(po, po.getThumbnailCode());
+			// 组装 parentChannelVo
+			assemblyParentChannel(po);
 
 			rets.put(po.getFlag(), po);
 		});
@@ -162,10 +263,21 @@ public class ChannelServiceImpl extends BaseService implements ChannelService {
 
 	private void assemblyChannel(ChannelVO channelVO, String thumbnailCode){
 		if(StringUtils.isNotEmpty(thumbnailCode)){
-			ResourceVO vo = resourceService.findByMd5(thumbnailCode);
+			ResourceVO vo = resourceService.findByThumbnailCode(thumbnailCode);
 
 			if(vo != null){
-				channelVO.setThumbnail(vo.getThumbnailCode());
+				channelVO.setThumbnail(vo.getPath());
+			}
+		}
+	}
+
+	private void assemblyParentChannel(ChannelVO channelVO){
+		if(StringUtils.equals(channelVO.getParentChannelCode(), "-1") ){
+			channelVO.setParentChannelVo(new ChannelVO("-1", "/"));
+		}else{
+			ChannelVO cvo = getByChannelCode(channelVO.getParentChannelCode());
+			if(cvo != null){
+				channelVO.setParentChannelVo(cvo);
 			}
 		}
 	}

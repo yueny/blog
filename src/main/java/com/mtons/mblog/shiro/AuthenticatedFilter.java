@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.alibaba.fastjson.JSON;
 import com.mtons.mblog.base.lang.Result;
+import com.mtons.mblog.base.logger.LoggerUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -36,11 +37,12 @@ public class AuthenticatedFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(ServletRequest request, ServletResponse response, FilterChain chain)
             throws ServletException, IOException {
-
         Subject subject = SecurityUtils.getSubject();
         if (subject.isAuthenticated() || subject.isRemembered()) {
+            // 已经登陆
             chain.doFilter(request, response);
         } else {
+            // 未登录
             WebUtils.saveRequest(request);
             String path = WebUtils.getContextPath((HttpServletRequest) request);
             String url = loginUrl;
@@ -48,11 +50,26 @@ public class AuthenticatedFilter extends OncePerRequestFilter {
                 url = path + url;
             }
 
+            // ajax 请求
             if (isAjaxRequest((HttpServletRequest) request)) {
                 response.setContentType("application/json;charset=UTF-8");
                 response.getWriter().print(JSON.toJSONString(Result.failure("您还没有登录!")));
             } else {
-                response.getWriter().write(new Formatter().format(JS, url).toString());
+                // 页面请求,跳转到登陆页
+                String requestURI = getRequestURI(request);
+
+                if (StringUtils.isEmpty(requestURI)
+                        || StringUtils.equals(requestURI, "null")) {
+                    response.getWriter().write(new Formatter().format(JS, url).toString());
+                } else {
+                    final String oldUrl = StringUtils.right(requestURI, requestURI.length()
+                            - path.length());
+                     final String encryptUrl = oldUrl;
+                     //cryptContainerBiz.encrypt(ToolkitsCryptType.URL, new BaseEncryptPojo(oldUrl));
+
+                    // url转码,跳转时进行解码
+                    response.getWriter().write(new Formatter().format(JS, url+ "?ru=" + encryptUrl).toString());
+                }
             }
         }
     }
@@ -72,5 +89,19 @@ public class AuthenticatedFilter extends OncePerRequestFilter {
 		String header = request.getHeader("X-Requested-With");
         return "XMLHttpRequest".equals(header);
 	}
+
+    /**
+     * 获取请求路径，得不到路径则返回null
+     */
+    private static String getRequestURI(ServletRequest request) {
+        if(request instanceof HttpServletRequest){
+            final String requestURI = ((HttpServletRequest)request).getRequestURI();
+            LoggerUtil.info("未登录状态,访问被拦截！,访问url为：{}", requestURI);
+
+            return requestURI;
+        }
+
+        return "";
+    }
 
 }

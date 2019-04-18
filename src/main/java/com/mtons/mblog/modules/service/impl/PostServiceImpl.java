@@ -17,7 +17,6 @@ import com.mtons.mblog.modules.aspect.PostStatusFilter;
 import com.mtons.mblog.modules.data.ChannelVO;
 import com.mtons.mblog.modules.data.PostVO;
 import com.mtons.mblog.modules.data.UserVO;
-import com.mtons.mblog.modules.entity.Channel;
 import com.mtons.mblog.modules.entity.Post;
 import com.mtons.mblog.modules.entity.PostAttribute;
 import com.mtons.mblog.modules.event.PostUpdateEvent;
@@ -314,7 +313,7 @@ public class PostServiceImpl implements PostService {
 
 		Set<Integer> excludeChannelIds = new HashSet<>();
 
-		List<ChannelVO> channels = channelService.findAll(Consts.STATUS_CLOSED);
+		List<ChannelVO> channels = channelService.findAllByRoot(Consts.STATUS_CLOSED);
 		if (channels != null) {
 			channels.forEach((c) -> excludeChannelIds.add(c.getId()));
 		}
