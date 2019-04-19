@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.modules.service;
 
-import com.mtons.mblog.modules.data.ChannelTreeVO;
+import com.mtons.mblog.modules.data.model.ChannelTreeVO;
 import com.mtons.mblog.modules.data.ChannelVO;
 
 import java.util.Collection;
@@ -24,19 +24,19 @@ import java.util.Map;
  */
 public interface ChannelService {
 	/**
-	 * 查询指定状态全部渠道清单
+	 * 查询指定状态的根渠道编号的渠道清单， parentChannelCode 为 -1
+	 */
+	List<ChannelVO> findRootAll(int status);
+
+	/**
+	 * 查询指定状态的根渠道编号的渠道清单树列表， parentChannelCode 为 -1
+	 */
+	List<ChannelTreeVO> findRootAllForTree(int status);
+
+	/**
+	 * 查询指定状态查询全部渠道清单
 	 */
 	List<ChannelVO> findAll(int status);
-
-	/**
-	 * 查询指定状态的根渠道清单， parentChannelCode 为 -1
-	 */
-	List<ChannelVO> findAllByRoot(int status);
-
-	/**
-	 * 查询指定状态的根渠道清单树， parentChannelCode 为 -1
-	 */
-	List<ChannelTreeVO> findAllByRootForTree(int status);
 
 	/**
 	 * 查询指定状态、指定父渠道编号的的渠道清单
@@ -44,7 +44,7 @@ public interface ChannelService {
 	List<ChannelVO> findAll(int status, String parentChannelCode);
 
 	/**
-	 * 查询指定状态、指定父渠道编号的的渠道清单树
+	 * 查询指定状态的、且父渠道编号直接或间接为parentChannelCode 的渠道清单树列表
 	 */
 	List<ChannelTreeVO> findAllForTree(int status, String parentChannelCode);
 

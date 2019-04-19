@@ -10,7 +10,7 @@
 package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.base.lang.Consts;
-import com.mtons.mblog.modules.data.ChannelTreeVO;
+import com.mtons.mblog.modules.data.model.ChannelTreeVO;
 import com.mtons.mblog.modules.data.ChannelVO;
 import com.mtons.mblog.modules.data.ResourceVO;
 import com.mtons.mblog.modules.repository.ChannelRepository;
@@ -47,38 +47,38 @@ public class ChannelServiceImpl extends BaseService implements ChannelService {
 	);
 //	Sort sort = Sort.by(Sort.Direction.DESC, "weight", "id");
 
-    @Override
-    public List<ChannelVO> findAll(int status) {
-        List<Channel> entrys;
-        if (status > Consts.IGNORE) {
-            entrys = channelRepository.findAllByStatus(status, sort);
-        } else {
-            entrys = channelRepository.findAll(sort);
-        }
-
-        if(CollectionUtils.isEmpty(entrys)){
-            return Collections.emptyList();
-        }
-
-        List<ChannelVO> list =  map(entrys, ChannelVO.class);
-        list.forEach(po -> {
-            assemblyChannel(po, po.getThumbnailCode());
-
-			// 组装 parentChannelVo
-			assemblyParentChannel(po);
-        });
-
-        return list;
-    }
-
-    @Override
-	public List<ChannelVO> findAllByRoot(int status) {
+        @Override
+	public List<ChannelVO> findRootAll(int status) {
 		return findAll(status, "-1");
 	}
 
 	@Override
-	public List<ChannelTreeVO> findAllByRootForTree(int status) {
+	public List<ChannelTreeVO> findRootAllForTree(int status) {
 		return findAllForTree(status, "-1");
+	}
+
+	@Override
+	public List<ChannelVO> findAll(int status) {
+		List<Channel> entrys;
+		if (status > Consts.IGNORE) {
+			entrys = channelRepository.findAllByStatus(status, sort);
+		} else {
+			entrys = channelRepository.findAll(sort);
+		}
+
+		if(CollectionUtils.isEmpty(entrys)){
+			return Collections.emptyList();
+		}
+
+		List<ChannelVO> list =  map(entrys, ChannelVO.class);
+		list.forEach(po -> {
+			assemblyChannel(po, po.getThumbnailCode());
+
+			// 组装 parentChannelVo
+			assemblyParentChannel(po);
+		});
+
+		return list;
 	}
 
 	@Override
@@ -118,7 +118,7 @@ public class ChannelServiceImpl extends BaseService implements ChannelService {
 
 			List<ChannelTreeVO> childrenList = findAllForTree(status, channelVO.getChannelCode());
 			if(CollectionUtils.isNotEmpty(childrenList)){
-				treeVo.setChildrenList(childrenList);
+				treeVo.setChildren(childrenList);
 			}
 
 			treeTmpList.add(treeVo);

@@ -342,7 +342,7 @@ qiao.bs.confirm = function(options, ok, cancel){
 	// options
 	var opt = $.extend({}, qiao.bs.modaloptions);
 
-	opt.title = '确认操作';
+	opt.title = '确认操作';j
 	if(typeof options == 'string'){
 		opt.msg = options;
 	}else{
@@ -491,8 +491,9 @@ $.fn.bstree = function(options){
 	
 	var res = '加载失败！';
 	var $this = $(this);
-	qiao.ajax(opt.url + '/tree', function(json){
-		if(json && json.object){
+	//qiao.ajax(opt.url + '/tree', function(json){
+    qiao.ajax(opt.url, function(json){
+    	if(json && json.object){
 			var tree = json.object;
 			
 			var start = '<div class="panel panel-info"><div class="panel-body" ';

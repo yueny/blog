@@ -313,7 +313,7 @@ public class PostServiceImpl implements PostService {
 
 		Set<Integer> excludeChannelIds = new HashSet<>();
 
-		List<ChannelVO> channels = channelService.findAllByRoot(Consts.STATUS_CLOSED);
+		List<ChannelVO> channels = channelService.findRootAll(Consts.STATUS_CLOSED);
 		if (channels != null) {
 			channels.forEach((c) -> excludeChannelIds.add(c.getId()));
 		}

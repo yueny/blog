@@ -23,18 +23,37 @@ import java.util.List;
  *
  */
 public interface ChannelRepository extends JpaRepository<Channel, Integer>, JpaSpecificationExecutor<Channel> {
+	/**
+	 * 根据状态查询列表信息
+	 */
 	List<Channel> findAllByStatus(int status, Sort sort);
 
+	/**
+	 * 根据状态和父编号查询列表信息
+	 */
 	List<Channel> findAllByStatusAndParentChannelCode(int status, String parentChannelCode, Sort sort);
 
+	/**
+	 * 根据父编号查询列表信息
+	 */
 	List<Channel> findAllByParentChannelCode(String parentChannelCode, Sort sort);
+
+	/**
+	 * 根据 flag 列表查询列表信息
+	 */
+	List<Channel> findAllByFlagIn(Collection<String> flag);
 
 	@Query("select coalesce(max(weight), 0) from Channel")
 	int maxWeight();
 
+	/**
+	 * 根据 flag 查询信息
+	 */
 	Channel findByFlag(String flag);
 
+	/**
+	 * 根据编号查询信息
+	 */
 	Channel findByChannelCode(String channelCode);
 
-	List<Channel> findAllByFlagIn(Collection<String> flag);
 }

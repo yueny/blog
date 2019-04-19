@@ -56,7 +56,7 @@ public class ContentsDirective extends TemplateDirective {
         Set<Integer> excludeChannelIds = new HashSet<>();
 
         if (channelId <= 0) {
-            List<ChannelVO> channels = channelService.findAllByRoot(Consts.STATUS_CLOSED);
+            List<ChannelVO> channels = channelService.findRootAll(Consts.STATUS_CLOSED);
             if (channels != null) {
                 channels.forEach((c) -> excludeChannelIds.add(c.getId()));
             }

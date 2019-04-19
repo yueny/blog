@@ -30,7 +30,7 @@
                                 <th>对外释义链接</th>
                                 <th>状态</th>
                                 <th>权重</th>
-                                <th width="50">节点</th>
+                                <th width="50">节点树</th>
                                 <th width="140">操作</th>
                             </tr>
                             </thead>
@@ -63,8 +63,9 @@
                                             <#-- 叶子节点 -->
                                         <#else>
                                             <#-- 子节点 -->
-                                            <a class="btn-channel-node btn btn-xs btn-warning"
-                                               data-id="${row.id}">
+                                            <a class="tree-panel-viewer btn btn-xs btn-warning"
+                                               data-id="${row.id}" data-code="${row.channelCode}"
+                                               data-toggle="modal" data-target="#myModal">
                                                 查看子节点<i class="fa fa-edit"></i>
                                             </a>
                                         </#if>
@@ -88,7 +89,23 @@
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×
+                        </button>
+                        <h4 class="modal-title" id="myModalLabelTitle">
+                        </h4>
+                    </div>
 
+                    <div class="modal-body" style="height: 200px">
+                        <p id="tree-panel-nodetor"></p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            关闭
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -110,6 +127,31 @@
         placement   : 'left',
         trigger : 'hover'
     });
+
+    $('.tree-panel-viewer').bspop({
+        title   : '该栏目包含的所有节点清单',
+        content : '该栏目包含的所有节点清单'
+    });
+
+    /* 菜单树加载 */
+    $(function() {
+        $('.tree-panel-viewer').bind('click', function(){
+            var that = $(this);
+
+            var url = '${base}/admin/channel/tree/nodetor/query?id='+ that.data("id") + '&code=' + that.data("code");
+            // qiao.bs.alert(url);
+
+            <#-- 设置标题 -->
+            $('#myModalLabelTitle').text = '节点「' + that.data("code") + '」 -- 子节点列表';
+
+            $('#tree-panel-nodetor').bstree({
+                height 	: '200px',
+                url : url,
+                edit:true
+            });
+        });
+    })
+
 </script>
 
 <script type="text/javascript">

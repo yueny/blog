@@ -140,6 +140,7 @@
         </div>
     </div>
 </section>
+
 <script type="text/javascript">
 var J = jQuery;
 
@@ -151,6 +152,11 @@ $(function() {
                 $("#thumbnail_image").css("background", "url(" + path + ") no-repeat scroll center 0 rgba(0, 0, 0, 0)");
                 $("#thumbnail").val(path);
                 $("#thumbnailCode").val(data.thumbnailCode);
+
+                bootstrapQ.msg({
+                    msg  : '上传成功！',
+                    time : 3000
+                });
             }
         });
     });

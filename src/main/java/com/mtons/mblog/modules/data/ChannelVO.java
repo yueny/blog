@@ -96,6 +96,7 @@ public class ChannelVO extends AbstractBo implements IBo {
 	@Setter
 	private ChannelNodeType nodeType;
 
+	// ====================== 数据实体外信息
 	/**
 	 * 父渠道
 	 */

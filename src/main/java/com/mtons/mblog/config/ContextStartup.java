@@ -94,7 +94,7 @@ public class ContextStartup implements ApplicationRunner, ServletContextAware {
     }
 
     public void resetChannels() {
-        servletContext.setAttribute("channels", channelService.findAllByRootForTree(Consts.STATUS_NORMAL));
+        servletContext.setAttribute("channels", channelService.findRootAllForTree(Consts.STATUS_NORMAL));
     }
 
 }

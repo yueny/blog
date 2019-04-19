@@ -37,7 +37,7 @@ public class PostController extends BaseController {
 	 */
 	@GetMapping("/editing")
 	public String view(Long id, ModelMap model) {
-		model.put("channels", channelService.findAllByRoot(Consts.STATUS_NORMAL));
+		model.put("channels", channelService.findRootAll(Consts.STATUS_NORMAL));
 		model.put("editing", true);
 		String editor = siteOptions.getValue("editor");
 		if (null != id && id > 0) {

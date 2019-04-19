@@ -7,8 +7,9 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.modules.data;
+package com.mtons.mblog.modules.data.model;
 
+import com.mtons.mblog.modules.data.ChannelVO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,7 +26,7 @@ public class ChannelTreeVO extends ChannelVO {
 	 */
 	@Getter
 	@Setter
-	private List<ChannelTreeVO> childrenList;
+	private List<ChannelTreeVO> children;
 
 	public ChannelTreeVO(){
 		//.
