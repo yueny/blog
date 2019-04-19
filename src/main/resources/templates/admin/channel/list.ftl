@@ -15,7 +15,7 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">栏目列表</h3>
                     <div class="box-tools">
-                        <a class="btn btn-primary btn-sm" href="${base}/admin/channel/view">添加栏目</a>
+                        <a id="tooltip2" class="btn btn-primary btn-sm" href="${base}/admin/channel/view">添加栏目</a>
                     </div>
                 </div>
                 <div class="box-body">
@@ -72,7 +72,7 @@
                                     <td>
                                         <a href="javascript:void(0);" class="btn btn-xs btn-default" data-id="${row.id}" data-action="weight">置顶</a>
                                         <a href="view?id=${row.id}" class="btn btn-xs btn-success">修改</a>
-                                        <a href="javascript:void(0);" class="btn btn-xs btn-danger" data-id="${row.id}"
+                                        <a href="javascript:void(0);" class="deletetor btn btn-xs btn-danger" data-id="${row.id}"
                                            data-action="delete">删除</a>
                                     </td>
                                 </tr>
@@ -97,28 +97,18 @@
 </section>
 
 <script type="text/javascript">
-    $(".btn-channel-node").click(function(){
-        var channelId = $(this).attr('data-id');
-
-        // 打开模态框
-        $("#myModal").modal({
-            backdrop: 'static',     // 点击空白不关闭s
-            keyboard: false,        // 按键盘esc也不会关闭
-            remote: 'view/node?id=' + channelId   // 从远程加载内容的地址
-        });
+    $('#tooltip2').bstip({
+        title   : '新增栏目',
+        html    : true,
+        placement   : 'left',
+        trigger : 'hover'
     });
 
-    $('#myModal').on('shown.bs.modal', function (e) {
-        // 关键代码，如没将modal设置为 block，则$modala_dialog.height() 为零
-        $(this).css('display', 'block');
-        var modalHeight=$(window).height() / 2 - $('#youModel .modal-dialog').height() / 2;
-        $(this).find('.modal-dialog').css({
-            'margin-top': modalHeight
-        });
-    });
-
-    $("#myModal").on("hidden.bs.modal", function() {
-        $(this).removeData("bs.modal");
+    $('.deletetor').bstip({
+        title   : '删除请慎重！已在使用的不可被删除',
+        html    : true,
+        placement   : 'left',
+        trigger : 'hover'
     });
 </script>
 

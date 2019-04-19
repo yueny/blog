@@ -15,16 +15,15 @@
     <link href="${base}/dist/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="${base}/dist/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="${base}/dist/vendors/bootstrap-select/1.13.7/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="${base}/dist/vendors/bootstrap-switch/css/bootstrap3/bootstrap-switch.css">
+    <link rel="stylesheet" href="${base}/dist/css/checkbox.css">
 
     <!-- Theme Style -->
     <link href="${base}/theme/admin/dist/css/site.css" rel="stylesheet">
     <link href="${base}/theme/admin/dist/css/site.addons.css" rel="stylesheet">
     <link href="${base}/theme/admin/dist/css/skins/skin-blue.css" rel="stylesheet">
-
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="${base}/dist/vendors/bootstrap-select/1.13.7/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="${base}/dist/vendors/bootstrap-switch/css/bootstrap3/bootstrap-switch.css">
-    <link rel="stylesheet" href="${base}/dist/css/checkbox.css">
 
     <script type="text/javascript">
         var _MTONS = _MTONS || {};
@@ -34,7 +33,7 @@
 
     <!-- jQuery -->
     <script src="${base}/dist/js/jquery.min.js"></script>
-    <script src="${base}/dist/js/plugins.js"></script>
+
     <!-- Bootstrap -->
     <script src="${base}/dist/vendors/bootstrap/js/bootstrap.min.js"></script>
 
@@ -43,6 +42,10 @@
     <!-- (Optional) Latest compiled and minified JavaScript translation files -->
     <script src="${base}/dist/vendors/bootstrap-select/1.13.7/js/i18n/defaults-zh_CN.js"></script>
     <script src="${base}/dist/vendors/bootstrap-switch/js/bootstrap-switch.js"></script>
+
+    <script src="${base}/dist/vendors/qiaoJs/qiao.js"></script>
+
+    <script src="${base}/dist/js/plugins.js"></script>
 
     <script src='${base}/dist/vendors/jquery-validation/jquery.validate.min.js'></script>
     <script src='${base}/dist/vendors/jquery-validation/additional-methods.js'></script>

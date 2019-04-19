@@ -45,6 +45,8 @@
     <script src="${base}/dist/vendors/layer/layer.js"></script>
     <script src="${base}/dist/vendors/bootstrap/js/bootstrap.min.js"></script>
 
+    <script src="${base}/dist/vendors/qiaoJs/qiao.js"></script>
+
     <script type="text/javascript">
         var _MTONS = _MTONS || {};
         _MTONS.BASE_PATH = '${base}';
