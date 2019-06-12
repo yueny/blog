@@ -85,7 +85,8 @@
 					</#if>
 
 					<#list channels as row>
-                        <#--  是否为叶子节点。1为是叶子节点，0为不是叶子节点(存在后续分支) isLeaf  -->
+                        <#--  是否为叶子节点。1为是叶子节点，0为不是叶子节点(存在后续分支) isLeaf -->
+                        <#--
                         <#if row.nodeType?? && row.nodeType.isLeaf == 1>
                             <li>
                                 <a href="${base}/channel/${row.flag}" nav="${row.name}">${row.name}</a>
@@ -106,19 +107,30 @@
                                     <#else>
                                         <li role="presentation" class="dropdown-header">无</li>
                                     </#if>
-
-                                    <#--
-                                    <li role="presentation" class="dropdown-header">下拉菜单标题</li>
-                                    <li><a href="#">jmeter</a></li>
-                                    <li><a href="#">EJB</a></li>
-                                    <li><a href="#">Jasper Report</a></li>
-                                    <li><a href="#">分离的链接</a></li>
-
-                                    <li class="divider"></li>
-                                    <li role="presentation" class="dropdown-header">下拉菜单标题</li>
-                                    <li><a href="#">另一个分离的链接</a></li>
-                                    -->
                                 </ul>
+                            </li>
+                        </#if>
+                          -->
+                        <#if row.nodeType?? && row.nodeType.isLeaf == 1>
+                            <li>
+                                <a href="${base}/channel/${row.flag}" nav="${row.name}">${row.name}</a>
+                            </li>
+                        <#else>
+                            <li>
+                                <a href="${base}/channel/${row.flag}" nav="${row.name}"
+                                   t="popover" data-placement="bottom"
+                                   data-content="
+                                        <#if row.children??>
+                                            <#list row.children as cc>
+                                                ${cc.name}
+                                                <#if cc_has_next>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</#if>
+                                            </#list>
+                                        <#else>
+                                            无
+                                        </#if>
+                                        ">
+                                 ${row.name}
+                                 </a>
                             </li>
                         </#if>
 
@@ -127,11 +139,6 @@
                     <li>
                         <a href="${base}/tags" nav="tags">标签</a>
                     </li>
-                    <#--
-                    <li>
-                        <a href="${base}/tags" nav="tags">标签</a>
-                    </li>
-                    -->
                 </ul>
 
                 <ul class="navbar-button list-inline" id="header_user">
@@ -186,13 +193,27 @@
 </header>
 
 <script type="text/javascript">
-$(function () {
-	$('a[nav]').each(function(){  
-        $this = $(this);
-        if($this[0].href == String(window.location)){  
-            $this.closest('li').addClass("active");  
-        }  
+    $(function () {
+        $('a[nav]').each(function(){
+            $this = $(this);
+            if($this[0].href == String(window.location)){
+                $this.closest('li').addClass("active");
+            }
+        });
     });
-});
 </script>
+<script language="JavaScript">
+    $("[t='popover']").on("click mouseenter",function(e){
+        e.stopPropagation();
+        var $this=$(this);
+        $this.popover("show");
+        $(document).one("click",function(){
+            $this.popover("hide");
+        });
+        $(".popover").on("click",function(e){
+            e.stopPropagation();
+        });
+    });
+</script>
+
 <!-- Header END -->
