@@ -14,7 +14,7 @@ package com.mtons.mblog.modules.service;
  */
 public interface SecurityCodeService {
     /**
-     * 生成验证码
+     * 生成验证码。 发送间隔时间不能少于1分钟
      * @param key
      * @param target : email mobile
      * @return

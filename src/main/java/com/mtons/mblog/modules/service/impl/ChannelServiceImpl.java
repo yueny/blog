@@ -47,7 +47,7 @@ public class ChannelServiceImpl extends BaseService implements ChannelService {
 	);
 //	Sort sort = Sort.by(Sort.Direction.DESC, "weight", "id");
 
-        @Override
+	@Override
 	public List<ChannelVO> findRootAll(int status) {
 		return findAll(status, "-1");
 	}

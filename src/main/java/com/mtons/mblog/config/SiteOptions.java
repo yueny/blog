@@ -83,7 +83,9 @@ public class SiteOptions extends SiteConfigOption {
     }
 
     public Integer[] getIntegerArrayValue(String key, String separator) {
-        @NotNull String value = getValue(key);
+        //@NotNull
+        String value = getValue(key);
+
         String[] array = value.split(separator);
         Integer[] ret = new Integer[array.length];
         for (int i = 0; i < array.length; i ++) {

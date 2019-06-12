@@ -1,5 +1,9 @@
 package com.mtons.mblog.modules.service.impl;
 
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.ListeningExecutorService;
 import com.mtons.mblog.base.lang.MtonsException;
 import com.mtons.mblog.config.SiteOptions;
 import com.mtons.mblog.modules.service.MailService;
@@ -10,7 +14,6 @@ import freemarker.template.Template;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
@@ -29,7 +32,7 @@ public class MailServiceImpl implements MailService {
     @Autowired
     private SiteOptions siteOptions;
     @Autowired
-    private TaskExecutor taskExecutor;
+    private ListeningExecutorService executorService;
 
     @Override
     public void config() {
@@ -49,21 +52,33 @@ public class MailServiceImpl implements MailService {
         String text = render(template, content);
         String from = siteOptions.getValue("site_name");
 
-        taskExecutor.execute(() -> {
+        ListenableFuture<Future<ThreadEmailEntry>> task = executorService.submit(() -> {
             Future<ThreadEmailEntry> future = OkEmail.subject(title)
-                        .from(from)
-                        .to(to)
-                        .html(text)
-                        .sendFuture();
+                    .from(from)
+                    .to(to)
+                    .html(text)
+                    .sendFuture();
 
-            try{
-                if(future == null){
-                    log.error("mail send fail, result is null.");
-                }else{
-                    log.info("email: {} send result:{}.", to, future.get());
+            return future;
+        });
+
+        Futures.addCallback(task, new FutureCallback<Future<ThreadEmailEntry>>() {
+            @Override
+            public void onSuccess(Future<ThreadEmailEntry> future) {
+                try{
+                    if(future == null){
+                        log.error("mail send fail, result is null.");
+                    }else{
+                        log.info("email: {} send result:{}.", to, future.get());
+                    }
+                } catch(Exception ex){
+                    log.error("mail send error: ", ex);
                 }
-            } catch(Exception ex){
-                log.error("mail send error: ", ex);
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                log.error("回调异步处理异常, 失败异常信息throwable:", throwable);
             }
         });
     }

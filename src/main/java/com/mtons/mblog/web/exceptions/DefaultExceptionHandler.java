@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -75,6 +76,12 @@ public class DefaultExceptionHandler implements HandlerExceptionResolver {
 	 */
 	private boolean isAjax(Object handler) {
 		if (handler != null && handler instanceof HandlerMethod) {
+			// TODO 此处判断不生效。后续定位
+			RestController restController = AnnotationUtils.findAnnotation(handler.getClass(), RestController.class);
+			if(restController != null){
+				return true;
+			}
+
 			HandlerMethod handlerMethod = (HandlerMethod) handler;
 			ResponseBody responseBodyAnn = AnnotationUtils.findAnnotation(handlerMethod.getMethod(), ResponseBody.class);  
 			return responseBodyAnn != null;
