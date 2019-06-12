@@ -54,7 +54,9 @@ public class ChannelServiceImpl extends BaseService implements ChannelService {
 
 	@Override
 	public List<ChannelTreeVO> findRootAllForTree(int status) {
-		return findAllForTree(status, "-1");
+		List<ChannelTreeVO> treeList =  findAllForTree(status, "-1");
+
+		return treeList;
 	}
 
 	@Override
@@ -227,8 +229,10 @@ public class ChannelServiceImpl extends BaseService implements ChannelService {
 
 	@Override
 	@Transactional
-	public void delete(int id) {
-		channelRepository.deleteById(id);
+	public void delete(String channelCode) {
+        // 确认该栏目有没有被使用。有的话则不允许删除
+		//.
+		channelRepository.deleteByChannelCode(channelCode);
 	}
 
 	@Override

@@ -44,6 +44,7 @@
     <script src="${base}/dist/vendors/bootstrap-switch/js/bootstrap-switch.js"></script>
 
     <script src="${base}/dist/vendors/qiaoJs/qiao.js"></script>
+    <script src="${base}/dist/vendors/qiaoJs/qiao.config.js"></script>
 
     <script src="${base}/dist/js/plugins.js"></script>
 

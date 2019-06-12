@@ -56,4 +56,5 @@ public interface ChannelRepository extends JpaRepository<Channel, Integer>, JpaS
 	 */
 	Channel findByChannelCode(String channelCode);
 
+	void deleteByChannelCode(String channelCode);
 }

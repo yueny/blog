@@ -25,6 +25,10 @@ public class QTree extends AbstractBo implements IBo {
      * id
 	 */
 	private int id;
+	/**
+	 * 编号
+	 */
+	private String code;
 
 	/**
 	 * tree组件一般用于菜单，url为菜单对应的地址

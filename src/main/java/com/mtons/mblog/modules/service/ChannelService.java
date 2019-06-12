@@ -55,7 +55,7 @@ public interface ChannelService {
 
 	void update(ChannelVO channel);
 	void updateWeight(int id, int weighted);
-	void delete(int id);
+	void delete(String channelCode);
 	long count();
 
 	ChannelVO getByFlag(String flag);

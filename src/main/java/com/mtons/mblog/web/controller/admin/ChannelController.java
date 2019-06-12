@@ -25,9 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.ServletRequestUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -47,55 +45,133 @@ public class ChannelController extends BaseController {
 	private ContextStartup contextStartup;
 
 	/** ======================== 栏目管理 =========================== **/
-	@RequestMapping("/list")
+	/**
+	 *
+	 * @param queryAll 是否查询全部。 1是查询全部。0是否
+	 */
+	@RequestMapping("/list.html")
 //	@RequiresPermissions("channel:list")
-	public String list(ModelMap model) {
-		model.put("list", channelService.findRootAll(Consts.IGNORE));
-		return "/admin/channel/list";
-	}
-	
-	@RequestMapping("/view")
-	public String view(Integer id, ModelMap model) {
-		model.put("nodeTypeList", ChannelNodeType.values());
-
-		if (id != null) {
-			ChannelVO view = channelService.getById(id);
-			model.put("view", view);
+	public String list(@RequestParam(name = "queryAll", defaultValue = "0") Integer queryAll, ModelMap model) {
+		if(queryAll == 1){
+			model.put("list", channelService.findAll(Consts.IGNORE));
+		}else{
+			model.put("list", channelService.findRootAll(Consts.IGNORE));
 		}
-		return "/admin/channel/view";
+
+		model.put("queryAll", queryAll);
+
+		// 页面
+		return "/admin/channel/list";
 	}
 
 	/**
-	 * 新增和修改栏目
+	 * 直接添加栏目\在树上添加子栏目
+	 * @param channelCode   渠道编号
 	 */
-	@RequestMapping("/update")
+	@RequestMapping("/view/{channelCode}.html")
+	public String view(@PathVariable final String channelCode, ModelMap model) {
+		viewed(channelCode);
+
+		return "/admin/channel/view";
+	}
+	/**
+	 * 在树上添加子栏目
+	 * @param channelCode 渠道编号
+	 */
+	@Deprecated
+	@RequestMapping(value = "/tree/add/{channelCode}.html", method = { RequestMethod.POST })
+	public String addByTree(@PathVariable final String channelCode, ModelMap model) {
+		viewed(channelCode);
+
+		return "/admin/channel/channel_node_add";
+	}
+
+	/**
+	 * 添加子栏目
+	 * @param channelCode   渠道编号
+	 */
+	private void viewed(String channelCode) {
+		setModelAttribute("nodeTypeList", ChannelNodeType.values());
+
+		if (channelCode != null) {
+			// 取得该栏目基本信息
+			ChannelVO channelVO = channelService.getByChannelCode(channelCode);
+			if(channelVO == null){
+				// 不存在该渠道，无效请求
+				return;
+			}
+
+			setModelAttribute("view", channelVO);
+//			model.put("parentChannelCode", channelVO.getParentChannelCode());
+			setModelAttribute("parentChannelCode", channelVO.getParentChannelCode());
+		}else{
+			setModelAttribute("parentChannelCode", "-1");
+		}
+	}
+
+	/**
+	 * 列表新增和修改栏目、树上保存子栏目
+	 * @param view view
+	 * @param type 添加类型，如 channel「栏目」
+	 */
+	@RequestMapping("/update.json")
 //	@RequiresPermissions("channel:update")
-	public String update(ChannelVO view) {
+	public String update(ChannelVO view, @RequestParam(name = "type", defaultValue = "") String type) {
 		if (view != null) {
 			channelService.update(view);
 
 			contextStartup.resetChannels();
 		}
-		return "redirect:/admin/channel/list";
+		// 请求
+		return "redirect:/admin/channel/list.html";
 	}
+//	/**
+//	 * 在树上保存子栏目
+//	 * @param view view
+//	 * @param type 添加类型，如 channel「栏目」
+//	 */
+//	@RequestMapping("/readerUpdateSave")
+//	public String saveByTree(ChannelVO view, @RequestParam(name = "type") String type) {
+//		if (view != null) {
+//			channelService.update(view);
+//
+//			contextStartup.resetChannels();
+//		}
+//		return "redirect:/admin/channel/list";
+//	}
 
-	@RequestMapping("/weight")
+	/**
+	 * 权重修改
+	 */
+	@RequestMapping("/weight.json")
 	@ResponseBody
-	public Result weight(@RequestParam Integer id, HttpServletRequest request) {
+	public Result weight(@RequestParam String channelCode, HttpServletRequest request) {
 		int weight = ServletRequestUtils.getIntParameter(request, "weight", Consts.FEATURED_ACTIVE);
-		channelService.updateWeight(id, weight);
+
+		ChannelVO vo = channelService.getByChannelCode(channelCode);
+		if(vo == null){
+			return Result.failure("不存在该数据！");
+		}
+
+		channelService.updateWeight(vo.getId(), weight);
 		contextStartup.resetChannels();
 		return Result.success();
 	}
 
-	@RequestMapping("/delete")
+	/**
+	 * 删除
+	 * @param ids 渠道编码，如果是多个，则逗号,分隔
+	 * @return
+	 */
+	@RequestMapping("/delete.json")
 	@ResponseBody
 //	@RequiresPermissions("channel:delete")
-	public Result delete(Integer id) {
-		Result data = Result.failure("操作失败");
-		if (id != null) {
+	public Result delete(String ids) {
+		Result<String> data = Result.failure("操作失败");
+		if (ids != null) {
 			try {
-				channelService.delete(id);
+				String channelCode = ids;
+				channelService.delete(ids);
 				data = Result.success();
 
 				contextStartup.resetChannels();
@@ -112,7 +188,7 @@ public class ChannelController extends BaseController {
 	 * 根据栏目编号和栏目id查询该栏目下的子栏目树
 	 * @return
 	 */
-	@RequestMapping("/tree/nodetor/query")
+	@RequestMapping("/tree/query.json")
 	@ResponseBody
 	public QJson tree(Integer id, String code) {
 		ChannelVO vo = channelService.getByChannelCode(code);
@@ -124,6 +200,7 @@ public class ChannelController extends BaseController {
 		List<QTree> children = cover(list);
 
 		QTree tree = QTree.builder().id(vo.getId())
+				.code(vo.getChannelCode())
 				.url(vo.getFlag()).text(vo.getName())
 				.children(children)
 				.build();
@@ -137,7 +214,9 @@ public class ChannelController extends BaseController {
 		List<QTree> treeList = new ArrayList<>(list.size());
 
 		list.forEach(channelTreeVO -> {
-			QTree tree = QTree.builder().id(channelTreeVO.getId()).text(channelTreeVO.getName())
+			QTree tree = QTree.builder().id(channelTreeVO.getId())
+					.code(channelTreeVO.getChannelCode())
+					.text(channelTreeVO.getName())
 					.url(channelTreeVO.getFlag())
 					.build();
 
@@ -150,5 +229,6 @@ public class ChannelController extends BaseController {
 
 		return treeList;
 	}
+
 	
 }

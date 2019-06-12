@@ -17,7 +17,19 @@
                     </ul>
                     <div class="clearfix"></div>
                 </div>
-                <@contents channelId=channel.id pageNo=pageNo order=order>
+                <@contents channelId=channel.id channelCode=channel.channelCode pageNo=pageNo order=order>
+                    <#-- 该页中存在的子标签
+                    <#if children?? && (children?size>0)>
+                            <div >
+                                <#list children as cc>
+                                    <label class="title">
+                                        <a href="${base}/channel/${cc.flag}"><i class="fa fa-quote-left"></i>${cc.name}</a>
+                                    </label>
+                                    <#if cc_has_next>  |  </#if>
+                                </#list>
+                            </div>
+                    </#if>
+                     -->
 
                     <div class="panel-body remove-padding-horizontal">
 

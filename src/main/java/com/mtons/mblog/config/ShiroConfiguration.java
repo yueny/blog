@@ -83,9 +83,9 @@ public class ShiroConfiguration {
         hashMap.put("/post/delete/*", "authc");
         hashMap.put("/post/upload", "authc");
 
-        hashMap.put("/admin/channel/list", "authc,perms[channel:list]");
-        hashMap.put("/admin/channel/update", "authc,perms[channel:update]");
-        hashMap.put("/admin/channel/delete", "authc,perms[channel:delete]");
+        hashMap.put("/admin/channel/list.html", "authc,perms[channel:list]");
+        hashMap.put("/admin/channel/update.json", "authc,perms[channel:update]");
+        hashMap.put("/admin/channel/delete.json", "authc,perms[channel:delete]");
 
         hashMap.put("/admin/post/list", "authc,perms[post:list]");
         hashMap.put("/admin/post/update", "authc,perms[post:update]");

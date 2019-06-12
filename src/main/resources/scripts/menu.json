@@ -2,7 +2,7 @@
   {
     "icon": "fa fa-tags icon-xlarge",
     "name": "栏目管理",
-    "url": "admin/channel/list",
+    "url": "admin/channel/list.html",
     "permission": "channel:list"
   },
   {

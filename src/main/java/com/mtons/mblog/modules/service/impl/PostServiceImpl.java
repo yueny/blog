@@ -9,6 +9,7 @@
 */
 package com.mtons.mblog.modules.service.impl;
 
+import com.google.common.collect.Lists;
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.base.utils.BeanMapUtils;
 import com.mtons.mblog.base.utils.MarkdownUtils;
@@ -25,6 +26,7 @@ import com.mtons.mblog.modules.repository.PostRepository;
 import com.mtons.mblog.modules.service.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.query.criteria.internal.predicate.InPredicate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -61,14 +63,22 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	@PostStatusFilter
-	public Page<PostVO> paging(Pageable pageable, int channelId, Set<Integer> excludeChannelIds) {
+	public Page<PostVO> paging(Pageable pageable, Set<Integer> channelIds, Set<Integer> excludeChannelIds) {
 		Page<Post> page = postRepository.findAll((root, query, builder) -> {
 			Predicate predicate = builder.conjunction();
 
-			if (channelId > Consts.ZERO) {
-				predicate.getExpressions().add(
-						builder.equal(root.get("channelId").as(Integer.class), channelId));
-			}
+			if(CollectionUtils.isNotEmpty(channelIds)){
+			    if(channelIds.size() == 1){ // 单条
+                    //if (channelId > Consts.ZERO) {
+                    List list = Lists.newArrayList();
+                    list.addAll(channelIds);
+                    predicate.getExpressions().add(
+                            builder.equal(root.get("channelId").as(Integer.class), list.get(0)));
+                }else{
+                    predicate.getExpressions().add(
+                            builder.in(root.get("channelId")).value(channelIds));
+                }
+            }
 
 			if (null != excludeChannelIds && !excludeChannelIds.isEmpty()) {
 				predicate.getExpressions().add(

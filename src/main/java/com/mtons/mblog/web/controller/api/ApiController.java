@@ -9,6 +9,7 @@
 */
 package com.mtons.mblog.web.controller.api;
 
+import com.google.common.collect.Sets;
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.utils.BeanMapUtils;
@@ -45,6 +46,6 @@ public class ApiController extends BaseController {
     public Page<PostVO> posts(HttpServletRequest request) {
         String order = ServletRequestUtils.getStringParameter(request, "order", Consts.order.NEWEST);
         int channelId = ServletRequestUtils.getIntParameter(request, "channelId", 0);
-        return postService.paging(wrapPageable(Sort.by(Sort.Direction.DESC, BeanMapUtils.postOrder(order))), channelId, null);
+        return postService.paging(wrapPageable(Sort.by(Sort.Direction.DESC, BeanMapUtils.postOrder(order))), Sets.newHashSet(channelId), null);
     }
 }

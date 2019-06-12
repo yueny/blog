@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Channel 主页
@@ -48,8 +49,12 @@ public class ChannelController extends BaseController {
 		int pageNo = ServletRequestUtils.getIntParameter(request, "pageNo", 1);
 
 		ChannelVO channel = channelService.getByFlag(flag);
+
+		List<ChannelVO> children = channelService.findAll(0, channel.getChannelCode());
+
 		// callback params
 		model.put("channel", channel);
+		model.put("children", children);
 		model.put("order", order);
 		model.put("pageNo", pageNo);
 		return view(Views.POST_INDEX);

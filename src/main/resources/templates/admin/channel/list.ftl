@@ -15,10 +15,24 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">栏目列表</h3>
                     <div class="box-tools">
-                        <a id="tooltip2" class="btn btn-primary btn-sm" href="${base}/admin/channel/view">添加栏目</a>
+                        <a id="tooltip2" class="btn btn-primary btn-sm" href="${base}/admin/channel/view.html">添加栏目</a>
                     </div>
                 </div>
                 <div class="box-body">
+                    <form class="form-inline search-row" method="get" action="${base}/admin/channel/list.html">
+                        <div class="form-group">
+                            <label class="col-lg-5 control-label">查询全部</label>
+                            <div class="col-lg-3">
+                                <select name="queryAll" class="form-control" data-select="${queryAll}">
+                                    <option value="0">否</option>
+                                    <option value="1">是</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-default">查询</button>
+                    </form>
+
                     <div class="table-responsive">
                         <table id="dataGrid" class="table table-striped table-bordered">
                             <thead>
@@ -71,10 +85,10 @@
                                         </#if>
                                     </td>
                                     <td>
-                                        <a href="javascript:void(0);" class="btn btn-xs btn-default" data-id="${row.id}" data-action="weight">置顶</a>
-                                        <a href="view?id=${row.id}" class="btn btn-xs btn-success">修改</a>
-                                        <a href="javascript:void(0);" class="deletetor btn btn-xs btn-danger" data-id="${row.id}"
-                                           data-action="delete">删除</a>
+                                        <a href="javascript:void(0);" class="btn btn-xs btn-default" data-id="${row.channelCode}" data-action="weight.json">置顶</a>
+                                        <a href="view/${row.channelCode}.html" class="btn btn-xs btn-success">修改</a>
+                                        <a href="javascript:void(0);" class="deletetor btn btn-xs btn-danger" data-id="${row.channelCode}"
+                                           data-action="delete.json">删除</a>
                                     </td>
                                 </tr>
                                 </#list>
@@ -138,17 +152,16 @@
         $('.tree-panel-viewer').bind('click', function(){
             var that = $(this);
 
-            var url = '${base}/admin/channel/tree/nodetor/query?id='+ that.data("id") + '&code=' + that.data("code");
-            // qiao.bs.alert(url);
-
             <#-- 设置标题 -->
             $('#myModalLabelTitle').text = '节点「' + that.data("code") + '」 -- 子节点列表';
 
-            $('#tree-panel-nodetor').bstree({
-                height 	: '200px',
-                url : url,
-                edit:true
-            });
+            $('#tree-panel-nodetor').bstree(
+                {
+                    url : '${base}/admin/channel',
+                    urlData : 'id=' + that.data("id") + '&code=' + that.data("code"),
+                    edit:true
+                }
+            );
         });
     })
 
@@ -168,12 +181,12 @@
         }
     }
 
-    function doUpdateWeight(id, weight) {
-        J.getJSON('${base}/admin/channel/weight', J.param({'id': id, 'weight': weight}, true), ajaxReload);
+    function doUpdateWeight(channelCode, weight) {
+        J.getJSON('${base}/admin/channel/weight.json', J.param({'channelCode': channelCode, 'weight': weight}, true), ajaxReload);
     }
 
     $(function () {
-        $('#dataGrid a[data-action="weight"]').bind('click', function(){
+        $('#dataGrid a[data-action="weight.json"]').bind('click', function(){
             var that = $(this);
             layer.confirm('确定将该项排序在第一位吗?', {
                 btn: ['确定','取消'], //按钮
@@ -186,14 +199,14 @@
         });
 
         // 删除
-        $('#dataGrid a[data-action="delete"]').bind('click', function () {
+        $('#dataGrid a[data-action="delete.json"]').bind('click', function () {
             var that = $(this);
 
             layer.confirm('确定删除此项吗?', {
                 btn: ['确定', '取消'], //按钮
                 shade: false //不显示遮罩
             }, function () {
-                J.getJSON('${base}/admin/channel/delete', {id: that.attr('data-id')}, ajaxReload);
+                J.getJSON('${base}/admin/channel/delete.json', {channelCode: that.attr('data-id')}, ajaxReload);
             }, function () {
             });
             return false;

@@ -33,10 +33,10 @@ public interface PostService {
 	 * 分页查询所有文章
 	 * 
 	 * @param pageable
-	 * @param channelId 分组Id
+	 * @param channelIds 分组Id
 	 */
 	@Cacheable
-	Page<PostVO> paging(Pageable pageable, int channelId, Set<Integer> excludeChannelIds);
+	Page<PostVO> paging(Pageable pageable, Set<Integer> channelIds, Set<Integer> excludeChannelIds);
 
 	Page<PostVO> paging4Admin(Pageable pageable, int channelId, String title);
 	

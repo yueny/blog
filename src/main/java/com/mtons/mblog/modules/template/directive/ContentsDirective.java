@@ -3,6 +3,7 @@
  */
 package com.mtons.mblog.modules.template.directive;
 
+import com.google.common.collect.Sets;
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.base.utils.BeanMapUtils;
 import com.mtons.mblog.modules.data.ChannelVO;
@@ -26,7 +27,7 @@ import java.util.Set;
  * <p>
  * 示例：
  * 请求：http://mtons.com/index?order=newest&pageNo=2
- * 使用：@contents channelId=channelId pageNo=pageNo order=order
+ * 使用：@contents channelId=channelId channelCode=channel.channelCode pageNo=pageNo order=order
  * </p>
  *
  * channelId
@@ -52,6 +53,15 @@ public class ContentsDirective extends TemplateDirective {
     public void execute(DirectiveHandler handler) throws Exception {
         Integer channelId = handler.getInteger("channelId", 0);
         String order = handler.getString("order", Consts.order.NEWEST);
+        String channelCode = handler.getString("channelCode", "-1");
+
+        List<ChannelVO> children = channelService.findAll(0, channelCode);
+
+        Set<Integer> channelIds = Sets.newHashSet(channelId);
+        children.stream()
+                .forEach(item -> {
+                    channelIds.add(item.getId());
+                });
 
         Set<Integer> excludeChannelIds = new HashSet<>();
 
@@ -63,7 +73,7 @@ public class ContentsDirective extends TemplateDirective {
         }
 
         Pageable pageable = wrapPageable(handler, Sort.by(Sort.Direction.DESC, BeanMapUtils.postOrder(order)));
-        Page<PostVO> result = postService.paging(pageable, channelId, excludeChannelIds);
+        Page<PostVO> result = postService.paging(pageable, channelIds, excludeChannelIds);
         handler.put(RESULTS, result).render();
     }
 }

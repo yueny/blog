@@ -4,26 +4,26 @@
     <h1>修改栏目</h1>
     <ol class="breadcrumb">
         <li><a href="${base}/admin">首页</a></li>
-        <li><a href="${base}/admin/channel/list">栏目管理</a></li>
+        <li><a href="${base}/admin/channel/list.html">栏目管理</a></li>
         <li class="active">修改栏目</li>
     </ol>
 </section>
 <section class="content container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <form id="qForm" class="form-horizontal form-label-left" method="post" action="update">
-                <#if view??>
-                    <input type="hidden" name="id" value="${view.id}" />
-                </#if>
-                <input type="hidden" name="weight" value="${view.weight!0}">
-                <input type="hidden" id="thumbnail" name="thumbnail" value="${view.thumbnail}">
-                <input type="hidden" id="thumbnailCode" name="thumbnailCode" value="${view.thumbnailCode}">
-
+            <form id="qForm" class="form-horizontal form-label-left" method="post" action="update.json">
                 <div class="box">
                     <div class="box-header with-border">
                         <h3 class="box-title">修改栏目</h3>
                     </div>
                     <div class="box-body">
+                        <#if view??>
+                            <input type="hidden" name="id" value="${view.id}" />
+                        </#if>
+                        <input type="hidden" name="weight" value="${view.weight!0}">
+                        <input type="hidden" id="thumbnail" name="thumbnail" value="${view.thumbnail}">
+                        <input type="hidden" id="thumbnailCode" name="thumbnailCode" value="${view.thumbnailCode}">
+
                         <div class="form-group">
                             <label class="col-lg-2 control-label">名称</label>
                             <div class="col-lg-3">
@@ -45,7 +45,7 @@
                                 <input type="hidden" name="parentChannelCode" class="form-control" value="${view.parentChannelCode}">
                                 <label class="control-label">
                                     <a <#if view.parentChannelVo?? && view.parentChannelVo.id??>
-                                            href="${base}/admin/channel/view?id=${view.parentChannelVo.id}"
+                                            href="${base}/admin/channel/view/${view.parentChannelVo.channelCode}.html"
                                        </#if>
                                     >${view.parentChannelVo.name}</a>
                                 </label>
@@ -133,7 +133,7 @@
                     </div>
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">提交</button>
-                        <a href="${base}/admin/channel/list">返回</a>
+                        <a href="${base}/admin/channel/list.html">返回</a>
                     </div>
                 </div>
             </form>

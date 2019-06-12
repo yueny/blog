@@ -473,12 +473,19 @@ $.fn.bspop = function(options){
 qiao.bs.tree = {};
 qiao.bs.tree.options = {
 	url 	: '',
-	height 	: '600px',
+    /* 数据加载的url的入参 */
+    urlData: '',
+	height 	: 'auto',
 	open	: true,
 	edit	: false,
 	checkbox: false,
 	showurl	: true
 };
+
+/**
+ * @param options 基础配置
+ * @param urlData 入参数据
+ */
 $.fn.bstree = function(options){
 	var opt = $.extend({}, qiao.bs.tree.options);
 	if(options){
@@ -487,19 +494,24 @@ $.fn.bstree = function(options){
 		}else{
 			$.extend(opt, options);
 		}
+
+        if(opt.urlData != ''){
+            opt.urlData = '?' + opt.urlData;
+        }
 	}
 	
 	var res = '加载失败！';
 	var $this = $(this);
-	//qiao.ajax(opt.url + '/tree', function(json){
-    qiao.ajax(opt.url, function(json){
+    qiao.ajax(opt.url + qiao.config.index + opt.urlData, function(json){
     	if(json && json.object){
 			var tree = json.object;
 			
 			var start = '<div class="panel panel-info"><div class="panel-body" ';
-			if(opt.height != 'auto') 
-				start += 'style="height:600px;overflow-y:auto;"';
-			start += '><ul class="nav nav-list sidenav" id="treeul" data="url:' + opt.url +';">';
+			if(opt.height != 'auto') {
+				/* height 不允许自定义。 如果不是auto, 则设置为默认600px */
+				start += 'style="height:auto;overflow-y:auto;"';
+            }
+			start += '><ul class="nav nav-list sidenav" id="treeul" data="url:' + opt.url + ';urlData:' + opt.urlData + ';">';
 			var children = qiao.bs.tree.sub(tree, opt);
 			var end = '</ul></div></div>';
 			res = start + children + end;
@@ -509,12 +521,13 @@ $.fn.bstree = function(options){
 		qiao.bs.tree.init();
 	});
 };
+// tree is QTree
 qiao.bs.tree.sub = function(tree, opt){
 	var res = '';
 	if(tree){
 		var res = 
 			'<li>' + 
-				'<a href="javascript:void(0);" data="id:' + tree.id + ';url:' + tree.url + ';">' + 
+				'<a href="javascript:void(0);" data="id:' + tree.id + ';code:' + tree.code + ';url:' + tree.url + ';">' +
 					'<span class="glyphicon glyphicon-minus"></span>';
 		if(opt.checkbox){
 			res += '<input type="checkbox" class="treecheckbox" ';
@@ -580,22 +593,26 @@ qiao.bs.tree.init = function(){
 	});
 	
 	qiao.bs.tree.url = $('#treeul').qdata().url;
+	// ?a=b&c=d
+    qiao.bs.tree.urlData = $('#treeul').qdata().urlData;
 	if(qiao.bs.tree.url){
 		qiao.on('.bstreeadd', 'click', qiao.bs.tree.addp);
 		qiao.on('.bstreedel', 'click', qiao.bs.tree.del);
 		qiao.on('.bstreeedit', 'click', qiao.bs.tree.editp);
 	}
 };
+// 添加子菜单页面
 qiao.bs.tree.addp = function(){
 	qiao.bs.dialog({
-		url 	: qiao.bs.tree.url + '/add/' + $(this).parent().qdata().id,
+		url 	: qiao.bs.tree.url + '/tree/add/' + $(this).parent().qdata().code + '.html',
 		title 	: '添加子菜单',
 		okbtn 	: '保存'
 	}, qiao.bs.tree.add);
 };
+// 添加子菜单的保存动作
 qiao.bs.tree.add = function(){
 	var res;
-	qiao.ajax({url:qiao.bs.tree.url + '/save',data:$('#bsmodal').find('form').qser(),async: false}, function(obj){res = obj;});
+	qiao.ajax({url:qiao.bs.tree.url + '/update.json',data:$('#bsmodal').find('form').qser(),async: false}, function(obj){res = obj;});
 	
 	qiao.bs.msg(res);
 	if(res && res.type == 'success'){
@@ -606,25 +623,31 @@ qiao.bs.tree.add = function(){
 		return false;
 	}
 };
+// 删除
 qiao.bs.tree.del = function(){
-	qiao.ajax({
-		url:qiao.bs.tree.url + '/del/' + $(this).parent().qdata().id,
-	}, function(res){
-		qiao.bs.msg(res);
-		
-		if(res && res.type == 'success'){
-			qiao.crud.url = qiao.bs.tree.url;
-			qiao.crud.reset();
-		}
-	});
+	var url = qiao.bs.tree.url + '/delete.json?ids=' + $(this).parent().qdata().code;
+	alert(url);
+
+    qiao.ajax({
+        url:url,
+    }, function(res){
+        qiao.bs.msg(res.message);
+
+        if(res && res.code == 0){
+            qiao.crud.url = qiao.bs.tree.url + qiao.config.index + qiao.bs.tree.urlData;
+            qiao.crud.reset();
+        }
+    });
 };
+// 修改子菜单页面
 qiao.bs.tree.editp = function(){
 	qiao.bs.dialog({
-		url 	: qiao.bs.tree.url + '/savep?id=' + $(this).parent().qdata().id,
+		url 	: qiao.bs.tree.url + '/tree/savep?id=' + $(this).parent().qdata().id,
 		title 	: '修改菜单',
 		okbtn 	: '保存'
 	}, qiao.bs.tree.edit);
 };
+// 修改动作
 qiao.bs.tree.edit = function(){
 	qiao.crud.url = qiao.bs.tree.url;
 	return qiao.crud.save();
@@ -807,7 +830,7 @@ qiao.crud.bindcrud = function(){
 };
 qiao.crud.listopt = {pageNumber:1,pageSize:10};
 qiao.crud.list = function(data){
-	var opt = {url : qiao.crud.url + '/index'};
+	var opt = {url : qiao.crud.url};
 	if(data) $.extend(qiao.crud.listopt, data);
 	opt.data = qiao.crud.listopt;
 	opt.dataType = 'html';
@@ -862,7 +885,7 @@ qiao.crud.del = function(id){
 	}else{
 		qiao.bs.confirm('确认要删除所选记录吗（若有子记录也会同时删除）？',function(){
 			qiao.ajax({
-				url:qiao.crud.url+'/del',
+				url:qiao.crud.url+'/delete.json',
 				data:{ids:ids.join(',')}
 			}, function(res){
 				qiao.bs.msg(res);

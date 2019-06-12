@@ -20,7 +20,7 @@
                 <div class="icon">
                     <i class="fa fa-bars"></i>
                 </div>
-                <a href="${base}/admin/channel/list" class="small-box-footer">更多 <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="${base}/admin/channel/list.html" class="small-box-footer">更多 <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- ./col -->
