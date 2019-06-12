@@ -7,6 +7,8 @@ package com.mtons.mblog.base.cache;
 public interface ICacheService {
     /**
      * 服务限流的key
+     *
+     * TODO 命名需更改，加业务名
      */
     public static String FREQUENCE_BLOCK_UNIT_KEY = "frequence_block_unit";
 
