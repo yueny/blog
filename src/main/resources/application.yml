@@ -61,7 +61,7 @@ shiro:
 
 #日志配置
 logging:
-    #config: classpath:logback-mblog-perf.xml
+    #config: classpath:logback-spring.xml
     level:
         org.springframework: WARN
         org.hibernate: WARN
