@@ -14,7 +14,7 @@
                         <#else>
                          style="background-image:url(${base}/dist/images/spinner-overlay.png)"
                         </#if> >
-                        <a class="top" href="${base}/post/${row.id}">
+                        <a class="top" href="${base}/article/${row.articleBlogId}.html">
                             <div class="overlay"></div>
                             <div class="line"></div>
                             <div class="title">

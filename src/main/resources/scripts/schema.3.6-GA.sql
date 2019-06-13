@@ -33,4 +33,7 @@ update `mto_channel` set parent_channel_code='-1' where parent_channel_code is n
 update `mto_channel` set channel_code=id where channel_code is null;
 
 --  ok
-
+-- 增加博文标示
+alter table `mto_post` add column article_blog_id varchar(64) NOT NULL DEFAULT '' COMMENT '文章扩展ID' after `id`;
+update `mto_post` set article_blog_id=id where article_blog_id is null;
+ALTER TABLE `mto_post` ADD UNIQUE (article_blog_id);

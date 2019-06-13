@@ -18,7 +18,6 @@ import com.mtons.mblog.web.formatter.StringEscapeEditor;
 import com.yueny.rapid.lang.agent.UserAgentResource;
 import com.yueny.rapid.lang.agent.handler.UserAgentUtils;
 import com.yueny.superclub.api.biz.Action;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -26,6 +25,8 @@ import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.PageRequest;
@@ -48,7 +49,6 @@ import java.util.Date;
  * @author langhsu
  * @since 3.0
  */
-@Slf4j
 public class BaseController implements Action {
     @Autowired
     protected StorageFactory storageFactory;
@@ -63,6 +63,10 @@ public class BaseController implements Action {
      * 存放当前线程的Model对象
      */
     private final static ThreadLocal<Model> modelThreadLocal = new ThreadLocal<>();
+    /**
+     * 日志记录器
+     */
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     @InitBinder
     public void initBinder(ServletRequestDataBinder binder) {
@@ -230,13 +234,13 @@ public class BaseController implements Action {
             SecurityUtils.getSubject().login(token);
             ret = Result.success(getProfile());
         } catch (UnknownAccountException e) {
-            log.error(e.getMessage());
+            logger.error(e.getMessage());
             ret = Result.failure("用户不存在");
         } catch (LockedAccountException e) {
-            log.error(e.getMessage());
+            logger.error(e.getMessage());
             ret = Result.failure("用户被禁用");
         } catch (AuthenticationException e) {
-            log.error(e.getMessage());
+            logger.error(e.getMessage());
             ret = Result.failure("用户认证失败");
         }
         return ret;

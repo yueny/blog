@@ -18,8 +18,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.Collection;
-import java.util.List;
 
 /**
  * @author langhsu
@@ -34,12 +32,17 @@ public interface PostRepository extends JpaRepository<Post, Long>, JpaSpecificat
      */
     Page<Post> findAllByAuthorId(Pageable pageable, long authorId);
 
+    /**
+     * 根据 articleBlogId 查询博文信息
+     */
+    Post findByArticleBlogId(String articleBlogId);
+
     @Query("select coalesce(max(weight), 0) from Post")
     int maxWeight();
 
     @Modifying
-    @Query("update Post set views = views + :increment where id = :id")
-    void updateViews(@Param("id") long id, @Param("increment") int increment);
+    @Query("update Post set views = views + :increment where article_blog_id = :articleBlogId")
+    void updateViews(@Param("articleBlogId") String articleBlogId, @Param("increment") int increment);
 
     @Modifying
     @Query("update Post set favors = favors + :increment where id = :id")

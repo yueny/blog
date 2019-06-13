@@ -11,6 +11,7 @@ package com.mtons.mblog.modules.service.impl;
 
 import com.google.common.collect.Lists;
 import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.base.lang.MtonsException;
 import com.mtons.mblog.base.utils.BeanMapUtils;
 import com.mtons.mblog.base.utils.MarkdownUtils;
 import com.mtons.mblog.base.utils.PreviewTextUtils;
@@ -23,11 +24,11 @@ import com.mtons.mblog.modules.entity.PostAttribute;
 import com.mtons.mblog.modules.event.PostUpdateEvent;
 import com.mtons.mblog.modules.repository.PostAttributeRepository;
 import com.mtons.mblog.modules.repository.PostRepository;
+import com.mtons.mblog.modules.seq.SeqType;
+import com.mtons.mblog.modules.seq.container.ISeqContainer;
 import com.mtons.mblog.modules.service.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.query.criteria.internal.predicate.InPredicate;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.*;
@@ -45,7 +46,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @Transactional
-public class PostServiceImpl implements PostService {
+public class PostServiceImpl extends BaseService implements PostService {
 	@Autowired
 	private PostRepository postRepository;
 	@Autowired
@@ -60,6 +61,8 @@ public class PostServiceImpl implements PostService {
 	private TagService tagService;
 	@Autowired
 	private ApplicationContext applicationContext;
+	@Autowired
+	private ISeqContainer seqContainer;
 
 	@Override
 	@PostStatusFilter
@@ -156,9 +159,17 @@ public class PostServiceImpl implements PostService {
 	@Override
 	@Transactional
 	public long post(PostVO post) {
-		Post po = new Post();
+		Post po = map(post, Post.class);
 
-		BeanUtils.copyProperties(post, po);
+		if(StringUtils.isEmpty(po.getArticleBlogId())){
+			String articleBlogId = seqContainer.getStrategy(SeqType.ARTICLE_BLOG_ID).get(po.getTitle());
+
+			// 判断该编号是否存在，存在则随机生成
+			if(postRepository.findByArticleBlogId(articleBlogId) != null){
+				articleBlogId = seqContainer.getStrategy(SeqType.ARTICLE_BLOG_ID).get("");
+			}
+			po.setArticleBlogId(articleBlogId);
+		}
 
 		po.setCreated(new Date());
 		po.setStatus(post.getStatus());
@@ -170,14 +181,18 @@ public class PostServiceImpl implements PostService {
 			po.setSummary(post.getSummary());
 		}
 
-		postRepository.save(po);
-		tagService.batchUpdate(po.getTags(), po.getId());
+		try{
+			postRepository.save(po);
+			tagService.batchUpdate(po.getTags(), po.getId());
 
-		PostAttribute attr = new PostAttribute();
-		attr.setContent(post.getContent());
-		attr.setEditor(post.getEditor());
-		attr.setId(po.getId());
-		postAttributeRepository.save(attr);
+			PostAttribute attr = new PostAttribute();
+			attr.setContent(post.getContent());
+			attr.setEditor(post.getEditor());
+			attr.setId(po.getId());
+			postAttributeRepository.save(attr);
+		} catch(Exception ex){
+			throw new MtonsException("数据操作异常：" + ex.getMessage());
+		}
 
 		onPushEvent(po, PostUpdateEvent.ACTION_PUBLISH);
 		return po.getId();
@@ -198,6 +213,25 @@ public class PostServiceImpl implements PostService {
 			return d;
 		}
 		return null;
+	}
+
+	@Override
+	public PostVO get(String articleBlogId) {
+		Post po = postRepository.findByArticleBlogId(articleBlogId);
+		if(po == null){
+			return  null;
+		}
+
+		PostVO d = map(po, PostVO.class);
+
+		d.setAuthor(userService.get(d.getAuthorId()));
+		d.setChannel(channelService.getById(d.getChannelId()));
+
+		PostAttribute attr = postAttributeRepository.findById(d.getId()).get();
+		d.setContent(attr.getContent());
+		d.setEditor(attr.getEditor());
+
+		return d;
 	}
 
 	/**
@@ -286,9 +320,9 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	@Transactional
-	public void identityViews(long id) {
+	public void identityViews(String articleBlogId) {
 		// 次数不清理缓存, 等待文章缓存自动过期
-		postRepository.updateViews(id, Consts.IDENTITY_STEP);
+		postRepository.updateViews(articleBlogId, Consts.IDENTITY_STEP);
 	}
 
 	@Override

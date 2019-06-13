@@ -64,6 +64,7 @@ public class ChannelController extends BaseController {
 	 * 查看文章详情
 	 */
 	@RequestMapping("/post/{id:\\d*}")
+	@Deprecated
 	public String view(@PathVariable Long id, ModelMap model) {
 		PostVO view = postService.get(id);
 
@@ -72,7 +73,7 @@ public class ChannelController extends BaseController {
 		if ("markdown".endsWith(view.getEditor())) {
 			view.setContent(MarkdownUtils.renderMarkdown(view.getContent()));
 		}
-		postService.identityViews(id);
+		postService.identityViews(view.getArticleBlogId());
 		model.put("view", view);
 		return view(Views.POST_VIEW);
 	}

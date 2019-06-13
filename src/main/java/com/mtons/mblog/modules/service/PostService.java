@@ -87,6 +87,14 @@ public interface PostService {
 	PostVO get(long id);
 
 	/**
+	 * 文章详情
+	 * @param articleBlogId
+	 * @return
+	 */
+	@Cacheable(key = "'post_' + #articleBlogId")
+	PostVO get(String articleBlogId);
+
+	/**
 	 * 更新文章方法
 	 * @param p
 	 */
@@ -127,10 +135,10 @@ public interface PostService {
 	
 	/**
 	 * 自增浏览数
-	 * @param id
+	 * @param articleBlogId
 	 */
-	@CacheEvict(key = "'view_' + #id")
-	void identityViews(long id);
+	@CacheEvict(key = "'view_' + #articleBlogId")
+	void identityViews(String articleBlogId);
 	
 	/**
 	 * 自增评论数

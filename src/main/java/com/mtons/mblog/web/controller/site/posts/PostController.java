@@ -11,6 +11,7 @@ import com.mtons.mblog.modules.service.ChannelService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.web.controller.site.Views;
+import com.yueny.rapid.lang.util.words.DirtyWordsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,7 +40,9 @@ public class PostController extends BaseController {
 	public String view(Long id, ModelMap model) {
 		model.put("channels", channelService.findRootAll(Consts.STATUS_NORMAL));
 		model.put("editing", true);
+
 		String editor = siteOptions.getValue("editor");
+
 		if (null != id && id > 0) {
 			AccountProfile profile = getProfile();
 			PostVO view = postService.get(id);
@@ -69,11 +72,15 @@ public class PostController extends BaseController {
 		Assert.state(StringUtils.isNotBlank(post.getTitle()), "标题不能为空");
 		Assert.state(StringUtils.isNotBlank(post.getContent()), "内容不能为空");
 
+//		if(DirtyWordsUtil.isDirtyWords(post.getTitle()) || DirtyWordsUtil.isDirtyWords(post.getContent())){
+//			Assert.isTrue(true, "请注意文明语言哦~");
+//		}
+
 		AccountProfile profile = getProfile();
 		post.setAuthorId(profile.getId());
 
 		// 修改时, 验证归属
-		if (post.getId() > 0) {
+		if (post.getId() > 0 && StringUtils.isNotEmpty(post.getArticleBlogId())) {
 			PostVO exist = postService.get(post.getId());
 			Assert.notNull(exist, "文章不存在");
 			Assert.isTrue(exist.getAuthorId() == profile.getId(), "该文章不属于你");

@@ -9,6 +9,7 @@
             <div id="message"></div>
             <#if view??>
                 <input type="hidden" name="id" value="${view.id}"/>
+                <input type="hidden" name="articleBlogId" value="${view.articleBlogId}"/>
                 <input type="hidden" name="authorId" value="${view.authorId}"/>
             </#if>
             <input type="hidden" id="thumbnail" name="thumbnail" value="${view.thumbnail}"/>
