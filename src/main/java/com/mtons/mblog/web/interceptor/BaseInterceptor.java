@@ -9,6 +9,8 @@
 */
 package com.mtons.mblog.web.interceptor;
 
+import com.mtons.mblog.modules.comp.ISiteOptionsControlsService;
+import com.mtons.mblog.modules.data.SiteOptionsControlsVO;
 import com.mtons.mblog.modules.hook.interceptor.InterceptorHookManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,7 +22,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 
- * 基础拦截器 - 向 request 中添加一些基础变量
+ * 基础拦截器 - 向 request 中添加一些基础变量.
+ *
+ * 需要注入Spring管理的对象，所以加入spring contexts
  * 
  * @author langhsu
  * 
@@ -30,6 +34,8 @@ public class BaseInterceptor extends HandlerInterceptorAdapter {
 
 	@Autowired
 	private InterceptorHookManager interceptorHookManager;
+	@Autowired
+	private ISiteOptionsControlsService controlsService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -40,6 +46,11 @@ public class BaseInterceptor extends HandlerInterceptorAdapter {
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		request.setAttribute("base", request.getContextPath());
+
+		// 获取站点相关的配置， 不加载数据库配置，故只包含配置中心的配置
+		SiteOptionsControlsVO controlsVo = controlsService.getControls();
+		request.setAttribute("commentAllowAnonymous", controlsVo.isCommentAllowAnonymous());
+
 		interceptorHookManager.postHandle(request,response,handler,modelAndView);
 	}
 

@@ -28,13 +28,13 @@ public abstract class SiteConfigOption {
     protected static final String SITE_CONTROLS_COMMENT_KEY = "site.controls.comment";
     /* 是否允许匿名评论开关, true 为允许匿名评论 */
     protected static final String SITE_CONTROLS_COMMENT_ALLOW_ANONYMOUS_KEY = "site.controls.comment.allow.anonymous";
+    /* 注册开启邮箱验证，未生效，未实现，配置中心配置 */
+    protected static final String SITE_CONTROLS_REGISTER_EMAIL_VALIDATE_KEY = "site.controls.register_email_validate";
 
-    //    site.controls.register_email_validate=false
-
-    /**
-     * 系统版本号s
-     */
-    private String version;
+//    /**
+//     * 系统版本号
+//     */
+//    private String version;
 
     public String getVersion() {
         return DynamicProperties.staticProperties.getProperty(SITE_VERSION_KEY);
@@ -46,34 +46,45 @@ public abstract class SiteConfigOption {
         private boolean post;
         private boolean comment;
 
-        private boolean login_show; // 是否显示注册按钮
+        // 是否显示注册按钮
+        private boolean login_show;
 
         /* 是否允许匿名评论开关, true 为允许匿名评论 */
         private boolean commentAllowAnonymous;
 
         public boolean isRegister() {
             String val = DynamicProperties.staticProperties.getProperty(SITE_CONTROLS_REGISTER_KEY);
-            return Boolean.valueOf(val);
+            register =  Boolean.valueOf(val);
+
+            return register;
         }
 
         public boolean isLogin_show() {
             String val = DynamicProperties.staticProperties.getProperty(SITE_CONTROLS_LOGIN_SHOW_KEY);
-            return Boolean.valueOf(val);
+            login_show = Boolean.valueOf(val);
+
+            return login_show;
         }
 
         public boolean isPost() {
             String val = DynamicProperties.staticProperties.getProperty(SITE_CONTROLS_POST_KEY);
-            return Boolean.valueOf(val);
+            post = Boolean.valueOf(val);
+
+            return post;
         }
 
         public boolean isComment() {
             String val = DynamicProperties.staticProperties.getProperty(SITE_CONTROLS_COMMENT_KEY);
-            return Boolean.valueOf(val);
+            comment = Boolean.valueOf(val);
+
+            return comment;
         }
 
         public boolean isCommentAllowAnonymous() {
             String val = DynamicProperties.staticProperties.getProperty(SITE_CONTROLS_COMMENT_ALLOW_ANONYMOUS_KEY);
-            return Boolean.valueOf(val);
+            commentAllowAnonymous = Boolean.valueOf(val);
+
+            return commentAllowAnonymous;
         }
 
     }

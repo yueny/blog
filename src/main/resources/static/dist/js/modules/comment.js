@@ -15,6 +15,7 @@ define(function(require, exports, module) {
     require('owo');
 
 	var Authc = require('authc');
+    var Commoc = require('commoc');
 	
 	var Comment = {
         name : 'Comment',
@@ -92,8 +93,10 @@ define(function(require, exports, module) {
         	var that = this;
 
 			if (!Authc.isAuthced()) {
-				Authc.showLogin();
-				return false;
+				if(!Commoc.isCommentWithoutLogin()){
+                    Authc.showLogin();
+                    return false;
+				}
 			}
 
         	if (text.length == 0) {

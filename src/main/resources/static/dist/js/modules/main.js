@@ -11,6 +11,7 @@
 define(function(require, exports, module) {
     var plugins = require('plugins');
 	var Authc = require('authc');
+    var Commoc = require('commoc');
 
     var wpexLocalize = {
     		"mobileMenuOpen" : "Click here to navigate",
@@ -51,6 +52,7 @@ define(function(require, exports, module) {
 		$('a[rel=favor]').click(function () {
 			var id = $(this).attr('data-id');
 
+			// Commoc
 			if (!Authc.isAuthced()) {
 				Authc.showLogin();
 				return false;

@@ -42,11 +42,13 @@ public class SiteOptions extends SiteConfigOption {
     /**
      * 控制器配置
      */
+    @Getter
     private Controls controls;
 
     /**
      * 属性配置
      */
+    @Getter
     private Map<String, String> options = new HashMap<>();
 
     public String getLocation() {
@@ -57,16 +59,8 @@ public class SiteOptions extends SiteConfigOption {
         this.location = location;
     }
 
-    public Controls getControls() {
-        return controls;
-    }
-
     public void setControls(Controls controls) {
         this.controls = controls;
-    }
-
-    public Map<String, String> getOptions() {
-        return options;
     }
 
     public void setOptions(Map<String, String> options) {

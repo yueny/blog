@@ -43,8 +43,10 @@ public class ContextStartup implements ApplicationRunner, ServletContextAware {
     @Override
     public void run(ApplicationArguments applicationArguments) throws Exception {
         log.info("initialization ...");
+
         reloadOptions(true);
         resetChannels();
+
         log.info("OK, completed");
     }
 

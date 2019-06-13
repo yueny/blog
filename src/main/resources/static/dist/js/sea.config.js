@@ -6,6 +6,7 @@ seajs.config({
         /* modules */
         'main': 'dist/js/modules/main',
         'authc': 'dist/js/modules/authc',
+        'commoc': 'dist/js/modules/commoc',
         'sidebox': 'dist/js/modules/sidebox',
         'post': 'dist/js/modules/post',
         'comment': 'dist/js/modules/comment',

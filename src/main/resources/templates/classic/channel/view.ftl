@@ -52,6 +52,9 @@
         <div id="chat" class="chats shadow-box">
             <div class="chat_header">
                 <h4>全部评论: <span id="chat_count">0</span> 条</h4>
+                <@controls name="commentAllowAnonymous">
+                     允许匿名评论
+                </@controls>
             </div>
             <ul id="chat_container" class="its"></ul>
             <div id="pager" class="text-center"></div>
@@ -112,6 +115,7 @@
     </div>
 </div>
 
+<#-- 回复、删除均在此处。目前评论不允许删除 -->
 <script type="text/plain" id="chat_template">
     <li id="chat{5}">
         <a class="avt fl" target="_blank" href="${base}/users/{0}">
@@ -165,7 +169,9 @@
                         data.author.name,
                         data.created,
                         content,
-                        data.id, quoto);
+                        data.id,
+                        <#-- 回复的超链接和图标样式 -->
+                        quoto);
                 return item;
             }
         });

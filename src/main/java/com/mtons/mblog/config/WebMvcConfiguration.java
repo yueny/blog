@@ -2,9 +2,13 @@ package com.mtons.mblog.config;
 
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.mtons.mblog.web.interceptor.BaseInterceptor;
+import com.yueny.rapid.lang.agent.UserAgentHandlerMethodArgumentResolver;
+import com.yueny.rapid.lang.agent.handler.UserAgentResolverHandlerInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.*;
 
 import java.util.List;
@@ -31,6 +35,12 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         registry.addInterceptor(baseInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/dist/**", "/store/**", "/static/**");
+        registry.addInterceptor(userAgentResolverHandlerInterceptor());
+    }
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) 	{
+        argumentResolvers.add(userAgentHandlerMethodArgumentResolver());
     }
 
     @Override
@@ -55,6 +65,16 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.add(fastJsonHttpMessageConverter);
+    }
+
+    @Bean
+    public UserAgentResolverHandlerInterceptor userAgentResolverHandlerInterceptor() {
+        return new UserAgentResolverHandlerInterceptor();
+    }
+
+    @Bean
+    public UserAgentHandlerMethodArgumentResolver userAgentHandlerMethodArgumentResolver() 	{
+        return new UserAgentHandlerMethodArgumentResolver();
     }
 
 }
