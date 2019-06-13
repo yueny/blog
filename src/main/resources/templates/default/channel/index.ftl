@@ -52,7 +52,7 @@
                                     </div>
                                     <div class="infos">
                                         <div class="media-heading">
-                                            <@utils.showChannel row/><a href="${base}/post/${row.id}">${row.title}</a>
+                                            <@utils.showChannel row/><a href="${base}/article/${row.articleBlogId}.html">${row.title}</a>
                                         </div>
                                     </div>
                                 </li>

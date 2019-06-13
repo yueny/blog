@@ -148,7 +148,7 @@ public class PostServiceImpl extends BaseService implements PostService {
 		HashSet<Long> uids = new HashSet<>();
 
 		list.forEach(po -> {
-			rets.put(po.getId(), BeanMapUtils.copy(po));
+			rets.put(po.getId(), map(po, PostVO.class));
 			uids.add(po.getAuthorId());
 		});
 		

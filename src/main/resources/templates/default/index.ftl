@@ -43,7 +43,7 @@
             <ul class="list-group row topic-list">
                 <#list results.content as row>
                     <li class="list-group-item media col-md-6" style="margin-top: 0px;">
-                        <a class="reply_last_time hidden-xs meta" href="${base}/post/${row.id}">
+                        <a class="reply_last_time hidden-xs meta" href="${base}/article/${row.articleBlogId}.html">
                             <span class="stress">${row.views}</span> 浏览<span> ⋅ </span>${row.comments} 回复
                         </a>
 
@@ -53,7 +53,7 @@
 
                         <div class="infos">
                             <div class="media-heading">
-                                <@utils.showChannel row/><a href="${base}/post/${row.id}">${row.title?html}</a>
+                                <@utils.showChannel row/><a href="${base}/article/${row.articleBlogId}.html">${row.title?html}</a>
                             </div>
                         </div>
                     </li>

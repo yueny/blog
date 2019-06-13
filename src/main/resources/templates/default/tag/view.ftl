@@ -37,7 +37,7 @@
                             <div class="infos">
                                 <div class="media-heading">
 								<#--<span class="hidden-xs label label-warning">${row.channel.name}</span>-->
-                                    <a href="${base}/post/${post.id}">${post.title}</a>
+                                    <a href="${base}/article/${post.articleBlogId}.html">${post.title}</a>
                                 </div>
                             </div>
                         </li>
