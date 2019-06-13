@@ -27,6 +27,7 @@ import com.mtons.mblog.modules.repository.PostRepository;
 import com.mtons.mblog.modules.seq.SeqType;
 import com.mtons.mblog.modules.seq.container.ISeqContainer;
 import com.mtons.mblog.modules.service.*;
+import com.yueny.rapid.lang.util.StringUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -165,9 +166,10 @@ public class PostServiceImpl extends BaseService implements PostService {
 			String articleBlogId = seqContainer.getStrategy(SeqType.ARTICLE_BLOG_ID).get(po.getTitle());
 
 			// 判断该编号是否存在，存在则随机生成
-			if(postRepository.findByArticleBlogId(articleBlogId) != null){
+			while(postRepository.findByArticleBlogId(articleBlogId) != null){
 				articleBlogId = seqContainer.getStrategy(SeqType.ARTICLE_BLOG_ID).get("");
 			}
+
 			po.setArticleBlogId(articleBlogId);
 		}
 
@@ -249,6 +251,17 @@ public class PostServiceImpl extends BaseService implements PostService {
 			po.setChannelId(p.getChannelId());
 			po.setThumbnail(p.getThumbnail());
 			po.setStatus(p.getStatus());
+
+			if(StringUtils.isEmpty(po.getArticleBlogId())){
+				String articleBlogId = seqContainer.getStrategy(SeqType.ARTICLE_BLOG_ID).get(po.getTitle());
+
+				// 判断该编号是否存在，存在则随机生成
+				while(postRepository.findByArticleBlogId(articleBlogId) != null){
+					articleBlogId = seqContainer.getStrategy(SeqType.ARTICLE_BLOG_ID).get("");
+				}
+
+				po.setArticleBlogId(articleBlogId);
+			}
 
 			// 处理摘要
 			if (StringUtils.isBlank(p.getSummary())) {

@@ -34,7 +34,6 @@ update `mto_channel` set channel_code=id where channel_code is null;
 
 -- 增加博文标示
 alter table `mto_post` add column article_blog_id varchar(64) NOT NULL DEFAULT '' COMMENT '文章扩展ID' after `id`;
-update `mto_post` set article_blog_id=id where article_blog_id is null;
 ALTER TABLE `mto_post` ADD UNIQUE (article_blog_id);
 
 --  ok
