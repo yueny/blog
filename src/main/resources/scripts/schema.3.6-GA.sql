@@ -15,6 +15,7 @@ where domain_hack is null;
 alter table `mto_user` add column uid varchar(256) COMMENT 'uid' after id;
 update `mto_user` set uid=id
 where uid is null;
+--  alter table `shiro_user_role` add column uid varchar(256) COMMENT 'uid';
 
 -- 20190411
 -- 图片资源整合
@@ -37,3 +38,9 @@ alter table `mto_post` add column article_blog_id varchar(64) NOT NULL DEFAULT '
 ALTER TABLE `mto_post` ADD UNIQUE (article_blog_id);
 
 --  ok
+alter table `mto_comment` add column uid varchar(256) COMMENT 'uid' after author_id;
+alter table `mto_comment` add column commit_authored_type TINYINT NOT NULL DEFAULT 1 COMMENT '是否为鉴权用户。 1 为认证用户(默认)， 0为匿名用户' after `post_id`;
+alter table `mto_comment` add column client_ip varchar(16) COMMENT '客户端ip' after `status`;
+alter table `mto_comment` add column client_agent varchar(256) COMMENT '客户端agent' after `client_ip`;
+
+

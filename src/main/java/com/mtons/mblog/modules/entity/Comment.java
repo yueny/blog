@@ -10,6 +10,7 @@
 package com.mtons.mblog.modules.entity;
 
 import com.mtons.mblog.base.api.IEntry;
+import com.mtons.mblog.base.enums.AuthoredType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,7 +34,7 @@ public class Comment implements IEntry {
     private long id;
 
     /**
-     * 父评论ID
+     * 针对性回复的评论ID(父评论ID)
      */
     private long pid;
 
@@ -58,6 +59,25 @@ public class Comment implements IEntry {
     @Column(name = "author_id")
     private long authorId;
 
-    private int status;
+    /**
+     * 用户uid。 当为null时则表示为匿名用户
+     */
+    private String uid;
+    /**
+     * 是否为鉴权用户。 1为认证用户(默认)， 0为匿名用户
+     */
+    @Column(name = "commit_authored_type")
+    private Integer commitAuthoredType;
 
+    private int status;
+    /**
+     * 客户端ip
+     */
+    @Column(name = "client_ip")
+    private String clientIp;
+    /**
+     * 客户端ip
+     */
+    @Column(name = "client_agent")
+    private String clientAgent;
 }

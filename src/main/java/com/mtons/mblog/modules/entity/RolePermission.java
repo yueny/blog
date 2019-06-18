@@ -1,6 +1,8 @@
 package com.mtons.mblog.modules.entity;
 
 import com.mtons.mblog.base.api.IEntry;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,14 +18,18 @@ public class RolePermission implements IEntry, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "role_id")
-    private long roleId;
-
+    private Long roleId;
 
     @Column(name = "permission_id")
-    private long permissionId;
+    private Long permissionId;
+
+    @Column(name = "uid")
+    @Getter
+    @Setter
+    private String uid;
 
     public long getId() {
         return id;

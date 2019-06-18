@@ -9,6 +9,7 @@
 */
 package com.mtons.mblog.modules.service.impl;
 
+import com.mtons.mblog.base.BlogConstant;
 import com.mtons.mblog.modules.data.CommentVO;
 import com.mtons.mblog.modules.data.PostVO;
 import com.mtons.mblog.modules.data.UserVO;
@@ -34,7 +35,7 @@ import java.util.*;
  */
 @Service
 @Transactional(readOnly = true)
-public class CommentServiceImpl implements CommentService {
+public class CommentServiceImpl extends BaseService implements CommentService {
 	@Autowired
 	private CommentRepository commentRepository;
 	@Autowired
@@ -71,7 +72,7 @@ public class CommentServiceImpl implements CommentService {
 		Set<Long> postIds = new HashSet<>();
 
 		page.getContent().forEach(po -> {
-			CommentVO c = BeanMapUtils.copy(po);
+			CommentVO c = map(po, CommentVO.class);
 
 			if (c.getPid() > 0) {
 				parentIds.add(c.getPid());
@@ -100,7 +101,7 @@ public class CommentServiceImpl implements CommentService {
 		Set<Long> uids = new HashSet<>();
 
 		page.getContent().forEach(po -> {
-			CommentVO c = BeanMapUtils.copy(po);
+			CommentVO c = map(po, CommentVO.class);
 
 			if (c.getPid() > 0) {
 				parentIds.add(c.getPid());
@@ -120,6 +121,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<CommentVO> findLatestComments(int maxResults) {
+		// 由大到小倒叙
 		Pageable pageable = PageRequest.of(0, maxResults, new Sort(Sort.Direction.DESC, "id"));
 		Page<Comment> page = commentRepository.findAll(pageable);
 		List<CommentVO> rets = new ArrayList<>();
@@ -153,15 +155,14 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	@Transactional
 	public long post(CommentVO comment) {
-		Comment po = new Comment();
-		
-		po.setAuthorId(comment.getAuthorId());
-		po.setPostId(comment.getPostId());
-		po.setContent(comment.getContent());
+		Comment po = map(comment, Comment.class);
 		po.setCreated(new Date());
-		po.setPid(comment.getPid());
+		// 0默认为有效
+		po.setStatus(0);
+
 		commentRepository.save(po);
 
+		// 更新用户评论总数
 		userEventService.identityComment(comment.getAuthorId(), true);
 		return po.getId();
 	}
@@ -215,12 +216,34 @@ public class CommentServiceImpl implements CommentService {
 	private void buildUsers(Collection<CommentVO> posts, Set<Long> uids) {
 		Map<Long, UserVO> userMap = userService.findMapByIds(uids);
 
-		posts.forEach(p -> p.setAuthor(userMap.get(p.getAuthorId())));
+		posts.forEach(post -> {
+			if(!post.getCommitAuthoredType().isAuthor()){
+				// 存在访客评论的评论信息
+				CommentVO.UserCommentModel uc = CommentVO.UserCommentModel.builder()
+						.name(post.getClientIp())
+						.avatar("")
+						.domainHack("guest")
+						.uid(BlogConstant.DEFAULT_GUEST_U_ID)
+						.username("guest")
+						.build();
+				post.setAuthor(uc);
+			}
+
+			UserVO userVO = userMap.get(post.getAuthorId());
+			if (userVO == null) {
+				return;
+			}
+			CommentVO.UserCommentModel uc = mapAny(userVO, CommentVO.UserCommentModel.class);
+			post.setAuthor(uc);
+		});
 	}
 
 	private void buildPosts(Collection<CommentVO> comments, Set<Long> postIds) {
 		Map<Long, PostVO> postMap = postService.findMapByIds(postIds);
-		comments.forEach(p -> p.setPost(postMap.get(p.getPostId())));
+		comments.forEach(p -> {
+			PostVO postVo = postMap.get(p.getPostId());
+			p.setPost(postVo);
+		});
 	}
 
 	private void buildParent(Collection<CommentVO> comments, Set<Long> parentIds) {

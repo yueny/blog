@@ -14,7 +14,15 @@ public enum SeqType implements IEnumType {
     /**
      * 博文ID
      */
-    ARTICLE_BLOG_ID;
+    ARTICLE_BLOG_ID,
+    /**
+     * 用户 uid
+     */
+    USER_U_ID,
+    /**
+     * 简单序列
+     */
+    SIMPLE,;
 
 
     public static SeqType getBy(String name) {

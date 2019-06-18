@@ -34,7 +34,10 @@ public class MessageEventHandler implements ApplicationListener<MessageEvent> {
                 PostVO p = postService.get(event.getPostId());
                 nt.setUserId(p.getAuthorId());
                 break;
+
+            //有人评论了你
             case Consts.MESSAGE_EVENT_COMMENT:
+            // 有人回复了你
             case Consts.MESSAGE_EVENT_COMMENT_REPLY:
                 PostVO p2 = postService.get(event.getPostId());
                 nt.setUserId(p2.getAuthorId());

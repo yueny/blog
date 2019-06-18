@@ -9,6 +9,7 @@
 */
 package com.mtons.mblog.modules.service.impl;
 
+import com.mtons.mblog.modules.comp.IPasswdService;
 import com.mtons.mblog.modules.data.OpenOauthVO;
 import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.entity.UserOauth;
@@ -36,6 +37,8 @@ public class OpenOauthServiceImpl implements OpenOauthService {
     private UserOauthRepository userOauthRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private IPasswdService passwdService;
 
     @Override
     public UserVO getUserByOauthToken(String oauth_token) {
@@ -72,7 +75,7 @@ public class OpenOauthServiceImpl implements OpenOauthService {
         if (po != null) {
             Optional<User> optional = userRepository.findById(userId);
 
-            String pwd = MD5.md5(po.getAccessToken());
+            String pwd = passwdService.encode(po.getAccessToken(), "");
             // 判断用户密码 和 登录状态
             if (optional.isPresent() && pwd.equals(optional.get().getPassword())) {
                 return true;

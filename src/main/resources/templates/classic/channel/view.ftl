@@ -13,7 +13,7 @@
                 <h1 class="panel-title topic-title">${view.title}</h1>
                 <div class="meta inline-block">
                     <a class="author" href="${base}/users/${view.author.domainHack}">
-                    ${view.author.name}
+                        ${view.author.name}
                     </a>
                     <abbr class="timeago">${timeAgo(view.created)}</abbr>
                     ⋅
@@ -24,7 +24,7 @@
 
             <div class="content-body entry-content panel-body ">
                 <div class="markdown-body">
-                ${view.content}
+                    ${view.content}
                 </div>
             </div>
             <div class="panel-footer operate">
@@ -51,10 +51,12 @@
         <@controls name="comment">
         <div id="chat" class="chats shadow-box">
             <div class="chat_header">
-                <h4>全部评论: <span id="chat_count">0</span> 条</h4>
-                <@controls name="commentAllowAnonymous">
-                     允许匿名评论
-                </@controls>
+                <h4>
+                    全部评论: <span id="chat_count">0</span> 条
+                    <@controls name="commentAllowAnonymous">
+                        <label class="small">允许匿名评论</label>
+                    </@controls>
+                </h4>
             </div>
             <ul id="chat_container" class="its"></ul>
             <div id="pager" class="text-center"></div>
@@ -105,7 +107,7 @@
             </li>
             <li class="list-group-item">
                 <div class="text-center">
-                    <a class="btn btn-default btn-sm" href="javascript:void(0);" data-id="${view.id}" rel="favor">
+                    <a class="btn btn-default btn-sm" disabled="true" readonly="true" href="javascript:void(0);" data-id="${view.id}" rel="favor">
                         <i class="icon icon-star"></i> 收藏 <strong id="favors">${view.favors}</strong>
                     </a>
                 </div>
@@ -115,7 +117,17 @@
     </div>
 </div>
 
-<#-- 回复、删除均在此处。目前评论不允许删除 -->
+<#--
+回复、删除均在此处。目前评论不允许删除。
+0   data.author.domainHack
+1   data.author.avatar
+2   data.author.name
+3   data.created
+4   content
+5   data.id, is pid
+6   quoto
+7   是否使用默认头像
+ -->
 <script type="text/plain" id="chat_template">
     <li id="chat{5}">
         <a class="avt fl" target="_blank" href="${base}/users/{0}">
@@ -124,7 +136,34 @@
         <div class="chat_body">
             <h5>
                 <div class="fl"><a class="chat_name" href="${base}/users/{0}">{2}</a><span>{3}</span></div>
-                <div class="fr reply_this"><a href="javascript:void(0);" onclick="goto('{5}', '{2}')"><i class="icon icon-action-redo"></i></a></div>
+                <div class="fr reply_this">
+                    <a href="javascript:void(0);" onclick="goto('{5}', '{2}')">
+                        <i class="icon icon-action-redo"></i>
+                    </a>
+                </div>
+                <div class="clear"></div>
+            </h5>
+            <div class="chat_p">
+                <div class="chat_pct">{4}</div> {6}
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="chat_reply"></div>
+    </li>
+</script>
+<script type="text/plain" id="guest_template">
+    <li id="chat{5}">
+        <a target="_blank" disabled="true" readonly="true" href="#">
+            <img src="${base}/dist/images/ava/default.png">
+        </a>
+        <div class="chat_body">
+            <h5>
+                <div class="fl"><label class="small">匿名</label><a class="chat_name"  href="#">{2}</a><span>{3}</span></div>
+                <div class="fr reply_this">
+                    <a href="javascript:void(0);" onclick="goto('{5}', '{2}')">
+                        <i class="icon icon-action-redo"></i>
+                    </a>
+                </div>
                 <div class="clear"></div>
             </h5>
             <div class="chat_p">
@@ -147,31 +186,51 @@
         $('#chat_reply').show();
     }
     var container = $("#chat_container");
-    var template = $('#chat_template')[0].text;
+    var authoredTemplate = $('#chat_template')[0].text;
+    var guestTemplate = $('#guest_template')[0].text;
 
     seajs.use(['comment', 'view'], function (comment) {
         comment.init({
             load: '${site.controls.comment}',
-            load_url: '${base}/comment/list/${view.id}',
+            // view.id 为 博文post.id
+            load_url: '${base}/comment/list/${view.id}?articleBlogId=${view.articleBlogId}',
             post_url: '${base}/comment/submit',
             toId: '${view.id}',
             onLoad: function (i, data) {
+                // 留言内容
                 var content = data.content;
                 var quoto = '';
                 if (data.pid > 0 && !(data.parent === null)) {
                     var pat = data.parent;
                     var pcontent = pat.content;
+                    /* 回复的超链接和图标样式 */
                     quoto = '<div class="quote"><a href="${base}/users/' + pat.author.domainHack + '">@' + pat.author.name + '</a>: ' + pcontent + '</div>';
                 }
-                var item = jQuery.format(template,
-                        data.author.domainHack,
-                        data.author.avatar,
-                        data.author.name,
-                        data.created,
-                        content,
-                        data.id,
-                        <#-- 回复的超链接和图标样式 -->
-                        quoto);
+
+                var item;
+
+                if(data.commitAuthoredType == 'AUTHORED'){
+                    item = jQuery.format(authoredTemplate,
+                            data.author.domainHack, // 0
+                            data.author.avatar,     // 1
+                            data.author.name,       // 2
+                            data.created,           // 3
+                            content,                // 4
+                            data.id,                // 5, pid
+                            quoto                   // 6
+                    );
+                }else{
+                    item = jQuery.format(guestTemplate,
+                            '',
+                            '',
+                            data.author.name,
+                            data.created,
+                            content,
+                            data.id,
+                            quoto
+                    );
+                }
+
                 return item;
             }
         });

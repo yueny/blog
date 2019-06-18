@@ -77,9 +77,15 @@ public interface Consts {
 
 	int MESSAGE_EVENT_FAVOR_POST = 1; // 有人喜欢了你的文章
 
-	int MESSAGE_EVENT_COMMENT = 3; // 有人评论了你
+	/**
+	 * 有人评论了你
+	 */
+	int MESSAGE_EVENT_COMMENT = 3;
 
-	int MESSAGE_EVENT_COMMENT_REPLY = 4; // 有人回复了你
+	/**
+	 * 有人回复了你
+	 */
+	int MESSAGE_EVENT_COMMENT_REPLY = 4;
 
 	String CACHE_USER = "userCaches";
 	String CACHE_POST = "postCaches";

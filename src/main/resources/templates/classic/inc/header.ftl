@@ -26,20 +26,20 @@
                     </div>
                     <@controls name="register">
                         <fieldset class="form-group">
-			    <#if site.hasValue("weibo_client_id")>
-                            <a class="btn btn-default btn-block" href="${base}/oauth/callback/call_weibo">
-                                <i class="fa fa-weibo"></i> 微博帐号登录
-                            </a>
-                            </#if>
-                            <#if site.hasValue("qq_app_id")>
-                            <a class="btn btn-default btn-block" href="${base}/oauth/callback/call_qq">
-                                <i class="fa fa-qq"></i> QQ帐号登录
-                            </a>
-                            </#if>
-                            <#if site.hasValue("github_client_id")>
-                            <a class="btn btn-default btn-block" href="${base}/oauth/callback/call_github">
-                                <i class="fa fa-github"></i> Github帐号登录
-                            </a>
+			                <#if site.hasValue("weibo_client_id")>
+                                <a class="btn btn-default btn-block" href="${base}/oauth/callback/call_weibo">
+                                    <i class="fa fa-weibo"></i> 微博帐号登录
+                                </a>
+                                </#if>
+                                <#if site.hasValue("qq_app_id")>
+                                <a class="btn btn-default btn-block" href="${base}/oauth/callback/call_qq">
+                                    <i class="fa fa-qq"></i> QQ帐号登录
+                                </a>
+                                </#if>
+                                <#if site.hasValue("github_client_id")>
+                                <a class="btn btn-default btn-block" href="${base}/oauth/callback/call_github">
+                                    <i class="fa fa-github"></i> Github帐号登录
+                                </a>
                             </#if>
                         </fieldset>
                     </@controls>
@@ -186,6 +186,11 @@
                             <li><a href="${base}/register" class="btn btn-primary btn-sm signup">注册</a></li>
                         </@controls>
                     </#if>
+                    <li>
+                        <a class="plus">
+                            <i class="tooltip-icon glyphicon glyphicon-exclamation-sign"></i>
+                        </a>
+                    </li>
                 </ul>
 
             </div>
@@ -203,6 +208,25 @@
         });
     });
 </script>
+<script>
+    $(function(){
+        var tips;
+        $('i.tooltip-icon').on({
+            mouseenter:function(){
+                var that = this;
+                tips =layer.tips(
+                    "<span style='color:#000;'>本平台暂时不大面积对外开放，需要注册账户或权限升级问题，请联系邮箱: yueny09@163.com</span>",
+                        that,
+                        {tips:[2,'#fff'],time:0,area: 'auto',maxWidth:500}
+                );
+            },
+            mouseleave:function(){
+                layer.close(tips);
+            }
+        });
+    });
+</script>
+
 <script language="JavaScript">
     $("[t='popover']").on("click mouseenter",function(e){
         e.stopPropagation();

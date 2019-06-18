@@ -8,7 +8,12 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 /**
- * @author langhsu
+ * 博文发布和博文删除的事件
+ *
+ * @author yueny09 <deep_blue_yang@163.com>
+ *
+ * @DATE 2019/6/18 下午12:06
+ *
  */
 @Component
 public class PostUpdateEventHandler implements ApplicationListener<PostUpdateEvent> {

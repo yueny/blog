@@ -9,6 +9,7 @@
 */
 package com.mtons.mblog.base.utils;
 
+import com.mtons.mblog.base.enums.AuthoredType;
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.modules.data.*;
 import com.mtons.mblog.modules.entity.*;
@@ -29,32 +30,36 @@ public class BeanMapUtils {
         return ret;
     }
 
-    public static AccountProfile copyPassport(User po) {
-        AccountProfile passport = new AccountProfile(po.getId(), po.getUsername());
-        passport.setName(po.getName());
-        passport.setEmail(po.getEmail());
-        passport.setAvatar(po.getAvatar());
-        passport.setLastLogin(po.getLastLogin());
-        passport.setStatus(po.getStatus());
-        passport.setDomainHack(po.getDomainHack());
+    public static AccountProfile copyPassport(User entry) {
+        AccountProfile passport = new AccountProfile(entry.getId(), entry.getUsername());
+        passport.setName(entry.getName());
+        passport.setEmail(entry.getEmail());
+        passport.setAvatar(entry.getAvatar());
+        passport.setLastLogin(entry.getLastLogin());
+        passport.setStatus(entry.getStatus());
+        passport.setDomainHack(entry.getDomainHack());
+        passport.setUid(entry.getUid());
+
         return passport;
     }
 
-    public static CommentVO copy(Comment po) {
+    public static CommentVO copy(Comment entry) {
         CommentVO ret = new CommentVO();
-        BeanUtils.copyProperties(po, ret);
+        BeanUtils.copyProperties(entry, ret);
+
+        ret.setCommitAuthoredType(AuthoredType.getBy(entry.getCommitAuthoredType()));
         return ret;
     }
 
-    public static PostVO copy(Post po) {
+    public static PostVO copy(Post entry) {
         PostVO d = new PostVO();
-        BeanUtils.copyProperties(po, d);
+        BeanUtils.copyProperties(entry, d);
         return d;
     }
 
-    public static MessageVO copy(Message po) {
+    public static MessageVO copy(Message entry) {
         MessageVO ret = new MessageVO();
-        BeanUtils.copyProperties(po, ret);
+        BeanUtils.copyProperties(entry, ret);
         return ret;
     }
 

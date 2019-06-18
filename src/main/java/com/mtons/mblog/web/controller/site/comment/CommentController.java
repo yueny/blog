@@ -3,6 +3,8 @@
  */
 package com.mtons.mblog.web.controller.site.comment;
 
+import com.mtons.mblog.base.BlogConstant;
+import com.mtons.mblog.base.enums.AuthoredType;
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.modules.comp.ISiteOptionsControlsService;
@@ -44,14 +46,17 @@ public class CommentController extends BaseController {
     private ISiteOptionsControlsService controlsService;
 
     @RequestMapping("/list/{toId}")
-    public Page<CommentVO> view(@PathVariable Long toId) {
+    public Page<CommentVO> view(@PathVariable Long toId, String articleBlogId) {
         Pageable pageable = wrapPageable(Sort.by(Sort.Direction.DESC, "id"));
-        return commentService.pagingByPostId(pageable, toId);
+
+        Page<CommentVO> pager =  commentService.pagingByPostId(pageable, toId);
+
+        return pager;
     }
 
     /**
      * 评论提交
-     * @param toId 回复人的id, 来自数据库唯一标示
+     * @param toId postId 博文 id, 来自数据库唯一标示
      * @param text 回复内容
      * @param request
      * @return
@@ -68,26 +73,33 @@ public class CommentController extends BaseController {
         }
 
         CommentVO c = new CommentVO();
+        // 所属博文内容的主键ID
         c.setPostId(toId);
         c.setContent(HtmlUtils.htmlEscape(text));
 
-        // 针对性回复的评论IDs
+        // 针对性回复的评论ID(父评论ID)
         long pid = ServletRequestUtils.getLongParameter(request, "pid", 0);
         c.setPid(pid);
 
         if (isAuthenticated()) {
             AccountProfile profile = getProfile();
             c.setAuthorId(profile.getId());
+            c.setUid(profile.getUid());
+            c.setCommitAuthoredType(AuthoredType.AUTHORED);
         }else{
-            // 如果允许匿名评论且 authorId 为空或者未登录, 则取 clientUserAgent
-            clientUserAgent.getBrowser();
-            String Ip = IpUtil.getClientIp(request);
-            c.setAuthorId(0);
-
-            // 增加匿名信息数据
-            String guest = "";
-
+            c.setAuthorId(BlogConstant.DEFAULT_GUEST_AUTHOR_ID);
+            c.setUid(BlogConstant.DEFAULT_GUEST_U_ID);
+            c.setCommitAuthoredType(AuthoredType.GUEST);
         }
+
+        String clientIp = IpUtil.getClientIp(request);
+        c.setClientIp(clientIp);
+
+        // 如果允许匿名评论且 authorId 为空或者未登录, 则取 clientUserAgent
+        String clentAgent = "";
+        // TODO clentAgent值
+        clientUserAgent.getBrowser();
+        c.setClientAgent(clentAgent);
 
         commentService.post(c);
 
@@ -97,6 +109,8 @@ public class CommentController extends BaseController {
             if (toId != profile.getId()) {
                 sendMessage(profile.getId(), toId, pid);
             }
+        }else{
+            sendMessage(BlogConstant.DEFAULT_GUEST_AUTHOR_ID, toId, pid);
         }
 
         return Result.successMessage("发表成功");
@@ -120,17 +134,20 @@ public class CommentController extends BaseController {
      * @param userId
      * @param postId
      */
-    private void sendMessage(long userId, long postId, long pid) {
+    private void sendMessage(Long userId, long postId, long pid) {
         MessageEvent event = new MessageEvent("MessageEvent");
         event.setFromUserId(userId);
 
         if (pid > 0) {
+            // 有人回复了你
             event.setEvent(Consts.MESSAGE_EVENT_COMMENT_REPLY);
         } else {
+            // 有人评论了你
             event.setEvent(Consts.MESSAGE_EVENT_COMMENT);
         }
         // 此处不知道文章作者, 让通知事件系统补全
         event.setPostId(postId);
+
         applicationContext.publishEvent(event);
     }
 }

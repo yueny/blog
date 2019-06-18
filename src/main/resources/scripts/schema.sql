@@ -217,10 +217,11 @@ CREATE TABLE `shiro_user_role` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `role_id` bigint(20) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
+  uid varchar(256) COMMENT 'uid',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of shiro_user_role
 -- ----------------------------
-INSERT INTO `shiro_user_role` VALUES ('1', '1', '1');
+INSERT INTO `shiro_user_role` VALUES ('1', '1', '1', '1');

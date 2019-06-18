@@ -12,6 +12,7 @@ package com.mtons.mblog.modules.service;
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.data.UserVO;
+import com.yueny.rapid.lang.exception.invalid.InvalidException;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -96,18 +97,18 @@ public interface UserService {
 
 	/**
 	 * 修改密码
-	 * @param id
-	 * @param newPassword
+	 * @param uid
+	 * @param newPassword 新密码，输入明文
 	 */
-	void updatePassword(long id, String newPassword);
+	void updatePassword(String uid, String newPassword) throws InvalidException;
 
 	/**
 	 * 修改密码
-	 * @param id
-	 * @param oldPassword
-	 * @param newPassword
+	 * @param uid
+	 * @param oldPassword  旧密码，输入明文
+	 * @param newPassword  新密码，输入明文
 	 */
-	void updatePassword(long id, String oldPassword, String newPassword);
+	void updatePassword(String uid, String oldPassword, String newPassword) throws InvalidException;
 
 	/**
 	 * 修改用户状态

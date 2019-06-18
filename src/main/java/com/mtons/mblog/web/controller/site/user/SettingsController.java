@@ -127,7 +127,7 @@ public class SettingsController extends BaseController {
         Result data;
         try {
             AccountProfile profile = getProfile();
-            userService.updatePassword(profile.getId(), oldPassword, password);
+            userService.updatePassword(profile.getUid(), oldPassword, password);
 
             data = Result.success();
         } catch (Exception e) {

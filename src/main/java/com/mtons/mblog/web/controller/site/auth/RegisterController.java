@@ -56,6 +56,7 @@ public class RegisterController extends BaseController {
 			}
 			post.setAvatar(StorageConsts.AVATAR);
 			userService.register(post);
+
 			Result<AccountProfile> result = executeLogin(post.getUsername(), post.getPassword(), false);
 			view = String.format(Views.REDIRECT_USER_HOME, result.getData().getDomainHack());
 		} catch (Exception e) {

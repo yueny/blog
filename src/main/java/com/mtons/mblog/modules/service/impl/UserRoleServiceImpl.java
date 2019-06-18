@@ -1,5 +1,6 @@
 package com.mtons.mblog.modules.service.impl;
 
+import com.mtons.mblog.modules.data.RoleVO;
 import com.mtons.mblog.modules.repository.UserRoleRepository;
 import com.mtons.mblog.modules.entity.Role;
 import com.mtons.mblog.modules.entity.UserRole;
@@ -33,13 +34,13 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public List<Role> listRoles(long userId) {
+    public List<RoleVO> listRoles(long userId) {
         List<Long> roleIds = listRoleIds(userId);
-        return new ArrayList<>(roleService.findByIds(new HashSet<>(roleIds)).values());
+        return new ArrayList<RoleVO>(roleService.findByIds(new HashSet<>(roleIds)).values());
     }
 
     @Override
-    public Map<Long, List<Role>> findMapByUserIds(List<Long> userIds) {
+    public Map<Long, List<RoleVO>> findMapByUserIds(List<Long> userIds) {
         List<UserRole> list = userRoleRepository.findAllByUserIdIn(userIds);
         Map<Long, Set<Long>> map = new HashMap<>();
 
@@ -48,9 +49,9 @@ public class UserRoleServiceImpl implements UserRoleService {
             roleIds.add(po.getRoleId());
         });
 
-        Map<Long, List<Role>> ret = new HashMap<>();
+        Map<Long, List<RoleVO>> ret = new HashMap<>();
         map.forEach((k, v) -> {
-            ret.put(k, new ArrayList<>(roleService.findByIds(v).values()));
+            ret.put(k, new ArrayList<RoleVO>(roleService.findByIds(v).values()));
         });
         return ret;
     }

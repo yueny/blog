@@ -7,7 +7,8 @@ import org.springframework.context.ApplicationEvent;
  */
 public class MessageEvent extends ApplicationEvent {
 	private static final long serialVersionUID = -4261382494171476390L;
-	
+
+
 	private long fromUserId;
     private long toUserId;
     private int event;

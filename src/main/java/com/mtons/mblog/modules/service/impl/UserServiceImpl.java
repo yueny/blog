@@ -11,18 +11,21 @@ package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.base.lang.EntityStatus;
 import com.mtons.mblog.base.lang.MtonsException;
-import com.mtons.mblog.base.utils.MD5;
+import com.mtons.mblog.modules.comp.IPasswdService;
+import com.mtons.mblog.modules.comp.IUserPassportService;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.data.BadgesCount;
 import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.entity.User;
 import com.mtons.mblog.modules.repository.RoleRepository;
 import com.mtons.mblog.modules.repository.UserRepository;
+import com.mtons.mblog.modules.seq.SeqType;
+import com.mtons.mblog.modules.seq.container.ISeqContainer;
 import com.mtons.mblog.modules.service.MessageService;
 import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.base.utils.BeanMapUtils;
+import com.yueny.rapid.lang.exception.invalid.InvalidException;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -36,14 +39,19 @@ import java.util.*;
 
 @Service
 @Transactional(readOnly = true)
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends BaseService implements UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private MessageService messageService;
-
+    @Autowired
+    private IUserPassportService userPassportService;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private IPasswdService passwdService;
+    @Autowired
+    private ISeqContainer seqContainer;
 
     @Override
     public Page<UserVO> paging(Pageable pageable, String name) {
@@ -60,7 +68,11 @@ public class UserServiceImpl implements UserService {
         }, pageable);
 
         List<UserVO> rets = new ArrayList<>();
-        page.getContent().forEach(n -> rets.add(BeanMapUtils.copy(n)));
+        page.getContent().forEach(n -> {
+            UserVO userVO = map(n, UserVO.class);
+            userVO.setPassword("");
+            rets.add(userVO);
+        });
         return new PageImpl<>(rets, pageable, page.getTotalElements());
     }
 
@@ -69,10 +81,16 @@ public class UserServiceImpl implements UserService {
         if (ids == null || ids.isEmpty()) {
             return Collections.emptyMap();
         }
+
         List<User> list = userRepository.findAllById(ids);
         Map<Long, UserVO> ret = new HashMap<>();
 
-        list.forEach(po -> ret.put(po.getId(), BeanMapUtils.copy(po)));
+        list.forEach(po -> {
+            UserVO userVO = map(po, UserVO.class);
+            userVO.setPassword("");
+            ret.put(po.getId(), userVO);
+        });
+
         return ret;
     }
 
@@ -80,8 +98,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public AccountProfile login(String username, String password) {
         User po = userRepository.findByUsername(username);
-        AccountProfile u = null;
-
         Assert.notNull(po, "账户不存在");
 
 //		Assert.state(po.getStatus() != Const.STATUS_CLOSED, "您的账户已被封禁");
@@ -90,7 +106,9 @@ public class UserServiceImpl implements UserService {
 
         po.setLastLogin(Calendar.getInstance().getTime());
         userRepository.save(po);
-        u = BeanMapUtils.copyPassport(po);
+
+        AccountProfile u = mapAny(po, AccountProfile.class);
+        //AccountProfile u = BeanMapUtils.copyPassport(po);
 
         BadgesCount badgesCount = new BadgesCount();
         badgesCount.setMessages(messageService.unread4Me(u.getId()));
@@ -103,21 +121,20 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public AccountProfile findProfile(Long id) {
         User po = userRepository.findById(id).get();
-        AccountProfile u = null;
 
         Assert.notNull(po, "账户不存在");
 
 //		Assert.state(po.getStatus() != Const.STATUS_CLOSED, "您的账户已被封禁");
         po.setLastLogin(Calendar.getInstance().getTime());
 
-        u = BeanMapUtils.copyPassport(po);
+        AccountProfile accountProfile = mapAny(po, AccountProfile.class);
 
         BadgesCount badgesCount = new BadgesCount();
-        badgesCount.setMessages(messageService.unread4Me(u.getId()));
+        badgesCount.setMessages(messageService.unread4Me(accountProfile.getId()));
 
-        u.setBadgesCount(badgesCount);
+        accountProfile.setBadgesCount(badgesCount);
 
-        return u;
+        return accountProfile;
     }
 
     @Override
@@ -132,22 +149,28 @@ public class UserServiceImpl implements UserService {
 
         Assert.isNull(check, "用户名已经存在!");
 
-        User po = new User();
-
-        BeanUtils.copyProperties(user, po);
+        User po = map(user, User.class);
 
         if (StringUtils.isBlank(po.getName())) {
             po.setName(user.getUsername());
         }
 
         Date now = Calendar.getInstance().getTime();
-        po.setPassword(MD5.md5(user.getPassword()));
+
+        // 密码加密方式
+        String pw = passwdService.encode(user.getPassword(), "");
+        po.setPassword(pw);
         po.setStatus(EntityStatus.ENABLED);
         po.setCreated(now);
 
+        String uid = seqContainer.getStrategy(SeqType.USER_U_ID).get("");
+        po.setUid(uid);
+        // 默认
+        po.setDomainHack(seqContainer.getStrategy(SeqType.SIMPLE).get(""));
+
         userRepository.save(po);
 
-        return BeanMapUtils.copy(po);
+        return map(po, UserVO.class);
     }
 
     @Override
@@ -164,7 +187,9 @@ public class UserServiceImpl implements UserService {
         }
 
         userRepository.save(po);
-        return BeanMapUtils.copyPassport(po);
+
+        // BeanMapUtils.copyPassport(po);
+        return mapAny(po, AccountProfile.class);
     }
 
     @Override
@@ -183,21 +208,32 @@ public class UserServiceImpl implements UserService {
         }
         po.setEmail(email);
         userRepository.save(po);
-        return BeanMapUtils.copyPassport(po);
+
+        return mapAny(po, AccountProfile.class);
     }
 
     @Override
     public UserVO get(long userId) {
         Optional<User> optional = userRepository.findById(userId);
         if (optional.isPresent()) {
-            return BeanMapUtils.copy(optional.get());
+            User user = optional.get();
+            if (user == null) {
+                return null;
+            }
+
+            return map(user, UserVO.class);
         }
         return null;
     }
 
     @Override
     public UserVO getByUsername(String username) {
-        return BeanMapUtils.copy(userRepository.findByUsername(username));
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            return null;
+        }
+
+        return map(user, UserVO.class);
     }
 
     @Override
@@ -211,30 +247,29 @@ public class UserServiceImpl implements UserService {
         User po = userRepository.findById(id).get();
         po.setAvatar(path);
         userRepository.save(po);
-        return BeanMapUtils.copyPassport(po);
+
+        return mapAny(po, AccountProfile.class);
     }
 
     @Override
     @Transactional
-    public void updatePassword(long id, String newPassword) {
-        User po = userRepository.findById(id).get();
-
+    public void updatePassword(String uid, String newPassword) throws InvalidException{
         Assert.hasLength(newPassword, "密码不能为空!");
 
-        po.setPassword(MD5.md5(newPassword));
-        userRepository.save(po);
+        passwdService.changePassword(uid, newPassword);
     }
 
     @Override
     @Transactional
-    public void updatePassword(long id, String oldPassword, String newPassword) {
-        User po = userRepository.findById(id).get();
+    public void updatePassword(String uid, String oldPassword, String newPassword) throws InvalidException {
+        Assert.hasLength(newPassword, "新密码不能为空!");
 
-        Assert.hasLength(newPassword, "密码不能为空!");
+        userPassportService.modifyPassPort(uid, oldPassword, newPassword);
 
-        Assert.isTrue(MD5.md5(oldPassword).equals(po.getPassword()), "当前密码不正确");
-        po.setPassword(MD5.md5(newPassword));
-        userRepository.save(po);
+//        String pw = passwdService.encode(newPassword, "");
+//        User po = userRepository.findByUid(uid);
+//        po.setPassword(pw);
+//        userRepository.save(po);
     }
 
     @Override
@@ -253,7 +288,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserVO getByDomainHack(String domainHack) {
-        return BeanMapUtils.copy(userRepository.findByDomainHack(domainHack));
+        User user = userRepository.findByDomainHack(domainHack);
+        if (user == null) {
+            return null;
+        }
+
+        return map(user, UserVO.class);
+//        return BeanMapUtils.copy(userRepository.findByDomainHack(domainHack));
     }
 
 }

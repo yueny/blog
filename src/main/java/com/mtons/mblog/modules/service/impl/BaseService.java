@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 基类
@@ -31,7 +32,7 @@ abstract class BaseService implements IBiz {
 	private Mapper mapper;
 
 	/**
-	 * 映射数组
+	 * 映射数组, Entry --> Bo
 	 *
 	 * @param <T>
 	 *            目标数据类型
@@ -56,8 +57,35 @@ abstract class BaseService implements IBiz {
 		}
 		return targetList;
 	}
+
 	/**
-	 * 映射数组
+	 * 映射数组, Bo --> Entry
+	 *
+	 * @param <T>
+	 *            目标数据类型
+	 * @param <S>
+	 *            源数据类型
+	 * @param sourceList
+	 *            源数据列表
+	 * @param targetInfo
+	 *            目标数据类型信息
+	 * @return 映射后的目标数据列表
+	 */
+	protected <T extends IBo, S extends IEntry> List<S> map(final Set<T> sourceList, final Class<S> targetInfo) {
+		if (CollectionUtils.isEmpty(sourceList)) {
+			logger.warn("使用空数据源进行映射!");
+			return Collections.<S>emptyList();
+		}
+
+		final List<S> targetList = new ArrayList<S>(sourceList.size());
+		for (final T bo : sourceList) {
+			targetList.add(map(bo, targetInfo));
+		}
+		return targetList;
+	}
+
+	/**
+	 * 映射数组, Any--> bo
 	 *
 	 * @param <T>
 	 *            目标数据类型
@@ -82,7 +110,7 @@ abstract class BaseService implements IBiz {
 		return targetList;
 	}
 	/**
-	 * 将对象实体转换为业务对象
+	 * 将对象实体转换为业务对象, Entry --> Bo
 	 *
 	 * @param <T>
 	 *            业务对象类型
@@ -100,7 +128,7 @@ abstract class BaseService implements IBiz {
 	}
 
 	/**
-	 * 将业务对象转换为对象实体
+	 * 将业务对象转换为对象实体, Bo --> Entry
 	 *
 	 * @param <T>
 	 *            业务对象类型
@@ -119,7 +147,7 @@ abstract class BaseService implements IBiz {
 
 
 	/**
-	 * 将对象实体转换为业务对象
+	 * 将对象实体转换为业务对象, Any --> Bo
 	 *
 	 * @param <T>
 	 *            业务对象类型

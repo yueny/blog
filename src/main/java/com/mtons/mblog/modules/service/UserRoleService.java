@@ -1,5 +1,6 @@
 package com.mtons.mblog.modules.service;
 
+import com.mtons.mblog.modules.data.RoleVO;
 import com.mtons.mblog.modules.entity.Role;
 
 import java.util.List;
@@ -22,9 +23,9 @@ public interface UserRoleService {
      * @param userId 用户ID
      * @return
      */
-    List<Role> listRoles(long userId);
+    List<RoleVO> listRoles(long userId);
 
-    Map<Long, List<Role>> findMapByUserIds(List<Long> userIds);
+    Map<Long, List<RoleVO>> findMapByUserIds(List<Long> userIds);
 
     /**
      * 修改用户角色

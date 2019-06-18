@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 /**
+ * 12位
  *
  * @author yueny09 <deep_blue_yang@163.com>
  *
@@ -23,16 +24,16 @@ public class ArticleBlogSeqStrategy extends AbstractSeqStrategy {
     @Override
     public String get(String target) {
         if(StringUtils.isEmpty(target)){
-            return SecureRandomUtil.generateRandom(SIZE);
+            return "b" + SecureRandomUtil.generateRandom(SIZE-1);
         }
 
         String articleBlogId = ChinesUtil.getPingYin(target, true, true);
 
         // 长了太难看，不如随机
         if(StringUtil.length(articleBlogId) > 16){
-            articleBlogId = SecureRandomUtil.generateRandom(SIZE);
+            articleBlogId = SecureRandomUtil.generateRandom(SIZE-1);
         }
-        return articleBlogId;
+        return "b" + articleBlogId;
     }
 
     @Override

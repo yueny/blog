@@ -1,5 +1,9 @@
 package com.mtons.mblog.modules.service.impl;
 
+import com.google.common.collect.Sets;
+import com.mtons.mblog.modules.data.PermissionVO;
+import com.mtons.mblog.modules.data.RolePermissionVO;
+import com.mtons.mblog.modules.data.RoleVO;
 import com.mtons.mblog.modules.entity.Permission;
 import com.mtons.mblog.modules.entity.Role;
 import com.mtons.mblog.modules.entity.RolePermission;
@@ -12,6 +16,7 @@ import com.mtons.mblog.modules.service.RolePermissionService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +30,7 @@ import java.util.*;
  */
 @Service
 @Transactional
-public class RoleServiceImpl implements RoleService {
+public class RoleServiceImpl extends BaseService implements RoleService {
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
@@ -36,7 +41,7 @@ public class RoleServiceImpl implements RoleService {
     private UserRoleRepository userRoleRepository;
 
     @Override
-    public Page<Role> paging(Pageable pageable, String name) {
+    public Page<RoleVO> paging(Pageable pageable, String name) {
         Page<Role> page = roleRepository.findAll((root, query, builder) -> {
             Predicate predicate = builder.conjunction();
 
@@ -48,33 +53,37 @@ public class RoleServiceImpl implements RoleService {
             query.orderBy(builder.desc(root.get("id")));
             return predicate;
         }, pageable);
-        return page;
+
+        Page<RoleVO> pager = new PageImpl<>(map(page.getContent(), RoleVO.class), page.getPageable(), page.getTotalElements());
+        return pager;
     }
 
     @Override
-    public List<Role> list() {
+    public List<RoleVO> list() {
         List<Role> list = roleRepository.findAllByStatus(Role.STATUS_NORMAL);
-        return list;
+
+        return map(list, RoleVO.class);
     }
 
     @Override
-    public Map<Long, Role> findByIds(Set<Long> ids) {
+    public Map<Long, RoleVO> findByIds(Set<Long> ids) {
         List<Role> list = roleRepository.findAllById(ids);
-        Map<Long, Role> ret = new LinkedHashMap<>();
+
+        Map<Long, RoleVO> ret = new LinkedHashMap<>();
         list.forEach(po -> {
-            Role vo = toVO(po);
+            RoleVO vo = toVO(po);
             ret.put(vo.getId(), vo);
         });
         return ret;
     }
 
     @Override
-    public Role get(long id) {
+    public RoleVO get(long id) {
         return toVO(roleRepository.findById(id).get());
     }
 
     @Override
-    public void update(Role r, Set<Permission> permissions) {
+    public void update(RoleVO r, Set<PermissionVO> permissions) {
         Optional<Role> optional = roleRepository.findById(r.getId());
         Role po = optional.orElse(new Role());
             po.setName(r.getName());
@@ -86,7 +95,7 @@ public class RoleServiceImpl implements RoleService {
         rolePermissionService.deleteByRoleId(po.getId());
 
         if (permissions != null && permissions.size() > 0) {
-            Set<RolePermission> rps = new HashSet<>();
+            List<RolePermission> rps = new ArrayList<>();
             long roleId = po.getId();
             permissions.forEach(p -> {
                 RolePermission rp = new RolePermission();
@@ -95,7 +104,11 @@ public class RoleServiceImpl implements RoleService {
                 rps.add(rp);
             });
 
-            rolePermissionService.add(rps);
+            List<RolePermissionVO> list = map(rps, RolePermissionVO.class);
+            Set<RolePermissionVO> sets = Sets.newHashSet();
+            sets.addAll(list);
+
+            rolePermissionService.add(sets);
         }
     }
 
@@ -114,8 +127,8 @@ public class RoleServiceImpl implements RoleService {
         po.setStatus(active ? Role.STATUS_NORMAL : Role.STATUS_CLOSED);
     }
 
-    private Role toVO(Role po) {
-        Role r = new Role();
+    private RoleVO toVO(Role po) {
+        RoleVO r = new RoleVO();
         r.setId(po.getId());
         r.setName(po.getName());
         r.setDescription(po.getDescription());

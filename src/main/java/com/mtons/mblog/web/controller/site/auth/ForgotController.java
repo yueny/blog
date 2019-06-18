@@ -39,7 +39,9 @@ public class ForgotController extends BaseController {
             Assert.notNull(user, "账户不存在");
 
             securityCodeService.verify(String.valueOf(user.getId()), Consts.CODE_FORGOT, code);
-            userService.updatePassword(user.getId(), password);
+
+            // 验证码通过后，直接修改密码
+            userService.updatePassword(user.getUid(), password);
             model.put("data", Result.successMessage("恭喜您, 密码重置成功"));
             view = view(Views.REGISTER);
         } catch (Exception e) {

@@ -1,5 +1,4 @@
-### Mblog 开源Java博客系统, 支持多用户, 支持切换主题
-
+### Mblog Java博客系统, 支持多用户, 支持切换主题
 [![Author](https://img.shields.io/badge/author-landy-green.svg?style=flat-square)](http://mtons.com)
 [![JDK](https://img.shields.io/badge/jdk-1.8-green.svg?style=flat-square)](#)
 [![Release](https://img.shields.io/github/release/langhsu/mblog.svg?style=flat-square)](https://github.com/langhsu/mblog)
@@ -8,7 +7,6 @@
 [![QQ群](https://img.shields.io/badge/chat-Mtons-green.svg)](https://jq.qq.com/?_wv=1027&k=521CRdF)
 
 ### 技术选型：
-
 * JDK8
 * MySQL
 * Spring-boot
@@ -19,24 +17,11 @@
 * Bootstrap
 * SeaJs
 
-### 启动：
- - main方法运行
- ```xml
- 配置：src/main/resources/application-mysql.yml (数据库账号密码)、新建db_mblog的数据库
- 运行：src/main/java/com/mtons/mblog/BootApplication
- 访问：http://localhost:8080/
- 后台：http://localhost:8080/admin
- 账号：默认管理员账号为 admin/12345
- 
- TIPS: 
- 如遇到启动失败/切换环境变量后启动失败的,请先maven clean后再尝试启动
- IDE得装lombok插件
-```
 
 # Future
-* 是否允许匿名评论功能开发. site.controls.comment.allow.anonymous
-  + author_id 由bigint 改为 varchar
 * [栏目管理]新增栏目编号字段, 仅新增生成, 不可被修改, 作为栏目关联的唯一标示
+* 为每一个用户增加固有盐值
+* 默认头像管理
 
 
 ### 版本(3.6-GA)更新内容：
@@ -47,6 +32,7 @@
 * [个人信息] 新增自定义个性化域名
 * 允许匿名评论，评论前让用户选择是否登录
 * classic 主题，增加时钟
+* 是否允许匿名评论功能开发. site.controls.comment.allow.anonymous
 
 ### 版本(3.5)更新内容：
     1. 文件存储目录可配置, 见 site.location, 默认为 user.dir

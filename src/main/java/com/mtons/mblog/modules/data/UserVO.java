@@ -10,13 +10,11 @@
 package com.mtons.mblog.modules.data;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.mtons.mblog.modules.entity.Role;
 import com.yueny.rapid.lang.mask.annotation.Mask;
 import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -59,7 +57,9 @@ public class UserVO extends AbstractMaskBo implements Serializable {
 	private int status;
 
 	@JSONField(serialize = false)
-	private List<Role> roles = new ArrayList<>();
+	@Getter
+	@Setter
+	private List<RoleVO> roles = new ArrayList<>();
 
 	public long getId() {
 		return id;
@@ -157,11 +157,4 @@ public class UserVO extends AbstractMaskBo implements Serializable {
 		this.signature = signature;
 	}
 
-	public List<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
 }

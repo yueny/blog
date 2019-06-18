@@ -16,6 +16,10 @@
                     -->
                     mblog
                 </span>
+
+                <a href="${base}/admin" target="_blank">
+                    <i class="glyphicon glyphicon-font" title="控制台"></i>
+                </a>
             </div>
         </div>
     </div>

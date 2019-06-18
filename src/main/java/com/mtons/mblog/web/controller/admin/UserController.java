@@ -11,12 +11,14 @@ package com.mtons.mblog.web.controller.admin;
 
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.modules.data.RoleVO;
 import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.entity.Role;
 import com.mtons.mblog.modules.service.RoleService;
 import com.mtons.mblog.modules.service.UserRoleService;
 import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.web.controller.BaseController;
+import com.yueny.rapid.lang.exception.invalid.InvalidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -57,7 +59,7 @@ public class UserController extends BaseController {
 			userIds.add(item.getId());
 		});
 
-		Map<Long, List<Role>> map = userRoleService.findMapByUserIds(userIds);
+		Map<Long, List<RoleVO>> map = userRoleService.findMapByUserIds(userIds);
 		users.forEach(item -> {
 			item.setRoles(map.get(item.getId()));
 		});
@@ -99,9 +101,9 @@ public class UserController extends BaseController {
 		model.put("view", ret);
 
 		try {
-			userService.updatePassword(id, newPassword);
+			userService.updatePassword(ret.getUid(), newPassword);
 			model.put("message", "修改成功");
-		} catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException | InvalidException e) {
 			model.put("message", e.getMessage());
 		}
 		return "/admin/user/pwd";

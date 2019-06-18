@@ -47,7 +47,9 @@ public class ArticleBlogDetailShowActionController extends BaseController {
 			view.setContent(MarkdownUtils.renderMarkdown(view.getContent()));
 		}
 
+		// 自增浏览数
 		postService.identityViews(articleBlogId);
+
 		getModel().addAttribute("view", view);
 		return view(Views.POST_VIEW);
 	}

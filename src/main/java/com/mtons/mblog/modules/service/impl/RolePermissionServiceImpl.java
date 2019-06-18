@@ -1,14 +1,18 @@
 package com.mtons.mblog.modules.service.impl;
 
+import com.mtons.mblog.modules.data.PermissionVO;
+import com.mtons.mblog.modules.data.RolePermissionVO;
 import com.mtons.mblog.modules.repository.PermissionRepository;
 import com.mtons.mblog.modules.repository.RolePermissionRepository;
 import com.mtons.mblog.modules.entity.Permission;
 import com.mtons.mblog.modules.entity.RolePermission;
 import com.mtons.mblog.modules.service.RolePermissionService;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +22,7 @@ import java.util.Set;
  * @create - 2018/5/18
  */
 @Service
-public class RolePermissionServiceImpl implements RolePermissionService {
+public class RolePermissionServiceImpl extends BaseService implements RolePermissionService {
     @Autowired
     private PermissionRepository permissionRepository;
     @Autowired
@@ -26,16 +30,18 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Permission> findPermissions(long roleId) {
+    public List<PermissionVO> findPermissions(long roleId) {
         List<RolePermission> rps = rolePermissionRepository.findAllByRoleId(roleId);
 
-        List<Permission> rets = null;
-        if (rps != null && rps.size() > 0) {
-            Set<Long> pids = new HashSet<>();
-            rps.forEach(rp -> pids.add(rp.getPermissionId()));
-            rets = permissionRepository.findAllById(pids);
+        if (CollectionUtils.isEmpty(rps)) {
+            return Collections.<PermissionVO>emptyList();
         }
-        return rets;
+
+        Set<Long> pids = new HashSet<>();
+        rps.forEach(rp -> pids.add(rp.getPermissionId()));
+        List<Permission> entryList = permissionRepository.findAllById(pids);
+
+        return map(entryList, PermissionVO.class);
     }
 
     @Override
@@ -46,7 +52,9 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 
     @Override
     @Transactional
-    public void add(Set<RolePermission> rolePermissions) {
-        rolePermissionRepository.saveAll(rolePermissions);
+    public void add(Set<RolePermissionVO> rolePermissions) {
+        List<RolePermission> entrys = map(rolePermissions, RolePermission.class);
+
+        rolePermissionRepository.saveAll(entrys);
     }
 }

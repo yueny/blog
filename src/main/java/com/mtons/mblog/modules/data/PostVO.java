@@ -9,12 +9,12 @@
 */
 package com.mtons.mblog.modules.data;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.mtons.mblog.base.lang.Consts;
-import com.mtons.mblog.modules.entity.PostAttribute;
+import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
 import com.yueny.superclub.api.pojo.IBo;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import java.io.Serializable;
 import java.util.Date;
@@ -23,9 +23,10 @@ import java.util.Date;
  * @author langhsu
  * 
  */
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = false)
-public class PostVO implements IBo, Serializable {
+public class PostVO extends AbstractMaskBo implements IBo, Serializable {
 	private long id;
 
 	/**
@@ -106,12 +107,14 @@ public class PostVO implements IBo, Serializable {
 	 * 内容
 	 */
 	private String content;
+
 //	/**
 //	 * editor和content已在上面赋值， 此处注释
 //	 */
 //	@JSONField(serialize = false)
 //	private PostAttribute attribute;
-	
+
+
 	public String[] getTagsArray() {
 		if (StringUtils.isNotBlank(getTags())) {
 			return getTags().split(Consts.SEPARATOR);

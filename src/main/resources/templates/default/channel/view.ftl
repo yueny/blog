@@ -46,7 +46,12 @@
         <@controls name="comment">
         <div id="chat" class="chats shadow-box">
             <div class="chat_header">
-                <h4>全部评论: <i id="chat_count">0</i> 条</h4>
+                <h4>
+                    全部评论: <span id="chat_count">0</span> 条
+                    <@controls name="commentAllowAnonymous">
+                        <label class="small">允许匿名评论</label>
+                    </@controls>
+                </h4>
             </div>
             <ul id="chat_container" class="its"></ul>
             <div id="pager" class="text-center"></div>
@@ -115,7 +120,34 @@
         <div class="chat_body">
             <h5>
                 <div class="fl"><a class="chat_name" href="${base}/users/{0}">{2}</a><span>{3}</span></div>
-                <div class="fr reply_this"><a href="javascript:void(0);" onclick="goto('{5}', '{2}')">[回复]</a></div>
+                <div class="fr reply_this">
+                    <a href="javascript:void(0);" onclick="goto('{5}', '{2}')">
+                        [回复]
+                    </a>
+                </div>
+                <div class="clear"></div>
+            </h5>
+            <div class="chat_p">
+                <div class="chat_pct">{4}</div> {6}
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="chat_reply"></div>
+    </li>
+</script>
+<script type="text/plain" id="guest_template">
+    <li id="chat{5}">
+        <a target="_blank" disabled="true" readonly="true" href="#">
+            <img src="${base}/dist/images/ava/default.png">
+        </a>
+        <div class="chat_body">
+            <h5>
+                <div class="fl"><label class="small">匿名</label><a class="chat_name"  href="#">{2}</a><span>{3}</span></div>
+                <div class="fr reply_this">
+                    <a href="javascript:void(0);" onclick="goto('{5}', '{2}')">
+                        [回复]
+                    </a>
+                </div>
                 <div class="clear"></div>
             </h5>
             <div class="chat_p">
@@ -138,12 +170,14 @@
         $('#chat_reply').show();
     }
     var container = $("#chat_container");
-    var template = $('#chat_template')[0].text;
+    var authoredTemplate = $('#chat_template')[0].text;
+    var guestTemplate = $('#guest_template')[0].text;
 
     seajs.use(['comment', 'view'], function (comment) {
         comment.init({
             load: '${site.controls.comment}',
-            load_url: '${base}/comment/list/${view.id}',
+            // view.id 为 博文post.id
+            load_url: '${base}/comment/list/${view.id}?articleBlogId=${view.articleBlogId}',
             post_url: '${base}/comment/submit',
             toId: '${view.id}',
             onLoad: function (i, data) {
@@ -155,13 +189,29 @@
                     var pcontent = pat.content;
                     quoto = '<div class="quote"><a href="${base}/users/' + pat.author.domainHack + '">@' + pat.author.name + '</a>: ' + pcontent + '</div>';
                 }
-                var item = jQuery.format(template,
-                        data.author.domainHack,
-                        data.author.avatar,
-                        data.author.name,
-                        data.created,
-                        content,
-                        data.id, quoto);
+
+                if(data.commitAuthoredType == 'AUTHORED'){
+                    item = jQuery.format(authoredTemplate,
+                            data.author.domainHack, // 0
+                            data.author.avatar,     // 1
+                            data.author.name,       // 2
+                            data.created,           // 3
+                            content,                // 4
+                            data.id,                // 5, pid
+                            quoto                   // 6
+                    );
+                }else{
+                    item = jQuery.format(guestTemplate,
+                            '',
+                            '',
+                            data.author.name,
+                            data.created,
+                            content,
+                            data.id,
+                            quoto
+                    );
+                }
+
                 return item;
             }
         });

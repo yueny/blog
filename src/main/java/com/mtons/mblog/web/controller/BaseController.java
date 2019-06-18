@@ -11,8 +11,8 @@ package com.mtons.mblog.web.controller;
 
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.storage.StorageFactory;
-import com.mtons.mblog.base.utils.MD5;
 import com.mtons.mblog.config.SiteOptions;
+import com.mtons.mblog.modules.comp.IPasswdService;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.web.formatter.StringEscapeEditor;
 import com.yueny.rapid.lang.agent.UserAgentResource;
@@ -54,6 +54,8 @@ public class BaseController implements Action {
     protected StorageFactory storageFactory;
     @Autowired
     protected SiteOptions siteOptions;
+    @Autowired
+    private IPasswdService passwdService;
 
     /**
      * 存放当前线程的HttpServletRequest对象
@@ -103,6 +105,9 @@ public class BaseController implements Action {
         return wrapPageable(null);
     }
 
+    /**
+     * 组装分页条件
+     */
     protected PageRequest wrapPageable(Sort sort) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         int pageSize = ServletRequestUtils.getIntParameter(request, "pageSize", 10);
@@ -228,7 +233,7 @@ public class BaseController implements Action {
             return ret;
         }
 
-        UsernamePasswordToken token = new UsernamePasswordToken(username, MD5.md5(password), rememberMe);
+        UsernamePasswordToken token = new UsernamePasswordToken(username, passwdService.encode(password, ""), rememberMe);
 
         try {
             SecurityUtils.getSubject().login(token);

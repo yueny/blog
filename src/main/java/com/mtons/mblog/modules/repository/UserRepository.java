@@ -28,7 +28,21 @@ import java.util.Set;
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
     User findByUsername(String username);
 
+    User findByUid(String uid);
+
     User findByEmail(String email);
+
+    /**
+     * 修改密码
+     *
+     * @param uid
+     *      用户uid
+     * @param newPassportForEncode
+     *      新密码， 密文， 此处直接存储
+     */
+    @Modifying
+    @Query("update User set password = :newPassportForEncode where uid = :uid")
+    int changePassword(@Param("uid") String uid, @Param("newPassportForEncode") String newPassportForEncode);
 
     @Modifying
     @Query("update User set posts = posts + :increment where id = :id")

@@ -165,6 +165,11 @@
                             <li><a href="${base}/register" class="btn btn-primary btn-sm signup">注册</a></li>
                         </@controls>
                     </#if>
+                    <li>
+                        <a class="plus">
+                            <i class="tooltip-icon glyphicon glyphicon-exclamation-sign"></i>
+                        </a>
+                    </li>
                 </ul>
 
             </div>
@@ -181,5 +186,24 @@ $(function () {
         }  
     });
 });
+</script>
+
+<script>
+    $(function(){
+        var tips;
+        $('i.tooltip-icon').on({
+            mouseenter:function(){
+                var that = this;
+                tips =layer.tips(
+                        "<span style='color:#000;'>本平台暂时不大面积对外开放，需要注册账户或权限升级问题，请联系邮箱: yueny09@163.com</span>",
+                        that,
+                        {tips:[2,'#fff'],time:0,area: 'auto',maxWidth:500}
+                );
+            },
+            mouseleave:function(){
+                layer.close(tips);
+            }
+        });
+    });
 </script>
 <!-- Header END -->
