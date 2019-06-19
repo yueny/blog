@@ -1,4 +1,4 @@
-package com.mtons.mblog.modules.service.impl;
+package test.java.com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.BootApplication;
 import org.junit.Test;
