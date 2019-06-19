@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.modules.template;
+package com.mtons.mblog.modules.template;
 
 import com.mtons.mblog.base.lang.Consts;
 import freemarker.core.Environment;

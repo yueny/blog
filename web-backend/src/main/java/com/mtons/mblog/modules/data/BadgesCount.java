@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.modules.data;
+package com.mtons.mblog.modules.data;
 
 import java.io.Serializable;
 

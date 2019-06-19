@@ -1,14 +1,14 @@
-package main.java.com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.modules.data.MessageVO;
 import com.mtons.mblog.modules.data.PostVO;
 import com.mtons.mblog.modules.entity.Message;
-import main.java.com.mtons.mblog.modules.service.PostService;
-import main.java.com.mtons.mblog.modules.repository.MessageRepository;
+import com.mtons.mblog.modules.service.PostService;
+import com.mtons.mblog.modules.repository.MessageRepository;
 import com.mtons.mblog.modules.data.UserVO;
-import main.java.com.mtons.mblog.modules.service.MessageService;
-import main.java.com.mtons.mblog.modules.service.UserService;
+import com.mtons.mblog.modules.service.MessageService;
+import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.base.utils.BeanMapUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -7,16 +7,16 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.base.storage.impl;
+package com.mtons.mblog.base.storage.impl;
 
 import com.mtons.mblog.base.lang.MtonsException;
-import main.java.com.mtons.mblog.base.storage.NailPathData;
-import main.java.com.mtons.mblog.base.storage.Storage;
+import com.mtons.mblog.base.storage.NailPathData;
+import com.mtons.mblog.base.storage.Storage;
 import com.mtons.mblog.base.utils.*;
-import main.java.com.mtons.mblog.config.SiteOptions;
-import main.java.com.mtons.mblog.modules.data.ResourceVO;
-import main.java.com.mtons.mblog.modules.service.ResourceManagerService;
-import main.java.com.mtons.mblog.modules.service.ResourceService;
+import com.mtons.mblog.config.SiteOptions;
+import com.mtons.mblog.modules.data.ResourceVO;
+import com.mtons.mblog.modules.service.ResourceManagerService;
+import com.mtons.mblog.modules.service.ResourceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;

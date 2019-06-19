@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.shiro.tags;
+package com.mtons.mblog.shiro.tags;
 
 import com.mtons.mblog.base.lang.Consts;
 import freemarker.core.Environment;

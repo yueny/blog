@@ -1,15 +1,15 @@
 /**
  * 
  */
-package main.java.com.mtons.mblog.web.controller.admin;
+package com.mtons.mblog.web.controller.admin;
 
-import main.java.com.mtons.mblog.base.lang.Result;
-import main.java.com.mtons.mblog.modules.data.PermissionVO;
-import main.java.com.mtons.mblog.modules.data.RoleVO;
-import main.java.com.mtons.mblog.modules.entity.Role;
-import main.java.com.mtons.mblog.modules.service.PermissionService;
-import main.java.com.mtons.mblog.modules.service.RoleService;
-import main.java.com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.base.lang.Result;
+import com.mtons.mblog.modules.data.PermissionVO;
+import com.mtons.mblog.modules.data.RoleVO;
+import com.mtons.mblog.modules.entity.Role;
+import com.mtons.mblog.modules.service.PermissionService;
+import com.mtons.mblog.modules.service.RoleService;
+import com.mtons.mblog.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

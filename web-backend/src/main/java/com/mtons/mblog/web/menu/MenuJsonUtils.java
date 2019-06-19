@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.web.menu;
+package com.mtons.mblog.web.menu;
 
 import com.alibaba.fastjson.JSONArray;
 

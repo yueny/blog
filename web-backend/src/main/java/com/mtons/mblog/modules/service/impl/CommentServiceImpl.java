@@ -7,18 +7,18 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.base.BlogConstant;
 import com.mtons.mblog.modules.data.CommentVO;
 import com.mtons.mblog.modules.data.PostVO;
 import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.entity.Comment;
-import main.java.com.mtons.mblog.modules.repository.CommentRepository;
-import main.java.com.mtons.mblog.modules.service.CommentService;
-import main.java.com.mtons.mblog.modules.service.PostService;
-import main.java.com.mtons.mblog.modules.service.UserEventService;
-import main.java.com.mtons.mblog.modules.service.UserService;
+import com.mtons.mblog.modules.repository.CommentRepository;
+import com.mtons.mblog.modules.service.CommentService;
+import com.mtons.mblog.modules.service.PostService;
+import com.mtons.mblog.modules.service.UserEventService;
+import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.base.utils.BeanMapUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;

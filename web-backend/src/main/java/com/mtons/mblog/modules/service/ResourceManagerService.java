@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.modules.service;
+package com.mtons.mblog.modules.service;
 
 import com.mtons.mblog.modules.data.ResourceVO;
 

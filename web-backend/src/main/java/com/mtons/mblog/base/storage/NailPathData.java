@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.base.storage;
+package com.mtons.mblog.base.storage;
 
 import lombok.Builder;
 import lombok.ToString;

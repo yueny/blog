@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.web.filter;
+package com.mtons.mblog.web.filter;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StopWatch;

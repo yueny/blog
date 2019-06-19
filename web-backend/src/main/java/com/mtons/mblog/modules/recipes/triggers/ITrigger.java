@@ -1,6 +1,6 @@
-package main.java.com.mtons.mblog.modules.recipes.triggers;
+package com.mtons.mblog.modules.recipes.triggers;
 
-import main.java.com.mtons.mblog.modules.recipes.IRecipes;
+import com.mtons.mblog.modules.recipes.IRecipes;
 import com.yueny.superclub.util.strategy.IStrategy;
 
 /**

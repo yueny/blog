@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.modules.event;
+package com.mtons.mblog.modules.event;
 
 import org.springframework.context.ApplicationEvent;
 

@@ -1,12 +1,12 @@
-package main.java.com.mtons.mblog.web.controller.site.auth;
+package com.mtons.mblog.web.controller.site.auth;
 
-import main.java.com.mtons.mblog.base.lang.Consts;
-import main.java.com.mtons.mblog.base.lang.Result;
-import main.java.com.mtons.mblog.modules.data.UserVO;
-import main.java.com.mtons.mblog.modules.service.SecurityCodeService;
-import main.java.com.mtons.mblog.modules.service.UserService;
-import main.java.com.mtons.mblog.web.controller.BaseController;
-import main.java.com.mtons.mblog.web.controller.site.Views;
+import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.base.lang.Result;
+import com.mtons.mblog.modules.data.UserVO;
+import com.mtons.mblog.modules.service.SecurityCodeService;
+import com.mtons.mblog.modules.service.UserService;
+import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.site.Views;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.base.logger;
+package com.mtons.mblog.base.logger;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

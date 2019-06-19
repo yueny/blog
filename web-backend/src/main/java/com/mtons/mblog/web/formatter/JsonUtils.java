@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.web.formatter;
+package com.mtons.mblog.web.formatter;
 
 import java.io.IOException;
 import java.lang.reflect.AnnotatedElement;

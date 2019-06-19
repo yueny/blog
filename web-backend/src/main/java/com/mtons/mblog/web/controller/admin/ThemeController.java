@@ -1,11 +1,11 @@
-package main.java.com.mtons.mblog.web.controller.admin;
+package com.mtons.mblog.web.controller.admin;
 
-import main.java.com.mtons.mblog.base.lang.Result;
-import main.java.com.mtons.mblog.base.utils.BlogUtils;
-import main.java.com.mtons.mblog.base.utils.FileKit;
-import main.java.com.mtons.mblog.config.ContextStartup;
-import main.java.com.mtons.mblog.modules.service.OptionsService;
-import main.java.com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.base.lang.Result;
+import com.mtons.mblog.base.utils.BlogUtils;
+import com.mtons.mblog.base.utils.FileKit;
+import com.mtons.mblog.config.ContextStartup;
+import com.mtons.mblog.modules.service.OptionsService;
+import com.mtons.mblog.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

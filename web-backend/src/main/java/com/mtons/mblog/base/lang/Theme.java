@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.base.lang;
+package com.mtons.mblog.base.lang;
 
 import lombok.Data;
 

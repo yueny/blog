@@ -1,11 +1,11 @@
-package main.java.com.mtons.mblog.modules.event.handler;
+package com.mtons.mblog.modules.event.handler;
 
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.modules.data.MessageVO;
 import com.mtons.mblog.modules.data.PostVO;
-import main.java.com.mtons.mblog.modules.event.MessageEvent;
-import main.java.com.mtons.mblog.modules.service.MessageService;
-import main.java.com.mtons.mblog.modules.service.PostService;
+import com.mtons.mblog.modules.event.MessageEvent;
+import com.mtons.mblog.modules.service.MessageService;
+import com.mtons.mblog.modules.service.PostService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;

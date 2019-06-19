@@ -1,11 +1,11 @@
-package main.java.com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.modules.data.RoleVO;
-import main.java.com.mtons.mblog.modules.repository.UserRoleRepository;
+import com.mtons.mblog.modules.repository.UserRoleRepository;
 import com.mtons.mblog.modules.entity.Role;
 import com.mtons.mblog.modules.entity.UserRole;
-import main.java.com.mtons.mblog.modules.service.RoleService;
-import main.java.com.mtons.mblog.modules.service.UserRoleService;
+import com.mtons.mblog.modules.service.RoleService;
+import com.mtons.mblog.modules.service.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

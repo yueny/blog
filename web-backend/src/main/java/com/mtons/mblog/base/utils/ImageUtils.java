@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.base.utils;
+package com.mtons.mblog.base.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnails;

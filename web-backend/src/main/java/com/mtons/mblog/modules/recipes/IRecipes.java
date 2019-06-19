@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.modules.recipes;
+package com.mtons.mblog.modules.recipes;
 
 /**
  * @author yueny09 <deep_blue_yang@163.com>

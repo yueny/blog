@@ -1,10 +1,10 @@
 /**
  * 
  */
-package main.java.com.mtons.mblog.base.lang;
+package com.mtons.mblog.base.lang;
 
 
-import main.java.com.mtons.mblog.base.enums.BlogFeaturedType;
+import com.mtons.mblog.base.enums.BlogFeaturedType;
 
 /**
  * @author langhsu

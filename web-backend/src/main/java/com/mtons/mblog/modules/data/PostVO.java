@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.modules.data;
+package com.mtons.mblog.modules.data;
 
 import com.mtons.mblog.base.enums.BlogFeaturedType;
 import com.mtons.mblog.base.lang.Consts;

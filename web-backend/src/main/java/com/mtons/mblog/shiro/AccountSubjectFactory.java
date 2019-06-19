@@ -1,7 +1,7 @@
-package main.java.com.mtons.mblog.shiro;
+package com.mtons.mblog.shiro;
 
-import main.java.com.mtons.mblog.modules.data.AccountProfile;
-import main.java.com.mtons.mblog.modules.service.UserService;
+import com.mtons.mblog.modules.data.AccountProfile;
+import com.mtons.mblog.modules.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.mgt.DefaultSubjectFactory;
 import org.apache.shiro.mgt.SecurityManager;

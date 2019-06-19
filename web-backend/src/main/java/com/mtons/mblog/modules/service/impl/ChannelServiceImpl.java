@@ -7,16 +7,16 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.modules.data.model.ChannelTreeVO;
 import com.mtons.mblog.modules.data.ChannelVO;
 import com.mtons.mblog.modules.data.ResourceVO;
-import main.java.com.mtons.mblog.modules.repository.ChannelRepository;
-import main.java.com.mtons.mblog.modules.service.ChannelService;
+import com.mtons.mblog.modules.repository.ChannelRepository;
+import com.mtons.mblog.modules.service.ChannelService;
 import com.mtons.mblog.modules.entity.Channel;
-import main.java.com.mtons.mblog.modules.service.ResourceService;
+import com.mtons.mblog.modules.service.ResourceService;
 import com.yueny.rapid.lang.util.UuidUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;

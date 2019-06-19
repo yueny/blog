@@ -1,10 +1,10 @@
-package main.java.com.mtons.mblog.config;
+package com.mtons.mblog.config;
 
 import com.mtons.mblog.base.lang.Consts;
-import main.java.com.mtons.mblog.modules.entity.Options;
-import main.java.com.mtons.mblog.modules.service.ChannelService;
-import main.java.com.mtons.mblog.modules.service.MailService;
-import main.java.com.mtons.mblog.modules.service.OptionsService;
+import com.mtons.mblog.modules.entity.Options;
+import com.mtons.mblog.modules.service.ChannelService;
+import com.mtons.mblog.modules.service.MailService;
+import com.mtons.mblog.modules.service.OptionsService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

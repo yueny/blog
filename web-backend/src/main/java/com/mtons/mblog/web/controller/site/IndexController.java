@@ -7,17 +7,17 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.web.controller.site;
+package com.mtons.mblog.web.controller.site;
 
 import javax.servlet.http.HttpServletRequest;
 
-import main.java.com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.base.lang.Consts;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import main.java.com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseController;
 
 /**
  * @author langhsu

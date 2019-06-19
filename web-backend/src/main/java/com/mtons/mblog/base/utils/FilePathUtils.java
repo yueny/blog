@@ -1,7 +1,7 @@
 /**
  *
  */
-package main.java.com.mtons.mblog.base.utils;
+package com.mtons.mblog.base.utils;
 
 import com.mtons.mblog.base.lang.StorageConsts;
 import org.apache.commons.text.RandomStringGenerator;

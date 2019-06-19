@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.shiro.tags;
+package com.mtons.mblog.shiro.tags;
 
 import freemarker.core.Environment;
 import freemarker.log.Logger;

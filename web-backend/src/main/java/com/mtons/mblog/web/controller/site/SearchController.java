@@ -7,11 +7,11 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.web.controller.site;
+package com.mtons.mblog.web.controller.site;
 
-import main.java.com.mtons.mblog.modules.data.PostVO;
-import main.java.com.mtons.mblog.modules.service.PostSearchService;
-import main.java.com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.modules.data.PostVO;
+import com.mtons.mblog.modules.service.PostSearchService;
+import com.mtons.mblog.web.controller.BaseController;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

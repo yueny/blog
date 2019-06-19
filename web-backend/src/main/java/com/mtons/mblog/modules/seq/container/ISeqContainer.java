@@ -1,7 +1,7 @@
-package main.java.com.mtons.mblog.modules.seq.container;
+package com.mtons.mblog.modules.seq.container;
 
-import main.java.com.mtons.mblog.modules.seq.ISeqStrategy;
-import main.java.com.mtons.mblog.modules.seq.SeqType;
+import com.mtons.mblog.modules.seq.ISeqStrategy;
+import com.mtons.mblog.modules.seq.SeqType;
 
 /**
  * 策略容器

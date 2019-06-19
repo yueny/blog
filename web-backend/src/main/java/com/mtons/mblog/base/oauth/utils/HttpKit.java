@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.base.oauth.utils;
+package com.mtons.mblog.base.oauth.utils;
 
 import org.apache.commons.lang3.StringUtils;
 

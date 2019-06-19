@@ -7,14 +7,14 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.web.controller.site.posts;
+package com.mtons.mblog.web.controller.site.posts;
 
-import main.java.com.mtons.mblog.base.lang.Consts;
-import main.java.com.mtons.mblog.base.storage.NailPathData;
-import main.java.com.mtons.mblog.base.storage.NailType;
-import main.java.com.mtons.mblog.base.utils.FileKit;
-import main.java.com.mtons.mblog.modules.data.AccountProfile;
-import main.java.com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.base.storage.NailPathData;
+import com.mtons.mblog.base.storage.NailType;
+import com.mtons.mblog.base.utils.FileKit;
+import com.mtons.mblog.modules.data.AccountProfile;
+import com.mtons.mblog.web.controller.BaseController;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;

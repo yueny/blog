@@ -7,9 +7,9 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.modules.data.model;
+package com.mtons.mblog.modules.data.model;
 
-import main.java.com.mtons.mblog.modules.data.ChannelVO;
+import com.mtons.mblog.modules.data.ChannelVO;
 import lombok.Getter;
 import lombok.Setter;
 

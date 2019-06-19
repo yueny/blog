@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.modules.repository;
+package com.mtons.mblog.modules.repository;
 
 import com.mtons.mblog.modules.entity.UserOauth;
 import org.springframework.data.jpa.repository.JpaRepository;

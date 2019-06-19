@@ -7,13 +7,13 @@
  * Authors:
  *   leiwen <chrisredfield1985@126.com> , boyan <killme2008@gmail.com>
  */
-package main.java.com.mtons.mblog.modules.comp.impl;
+package com.mtons.mblog.modules.comp.impl;
 
 import com.mtons.mblog.base.enums.ErrorType;
 import com.mtons.mblog.base.utils.MD5;
-import main.java.com.mtons.mblog.modules.comp.IPasswdService;
-import main.java.com.mtons.mblog.modules.entity.User;
-import main.java.com.mtons.mblog.modules.repository.UserRepository;
+import com.mtons.mblog.modules.comp.IPasswdService;
+import com.mtons.mblog.modules.entity.User;
+import com.mtons.mblog.modules.repository.UserRepository;
 import com.yueny.rapid.lang.exception.invalid.InvalidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

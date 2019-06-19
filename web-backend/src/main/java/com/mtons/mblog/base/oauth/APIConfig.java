@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.base.oauth;
+package com.mtons.mblog.base.oauth;
 
 import java.lang.reflect.Method;
 

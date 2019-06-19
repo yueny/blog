@@ -1,18 +1,18 @@
 /**
  *
  */
-package main.java.com.mtons.mblog.web.controller.site.comment;
+package com.mtons.mblog.web.controller.site.comment;
 
-import main.java.com.mtons.mblog.base.BlogConstant;
-import main.java.com.mtons.mblog.base.enums.AuthoredType;
-import main.java.com.mtons.mblog.base.lang.Consts;
-import main.java.com.mtons.mblog.base.lang.Result;
-import main.java.com.mtons.mblog.modules.comp.ISiteOptionsControlsService;
-import main.java.com.mtons.mblog.modules.data.AccountProfile;
-import main.java.com.mtons.mblog.modules.data.CommentVO;
-import main.java.com.mtons.mblog.modules.event.MessageEvent;
-import main.java.com.mtons.mblog.modules.service.CommentService;
-import main.java.com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.base.BlogConstant;
+import com.mtons.mblog.base.enums.AuthoredType;
+import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.base.lang.Result;
+import com.mtons.mblog.modules.comp.ISiteOptionsControlsService;
+import com.mtons.mblog.modules.data.AccountProfile;
+import com.mtons.mblog.modules.data.CommentVO;
+import com.mtons.mblog.modules.event.MessageEvent;
+import com.mtons.mblog.modules.service.CommentService;
+import com.mtons.mblog.web.controller.BaseController;
 import com.yueny.rapid.lang.agent.UserAgentResource;
 import com.yueny.rapid.lang.util.IpUtil;
 import org.apache.commons.lang3.StringUtils;

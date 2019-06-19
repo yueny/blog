@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.modules.comp;
+package com.mtons.mblog.modules.comp;
 
 import com.yueny.rapid.lang.exception.invalid.InvalidException;
 

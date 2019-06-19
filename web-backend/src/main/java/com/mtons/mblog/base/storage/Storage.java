@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.base.storage;
+package com.mtons.mblog.base.storage;
 
 import org.springframework.web.multipart.MultipartFile;
 

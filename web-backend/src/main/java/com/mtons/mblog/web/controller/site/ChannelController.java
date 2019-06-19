@@ -7,17 +7,17 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.web.controller.site;
+package com.mtons.mblog.web.controller.site;
 
-import main.java.com.mtons.mblog.base.lang.Consts;
-import main.java.com.mtons.mblog.base.utils.MarkdownUtils;
-import main.java.com.mtons.mblog.modules.data.ChannelVO;
-import main.java.com.mtons.mblog.modules.data.PostVO;
-import main.java.com.mtons.mblog.modules.entity.Channel;
-import main.java.com.mtons.mblog.modules.entity.PostAttribute;
-import main.java.com.mtons.mblog.modules.service.ChannelService;
-import main.java.com.mtons.mblog.modules.service.PostService;
-import main.java.com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.base.utils.MarkdownUtils;
+import com.mtons.mblog.modules.data.ChannelVO;
+import com.mtons.mblog.modules.data.PostVO;
+import com.mtons.mblog.modules.entity.Channel;
+import com.mtons.mblog.modules.entity.PostAttribute;
+import com.mtons.mblog.modules.service.ChannelService;
+import com.mtons.mblog.modules.service.PostService;
+import com.mtons.mblog.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

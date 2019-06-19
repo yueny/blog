@@ -1,8 +1,8 @@
-package main.java.com.mtons.mblog.modules.template.directive;
+package com.mtons.mblog.modules.template.directive;
 
 import com.mtons.mblog.modules.service.ChannelService;
-import main.java.com.mtons.mblog.modules.template.DirectiveHandler;
-import main.java.com.mtons.mblog.modules.template.TemplateDirective;
+import com.mtons.mblog.modules.template.DirectiveHandler;
+import com.mtons.mblog.modules.template.TemplateDirective;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,12 +1,12 @@
-package main.java.com.mtons.mblog.shiro;
+package com.mtons.mblog.shiro;
 
 import com.mtons.mblog.base.lang.Consts;
-import main.java.com.mtons.mblog.modules.data.AccountProfile;
-import main.java.com.mtons.mblog.modules.data.RoleVO;
-import main.java.com.mtons.mblog.modules.data.UserVO;
-import main.java.com.mtons.mblog.modules.entity.Role;
-import main.java.com.mtons.mblog.modules.service.UserRoleService;
-import main.java.com.mtons.mblog.modules.service.UserService;
+import com.mtons.mblog.modules.data.AccountProfile;
+import com.mtons.mblog.modules.data.RoleVO;
+import com.mtons.mblog.modules.data.UserVO;
+import com.mtons.mblog.modules.entity.Role;
+import com.mtons.mblog.modules.service.UserRoleService;
+import com.mtons.mblog.modules.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.AllowAllCredentialsMatcher;

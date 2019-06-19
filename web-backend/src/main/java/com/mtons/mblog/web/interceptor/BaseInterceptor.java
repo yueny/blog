@@ -7,11 +7,11 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.web.interceptor;
+package com.mtons.mblog.web.interceptor;
 
-import main.java.com.mtons.mblog.modules.comp.ISiteOptionsControlsService;
-import main.java.com.mtons.mblog.modules.data.SiteOptionsControlsVO;
-import main.java.com.mtons.mblog.modules.hook.interceptor.InterceptorHookManager;
+import com.mtons.mblog.modules.comp.ISiteOptionsControlsService;
+import com.mtons.mblog.modules.data.SiteOptionsControlsVO;
+import com.mtons.mblog.modules.hook.interceptor.InterceptorHookManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;

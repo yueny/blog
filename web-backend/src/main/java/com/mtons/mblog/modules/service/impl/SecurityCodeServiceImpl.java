@@ -7,13 +7,13 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.base.lang.EntityStatus;
 import com.mtons.mblog.base.lang.MtonsException;
-import main.java.com.mtons.mblog.modules.repository.SecurityCodeRepository;
-import main.java.com.mtons.mblog.modules.service.SecurityCodeService;
+import com.mtons.mblog.modules.repository.SecurityCodeRepository;
+import com.mtons.mblog.modules.service.SecurityCodeService;
 import com.mtons.mblog.modules.entity.SecurityCode;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.time.DateUtils;

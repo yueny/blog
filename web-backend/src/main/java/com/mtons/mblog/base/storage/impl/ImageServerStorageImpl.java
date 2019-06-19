@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.base.storage.impl;
+package com.mtons.mblog.base.storage.impl;
 
 import com.mtons.mblog.base.utils.FileKit;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.config;
+package com.mtons.mblog.config;
 
 import com.mtons.mblog.shiro.AccountRealm;
 import com.mtons.mblog.shiro.AccountSubjectFactory;

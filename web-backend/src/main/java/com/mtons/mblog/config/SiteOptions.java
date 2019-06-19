@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.config;
+package com.mtons.mblog.config;
 
 import com.mtons.mblog.config.xml.UploadConfigUtil;
 import com.sun.org.apache.xpath.internal.operations.Bool;

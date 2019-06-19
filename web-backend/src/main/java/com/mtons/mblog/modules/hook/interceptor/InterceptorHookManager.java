@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.modules.hook.interceptor;
+package com.mtons.mblog.modules.hook.interceptor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;

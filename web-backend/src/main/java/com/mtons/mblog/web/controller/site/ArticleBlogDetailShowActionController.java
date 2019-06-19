@@ -1,9 +1,9 @@
-package main.java.com.mtons.mblog.web.controller.site;
+package com.mtons.mblog.web.controller.site;
 
-import main.java.com.mtons.mblog.base.utils.MarkdownUtils;
-import main.java.com.mtons.mblog.modules.data.PostVO;
-import main.java.com.mtons.mblog.modules.service.PostService;
-import main.java.com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.base.utils.MarkdownUtils;
+import com.mtons.mblog.modules.data.PostVO;
+import com.mtons.mblog.modules.service.PostService;
+import com.mtons.mblog.web.controller.BaseController;
 import com.yueny.rapid.data.resp.pojo.response.NormalResponse;
 import com.yueny.rapid.lang.exception.DataVerifyAnomalyException;
 import org.springframework.beans.factory.annotation.Autowired;

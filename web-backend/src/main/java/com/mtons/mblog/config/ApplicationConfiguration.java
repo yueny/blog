@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.config;
+package com.mtons.mblog.config;
 
 import com.yueny.superclub.util.strategy.spring.ManageSpringBeans;
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.base.cache;
+package com.mtons.mblog.base.cache;
 
 import lombok.Getter;
 import org.springframework.data.redis.core.RedisTemplate;

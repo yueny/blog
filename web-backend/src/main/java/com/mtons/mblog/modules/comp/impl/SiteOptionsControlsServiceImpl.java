@@ -7,11 +7,11 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.modules.comp.impl;
+package com.mtons.mblog.modules.comp.impl;
 
 import com.mtons.mblog.config.SiteOptions;
-import main.java.com.mtons.mblog.modules.comp.ISiteOptionsControlsService;
-import main.java.com.mtons.mblog.modules.data.SiteOptionsControlsVO;
+import com.mtons.mblog.modules.comp.ISiteOptionsControlsService;
+import com.mtons.mblog.modules.data.SiteOptionsControlsVO;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

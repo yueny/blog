@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.modules.template;
+package com.mtons.mblog.modules.template;
 
 import freemarker.template.TemplateMethodModelEx;
 import freemarker.template.TemplateModel;

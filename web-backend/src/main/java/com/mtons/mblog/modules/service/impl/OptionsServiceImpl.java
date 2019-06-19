@@ -7,11 +7,11 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.modules.entity.Options;
-import main.java.com.mtons.mblog.modules.repository.OptionsRepository;
-import main.java.com.mtons.mblog.modules.service.OptionsService;
+import com.mtons.mblog.modules.repository.OptionsRepository;
+import com.mtons.mblog.modules.service.OptionsService;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Session;
 import org.springframework.beans.BeanUtils;

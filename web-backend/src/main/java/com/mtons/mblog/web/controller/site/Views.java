@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.web.controller.site;
+package com.mtons.mblog.web.controller.site;
 
 /**
  * 主题页面配置

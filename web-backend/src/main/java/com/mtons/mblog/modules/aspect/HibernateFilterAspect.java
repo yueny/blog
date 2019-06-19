@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.modules.aspect;
+package com.mtons.mblog.modules.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;

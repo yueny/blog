@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.modules.hook;
+package com.mtons.mblog.modules.hook;
 
 /**
  * @author Beldon 2015/10/29

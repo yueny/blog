@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.config;
+package com.mtons.mblog.config;
 
 import org.dozer.DozerBeanMapper;
 import org.dozer.spring.DozerBeanMapperFactoryBean;

@@ -7,11 +7,11 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.base.lang.Consts;
-import main.java.com.mtons.mblog.modules.repository.UserRepository;
-import main.java.com.mtons.mblog.modules.service.UserEventService;
+import com.mtons.mblog.modules.repository.UserRepository;
+import com.mtons.mblog.modules.service.UserEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.modules.aspect;
+package com.mtons.mblog.modules.aspect;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

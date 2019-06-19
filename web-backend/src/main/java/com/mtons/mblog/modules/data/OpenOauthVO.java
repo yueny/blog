@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.modules.data;
+package com.mtons.mblog.modules.data;
 
 /**
  * 第三方开发授权登录

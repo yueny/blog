@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.base.tree;
+package com.mtons.mblog.base.tree;
 
 import lombok.Builder;
 import lombok.Getter;

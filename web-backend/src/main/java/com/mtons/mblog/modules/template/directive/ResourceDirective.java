@@ -1,10 +1,10 @@
 /**
  *
  */
-package main.java.com.mtons.mblog.modules.template.directive;
+package com.mtons.mblog.modules.template.directive;
 
-import main.java.com.mtons.mblog.modules.template.DirectiveHandler;
-import main.java.com.mtons.mblog.modules.template.TemplateDirective;
+import com.mtons.mblog.modules.template.DirectiveHandler;
+import com.mtons.mblog.modules.template.TemplateDirective;
 import org.springframework.stereotype.Component;
 
 /**

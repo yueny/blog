@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.modules.service.impl;
 
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
@@ -6,7 +6,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.mtons.mblog.base.lang.MtonsException;
 import com.mtons.mblog.config.SiteOptions;
-import main.java.com.mtons.mblog.modules.service.MailService;
+import com.mtons.mblog.modules.service.MailService;
 import com.yueny.rapid.email.OkEmail;
 import com.yueny.rapid.email.sender.entity.ThreadEmailEntry;
 import com.yueny.rapid.email.util.MailSmtpType;

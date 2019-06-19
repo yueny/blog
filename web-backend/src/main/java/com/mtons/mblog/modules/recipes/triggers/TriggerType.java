@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.modules.recipes.triggers;
+package com.mtons.mblog.modules.recipes.triggers;
 
 import com.yueny.superclub.api.enums.core.IEnumType;
 import org.apache.commons.lang3.StringUtils;

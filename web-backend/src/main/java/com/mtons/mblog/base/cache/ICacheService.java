@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.base.cache;
+package com.mtons.mblog.base.cache;
 
 /**
  * @author yueny09 <deep_blue_yang@163.com>

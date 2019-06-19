@@ -1,10 +1,10 @@
 /**
  *
  */
-package main.java.com.mtons.mblog.config.xml;
+package com.mtons.mblog.config.xml;
 
-import main.java.com.mtons.mblog.config.ApplicationContextHolder;
-import main.java.com.mtons.mblog.config.UploadConfigConfiguration;
+import com.mtons.mblog.config.ApplicationContextHolder;
+import com.mtons.mblog.config.UploadConfigConfiguration;
 
 /**
  * @author yueny09 <deep_blue_yang@163.com>

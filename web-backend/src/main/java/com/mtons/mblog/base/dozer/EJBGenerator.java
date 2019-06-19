@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.base.dozer;
+package com.mtons.mblog.base.dozer;
 
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.base.oauth.utils;
+package com.mtons.mblog.base.oauth.utils;
 
 public enum Display {
     DEFAULT("default"), PAGE("page"), IFRAME("iframe"), POPUP("popup"), TOUCH("touch"), MOBILE("mobile"), TV("tv"), PAD("pad"),

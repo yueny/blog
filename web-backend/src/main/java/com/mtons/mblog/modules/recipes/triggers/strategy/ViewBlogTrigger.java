@@ -1,6 +1,6 @@
-package main.java.com.mtons.mblog.modules.recipes.triggers.strategy;
+package com.mtons.mblog.modules.recipes.triggers.strategy;
 
-import main.java.com.mtons.mblog.modules.recipes.triggers.TriggerType;
+import com.mtons.mblog.modules.recipes.triggers.TriggerType;
 import org.springframework.stereotype.Component;
 
 /**

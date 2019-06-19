@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.base;
+package com.mtons.mblog.base;
 
 /**
  * 常量类

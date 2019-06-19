@@ -1,9 +1,9 @@
-package main.java.com.mtons.mblog.modules.template.directive;
+package com.mtons.mblog.modules.template.directive;
 
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.config.SiteOptions;
-import main.java.com.mtons.mblog.modules.template.DirectiveHandler;
-import main.java.com.mtons.mblog.modules.template.TemplateDirective;
+import com.mtons.mblog.modules.template.DirectiveHandler;
+import com.mtons.mblog.modules.template.TemplateDirective;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;

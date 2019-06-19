@@ -1,16 +1,16 @@
 /**
  *
  */
-package main.java.com.mtons.mblog.web.controller.site.posts;
+package com.mtons.mblog.web.controller.site.posts;
 
-import main.java.com.mtons.mblog.base.lang.Consts;
-import main.java.com.mtons.mblog.base.lang.Result;
-import main.java.com.mtons.mblog.modules.data.AccountProfile;
-import main.java.com.mtons.mblog.modules.data.PostVO;
-import main.java.com.mtons.mblog.modules.service.ChannelService;
-import main.java.com.mtons.mblog.modules.service.PostService;
-import main.java.com.mtons.mblog.web.controller.BaseController;
-import main.java.com.mtons.mblog.web.controller.site.Views;
+import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.base.lang.Result;
+import com.mtons.mblog.modules.data.AccountProfile;
+import com.mtons.mblog.modules.data.PostVO;
+import com.mtons.mblog.modules.service.ChannelService;
+import com.mtons.mblog.modules.service.PostService;
+import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.site.Views;
 import com.yueny.rapid.lang.util.words.DirtyWordsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

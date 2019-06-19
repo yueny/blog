@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.config.redis;
+package com.mtons.mblog.config.redis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Qualifier;

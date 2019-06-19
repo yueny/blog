@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.base.enums;
+package com.mtons.mblog.base.enums;
 
 import com.yueny.superclub.api.annnotation.EnumValue;
 import com.yueny.superclub.api.enums.core.IEnumType;

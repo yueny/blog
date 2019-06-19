@@ -7,11 +7,11 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.web.exceptions;
+package com.mtons.mblog.web.exceptions;
 
 import com.alibaba.fastjson.JSON;
-import main.java.com.mtons.mblog.base.lang.Result;
-import main.java.com.mtons.mblog.base.lang.MtonsException;
+import com.mtons.mblog.base.lang.Result;
+import com.mtons.mblog.base.lang.MtonsException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;

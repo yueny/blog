@@ -1,14 +1,14 @@
 /**
  *
  */
-package main.java.com.mtons.mblog.modules.template.directive;
+package com.mtons.mblog.modules.template.directive;
 
 import com.mtons.mblog.modules.data.FavoriteVO;
 import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.service.FavoriteService;
 import com.mtons.mblog.modules.service.UserService;
-import main.java.com.mtons.mblog.modules.template.DirectiveHandler;
-import main.java.com.mtons.mblog.modules.template.TemplateDirective;
+import com.mtons.mblog.modules.template.DirectiveHandler;
+import com.mtons.mblog.modules.template.TemplateDirective;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

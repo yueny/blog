@@ -1,9 +1,9 @@
-package main.java.com.mtons.mblog.modules.hook.interceptor.impl;
+package com.mtons.mblog.modules.hook.interceptor.impl;
 
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.data.PostVO;
-import main.java.com.mtons.mblog.modules.hook.interceptor.InterceptorHookSupport;
-import main.java.com.mtons.mblog.modules.service.CommentService;
+import com.mtons.mblog.modules.hook.interceptor.InterceptorHookSupport;
+import com.mtons.mblog.modules.service.CommentService;
 import com.mtons.mblog.web.controller.site.ChannelController;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;

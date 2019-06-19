@@ -1,11 +1,11 @@
-package main.java.com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.modules.aspect.PostStatusFilter;
 import com.mtons.mblog.modules.data.PostVO;
 import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.entity.Post;
-import main.java.com.mtons.mblog.modules.service.PostSearchService;
-import main.java.com.mtons.mblog.modules.service.UserService;
+import com.mtons.mblog.modules.service.PostSearchService;
+import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.base.utils.BeanMapUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

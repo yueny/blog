@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.config;
+package com.mtons.mblog.config;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
@@ -6,8 +6,8 @@ import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
-import main.java.com.mtons.mblog.modules.template.TemplateDirective;
-import main.java.com.mtons.mblog.modules.template.method.TimeAgoMethod;
+import com.mtons.mblog.modules.template.TemplateDirective;
+import com.mtons.mblog.modules.template.method.TimeAgoMethod;
 import com.mtons.mblog.shiro.tags.ShiroTags;
 import com.yueny.rapid.lang.thread.executor.MonitorThreadPoolExecutor;
 import com.yueny.rapid.lang.thread.factory.NamedThreadFactory;

@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.modules.service;
+package com.mtons.mblog.modules.service;
 
 import com.mtons.mblog.modules.data.RoleVO;
 import com.mtons.mblog.modules.entity.Role;

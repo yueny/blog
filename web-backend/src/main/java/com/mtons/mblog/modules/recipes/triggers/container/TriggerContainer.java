@@ -1,7 +1,7 @@
-package main.java.com.mtons.mblog.modules.recipes.triggers.container;
+package com.mtons.mblog.modules.recipes.triggers.container;
 
-import main.java.com.mtons.mblog.modules.recipes.triggers.ITrigger;
-import main.java.com.mtons.mblog.modules.recipes.triggers.TriggerType;
+import com.mtons.mblog.modules.recipes.triggers.ITrigger;
+import com.mtons.mblog.modules.recipes.triggers.TriggerType;
 import com.yueny.superclub.util.strategy.container.IStrategyContainer;
 import com.yueny.superclub.util.strategy.container.StrategyContainerImpl;
 import org.springframework.stereotype.Component;

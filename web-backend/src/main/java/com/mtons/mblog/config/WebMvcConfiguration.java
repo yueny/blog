@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.config;
+package com.mtons.mblog.config;
 
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.mtons.mblog.web.interceptor.BaseInterceptor;

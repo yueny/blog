@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.base.api.IEntry;
 import com.yueny.superclub.api.biz.IBiz;

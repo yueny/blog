@@ -7,15 +7,15 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.web.controller.api;
+package com.mtons.mblog.web.controller.api;
 
 import com.google.common.collect.Sets;
-import main.java.com.mtons.mblog.base.lang.Consts;
-import main.java.com.mtons.mblog.base.lang.Result;
-import main.java.com.mtons.mblog.base.utils.BeanMapUtils;
-import main.java.com.mtons.mblog.modules.data.PostVO;
-import main.java.com.mtons.mblog.modules.service.PostService;
-import main.java.com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.base.lang.Result;
+import com.mtons.mblog.base.utils.BeanMapUtils;
+import com.mtons.mblog.modules.data.PostVO;
+import com.mtons.mblog.modules.service.PostService;
+import com.mtons.mblog.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;

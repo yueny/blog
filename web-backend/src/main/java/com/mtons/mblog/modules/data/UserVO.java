@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.modules.data;
+package com.mtons.mblog.modules.data;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.yueny.rapid.lang.mask.annotation.Mask;

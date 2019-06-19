@@ -7,13 +7,13 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.web.controller.admin;
+package com.mtons.mblog.web.controller.admin;
 
 import java.util.List;
 
-import main.java.com.mtons.mblog.base.lang.Result;
-import main.java.com.mtons.mblog.web.controller.BaseController;
-import main.java.com.mtons.mblog.modules.data.CommentVO;
+import com.mtons.mblog.base.lang.Result;
+import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.modules.data.CommentVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import main.java.com.mtons.mblog.modules.service.CommentService;
+import com.mtons.mblog.modules.service.CommentService;
 
 /**
  * @author langhsu

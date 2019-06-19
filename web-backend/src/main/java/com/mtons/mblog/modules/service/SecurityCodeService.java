@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.modules.service;
+package com.mtons.mblog.modules.service;
 
 /**
  * @author langhsu on 2015/8/14.

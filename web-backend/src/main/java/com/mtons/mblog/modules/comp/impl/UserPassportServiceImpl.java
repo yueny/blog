@@ -1,10 +1,10 @@
-package main.java.com.mtons.mblog.modules.comp.impl;
+package com.mtons.mblog.modules.comp.impl;
 
 import com.mtons.mblog.base.enums.ErrorType;
-import main.java.com.mtons.mblog.modules.comp.IPasswdService;
-import main.java.com.mtons.mblog.modules.comp.IUserPassportService;
-import main.java.com.mtons.mblog.modules.entity.User;
-import main.java.com.mtons.mblog.modules.repository.UserRepository;
+import com.mtons.mblog.modules.comp.IPasswdService;
+import com.mtons.mblog.modules.comp.IUserPassportService;
+import com.mtons.mblog.modules.entity.User;
+import com.mtons.mblog.modules.repository.UserRepository;
 import com.yueny.rapid.lang.exception.invalid.InvalidException;
 import com.yueny.rapid.lang.util.StringUtil;
 import org.apache.commons.lang.StringUtils;

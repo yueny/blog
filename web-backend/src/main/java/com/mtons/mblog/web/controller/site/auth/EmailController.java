@@ -1,14 +1,14 @@
-package main.java.com.mtons.mblog.web.controller.site.auth;
+package com.mtons.mblog.web.controller.site.auth;
 
-import main.java.com.mtons.mblog.base.cache.ICacheService;
-import main.java.com.mtons.mblog.base.lang.Consts;
-import main.java.com.mtons.mblog.base.lang.Result;
-import main.java.com.mtons.mblog.modules.data.AccountProfile;
-import main.java.com.mtons.mblog.modules.data.UserVO;
-import main.java.com.mtons.mblog.modules.service.MailService;
-import main.java.com.mtons.mblog.modules.service.SecurityCodeService;
-import main.java.com.mtons.mblog.modules.service.UserService;
-import main.java.com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.base.cache.ICacheService;
+import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.base.lang.Result;
+import com.mtons.mblog.modules.data.AccountProfile;
+import com.mtons.mblog.modules.data.UserVO;
+import com.mtons.mblog.modules.service.MailService;
+import com.mtons.mblog.modules.service.SecurityCodeService;
+import com.mtons.mblog.modules.service.UserService;
+import com.mtons.mblog.web.controller.BaseController;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;

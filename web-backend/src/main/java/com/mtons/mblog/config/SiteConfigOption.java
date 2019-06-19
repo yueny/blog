@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.config;
+package com.mtons.mblog.config;
 
 import com.taobao.diamond.extend.DynamicProperties;
 import lombok.ToString;

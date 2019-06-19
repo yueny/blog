@@ -7,11 +7,11 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.base.storage.impl;
+package com.mtons.mblog.base.storage.impl;
 
 import com.aliyun.oss.OSSClient;
 import com.mtons.mblog.base.lang.MtonsException;
-import main.java.com.mtons.mblog.base.storage.Storage;
+import com.mtons.mblog.base.storage.Storage;
 import com.mtons.mblog.base.utils.FileKit;
 import com.upyun.UpYunUtils;
 import lombok.extern.slf4j.Slf4j;

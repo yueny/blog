@@ -7,12 +7,12 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.web.controller.admin;
+package com.mtons.mblog.web.controller.admin;
 
-import main.java.com.mtons.mblog.modules.service.ChannelService;
-import main.java.com.mtons.mblog.modules.service.CommentService;
-import main.java.com.mtons.mblog.modules.service.PostService;
-import main.java.com.mtons.mblog.modules.service.UserService;
+import com.mtons.mblog.modules.service.ChannelService;
+import com.mtons.mblog.modules.service.CommentService;
+import com.mtons.mblog.modules.service.PostService;
+import com.mtons.mblog.modules.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

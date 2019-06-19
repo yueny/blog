@@ -7,9 +7,9 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.modules.comp;
+package com.mtons.mblog.modules.comp;
 
-import main.java.com.mtons.mblog.modules.data.SiteOptionsControlsVO;
+import com.mtons.mblog.modules.data.SiteOptionsControlsVO;
 
 /**
  * 开关控制配置获取

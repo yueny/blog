@@ -7,13 +7,13 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.web.controller;
+package com.mtons.mblog.web.controller;
 
-import main.java.com.mtons.mblog.base.lang.Result;
-import main.java.com.mtons.mblog.base.storage.StorageFactory;
-import main.java.com.mtons.mblog.config.SiteOptions;
-import main.java.com.mtons.mblog.modules.comp.IPasswdService;
-import main.java.com.mtons.mblog.modules.data.AccountProfile;
+import com.mtons.mblog.base.lang.Result;
+import com.mtons.mblog.base.storage.StorageFactory;
+import com.mtons.mblog.config.SiteOptions;
+import com.mtons.mblog.modules.comp.IPasswdService;
+import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.web.formatter.StringEscapeEditor;
 import com.yueny.rapid.lang.agent.UserAgentResource;
 import com.yueny.rapid.lang.agent.handler.UserAgentUtils;

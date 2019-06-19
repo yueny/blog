@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.base.lang.EntityStatus;
 import com.mtons.mblog.base.lang.MtonsException;
@@ -17,12 +17,12 @@ import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.data.BadgesCount;
 import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.entity.User;
-import main.java.com.mtons.mblog.modules.repository.RoleRepository;
-import main.java.com.mtons.mblog.modules.repository.UserRepository;
+import com.mtons.mblog.modules.repository.RoleRepository;
+import com.mtons.mblog.modules.repository.UserRepository;
 import com.mtons.mblog.modules.seq.SeqType;
 import com.mtons.mblog.modules.seq.container.ISeqContainer;
-import main.java.com.mtons.mblog.modules.service.MessageService;
-import main.java.com.mtons.mblog.modules.service.UserService;
+import com.mtons.mblog.modules.service.MessageService;
+import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.base.utils.BeanMapUtils;
 import com.yueny.rapid.lang.exception.invalid.InvalidException;
 import org.apache.commons.lang3.StringUtils;

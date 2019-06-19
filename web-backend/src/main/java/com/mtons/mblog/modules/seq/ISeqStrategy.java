@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.modules.seq;
+package com.mtons.mblog.modules.seq;
 
 import com.yueny.superclub.util.strategy.IStrategy;
 

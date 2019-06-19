@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.base.utils;
+package com.mtons.mblog.base.utils;
 
 import org.apache.commons.io.FileUtils;
 

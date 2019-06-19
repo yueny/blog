@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.base.tree;
+package com.mtons.mblog.base.tree;
 
 import com.yueny.superclub.api.pojo.IBo;
 import com.yueny.superclub.api.pojo.instance.AbstractBo;

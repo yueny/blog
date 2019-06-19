@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.shiro.tags;
+package com.mtons.mblog.shiro.tags;
 
 /**
  * <p>Equivalent to {@link org.apache.shiro.web.tags.LacksPermissionTag}</p>

@@ -1,4 +1,4 @@
-package main.java.com.mtons.mblog.base.oauth;
+package com.mtons.mblog.base.oauth;
 
 import com.mtons.mblog.base.oauth.utils.HttpKit;
 

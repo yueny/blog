@@ -1,6 +1,6 @@
-package main.java.com.mtons.mblog.modules.recipes.triggers.strategy;
+package com.mtons.mblog.modules.recipes.triggers.strategy;
 
-import main.java.com.mtons.mblog.modules.recipes.triggers.ITrigger;
+import com.mtons.mblog.modules.recipes.triggers.ITrigger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

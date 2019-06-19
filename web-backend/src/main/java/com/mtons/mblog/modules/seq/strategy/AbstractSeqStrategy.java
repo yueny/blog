@@ -1,6 +1,6 @@
-package main.java.com.mtons.mblog.modules.seq.strategy;
+package com.mtons.mblog.modules.seq.strategy;
 
-import main.java.com.mtons.mblog.modules.seq.ISeqStrategy;
+import com.mtons.mblog.modules.seq.ISeqStrategy;
 import lombok.extern.slf4j.Slf4j;
 
 /**

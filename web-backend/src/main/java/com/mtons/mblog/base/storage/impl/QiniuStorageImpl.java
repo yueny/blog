@@ -7,10 +7,10 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.base.storage.impl;
+package com.mtons.mblog.base.storage.impl;
 
 import com.mtons.mblog.base.lang.MtonsException;
-import main.java.com.mtons.mblog.base.storage.Storage;
+import com.mtons.mblog.base.storage.Storage;
 import com.mtons.mblog.base.utils.FileKit;
 import com.qiniu.common.QiniuException;
 import com.qiniu.common.Zone;

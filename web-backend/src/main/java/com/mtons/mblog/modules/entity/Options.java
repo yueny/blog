@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.modules.entity;
+package com.mtons.mblog.modules.entity;
 
 import com.mtons.mblog.base.api.IEntry;
 

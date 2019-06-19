@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.modules.service.impl;
 
 import com.google.common.collect.Lists;
 import com.mtons.mblog.base.enums.BlogFeaturedType;
@@ -23,8 +23,8 @@ import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.entity.Post;
 import com.mtons.mblog.modules.entity.PostAttribute;
 import com.mtons.mblog.modules.event.PostUpdateEvent;
-import main.java.com.mtons.mblog.modules.repository.PostAttributeRepository;
-import main.java.com.mtons.mblog.modules.repository.PostRepository;
+import com.mtons.mblog.modules.repository.PostAttributeRepository;
+import com.mtons.mblog.modules.repository.PostRepository;
 import com.mtons.mblog.modules.seq.SeqType;
 import com.mtons.mblog.modules.seq.container.ISeqContainer;
 import com.mtons.mblog.modules.service.*;

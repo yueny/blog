@@ -1,6 +1,6 @@
-package main.java.com.mtons.mblog.modules.data;
+package com.mtons.mblog.modules.data;
 
-import main.java.com.mtons.mblog.modules.entity.Message;
+import com.mtons.mblog.modules.entity.Message;
 
 /**
  * @author langhsu on 2015/8/31.

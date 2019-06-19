@@ -1,9 +1,9 @@
-package main.java.com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.modules.data.PermissionTree;
 import com.mtons.mblog.modules.entity.Permission;
-import main.java.com.mtons.mblog.modules.repository.PermissionRepository;
-import main.java.com.mtons.mblog.modules.service.PermissionService;
+import com.mtons.mblog.modules.repository.PermissionRepository;
+import com.mtons.mblog.modules.service.PermissionService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

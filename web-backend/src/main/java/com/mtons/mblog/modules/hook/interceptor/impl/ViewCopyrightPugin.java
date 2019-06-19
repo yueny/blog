@@ -1,7 +1,7 @@
-package main.java.com.mtons.mblog.modules.hook.interceptor.impl;
+package com.mtons.mblog.modules.hook.interceptor.impl;
 
 import com.mtons.mblog.modules.data.PostVO;
-import main.java.com.mtons.mblog.modules.hook.interceptor.InterceptorHookSupport;
+import com.mtons.mblog.modules.hook.interceptor.InterceptorHookSupport;
 import com.mtons.mblog.web.controller.site.ChannelController;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;

@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.base.utils;
+package com.mtons.mblog.base.utils;
 
 import com.mtons.mblog.base.enums.AuthoredType;
 import com.mtons.mblog.base.lang.Consts;

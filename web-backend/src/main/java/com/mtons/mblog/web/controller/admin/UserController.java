@@ -7,17 +7,17 @@
 |
 +---------------------------------------------------------------------------
 */
-package main.java.com.mtons.mblog.web.controller.admin;
+package com.mtons.mblog.web.controller.admin;
 
-import main.java.com.mtons.mblog.base.lang.Result;
-import main.java.com.mtons.mblog.base.lang.Consts;
-import main.java.com.mtons.mblog.modules.data.RoleVO;
-import main.java.com.mtons.mblog.modules.data.UserVO;
-import main.java.com.mtons.mblog.modules.entity.Role;
-import main.java.com.mtons.mblog.modules.service.RoleService;
-import main.java.com.mtons.mblog.modules.service.UserRoleService;
-import main.java.com.mtons.mblog.modules.service.UserService;
-import main.java.com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.base.lang.Result;
+import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.modules.data.RoleVO;
+import com.mtons.mblog.modules.data.UserVO;
+import com.mtons.mblog.modules.entity.Role;
+import com.mtons.mblog.modules.service.RoleService;
+import com.mtons.mblog.modules.service.UserRoleService;
+import com.mtons.mblog.modules.service.UserService;
+import com.mtons.mblog.web.controller.BaseController;
 import com.yueny.rapid.lang.exception.invalid.InvalidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
