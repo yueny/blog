@@ -1,4 +1,4 @@
-package test.java.com.mtons.mblog;
+package com.mtons.mblog;
 
 import com.mtons.mblog.base.utils.ImageUtils;
 import com.qiniu.common.QiniuException;

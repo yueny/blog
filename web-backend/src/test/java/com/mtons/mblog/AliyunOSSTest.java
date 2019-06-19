@@ -1,4 +1,4 @@
-package test.java.com.mtons.mblog;
+package com.mtons.mblog;
 
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.PutObjectResult;

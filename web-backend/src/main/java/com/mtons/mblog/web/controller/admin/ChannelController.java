@@ -177,6 +177,7 @@ public class ChannelController extends BaseController {
 				contextStartup.resetChannels();
 			} catch (Exception e) {
 				data = Result.failure(e.getMessage());
+				logger.error("exception:", e);
 			}
 		}
 		return data;

@@ -16,9 +16,9 @@ public class MessageEvent extends ApplicationEvent {
     private int event;
 
     private long postId;
-//    @Getter
-//    @Setter
-//    private String articleBlogId;
+    @Getter
+    @Setter
+    private String articleBlogId;
 
     /**
      * Create a new ApplicationEvent.

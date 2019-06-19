@@ -38,11 +38,12 @@ public class FavorController extends BaseController {
                 postService.favor(up.getUid(), articleBlogId);
 
                 PostVO postVo = postService.get(articleBlogId);
-                sendMessage(up.getId(), postVo.getId());
+                sendMessage(up.getId(), postVo.getId(), articleBlogId);
 
                 data = Result.success();
             } catch (Exception e) {
                 data = Result.failure(e.getMessage());
+                logger.error("exception:", e);
             }
         }
         return data;
@@ -63,6 +64,7 @@ public class FavorController extends BaseController {
                 data = Result.success();
             } catch (Exception e) {
                 data = Result.failure(e.getMessage());
+                logger.error("exception:", e);
             }
         }
         return data;
@@ -73,12 +75,15 @@ public class FavorController extends BaseController {
      * @param userId
      * @param postId
      */
-    private void sendMessage(long userId, long postId) {
+    private void sendMessage(long userId, long postId, String articleBlogId) {
         MessageEvent event = new MessageEvent("MessageEvent" + System.currentTimeMillis());
         event.setFromUserId(userId);
         event.setEvent(Consts.MESSAGE_EVENT_FAVOR_POST);
         // 此处不知道文章作者, 让通知事件系统补全
         event.setPostId(postId);
+
+        event.setArticleBlogId(articleBlogId);
+
         applicationContext.publishEvent(event);
     }
 }

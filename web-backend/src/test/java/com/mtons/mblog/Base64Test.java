@@ -1,4 +1,4 @@
-package test.java.com.mtons.mblog;
+package com.mtons.mblog;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Base64Utils;

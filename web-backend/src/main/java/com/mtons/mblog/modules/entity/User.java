@@ -75,7 +75,7 @@ public class User implements IEntry, Serializable {
 
 	private String signature; // 个性签名
 
-	private int status; // 用户状态
+	private int status; // 用户状态， 0为可用， 1为不可用
 
 	public User() {
 

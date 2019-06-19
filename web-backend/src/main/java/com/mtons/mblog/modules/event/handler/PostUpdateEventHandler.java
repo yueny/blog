@@ -1,6 +1,5 @@
 package com.mtons.mblog.modules.event.handler;
 
-import com.mtons.mblog.modules.data.PostVO;
 import com.mtons.mblog.modules.event.PostUpdateEvent;
 import com.mtons.mblog.modules.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +27,6 @@ public class PostUpdateEventHandler implements ApplicationListener<PostUpdateEve
     private TagService tagService;
     @Autowired
     private MessageService messageService;
-    @Autowired
-    private PostService postService;
 
     @Async
     @Override
@@ -39,14 +36,16 @@ public class PostUpdateEventHandler implements ApplicationListener<PostUpdateEve
         }
 
         switch (event.getAction()) {
+            // 文章发布
             case PostUpdateEvent.ACTION_PUBLISH:
                 userEventService.identityPost(event.getUserId(), true);
                 break;
+
+            // 文章删除
             case PostUpdateEvent.ACTION_DELETE:
                 userEventService.identityPost(event.getUserId(), false);
 
-                PostVO postVo = postService.get(event.getPostId());
-                favoriteService.delete(postVo.getArticleBlogId());
+                favoriteService.delete(event.getArticleBlogId());
 
                 commentService.deleteByPostId(event.getPostId());
                 tagService.deteleMappingByPostId(event.getPostId());

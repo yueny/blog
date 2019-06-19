@@ -133,6 +133,7 @@ public class PostController extends BaseController {
 				data = Result.success();
 			} catch (Exception e) {
 				data = Result.failure(e.getMessage());
+				logger.error("exception:", e);
 			}
 		}
 		return data;
@@ -154,6 +155,7 @@ public class PostController extends BaseController {
 				data = Result.success();
 			} catch (Exception e) {
 				data = Result.failure(e.getMessage());
+				logger.error("exception:", e);
 			}
 		}
 		return data;
@@ -166,10 +168,14 @@ public class PostController extends BaseController {
 		if (CollectionUtils.isNotEmpty(articleBlogId)) {
 			try {
 				Set<String> articleBlogIds = Sets.newHashSet();
+				articleBlogIds.addAll(articleBlogId);
+
 				postService.delete(articleBlogIds);
+
 				data = Result.success();
 			} catch (Exception e) {
 				data = Result.failure(e.getMessage());
+				logger.error("exception:", e);
 			}
 		}
 		return data;

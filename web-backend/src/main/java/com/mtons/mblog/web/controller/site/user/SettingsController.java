@@ -96,6 +96,7 @@ public class SettingsController extends BaseController {
             data = Result.success();
         } catch (Exception e) {
             data = Result.failure(e.getMessage());
+            logger.error("exception:", e);
         }
         model.put("data", data);
         return view(Views.SETTINGS_PROFILE);
@@ -117,6 +118,7 @@ public class SettingsController extends BaseController {
             data = Result.success();
         } catch (Exception e) {
             data = Result.failure(e.getMessage());
+            logger.error("exception:", e);
         }
         model.put("data", data);
         return view(Views.SETTINGS_EMAIL);
@@ -132,6 +134,7 @@ public class SettingsController extends BaseController {
             data = Result.success();
         } catch (Exception e) {
             data = Result.failure(e.getMessage());
+            logger.error("exception:", e);
         }
         model.put("data", data);
         return view(Views.SETTINGS_PASSWORD);
@@ -176,6 +179,7 @@ public class SettingsController extends BaseController {
             result.setSize(file.getSize());
         } catch (Exception e) {
             result.error(UploadController.errorInfo.get("UNKNOWN"));
+            logger.error("exception:", e);
         }
         return result;
     }

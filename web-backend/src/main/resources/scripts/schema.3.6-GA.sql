@@ -43,3 +43,5 @@ alter table `mto_comment` add column commit_authored_type TINYINT NOT NULL DEFAU
 alter table `mto_comment` add column client_ip varchar(16) COMMENT '客户端ip' after `status`;
 alter table `mto_comment` add column client_agent varchar(256) COMMENT '客户端agent' after `client_ip`;
 
+alter table `mto_post` add column uid varchar(256) COMMENT 'uid' after author_id;
+update `mto_post` set uid=author_id where uid is null;

@@ -1,5 +1,7 @@
 package com.mtons.mblog.modules.event;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.context.ApplicationEvent;
 
 /**
@@ -18,6 +20,11 @@ public class PostUpdateEvent extends ApplicationEvent {
     private long postId;
     private long userId;
     private int action = ACTION_PUBLISH;
+
+    @Getter
+    @Setter
+    private String articleBlogId;
+
 
     public PostUpdateEvent(Object source) {
         super(source);

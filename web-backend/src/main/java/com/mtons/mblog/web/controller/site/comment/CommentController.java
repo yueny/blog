@@ -10,8 +10,10 @@ import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.modules.comp.ISiteOptionsControlsService;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.data.CommentVO;
+import com.mtons.mblog.modules.data.PostVO;
 import com.mtons.mblog.modules.event.MessageEvent;
 import com.mtons.mblog.modules.service.CommentService;
+import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.yueny.rapid.lang.agent.UserAgentResource;
 import com.yueny.rapid.lang.util.IpUtil;
@@ -44,6 +46,8 @@ public class CommentController extends BaseController {
     private ApplicationContext applicationContext;
     @Autowired
     private ISiteOptionsControlsService controlsService;
+    @Autowired
+    private PostService postService;
 
     @RequestMapping("/list/{toId}")
     public Page<CommentVO> view(@PathVariable Long toId, String articleBlogId) {
@@ -124,6 +128,7 @@ public class CommentController extends BaseController {
             data = Result.success();
         } catch (Exception e) {
             data = Result.failure(e.getMessage());
+            logger.error("exception:", e);
         }
         return data;
     }
@@ -147,6 +152,9 @@ public class CommentController extends BaseController {
         }
         // 此处不知道文章作者, 让通知事件系统补全
         event.setPostId(postId);
+
+        PostVO postVO = postService.get(postId);
+        event.setArticleBlogId(postVO.getArticleBlogId());
 
         applicationContext.publishEvent(event);
     }

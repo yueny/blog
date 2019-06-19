@@ -100,7 +100,7 @@ public interface UserService {
 	 * @param uid
 	 * @param newPassword 新密码，输入明文
 	 */
-	void updatePassword(String uid, String newPassword) throws InvalidException;
+	boolean updatePassword(String uid, String newPassword) throws InvalidException;
 
 	/**
 	 * 修改密码
@@ -108,14 +108,14 @@ public interface UserService {
 	 * @param oldPassword  旧密码，输入明文
 	 * @param newPassword  新密码，输入明文
 	 */
-	void updatePassword(String uid, String oldPassword, String newPassword) throws InvalidException;
+	boolean updatePassword(String uid, String oldPassword, String newPassword) throws InvalidException;
 
 	/**
 	 * 修改用户状态
 	 * @param id
 	 * @param status
 	 */
-	void updateStatus(long id, int status);
+	boolean updateStatus(long id, int status);
 
 	long count();
 

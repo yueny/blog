@@ -31,6 +31,7 @@ public class MessageEventHandler implements ApplicationListener<MessageEvent> {
         nt.setEvent(event.getEvent());
 
         switch (event.getEvent()) {
+            // 有人喜欢了你的文章
             case Consts.MESSAGE_EVENT_FAVOR_POST:
                 PostVO p = postService.get(event.getPostId());
                 nt.setUserId(p.getAuthorId());

@@ -52,5 +52,9 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
     @Query("update User set comments = comments + :increment where id in (:ids)")
     int updateComments(@Param("ids") Collection<Long> ids, @Param("increment") int increment);
 
+    @Modifying
+    @Query("update User set status = :status where id = :id")
+    int updateStatus(@Param("id") Long id, @Param("status") int status);
+
     User findByDomainHack(String domainHack);
 }

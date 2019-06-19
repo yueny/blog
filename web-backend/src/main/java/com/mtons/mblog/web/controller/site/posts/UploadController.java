@@ -113,7 +113,7 @@ public class UploadController extends BaseController {
 
         } catch (Exception e) {
             result.error(errorInfo.get("UNKNOWN"));
-            e.printStackTrace();
+            logger.error("exception:", e);
         }
 
         return result;

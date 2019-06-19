@@ -39,7 +39,7 @@ public class SearchController extends BaseController {
 				model.put("results", page);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("exception:", e);
 		}
 		model.put("kw", kw);
 		return view(Views.SEARCH);

@@ -105,6 +105,7 @@ public class UserController extends BaseController {
 			model.put("message", "修改成功");
 		} catch (IllegalArgumentException | InvalidException e) {
 			model.put("message", e.getMessage());
+			logger.error("exception:", e);
 		}
 		return "/admin/user/pwd";
 	}

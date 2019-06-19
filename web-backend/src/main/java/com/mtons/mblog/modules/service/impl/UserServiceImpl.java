@@ -37,6 +37,9 @@ import org.springframework.util.Assert;
 import javax.persistence.criteria.Predicate;
 import java.util.*;
 
+/**
+ * 用户服务，该服务提供的对象，密码均为空
+ */
 @Service
 @Transactional(readOnly = true)
 public class UserServiceImpl extends BaseService implements UserService {
@@ -253,18 +256,18 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
     @Transactional
-    public void updatePassword(String uid, String newPassword) throws InvalidException{
+    public boolean updatePassword(String uid, String newPassword) throws InvalidException{
         Assert.hasLength(newPassword, "密码不能为空!");
 
-        passwdService.changePassword(uid, newPassword);
+        return passwdService.changePassword(uid, newPassword);
     }
 
     @Override
     @Transactional
-    public void updatePassword(String uid, String oldPassword, String newPassword) throws InvalidException {
+    public boolean updatePassword(String uid, String oldPassword, String newPassword) throws InvalidException {
         Assert.hasLength(newPassword, "新密码不能为空!");
 
-        userPassportService.modifyPassPort(uid, oldPassword, newPassword);
+        return userPassportService.modifyPassPort(uid, oldPassword, newPassword);
 
 //        String pw = passwdService.encode(newPassword, "");
 //        User po = userRepository.findByUid(uid);
@@ -274,11 +277,11 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
     @Transactional
-    public void updateStatus(long id, int status) {
+    public boolean updateStatus(long id, int status) {
         User po = userRepository.findById(id).get();
 
         po.setStatus(status);
-        userRepository.save(po);
+        return userRepository.updateStatus(id, status) == 1;
     }
 
     @Override

@@ -34,10 +34,11 @@
         </div>
     </div>
 </section>
-<script type="text/javascript">
-var J = jQuery;
 
-$(function() {
-})
+<script type="text/javascript">
+    var J = jQuery;
+
+    $(function() {
+    })
 </script>
 </@layout>

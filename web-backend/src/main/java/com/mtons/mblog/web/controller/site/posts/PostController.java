@@ -108,6 +108,7 @@ public class PostController extends BaseController {
 			data = Result.success();
 		} catch (Exception e) {
 			data = Result.failure(e.getMessage());
+			logger.error("exception:", e);
 		}
 		return data;
 	}

@@ -329,6 +329,7 @@ public class PostServiceImpl extends BaseService implements PostService {
 			List<Post> list = postRepository.findAllByArticleBlogId(articleBlogIds);
 			list.forEach(po -> {
 				postRepository.delete(po);
+
 				postAttributeRepository.deleteById(po.getId());
 				onPushEvent(po, PostUpdateEvent.ACTION_DELETE);
 			});
@@ -437,6 +438,9 @@ public class PostServiceImpl extends BaseService implements PostService {
 		event.setPostId(post.getId());
 		event.setUserId(post.getAuthorId());
 		event.setAction(action);
+
+		event.setArticleBlogId(post.getArticleBlogId());
+
 		applicationContext.publishEvent(event);
 	}
 }
