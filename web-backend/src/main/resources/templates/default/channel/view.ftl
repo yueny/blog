@@ -102,9 +102,16 @@
             </li>
             <li class="list-group-item">
                 <div class="text-center">
-                    <a class="btn btn-default btn-sm" href="javascript:void(0);" data-id="${view.id}" rel="favor">
-                        <i class="icon icon-star"></i> 收藏 <strong id="favors">${view.favors}</strong>
-                    </a>
+                    <#-- 是否区分登陆未登录 -->
+                    <#if isFavorite == 0><#-- 未收藏或者未登录无法判断 -->
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" data-id="${view.articleBlogId}" rel="favor">
+                            <i class="icon icon-star"></i> 收藏 <strong id="favors">${view.favors}</strong>
+                        </a>
+                    <#elseif isFavorite == 1><#-- 已收藏 -->
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" data-id="${view.articleBlogId}" rel="unfavor">
+                            <i class="icon icon-star"></i> 取消收藏 <strong id="unfavor">${view.favors}</strong>
+                        </a>
+                    </#if>
                 </div>
             </li>
         </ul>

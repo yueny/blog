@@ -17,6 +17,12 @@ public interface FavoriteService {
      */
     Page<FavoriteVO> pagingByUserId(Pageable pageable, String uid);
 
+    /**
+     * 查询用户收藏记录
+     * @param uid
+     */
+    FavoriteVO findByUidAndArticleBlogId(String uid, String articleBlogId);
+
     void add(String uid, String articleBlogId);
     void delete(String uid, String articleBlogId);
     void delete(String articleBlogId);

@@ -1,7 +1,6 @@
 package com.mtons.mblog.modules.service.impl;
 
-import com.mtons.mblog.base.api.IEntry;
-import com.yueny.superclub.api.biz.IBiz;
+import com.mtons.mblog.entity.api.IEntry;
 import com.yueny.superclub.api.pojo.IBo;
 import org.apache.commons.collections.CollectionUtils;
 import org.dozer.Mapper;
@@ -22,7 +21,7 @@ import java.util.Set;
  *
  * @date 2015年8月9日 下午7:21:34
  */
-abstract class BaseService implements IBiz {
+abstract class BaseService {
 	/**
 	 * LoggerUtil available to subclasses.
 	 */

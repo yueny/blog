@@ -17,7 +17,6 @@ import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.web.formatter.StringEscapeEditor;
 import com.yueny.rapid.lang.agent.UserAgentResource;
 import com.yueny.rapid.lang.agent.handler.UserAgentUtils;
-import com.yueny.superclub.api.biz.Action;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -49,7 +48,7 @@ import java.util.Date;
  * @author langhsu
  * @since 3.0
  */
-public class BaseController implements Action {
+public class BaseController {
     @Autowired
     protected StorageFactory storageFactory;
     @Autowired

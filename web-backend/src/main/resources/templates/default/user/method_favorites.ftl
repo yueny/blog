@@ -25,7 +25,7 @@
 
                                 <div class="pull-right hidden-xs">
                                     <#if owner>
-                                        <a class="act" href="javascript:void(0);" data-evt="unfavor" data-id="${target.id}">
+                                        <a class="act" href="javascript:void(0);" data-evt="unfavor" data-id="${target.articleBlogId}">
                                             <i class="icon icon-close"></i>
                                         </a>
                                     </#if>
@@ -60,7 +60,7 @@ $(function() {
             btn: ['确定','取消'], //按钮
             shade: false //不显示遮罩
         }, function(){
-			jQuery.getJSON('${base}/user/unfavor', {'id': id}, function (ret) {
+			jQuery.getJSON('${base}/user/unfavor', {'articleBlogId': id}, function (ret) {
 				layer.msg(ret.message, {icon: 1});
 				if (ret.code >=0) {
 					$('#loop-' + id).fadeOut();

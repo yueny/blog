@@ -53,6 +53,17 @@ public class FavoriteServiceImpl extends BaseService implements FavoriteService 
     }
 
     @Override
+    public FavoriteVO findByUidAndArticleBlogId(String uid, String articleBlogId) {
+        Favorite favorite = favoriteRepository.findByUidAndArticleBlogId(uid, articleBlogId);
+
+        if(favorite == null){
+            return null;
+        }
+
+        return  map(favorite, FavoriteVO.class);
+    }
+
+    @Override
     @Transactional
     public void add(String uid, String articleBlogId) {
         Favorite po = favoriteRepository.findByUidAndArticleBlogId(uid, articleBlogId);

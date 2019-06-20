@@ -29,6 +29,7 @@
                 <value>common, redis</value>
                 <value>common, db</value>
 
+                <value>blog, db</value>
                 <value>blog, app</value>
                 <value>blog, things</value>
             </list>

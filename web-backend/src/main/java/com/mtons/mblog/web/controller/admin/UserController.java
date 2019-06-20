@@ -102,7 +102,7 @@ public class UserController extends BaseController {
 
 		try {
 			userService.updatePassword(ret.getUid(), newPassword);
-			model.put("message", "修改成功");
+			model.put("message", "修改成功， 新密码 " + newPassword + "， 请牢记！");
 		} catch (IllegalArgumentException | InvalidException e) {
 			model.put("message", e.getMessage());
 			logger.error("exception:", e);

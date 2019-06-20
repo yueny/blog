@@ -1,7 +1,10 @@
 package com.mtons.mblog.web.controller.site;
 
 import com.mtons.mblog.base.utils.MarkdownUtils;
+import com.mtons.mblog.modules.data.AccountProfile;
+import com.mtons.mblog.modules.data.FavoriteVO;
 import com.mtons.mblog.modules.data.PostVO;
+import com.mtons.mblog.modules.service.FavoriteService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.yueny.rapid.data.resp.pojo.response.NormalResponse;
@@ -28,6 +31,8 @@ public class ArticleBlogDetailShowActionController extends BaseController {
 
 	@Autowired
 	private PostService postService;
+	@Autowired
+	private FavoriteService favoriteService;
 
 	/**
 	 * 查看 html 文章详情
@@ -45,6 +50,15 @@ public class ArticleBlogDetailShowActionController extends BaseController {
 
 		if ("markdown".endsWith(view.getEditor())) {
 			view.setContent(MarkdownUtils.renderMarkdown(view.getContent()));
+		}
+
+		AccountProfile accountProfile = getProfile();
+		if(accountProfile != null){
+			FavoriteVO favoriteVO = favoriteService.findByUidAndArticleBlogId(accountProfile.getUid(), articleBlogId);
+			// 1表示文章已收藏， 0表示未收藏或者未登录无法判断
+			getModel().addAttribute("isFavorite", (favoriteVO != null) ? 1: 0);
+		}else{
+			getModel().addAttribute("isFavorite", 0);
 		}
 
 		// 自增浏览数

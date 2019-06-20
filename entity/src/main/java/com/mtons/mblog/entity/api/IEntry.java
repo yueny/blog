@@ -1,4 +1,4 @@
-package com.mtons.mblog.base.api;
+package com.mtons.mblog.entity.api;
 
 /**
  * 数据实体类

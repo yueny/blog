@@ -67,7 +67,7 @@ public class PostVO extends AbstractMaskBo implements IBo, Serializable {
 	private Date created;
 
 	/**
-	 * 收藏数
+	 * 收藏数（不同用户）
 	 */
 	private int favors;
 

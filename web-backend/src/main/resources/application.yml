@@ -9,7 +9,7 @@ server:
 spring:
     profiles:
         # 引入 pom中的 profileActive
-        active: '@profileActive@'
+        active: mysql
     devtools:
         enabled: true
     cache:

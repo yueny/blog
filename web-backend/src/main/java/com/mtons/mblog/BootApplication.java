@@ -13,7 +13,8 @@ import org.springframework.context.annotation.ImportResource;
 @Slf4j
 @SpringBootApplication
 @EnableCaching
-@ImportResource(locations = { "classpath:/config/cfg-properties.xml" })
+@ImportResource(locations = { "classpath:/config/cfg-properties.xml",
+        "classpath:/config/spring-jpa.xml"})
 public class BootApplication {
 
     public static void main(String[] args) {

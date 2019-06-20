@@ -10,7 +10,6 @@
 package com.mtons.mblog.modules.service;
 
 import com.mtons.mblog.modules.data.CommentVO;
-import com.mtons.mblog.modules.entity.Comment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

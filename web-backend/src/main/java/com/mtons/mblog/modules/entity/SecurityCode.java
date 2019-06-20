@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.modules.entity;
 
-import com.mtons.mblog.base.api.IEntry;
+import com.mtons.mblog.entity.api.IEntry;
 
 import javax.persistence.*;
 import java.util.Date;

@@ -7,10 +7,11 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.modules.entity;
+package com.mtons.mblog.entity;
 
-import com.mtons.mblog.base.api.IEntry;
+import com.baomidou.mybatisplus.annotation.*;
 import com.mtons.mblog.base.enums.AuthoredType;
+import com.mtons.mblog.entity.api.IEntry;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,12 +27,19 @@ import java.util.Date;
 @Table(name = "mto_comment", indexes = {
         @Index(name = "IK_POST_ID", columnList = "post_id")
 })
+@TableName("mto_comment")
 @Getter
 @Setter
 public class Comment implements IEntry {
+    /** 自然主键 */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @TableId(type = IdType.AUTO)
+    private Long id;
+
+    /** 表创建时间 */
+    @TableField(fill = FieldFill.INSERT)
+    private Date created;
 
     /**
      * 针对性回复的评论ID(父评论ID)
@@ -49,9 +57,6 @@ public class Comment implements IEntry {
      */
     @Column(name = "content")
     private String content;
-
-    @Column(name = "created")
-    private Date created;
 
     /**
      * 用户ID（不是用户uid）。 当为0时则表示为匿名用户

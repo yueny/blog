@@ -10,8 +10,7 @@
 
 define(function(require, exports, module) {
     var plugins = require('plugins');
-	var Authc = require('main/resources/static/dist/js/modules/authc');
-    var Commoc = require('main/resources/static/dist/js/modules/commoc');
+    var Authc = require('authc');
 
     var wpexLocalize = {
     		"mobileMenuOpen" : "Click here to navigate",
@@ -50,25 +49,57 @@ define(function(require, exports, module) {
 	var bindClickEvent = function () {
 		// Favor
 		$('a[rel=favor]').click(function () {
-			var articleBlogId = $(this).attr('data-id');
+			var id = $(this).attr('data-id');
 
-			// Commoc
-			if (!Authc.isAuthced()) {
-				Authc.showLogin();
-				return false;
-			}
+            if (!Authc.isAuthced()) {
+                Authc.showLogin();
+                return false;
+            }
 
-			if (parseInt(id) > 0) {
-				jQuery.getJSON(_MTONS.BASE_PATH +'/user/favor', {'articleBlogId': articleBlogId}, function (ret) {
+            // id 可能不纯粹的为数字
+			if (id != null && id != '') {
+				jQuery.getJSON(_MTONS.BASE_PATH +'/user/favor', {'articleBlogId': id}, function (ret) {
 					if (ret.code >=0) {
-						var favors = $('#favors').text();
-						$('#favors').text(parseInt(favors) + 1);
+						//var favors = $('#favors').text();
+						//$('#favors').text(parseInt(favors) + 1);
+
+						// TODO 此处应该异步ajax
+                        window.location.reload();
 					} else {
 						layer.msg(ret.message, {icon: 5});
 					}
 				});
 			}
 		});
+        // Favor
+        $('a[rel=unfavor]').click(function () {
+            var id = $(this).attr('data-id');
+
+            if (!Authc.isAuthced()) {
+                Authc.showLogin();
+                return false;
+            }
+
+            // id 可能不纯粹的为数字
+            if (id != null && id != '') {
+                layer.confirm('确定不再收藏了吗?', {
+                    btn: ['确定','取消'], //按钮
+                    shade: false //不显示遮罩
+                }, function(){
+                    jQuery.getJSON(_MTONS.BASE_PATH +'/user/unfavor', {'articleBlogId': id}, function (ret) {
+                        layer.msg(ret.message, {icon: 1});
+
+                        if (ret.code >=0) {
+                            // TODO 此处应该异步ajax
+                            window.location.reload();
+                        }
+                    });
+
+                }, function(){
+
+                });
+            }
+        });
 
 		//$(document).pjax('a[rel=pjax]', '#wrap', {
 		//	fragment: '#wrap',

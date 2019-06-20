@@ -13,7 +13,7 @@ import com.mtons.mblog.base.BlogConstant;
 import com.mtons.mblog.modules.data.CommentVO;
 import com.mtons.mblog.modules.data.PostVO;
 import com.mtons.mblog.modules.data.UserVO;
-import com.mtons.mblog.modules.entity.Comment;
+import com.mtons.mblog.entity.Comment;
 import com.mtons.mblog.modules.repository.CommentRepository;
 import com.mtons.mblog.modules.service.CommentService;
 import com.mtons.mblog.modules.service.PostService;

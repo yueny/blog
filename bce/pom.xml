@@ -12,4 +12,10 @@
 
     <artifactId>mblog-bce</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.yueny</groupId>
+            <artifactId>api</artifactId>
+        </dependency>
+    </dependencies>
 </project>

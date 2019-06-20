@@ -107,7 +107,8 @@
             </li>
             <li class="list-group-item">
                 <div class="text-center">
-                    <a class="btn btn-default btn-sm" disabled="true" readonly="true" href="javascript:void(0);" data-id="${view.id}" rel="favor">
+                    <#-- 是否区分登陆未登录 -->
+                    <a class="btn btn-default btn-sm" disabled="true" readonly="true" href="javascript:void(0);" data-id="${view.articleBlogId}" rel="favor">
                         <i class="icon icon-star"></i> 收藏 <strong id="favors">${view.favors}</strong>
                     </a>
                 </div>

@@ -1,6 +1,6 @@
 package com.mtons.mblog.modules.entity;
 
-import com.mtons.mblog.base.api.IEntry;
+import com.mtons.mblog.entity.api.IEntry;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +9,6 @@ import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
