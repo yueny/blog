@@ -37,7 +37,6 @@ update `mto_channel` set channel_code=id where channel_code is null;
 alter table `mto_post` add column article_blog_id varchar(64) NOT NULL DEFAULT '' COMMENT '文章扩展ID' after `id`;
 ALTER TABLE `mto_post` ADD UNIQUE (article_blog_id);
 
---  ok
 alter table `mto_comment` add column uid varchar(256) COMMENT 'uid' after author_id;
 alter table `mto_comment` add column commit_authored_type TINYINT NOT NULL DEFAULT 1 COMMENT '是否为鉴权用户。 1 为认证用户(默认)， 0为匿名用户' after `post_id`;
 alter table `mto_comment` add column client_ip varchar(16) COMMENT '客户端ip' after `status`;
@@ -45,3 +44,7 @@ alter table `mto_comment` add column client_agent varchar(256) COMMENT '客户�
 
 alter table `mto_post` add column uid varchar(256) COMMENT 'uid' after author_id;
 update `mto_post` set uid=author_id where uid is null;
+
+--  ok
+
+
