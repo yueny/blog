@@ -23,7 +23,14 @@
 		<mybatis-plus.version>3.0.2</mybatis-plus.version>
 		<mybatis.boot.version>1.3.2</mybatis.boot.version>
 
+		<commons.lang3>3.8.1</commons.lang3>
+		<commons.io>1.3.2</commons.io>
+		<commons.text>1.3</commons.text>
+		<commons.httpclient>3.1</commons.httpclient>
 		<sharding-jdbc-core.version>3.1.0</sharding-jdbc-core.version>
+		<alibaba.fastjson>1.2.55</alibaba.fastjson>
+		<apache.lucene>5.5.5</apache.lucene>
+		<coobird.thumbnailator>0.4.8</coobird.thumbnailator>
 
 		<yueny.api.latest.version>1.0.1-RELEASE</yueny.api.latest.version>
 		<rapid.version>1.0.1-SNAPSHOT</rapid.version>
@@ -32,7 +39,10 @@
 	<modules>
 		<module>bce</module>
 		<module>entity</module>
+		<module>bo</module>
 		<module>dao</module>
+
+		<module>service</module>
 
 		<module>web-backend</module>
 	</modules>
@@ -52,7 +62,17 @@
 			</dependency>
 			<dependency>
 				<groupId>com.mtons.mblog</groupId>
+				<artifactId>mblog-bo</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.mtons.mblog</groupId>
 				<artifactId>mblog-dao</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.mtons.mblog</groupId>
+				<artifactId>mblog-service</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 
@@ -166,6 +186,49 @@
 				<version>5.11.0.Final</version>
 			</dependency>
 
+			<dependency>
+				<groupId>org.apache.lucene</groupId>
+				<artifactId>lucene-analyzers-smartcn</artifactId>
+				<version>${apache.lucene}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.lucene</groupId>
+				<artifactId>lucene-highlighter</artifactId>
+				<version>${apache.lucene}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${alibaba.fastjson}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>${commons.lang3}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons.io}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-text</artifactId>
+				<version>${commons.text}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-httpclient</groupId>
+				<artifactId>commons-httpclient</artifactId>
+				<version>${commons.httpclient}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>net.coobird</groupId>
+				<artifactId>thumbnailator</artifactId>
+				<version>${coobird.thumbnailator}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 

@@ -1,7 +1,7 @@
 package com.mtons.mblog.modules.service;
 
 import com.mtons.mblog.modules.data.PermissionVO;
-import com.mtons.mblog.modules.data.RolePermissionVO;
+import com.mtons.mblog.bo.RolePermissionVO;
 
 import java.util.List;
 import java.util.Set;

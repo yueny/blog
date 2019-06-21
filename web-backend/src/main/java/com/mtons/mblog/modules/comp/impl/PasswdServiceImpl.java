@@ -11,7 +11,7 @@ package com.mtons.mblog.modules.comp.impl;
 
 import com.mtons.mblog.base.enums.ErrorType;
 import com.mtons.mblog.base.utils.MD5;
-import com.mtons.mblog.modules.comp.IPasswdService;
+import com.mtons.mblog.service.comp.IPasswdService;
 import com.mtons.mblog.entity.User;
 import com.mtons.mblog.modules.repository.UserRepository;
 import com.yueny.rapid.lang.exception.invalid.InvalidException;

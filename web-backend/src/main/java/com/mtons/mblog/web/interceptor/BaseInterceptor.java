@@ -9,8 +9,8 @@
 */
 package com.mtons.mblog.web.interceptor;
 
-import com.mtons.mblog.modules.comp.ISiteOptionsControlsService;
-import com.mtons.mblog.modules.data.SiteOptionsControlsVO;
+import com.mtons.mblog.service.comp.ISiteOptionsControlsService;
+import com.mtons.mblog.bo.SiteOptionsControlsVO;
 import com.mtons.mblog.modules.hook.interceptor.InterceptorHookManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

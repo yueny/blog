@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.web.controller.admin;
 
-import com.mtons.mblog.modules.service.ChannelService;
+import com.mtons.mblog.service.ChannelService;
 import com.mtons.mblog.modules.service.CommentService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.modules.service.UserService;

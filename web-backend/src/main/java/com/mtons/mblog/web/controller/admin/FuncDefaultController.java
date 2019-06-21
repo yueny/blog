@@ -10,7 +10,7 @@
 package com.mtons.mblog.web.controller.admin;
 
 import com.mtons.mblog.config.ContextStartup;
-import com.mtons.mblog.modules.data.FuncDefaultVO;
+import com.mtons.mblog.bo.FuncDefaultVO;
 import com.mtons.mblog.modules.service.OptionsService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;

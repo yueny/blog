@@ -1,14 +1,12 @@
 package com.mtons.mblog.web.controller.site;
 
 import com.mtons.mblog.base.utils.MarkdownUtils;
-import com.mtons.mblog.modules.data.AccountProfile;
+import com.mtons.mblog.bo.AccountProfile;
 import com.mtons.mblog.modules.data.FavoriteVO;
 import com.mtons.mblog.modules.data.PostVO;
 import com.mtons.mblog.modules.service.FavoriteService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.web.controller.BaseController;
-import com.yueny.rapid.data.resp.pojo.response.NormalResponse;
-import com.yueny.rapid.lang.exception.DataVerifyAnomalyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;

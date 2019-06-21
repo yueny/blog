@@ -2,7 +2,7 @@ package com.mtons.mblog.modules.service.impl;
 
 import com.google.common.collect.Sets;
 import com.mtons.mblog.modules.data.PermissionVO;
-import com.mtons.mblog.modules.data.RolePermissionVO;
+import com.mtons.mblog.bo.RolePermissionVO;
 import com.mtons.mblog.modules.data.RoleVO;
 import com.mtons.mblog.entity.Role;
 import com.mtons.mblog.entity.RolePermission;

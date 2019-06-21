@@ -6,7 +6,7 @@ import com.mtons.mblog.base.lang.StorageConsts;
 import com.mtons.mblog.base.utils.FileKit;
 import com.mtons.mblog.base.utils.FilePathUtils;
 import com.mtons.mblog.base.utils.ImageUtils;
-import com.mtons.mblog.modules.data.AccountProfile;
+import com.mtons.mblog.bo.AccountProfile;
 import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.service.SecurityCodeService;
 import com.mtons.mblog.modules.service.UserService;

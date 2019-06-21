@@ -9,11 +9,11 @@
 */
 package com.mtons.mblog.modules.service.impl;
 
-import com.mtons.mblog.modules.data.ResourceVO;
+import com.mtons.mblog.bo.ResourceVO;
 import com.mtons.mblog.entity.Resource;
 import com.mtons.mblog.modules.repository.ResourceRepository;
-import com.mtons.mblog.modules.service.ResourceService;
-import org.apache.commons.collections.CollectionUtils;
+import com.mtons.mblog.service.ResourceService;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -9,8 +9,8 @@
 */
 package com.mtons.mblog.modules.service.impl;
 
-import com.mtons.mblog.modules.comp.IPasswdService;
-import com.mtons.mblog.modules.data.OpenOauthVO;
+import com.mtons.mblog.service.comp.IPasswdService;
+import com.mtons.mblog.bo.OpenOauthVO;
 import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.entity.UserOauth;
 import com.mtons.mblog.entity.User;

@@ -9,10 +9,10 @@
 */
 package com.mtons.mblog.modules.service.impl;
 
-import com.mtons.mblog.modules.data.ResourceVO;
+import com.mtons.mblog.bo.ResourceVO;
 import com.mtons.mblog.entity.Resource;
 import com.mtons.mblog.modules.repository.ResourceRepository;
-import com.mtons.mblog.modules.service.ResourceManagerService;
+import com.mtons.mblog.service.ResourceManagerService;
 import com.yueny.rapid.lang.util.UuidUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

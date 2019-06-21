@@ -1,7 +1,7 @@
 package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.modules.data.PermissionVO;
-import com.mtons.mblog.modules.data.RolePermissionVO;
+import com.mtons.mblog.bo.RolePermissionVO;
 import com.mtons.mblog.modules.repository.PermissionRepository;
 import com.mtons.mblog.modules.repository.RolePermissionRepository;
 import com.mtons.mblog.entity.Permission;

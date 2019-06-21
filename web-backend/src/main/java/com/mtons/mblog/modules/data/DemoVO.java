@@ -9,6 +9,7 @@
 */
 package com.mtons.mblog.modules.data;
 
+import com.mtons.mblog.bo.BaseVO;
 import lombok.*;
 
 /**

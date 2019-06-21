@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.mtons.mblog</groupId>
+        <artifactId>mblog</artifactId>
+        <version>latest</version>
+    </parent>
+
+    <artifactId>mblog-service</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.mtons.mblog</groupId>
+            <artifactId>mblog-bo</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.yueny.rapid.message</groupId>
+            <artifactId>rapid-ok-email</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.yueny.rapid</groupId>
+            <artifactId>rapid-lang-dozer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.yueny.rapid</groupId>
+            <artifactId>rapid-lang-userAgent</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.yueny.rapid</groupId>
+            <artifactId>rapid-lang-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.yueny.rapid</groupId>
+            <artifactId>rapid-lang-thread</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.yueny.rapid</groupId>
+            <artifactId>rapid-lang-timer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.yueny.rapid</groupId>
+            <artifactId>rapid-lang-json</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.yueny.rapid</groupId>
+            <artifactId>rapid-lang-exception</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.yueny.rapid</groupId>
+            <artifactId>rapid-lang-dozer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.yueny.rapid</groupId>
+            <artifactId>rapid-lang-date</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.yueny.rapid</groupId>
+            <artifactId>rapid-util-strategy</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

@@ -9,7 +9,6 @@
 */
 package com.mtons.mblog.modules.service.impl;
 
-import com.mtons.mblog.base.BlogConstant;
 import com.mtons.mblog.modules.comp.util.DefaultMojoFactory;
 import com.mtons.mblog.modules.data.CommentVO;
 import com.mtons.mblog.modules.data.PostVO;
@@ -21,7 +20,7 @@ import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.modules.service.UserEventService;
 import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.base.utils.BeanMapUtils;
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;

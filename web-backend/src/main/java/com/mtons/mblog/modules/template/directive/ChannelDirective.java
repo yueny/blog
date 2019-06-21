@@ -1,6 +1,6 @@
 package com.mtons.mblog.modules.template.directive;
 
-import com.mtons.mblog.modules.service.ChannelService;
+import com.mtons.mblog.service.ChannelService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.template.TemplateDirective;
 import org.springframework.beans.factory.annotation.Autowired;

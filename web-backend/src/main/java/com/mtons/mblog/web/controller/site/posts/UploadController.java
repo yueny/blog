@@ -13,7 +13,7 @@ import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.storage.NailPathData;
 import com.mtons.mblog.base.storage.NailType;
 import com.mtons.mblog.base.utils.FileKit;
-import com.mtons.mblog.modules.data.AccountProfile;
+import com.mtons.mblog.bo.AccountProfile;
 import com.mtons.mblog.web.controller.BaseController;
 import lombok.Getter;
 import lombok.Setter;

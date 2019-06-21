@@ -192,7 +192,7 @@
                     </#if>
                     <li>
                         <a class="plus">
-                            <i class="tooltip-icon glyphicon glyphicon-exclamation-sign"></i>
+                            <i class="tooltip-icon-info glyphicon glyphicon-exclamation-sign"></i>
                         </a>
                     </li>
                 </ul>
@@ -210,14 +210,12 @@
                 $this.closest('li').addClass("active");
             }
         });
-
-        $("[data-toggle='popover']").popover();
     });
 </script>
 <script>
     $(function(){
         var tips;
-        $('i.tooltip-icon').on({
+        $('i.tooltip-icon-info').on({
             mouseenter:function(){
                 var that = this;
                 tips =layer.tips(

@@ -20,6 +20,7 @@
                 <a href="${base}/admin" target="_blank">
                     <i class="glyphicon glyphicon-font" title="控制台"></i>
                 </a>
+                <i class="tooltip-icon-version glyphicon glyphicon-gbp"></i>
             </div>
         </div>
     </div>
@@ -32,5 +33,23 @@
 <script type="text/javascript">
     seajs.use('main', function (main) {
         main.init();
+    });
+</script>
+<script>
+    $(function(){
+        var tips;
+        $('i.tooltip-icon-version').on({
+            mouseenter:function(){
+                var that = this;
+                tips =layer.tips(
+                        "<span style='color:#000;'>3.6-GA</span>",
+                        that,
+                        {tips:[2,'#fff'],time:0,area: 'auto',maxWidth:500}
+                );
+            },
+            mouseleave:function(){
+                layer.close(tips);
+            }
+        });
     });
 </script>
