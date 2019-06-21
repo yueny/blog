@@ -42,7 +42,7 @@ public interface Storage {
 	 * 存储压缩图片
 	 * @param file
 	 * @param nailPath
-	 * @return key: thumbnailCode 图片资源编号; value: path 图片资源路径
+	 * @return key: thumbnailCode 图片资源编号; value: path 图片资源路径， 如/storage/thumbnails/_signature/4BS6MB2OMJBO6V3S05194K3C8.png
 	 * @throws IOException
 	 */
 	Map.Entry<String, String> storeScale(MultipartFile file, NailPathData nailPath, int width, int height) throws Exception;

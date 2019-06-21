@@ -35,7 +35,7 @@ import java.util.*;
  * @author langhsu
  */
 @Service
-@Transactional(readOnly = true)
+@Transactional
 public class ChannelServiceImpl extends BaseService implements ChannelService {
 	@Autowired
 	private ChannelRepository channelRepository;

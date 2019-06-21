@@ -1,6 +1,6 @@
 package com.mtons.mblog.base.enums;
 
-import com.yueny.superclub.api.annnotation.EnumValue;
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.yueny.superclub.api.enums.core.IEnumType;
 import lombok.Getter;
 
@@ -17,9 +17,10 @@ public enum ChannelNodeType implements IEnumType {
      */
     V_NODE(0, "子节点");
 
-        /**
+    /**
      * 是否为叶子节点。1为是叶子节点，0为不是叶子节点(子节点，存在后续分支)
      */
+    @EnumValue
     private int isLeaf;
     /**
      * 描述
@@ -32,7 +33,7 @@ public enum ChannelNodeType implements IEnumType {
         this.desc = desc;
     }
 
-    @EnumValue
+    @com.yueny.superclub.api.annnotation.EnumValue
     public int getIsLeaf() {
         return isLeaf;
     }

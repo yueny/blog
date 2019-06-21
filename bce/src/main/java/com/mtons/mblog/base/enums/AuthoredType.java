@@ -1,6 +1,6 @@
 package com.mtons.mblog.base.enums;
 
-import com.yueny.superclub.api.annnotation.EnumValue;
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.yueny.superclub.api.enums.core.IEnumType;
 
 /**
@@ -16,15 +16,12 @@ public enum AuthoredType implements IEnumType {
      */
     AUTHORED(1);
 
-    private int value;
-
-    AuthoredType(int value){
-        this.value = value;
-    }
 
     @EnumValue
-    public int getValue() {
-        return value;
+    private Integer value;
+
+    AuthoredType(Integer value){
+        this.value = value;
     }
 
     public static AuthoredType getBy(Integer value) {
@@ -40,4 +37,8 @@ public enum AuthoredType implements IEnumType {
         return this.value == AUTHORED.value;
     }
 
+    @com.yueny.superclub.api.annnotation.EnumValue
+    public Integer getValue() {
+        return value;
+    }
 }

@@ -1,7 +1,8 @@
 package com.mtons.mblog.base.enums;
 
-import com.yueny.superclub.api.annnotation.EnumValue;
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.yueny.superclub.api.enums.core.IEnumType;
+import lombok.Getter;
 
 /**
  * 博文推荐状态
@@ -16,17 +17,13 @@ public enum BlogFeaturedType implements IEnumType {
      */
     FEATURED_ACTIVE(1, "推荐");
 
-    private int value;
+    @EnumValue
+    private Integer value;
     private String desc;
 
-    BlogFeaturedType(int value, String desc){
+    BlogFeaturedType(Integer value, String desc){
         this.value = value;
         this.desc = desc;
-    }
-
-    @EnumValue
-    public int getValue() {
-        return value;
     }
 
     public static BlogFeaturedType getBy(Integer value) {
@@ -45,4 +42,8 @@ public enum BlogFeaturedType implements IEnumType {
         return this.value == FEATURED_ACTIVE.value;
     }
 
+    @com.yueny.superclub.api.annnotation.EnumValue
+    public Integer getValue() {
+        return value;
+    }
 }

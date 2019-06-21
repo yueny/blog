@@ -71,6 +71,7 @@ public class Resource implements IEntry, Serializable {
      */
     @Getter
     @Setter
+    @Column(name = "resource_type", columnDefinition = "varchar(32) NOT NULL DEFAULT 'vague'")
     private ResourceType resourceType;
 
 }

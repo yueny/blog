@@ -1,7 +1,8 @@
 package com.mtons.mblog.base.enums;
 
-import com.yueny.superclub.api.annnotation.EnumValue;
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.yueny.superclub.api.enums.core.IEnumType;
+import com.baomidou.mybatisplus.core.enums.IEnum;
 
 /**
  * 图片资源类型
@@ -32,15 +33,15 @@ public enum ResourceType implements IEnumType {
      */
     VAGUE("vague");
 
-    private String value;
-
-    ResourceType(String value){
+    public void setValue(String value) {
         this.value = value;
     }
 
     @EnumValue
-    public String getValue() {
-        return value;
+    private String value;
+
+    ResourceType(String value){
+        this.value = value;
     }
 
     public static ResourceType getBy(String value) {
@@ -52,4 +53,8 @@ public enum ResourceType implements IEnumType {
         return null;
     }
 
+    @com.yueny.superclub.api.annnotation.EnumValue
+    public String getValue() {
+        return value;
+    }
 }

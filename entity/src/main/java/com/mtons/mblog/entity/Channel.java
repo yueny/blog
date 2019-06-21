@@ -66,12 +66,6 @@ public class Channel implements IEntry, Serializable {
 	@Column(name = "key_", unique = true, length = 32)
 	private String key;
 
-//	/**
-//	 * 预览图路径
-//	 */
-//	@Column(length = 128)
-//	@Deprecated
-//	private String thumbnail;
 	/**
 	 * 图片资源编号， 取自 Resource 表
 	 */

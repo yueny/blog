@@ -77,12 +77,6 @@ public class ChannelVO extends AbstractBo implements IBo {
 	private int weight;
 
 	/**
-	 * 预览图路径
-	 */
-	@Getter
-	@Setter
-	private String thumbnail;
-	/**
 	 * 图片资源编号， 取自 Resource 表
 	 */
 	@Getter
@@ -103,6 +97,14 @@ public class ChannelVO extends AbstractBo implements IBo {
 	@Getter
 	@Setter
 	private ChannelVO parentChannelVo;
+
+
+	/**
+	 * 预览图路径
+	 */
+	@Getter
+	@Setter
+	private String thumbnail;
 
 	public ChannelVO(){
 		//.

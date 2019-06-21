@@ -1,6 +1,6 @@
 package com.mtons.mblog.base.enums;
 
-import com.yueny.superclub.api.annnotation.EnumValue;
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.yueny.superclub.api.enums.IResultCodeType;
 
 /**
@@ -26,6 +26,7 @@ public enum ErrorType implements IResultCodeType {
     INVALID_ERROR("1101" , "入参不合法:%s"),
     ;
 
+    @EnumValue
     private String code;
     private String message;
 
@@ -33,14 +34,15 @@ public enum ErrorType implements IResultCodeType {
         code = errorCode;
         message = describe;
     }
-    @EnumValue
+
     @Override
+    @com.yueny.superclub.api.annnotation.EnumValue
     public String getCode() {
-        return null;
+        return code;
     }
 
     @Override
     public String getMessage() {
-        return null;
+        return message;
     }
 }

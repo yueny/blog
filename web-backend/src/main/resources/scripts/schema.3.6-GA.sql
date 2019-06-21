@@ -48,6 +48,9 @@ update `mto_post` set uid=author_id where uid is null;
 --  ok
 -- 20190621
 alter table `mto_user` add column thumbnail_code varchar(128) NOT NULL DEFAULT '' COMMENT '图片资源编号' after avatar;
+alter table `mto_resource` add column resource_type varchar(32) varchar(32) NOT NULL DEFAULT 'vague' COMMENT '附件类型';
+
+alter table mto_channel drop column thumbnail;
 
 -- -- 默认配置表
 -- CREATE TABLE `func_default` (

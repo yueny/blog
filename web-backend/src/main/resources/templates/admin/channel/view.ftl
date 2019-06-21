@@ -11,7 +11,7 @@
 <section class="content container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <form id="qForm" class="form-horizontal form-label-left" method="post" action="update.json">
+            <form id="qForm" class="form-horizontal form-label-left" method="post" action="${base}/admin/channel/update.json">
                 <div class="box">
                     <div class="box-header with-border">
                         <h3 class="box-title">修改栏目</h3>
