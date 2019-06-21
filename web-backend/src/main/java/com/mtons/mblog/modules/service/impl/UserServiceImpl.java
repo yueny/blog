@@ -16,7 +16,7 @@ import com.mtons.mblog.modules.comp.IUserPassportService;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.data.BadgesCount;
 import com.mtons.mblog.modules.data.UserVO;
-import com.mtons.mblog.modules.entity.User;
+import com.mtons.mblog.entity.User;
 import com.mtons.mblog.modules.repository.RoleRepository;
 import com.mtons.mblog.modules.repository.UserRepository;
 import com.mtons.mblog.modules.seq.SeqType;

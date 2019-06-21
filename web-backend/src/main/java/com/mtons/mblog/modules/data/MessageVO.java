@@ -1,6 +1,6 @@
 package com.mtons.mblog.modules.data;
 
-import com.mtons.mblog.modules.entity.Message;
+import com.mtons.mblog.entity.Message;
 
 /**
  * @author langhsu on 2015/8/31.

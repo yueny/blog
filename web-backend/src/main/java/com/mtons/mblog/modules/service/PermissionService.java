@@ -1,7 +1,7 @@
 package com.mtons.mblog.modules.service;
 
 import com.mtons.mblog.modules.data.PermissionTree;
-import com.mtons.mblog.modules.entity.Permission;
+import com.mtons.mblog.entity.Permission;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

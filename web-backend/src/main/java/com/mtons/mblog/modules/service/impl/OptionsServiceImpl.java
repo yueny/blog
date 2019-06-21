@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.modules.service.impl;
 
-import com.mtons.mblog.modules.entity.Options;
+import com.mtons.mblog.entity.Options;
 import com.mtons.mblog.modules.repository.OptionsRepository;
 import com.mtons.mblog.modules.service.OptionsService;
 import org.apache.commons.lang3.StringUtils;

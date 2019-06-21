@@ -40,5 +40,31 @@
     "name": "系统配置",
     "url": "admin/options/index",
     "permission": "options:index"
+  },
+  {
+    "icon": "fa fa-fw fa-plus",
+    "name": "功能配置",
+    "permission": "func:index",
+    "children": [
+      {
+        "icon": "fa fa-fw fa-twitter",
+        "name": "默认值管理",
+        "url": "admin/func/default/index",
+        "permission": "func:default:index"
+      },
+      {
+        "icon": "fa fa-fw fa-dropbox",
+        "name": "权限值管理xxxxx",
+        "url": "admin/func/permission/index",
+        "permission": "func:permission:index"
+      }
+    ]
+  },
+  {
+    "icon": "fa fa-sun-o icon-xlarge",
+    "name": "系统配置1",
+    "url": "admin/options/index1",
+    "permission": "options:index1"
   }
+
 ]

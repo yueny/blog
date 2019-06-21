@@ -125,9 +125,37 @@
                 <li>
                     <a href="${base}/admin" class="active"><i class="fa fa-dashboard"></i><span>仪表盘</span></a>
                 </li>
+
+                <#-- 数据来自于菜单宏， @getName() -->
                 <@menus>
                     <#list results as menu>
-                        <li><a href="${base}/${menu.url}"><i class="${menu.icon}"></i><span>${menu.name}</span></a></li>
+                        <#-- 含子菜单: 不为空且长度不为0 -->
+                        <#if menu.children?? && (menu.children)?size>0>
+                            <li class="dropdown">
+                                <a href="#" data-toggle="dropdown">
+                                    <i class="fa fa-fw fa-plus"> </i>
+                                    ${menu.name} <span class="caret"> </span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <#list menu.children as children>
+                                        <li>
+                                            <a href="${base}/${children.url}">
+                                                <i class="${children.icon}"></i>
+                                                <span>${children.name}</span>
+                                            </a>
+                                        </li>
+                                    </#list>
+                                </ul>
+                            </li>
+                        <#else>
+                            <#-- 不含子菜单 -->
+                            <li>
+                                <a href="${base}/${menu.url}">
+                                    <i class="${menu.icon}"></i>
+                                    <span>${menu.name}</span>
+                                </a>
+                            </li>
+                        </#if>
                     </#list>
                 </@menus>
             </ul>

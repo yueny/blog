@@ -10,7 +10,7 @@
 package com.mtons.mblog.modules.service;
 
 import com.mtons.mblog.base.enums.BlogFeaturedType;
-import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.modules.data.PostVO;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -18,7 +18,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;

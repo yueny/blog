@@ -10,7 +10,7 @@
 package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.modules.data.ResourceVO;
-import com.mtons.mblog.modules.entity.Resource;
+import com.mtons.mblog.entity.Resource;
 import com.mtons.mblog.modules.repository.ResourceRepository;
 import com.mtons.mblog.modules.service.ResourceManagerService;
 import com.yueny.rapid.lang.util.UuidUtil;

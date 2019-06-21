@@ -1,11 +1,11 @@
 package com.mtons.mblog.modules.service.impl;
 
-import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.modules.data.PostTagVO;
 import com.mtons.mblog.modules.data.PostVO;
 import com.mtons.mblog.modules.data.TagVO;
-import com.mtons.mblog.modules.entity.PostTag;
-import com.mtons.mblog.modules.entity.Tag;
+import com.mtons.mblog.entity.PostTag;
+import com.mtons.mblog.entity.Tag;
 import com.mtons.mblog.modules.repository.PostTagRepository;
 import com.mtons.mblog.modules.repository.TagRepository;
 import com.mtons.mblog.modules.service.TagService;

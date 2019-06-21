@@ -1,6 +1,6 @@
 package com.mtons.mblog.modules.repository;
 
-import com.mtons.mblog.modules.entity.RolePermission;
+import com.mtons.mblog.entity.RolePermission;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

@@ -1,6 +1,6 @@
 package com.mtons.mblog.modules.data;
 
-import com.mtons.mblog.modules.entity.Permission;
+import com.mtons.mblog.entity.Permission;
 
 import java.util.LinkedList;
 import java.util.List;

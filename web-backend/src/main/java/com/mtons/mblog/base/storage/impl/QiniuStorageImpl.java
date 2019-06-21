@@ -9,6 +9,7 @@
 */
 package com.mtons.mblog.base.storage.impl;
 
+import com.mtons.mblog.base.consts.OptionsKeysConsts;
 import com.mtons.mblog.base.lang.MtonsException;
 import com.mtons.mblog.base.storage.Storage;
 import com.mtons.mblog.base.utils.FileKit;
@@ -31,11 +32,11 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class QiniuStorageImpl extends AbstractStorage implements Storage {
-    private static final String oss_bucket = "qiniu_oss_bucket";
-    private static final String oss_domain = "qiniu_oss_domain";
-    private static final String oss_key    = "qiniu_oss_key";
-    private static final String oss_secret = "qiniu_oss_secret";
-    private static final String oss_src    = "qiniu_oss_src";
+    private static final String oss_bucket = OptionsKeysConsts.QINIU_OSS_BUCKET;
+    private static final String oss_domain = OptionsKeysConsts.QINIU_OSS_DOMAIN;
+    private static final String oss_key    = OptionsKeysConsts.QINIU_OSS_KEY;
+    private static final String oss_secret = OptionsKeysConsts.QINIU_OSS_SECRET;
+    private static final String oss_src    = OptionsKeysConsts.QINIU_OSS_SRC;
 
     @Override
     public String writeToStore(byte[] bytes, String pathAndFileName) throws Exception {

@@ -72,7 +72,7 @@
                 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="${base}">
+                <a class="navbar-brand" href="${base}/">
                     <img src="<@resource src=options['site_logo']/>"/>
                 </a>
             </div>
@@ -154,7 +154,11 @@
                     <#if profile??>
                         <@controls name="post">
                             <li>
-                                <a href="${base}/post/editing" class="plus"><i class="icon icon-note"></i> 写文章</a>
+                                <a href="${base}/post/editing" class="plus"
+                                   data-toggle="popover" data-placement="bottom" data-content="写文章">
+                                    <i class="icon icon-note"></i>
+                                    写文章
+                                </a>
                             </li>
                         </@controls>
 
@@ -206,6 +210,8 @@
                 $this.closest('li').addClass("active");
             }
         });
+
+        $("[data-toggle='popover']").popover();
     });
 </script>
 <script>

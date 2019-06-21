@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.web.controller.site.posts;
 
-import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.storage.NailPathData;
 import com.mtons.mblog.base.storage.NailType;
 import com.mtons.mblog.base.utils.FileKit;
@@ -98,7 +98,9 @@ public class UploadController extends BaseController {
         try {
             Map.Entry<String, String> entry;
             if (StringUtils.isNotBlank(crop)) {
+                // 获取缩略图允许的像素大小， 如 360x200
                 Integer[] imageSize = siteOptions.getIntegerArrayValue(crop, Consts.SEPARATOR_X);
+
                 int width = ServletRequestUtils.getIntParameter(request, "width", imageSize[0]);
                 int height = ServletRequestUtils.getIntParameter(request, "height", imageSize[1]);
                 entry = storageFactory.get().storeScale(file, nailPath, width, height);

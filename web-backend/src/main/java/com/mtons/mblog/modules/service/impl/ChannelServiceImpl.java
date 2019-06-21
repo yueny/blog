@@ -9,13 +9,13 @@
 */
 package com.mtons.mblog.modules.service.impl;
 
-import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.modules.data.model.ChannelTreeVO;
 import com.mtons.mblog.modules.data.ChannelVO;
 import com.mtons.mblog.modules.data.ResourceVO;
 import com.mtons.mblog.modules.repository.ChannelRepository;
 import com.mtons.mblog.modules.service.ChannelService;
-import com.mtons.mblog.modules.entity.Channel;
+import com.mtons.mblog.entity.Channel;
 import com.mtons.mblog.modules.service.ResourceService;
 import com.yueny.rapid.lang.util.UuidUtil;
 import org.apache.commons.collections.CollectionUtils;

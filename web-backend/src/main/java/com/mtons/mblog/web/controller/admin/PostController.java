@@ -11,7 +11,7 @@ package com.mtons.mblog.web.controller.admin;
 
 import com.google.common.collect.Sets;
 import com.mtons.mblog.base.enums.BlogFeaturedType;
-import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.data.PostVO;

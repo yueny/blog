@@ -1,9 +1,9 @@
 package com.mtons.mblog.modules.service.impl;
 
-import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.modules.data.MessageVO;
 import com.mtons.mblog.modules.data.PostVO;
-import com.mtons.mblog.modules.entity.Message;
+import com.mtons.mblog.entity.Message;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.modules.repository.MessageRepository;
 import com.mtons.mblog.modules.data.UserVO;

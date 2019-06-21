@@ -94,6 +94,11 @@ public class CommentVO extends AbstractMaskBo implements IBo, Serializable {
 		private String name;
 
 		/**
+		 * 是否为鉴权用户。 1为认证用户(默认)， 0为匿名用户
+		 */
+		private AuthoredType commitAuthoredType = AuthoredType.AUTHORED;
+
+		/**
 		 * 自定义个性域名
 		 */
 		@Getter

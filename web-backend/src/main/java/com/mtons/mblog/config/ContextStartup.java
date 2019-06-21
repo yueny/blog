@@ -1,7 +1,7 @@
 package com.mtons.mblog.config;
 
-import com.mtons.mblog.base.lang.Consts;
-import com.mtons.mblog.modules.entity.Options;
+import com.mtons.mblog.base.consts.Consts;
+import com.mtons.mblog.entity.Options;
 import com.mtons.mblog.modules.service.ChannelService;
 import com.mtons.mblog.modules.service.MailService;
 import com.mtons.mblog.modules.service.OptionsService;

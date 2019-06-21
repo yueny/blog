@@ -322,6 +322,7 @@
     </profiles>
 
     <build>
+        <finalName>mblog-${version}</finalName>
         <defaultGoal>compile</defaultGoal>
         <resources>
             <resource>

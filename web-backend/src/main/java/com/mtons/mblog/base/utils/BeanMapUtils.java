@@ -10,8 +10,8 @@
 package com.mtons.mblog.base.utils;
 
 import com.mtons.mblog.base.enums.AuthoredType;
-import com.mtons.mblog.base.lang.Consts;
-import com.mtons.mblog.entity.Comment;
+import com.mtons.mblog.base.consts.Consts;
+import com.mtons.mblog.entity.*;
 import com.mtons.mblog.modules.data.*;
 import com.mtons.mblog.modules.entity.*;
 import org.springframework.beans.BeanUtils;

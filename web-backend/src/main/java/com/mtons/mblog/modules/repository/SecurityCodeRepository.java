@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.modules.repository;
 
-import com.mtons.mblog.modules.entity.SecurityCode;
+import com.mtons.mblog.entity.SecurityCode;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

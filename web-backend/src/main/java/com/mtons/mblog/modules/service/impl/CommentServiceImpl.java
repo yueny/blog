@@ -10,6 +10,7 @@
 package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.base.BlogConstant;
+import com.mtons.mblog.modules.comp.util.DefaultMojoFactory;
 import com.mtons.mblog.modules.data.CommentVO;
 import com.mtons.mblog.modules.data.PostVO;
 import com.mtons.mblog.modules.data.UserVO;
@@ -219,14 +220,8 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 		posts.forEach(post -> {
 			if(!post.getCommitAuthoredType().isAuthor()){
 				// 存在访客评论的评论信息
-				CommentVO.UserCommentModel uc = CommentVO.UserCommentModel.builder()
-						.name(post.getClientIp())
-						.avatar("")
-						.domainHack("guest")
-						.uid(BlogConstant.DEFAULT_GUEST_U_ID)
-						.username("guest")
-						.build();
-				post.setAuthor(uc);
+				post.setAuthor(DefaultMojoFactory.guestCommentGet(post.getClientIp()));
+				return;
 			}
 
 			UserVO userVO = userMap.get(post.getAuthorId());

@@ -11,7 +11,7 @@ package com.mtons.mblog.web.controller.site;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.base.consts.Consts;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.ServletRequestUtils;

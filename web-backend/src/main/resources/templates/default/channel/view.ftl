@@ -144,12 +144,12 @@
 </script>
 <script type="text/plain" id="guest_template">
     <li id="chat{5}">
-        <a target="_blank" disabled="true" readonly="true" href="#">
+        <a target="_blank" disabled="true" readonly="true" href="javascript:void(0);">
             <img src="${base}/dist/images/ava/default.png">
         </a>
         <div class="chat_body">
             <h5>
-                <div class="fl"><label class="small">匿名</label><a class="chat_name"  href="#">{2}</a><span>{3}</span></div>
+                <div class="fl"><label class="small">匿名</label><a class="chat_name"  href="javascript:void(0);">{2}</a><span>{3}</span></div>
                 <div class="fr reply_this">
                     <a href="javascript:void(0);" onclick="goto('{5}', '{2}')">
                         [回复]
@@ -194,7 +194,13 @@
                 if (data.pid > 0 && !(data.parent === null)) {
                     var pat = data.parent;
                     var pcontent = pat.content;
-                    quoto = '<div class="quote"><a href="${base}/users/' + pat.author.domainHack + '">@' + pat.author.name + '</a>: ' + pcontent + '</div>';
+
+                    /* 回复的超链接和图标样式 */
+                    if(pat.author.commitAuthoredType == 'AUTHORED'){
+                        quoto = '<div class="quote"><a href="${base}/users/' + pat.author.domainHack + '">@' + pat.author.name + '</a>: ' + pcontent + '</div>';
+                    }else{
+                        quoto = '<div class="quote"><a href="javascript:void(0);"' + pat.author.domainHack + '>@' + pat.author.name + '</a>: ' + pcontent + '</div>';
+                    }
                 }
 
                 if(data.commitAuthoredType == 'AUTHORED'){

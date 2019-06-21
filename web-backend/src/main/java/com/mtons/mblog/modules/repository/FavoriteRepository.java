@@ -1,6 +1,6 @@
 package com.mtons.mblog.modules.repository;
 
-import com.mtons.mblog.modules.entity.Favorite;
+import com.mtons.mblog.entity.Favorite;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

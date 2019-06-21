@@ -134,7 +134,11 @@
                     <#if profile??>
                         <@controls name="post">
                             <li>
-                                <a href="${base}/post/editing" class="plus"><i class="icon icon-note"></i> 写文章</a>
+                                <a href="${base}/post/editing" class="plus"
+                                   data-toggle="popover" data-placement="bottom" data-content="写文章">
+                                    <i class="icon icon-note"></i>
+                                    写文章
+                                </a>
                             </li>
                         </@controls>
                         <li class="dropdown">
@@ -178,14 +182,16 @@
 </header>
 
 <script type="text/javascript">
-$(function () {
-	$('a[nav]').each(function(){  
-        $this = $(this);
-        if($this[0].href == String(window.location)){  
-            $this.closest('li').addClass("active");  
-        }  
+    $(function () {
+        $('a[nav]').each(function(){
+            $this = $(this);
+            if($this[0].href == String(window.location)){
+                $this.closest('li').addClass("active");
+            }
+        });
+
+        $("[data-toggle='popover']").popover();
     });
-});
 </script>
 
 <script>

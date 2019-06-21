@@ -11,7 +11,7 @@ package com.mtons.mblog.web.controller.admin;
 
 import com.mtons.mblog.base.enums.ChannelNodeType;
 import com.mtons.mblog.base.lang.Result;
-import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.tree.QJson;
 import com.mtons.mblog.base.tree.QTree;
 import com.mtons.mblog.config.ContextStartup;
@@ -19,7 +19,6 @@ import com.mtons.mblog.modules.data.ChannelVO;
 import com.mtons.mblog.modules.data.model.ChannelTreeVO;
 import com.mtons.mblog.modules.service.ChannelService;
 import com.mtons.mblog.web.controller.BaseController;
-import com.yueny.rapid.data.resp.pojo.response.NormalResponse;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +28,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**

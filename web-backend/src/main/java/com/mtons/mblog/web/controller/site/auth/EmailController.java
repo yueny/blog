@@ -1,7 +1,8 @@
 package com.mtons.mblog.web.controller.site.auth;
 
 import com.mtons.mblog.base.cache.ICacheService;
-import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.base.consts.Consts;
+import com.mtons.mblog.base.consts.OptionsKeysConsts;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.data.UserVO;
@@ -9,7 +10,6 @@ import com.mtons.mblog.modules.service.MailService;
 import com.mtons.mblog.modules.service.SecurityCodeService;
 import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.web.controller.BaseController;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.Assert;
@@ -87,7 +87,7 @@ public class EmailController extends BaseController {
         Map<String, Object> context = new HashMap<>();
         context.put("code", code);
 
-        String title = MessageFormat.format(EMAIL_TITLE, siteOptions.getValue("site_name"));
+        String title = MessageFormat.format(EMAIL_TITLE, siteOptions.getValue(OptionsKeysConsts.SITE_NAME));
         mailService.sendTemplateEmail(email, title, Consts.EMAIL_TEMPLATE_CODE, context);
         return Result.successMessage("邮件发送成功");
     }

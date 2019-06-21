@@ -1,21 +1,30 @@
 package com.mtons.mblog.web.menu;
 
 import com.mtons.mblog.modules.template.DirectiveHandler;
-import com.mtons.mblog.modules.entity.Role;
+import com.mtons.mblog.entity.Role;
 import com.mtons.mblog.modules.template.TemplateDirective;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by langhsu on 2017/11/21.
+ * 自定义菜单宏
+ *
+ * @author yueny09 <deep_blue_yang@163.com>
+ *
+ * @DATE 2019/6/20 下午5:33
+ *
  */
 @Component
 public class MenusDirective extends TemplateDirective {
+    @Autowired
+    private MenuJsonUtils menuJsonUtils;
+
     @Override
     public String getName() {
         return "menus";
@@ -28,7 +37,7 @@ public class MenusDirective extends TemplateDirective {
     }
 
     private List<Menu> filterMenu(Subject subject) {
-        List<Menu> menus = MenuJsonUtils.getMenus();
+        List<Menu> menus = menuJsonUtils.getMenus();
         if (!subject.hasRole(Role.ROLE_ADMIN)) {
             menus = check(subject, menus);
         }
@@ -48,9 +57,11 @@ public class MenusDirective extends TemplateDirective {
 
     private boolean check(Subject subject, Menu menu) {
         boolean authorized = false;
+        // 菜单项没有加permission， 则允许任何人访问
         if (StringUtils.isBlank(menu.getPermission())) {
             authorized = true;
         } else {
+            // 多个权限值,逗号分隔
             for(String perm : menu.getPermission().split(",")){
                 if(subject.isPermitted(perm)){
                     authorized = true;

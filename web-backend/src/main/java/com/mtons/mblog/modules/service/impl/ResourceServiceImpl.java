@@ -10,17 +10,14 @@
 package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.modules.data.ResourceVO;
-import com.mtons.mblog.modules.entity.Resource;
+import com.mtons.mblog.entity.Resource;
 import com.mtons.mblog.modules.repository.ResourceRepository;
 import com.mtons.mblog.modules.service.ResourceService;
-import com.yueny.rapid.lang.util.UuidUtil;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 

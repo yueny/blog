@@ -6,7 +6,7 @@ package com.mtons.mblog.web.controller.admin;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.modules.data.PermissionVO;
 import com.mtons.mblog.modules.data.RoleVO;
-import com.mtons.mblog.modules.entity.Role;
+import com.mtons.mblog.entity.Role;
 import com.mtons.mblog.modules.service.PermissionService;
 import com.mtons.mblog.modules.service.RoleService;
 import com.mtons.mblog.web.controller.BaseController;

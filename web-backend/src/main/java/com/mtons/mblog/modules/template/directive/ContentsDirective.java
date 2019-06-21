@@ -4,7 +4,7 @@
 package com.mtons.mblog.modules.template.directive;
 
 import com.google.common.collect.Sets;
-import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.utils.BeanMapUtils;
 import com.mtons.mblog.modules.data.ChannelVO;
 import com.mtons.mblog.modules.data.PostVO;

@@ -1,10 +1,8 @@
 package com.mtons.mblog.web.controller.site.user;
 
 import com.mtons.mblog.base.lang.Result;
-import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.lang.StorageConsts;
-import com.mtons.mblog.base.storage.NailPathData;
-import com.mtons.mblog.base.storage.NailType;
 import com.mtons.mblog.base.utils.FileKit;
 import com.mtons.mblog.base.utils.FilePathUtils;
 import com.mtons.mblog.base.utils.ImageUtils;

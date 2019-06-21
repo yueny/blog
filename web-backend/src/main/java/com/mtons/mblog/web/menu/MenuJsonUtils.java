@@ -1,6 +1,7 @@
 package com.mtons.mblog.web.menu;
 
 import com.alibaba.fastjson.JSONArray;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,16 +16,18 @@ import java.util.List;
  * @author - langhsu
  * @create - 2018/5/18
  */
+@Component
 public class MenuJsonUtils {
+    // 此处从 json文件加载，也可以改为从数据库加载
     private static String config = "/scripts/menu.json";
-    private static List<Menu> menus;
+    private List<Menu> menus;
 
     /**
      * 将配置文件转换成 List 对象
      *
      * @return
      */
-    private static synchronized List<Menu> loadJson() throws IOException {
+    private synchronized List<Menu> loadJson() throws IOException {
         InputStream inStream = MenuJsonUtils.class.getResourceAsStream(config);
         BufferedReader reader = new BufferedReader(new InputStreamReader(inStream, Charset.forName("UTF-8")));
 
@@ -45,7 +48,7 @@ public class MenuJsonUtils {
         return menus;
     }
 
-    public static List<Menu> getMenus() {
+    public List<Menu> getMenus() {
         if (null == menus) {
             try {
                 menus = loadJson();

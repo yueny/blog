@@ -9,19 +9,15 @@
 */
 package com.mtons.mblog.web.controller.site;
 
-import com.mtons.mblog.base.lang.Consts;
-import com.mtons.mblog.base.utils.MarkdownUtils;
+import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.modules.data.ChannelVO;
 import com.mtons.mblog.modules.data.PostVO;
-import com.mtons.mblog.modules.entity.Channel;
-import com.mtons.mblog.modules.entity.PostAttribute;
 import com.mtons.mblog.modules.service.ChannelService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,15 +62,12 @@ public class ChannelController extends BaseController {
 	@RequestMapping("/post/{id:\\d*}")
 	@Deprecated
 	public String view(@PathVariable Long id, ModelMap model) {
-		PostVO view = postService.get(id);
-
-		Assert.notNull(view, "该文章已被删除");
-
-		if ("markdown".endsWith(view.getEditor())) {
-			view.setContent(MarkdownUtils.renderMarkdown(view.getContent()));
+		PostVO postVO = postService.get(id);
+		if(postVO != null){
+			return redirectAction("/article/" + postVO.getArticleBlogId() + ".html");
 		}
-		postService.identityViews(view.getArticleBlogId());
-		model.put("view", view);
-		return view(Views.POST_VIEW);
+
+		// 找不到文章，回首页
+		return view(Views.INDEX);
 	}
 }

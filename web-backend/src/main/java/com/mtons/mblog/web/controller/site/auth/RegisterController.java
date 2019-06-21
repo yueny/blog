@@ -3,7 +3,7 @@
  */
 package com.mtons.mblog.web.controller.site.auth;
 
-import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.lang.StorageConsts;
 import com.mtons.mblog.modules.data.AccountProfile;

@@ -2,8 +2,6 @@ package com.mtons.mblog.modules.service;
 
 import com.mtons.mblog.modules.data.PermissionVO;
 import com.mtons.mblog.modules.data.RoleVO;
-import com.mtons.mblog.modules.entity.Permission;
-import com.mtons.mblog.modules.entity.Role;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

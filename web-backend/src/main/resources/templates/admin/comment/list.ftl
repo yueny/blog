@@ -29,9 +29,9 @@
                                 <th width="50"><input type="checkbox" class="checkall"></th>
                                 <th width="80">#</th>
                                 <th>内容</th>
-                                <th>目标Id</th>
+                                <th>目标pid</th>
                                 <th>作者</th>
-                                <th>发表日期</th>
+                                <th>发表/回复日期</th>
                                 <th width="50">操作</th>
                             </tr>
                             </thead>
@@ -43,7 +43,12 @@
                                     </td>
                                     <td>${row.id}</td>
                                     <td>${row.content}</td>
-                                    <td>${row.toId}</td>
+                                    <#-- 目标pid -->
+                                    <td>
+                                        ${row.pid}
+                                        跳转:
+                                        <a href="${base}/post/${row.postId}.html" target="_blank">go!</a>
+                                    </td>
                                     <td>${row.author.username}</td>
                                     <td>${row.created?string('yyyy-MM-dd')}</td>
                                     <td>

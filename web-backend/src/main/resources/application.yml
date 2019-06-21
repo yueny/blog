@@ -80,4 +80,5 @@ site:
         storage_limit_size: 2
         editor: markdown
         thumbnail_channel_size: 200x112
+        # 缩略图大小
         thumbnail_post_size: 360x200

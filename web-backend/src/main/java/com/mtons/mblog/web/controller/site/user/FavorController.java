@@ -1,7 +1,7 @@
 package com.mtons.mblog.web.controller.site.user;
 
 import com.mtons.mblog.base.lang.Result;
-import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.data.PostVO;
 import com.mtons.mblog.modules.event.MessageEvent;

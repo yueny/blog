@@ -10,7 +10,7 @@
 package com.mtons.mblog.modules.data;
 
 import com.mtons.mblog.base.enums.BlogFeaturedType;
-import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.base.consts.Consts;
 import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
 import com.yueny.superclub.api.pojo.IBo;
 import lombok.EqualsAndHashCode;

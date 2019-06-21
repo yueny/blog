@@ -1,14 +1,38 @@
 package com.mtons.mblog.web.menu;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
+
 /**
  * @author - langhsu
  * @create - 2018/5/18
  */
 public class Menu {
+    /**
+     * 图标
+     */
     private String icon;
+    /**
+     * 菜单名
+     */
     private String name;
+    /**
+     * 菜单链接地址
+     */
     private String url;
+    /**
+     * 菜单权限值
+     */
     private String permission;
+
+    /**
+     * 子菜单
+     */
+    @Getter
+    @Setter
+    private List<Menu> children;
 
     public String getIcon() {
         return icon;

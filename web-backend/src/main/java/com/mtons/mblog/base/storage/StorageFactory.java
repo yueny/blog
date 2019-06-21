@@ -9,6 +9,7 @@
 */
 package com.mtons.mblog.base.storage;
 
+import com.mtons.mblog.base.consts.OptionsKeysConsts;
 import com.mtons.mblog.base.storage.impl.*;
 import com.mtons.mblog.config.SiteOptions;
 import org.apache.commons.lang3.StringUtils;
@@ -43,7 +44,7 @@ public class StorageFactory {
     }
 
     public Storage get() {
-        String scheme = siteOptions.getValue("storage_scheme");
+        String scheme = siteOptions.getValue(OptionsKeysConsts.STORAGE_SCHEME);
         if (StringUtils.isBlank(scheme)) {
             scheme = "native";
         }

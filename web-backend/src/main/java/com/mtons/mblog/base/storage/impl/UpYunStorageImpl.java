@@ -10,6 +10,7 @@
 package com.mtons.mblog.base.storage.impl;
 
 import com.UpYun;
+import com.mtons.mblog.base.consts.OptionsKeysConsts;
 import com.mtons.mblog.base.lang.MtonsException;
 import com.mtons.mblog.base.storage.Storage;
 import com.mtons.mblog.base.utils.FileKit;
@@ -27,11 +28,11 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class UpYunStorageImpl extends AbstractStorage implements Storage {
-    private static final String oss_bucket   = "upyun_oss_bucket";
-    private static final String oss_domain   = "upyun_oss_domain";
-    private static final String oss_operator = "upyun_oss_operator";
-    private static final String oss_password = "upyun_oss_password";
-    private static final String oss_src      = "upyun_oss_src";
+    private static final String oss_bucket   = OptionsKeysConsts.UPYUN_OSS_BUCKET;
+    private static final String oss_domain   = OptionsKeysConsts.UPYUN_OSS_DOMAIN;
+    private static final String oss_operator = OptionsKeysConsts.UPYUN_OSS_OPERATOR;
+    private static final String oss_password = OptionsKeysConsts.UPYUN_OSS_PASSWORD;
+    private static final String oss_src      = OptionsKeysConsts.UPYUN_OSS_SRC;
 
     @Override
     public String writeToStore(byte[] bytes, String pathAndFileName) throws Exception {
