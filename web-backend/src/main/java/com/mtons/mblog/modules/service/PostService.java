@@ -11,7 +11,7 @@ package com.mtons.mblog.modules.service;
 
 import com.mtons.mblog.base.enums.BlogFeaturedType;
 import com.mtons.mblog.base.consts.Consts;
-import com.mtons.mblog.modules.data.PostVO;
+import com.mtons.mblog.bo.PostVO;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;

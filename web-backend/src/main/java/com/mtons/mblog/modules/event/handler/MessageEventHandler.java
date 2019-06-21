@@ -2,7 +2,7 @@ package com.mtons.mblog.modules.event.handler;
 
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.modules.data.MessageVO;
-import com.mtons.mblog.modules.data.PostVO;
+import com.mtons.mblog.bo.PostVO;
 import com.mtons.mblog.modules.event.MessageEvent;
 import com.mtons.mblog.modules.service.MessageService;
 import com.mtons.mblog.modules.service.PostService;

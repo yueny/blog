@@ -133,8 +133,8 @@ var MdEditor = {
                 }
                 var form = new FormData();
                 form.append("file", file);
-                // 上传类型，uType
-                form.append("uType", "blog");
+                // 上传类型，nailType
+                form.append("nailType", "blogAttr");
                 $.ajax({
                     url: _MTONS.BASE_PATH + "/post/upload",
                     data: form,

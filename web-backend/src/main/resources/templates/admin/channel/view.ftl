@@ -146,7 +146,7 @@ var J = jQuery;
 
 $(function() {
     $('#upload_btn').change(function(){
-        $(this).upload('${base}/post/upload?crop=thumbnail_channel_size&uType=channel', function(data){
+        $(this).upload('${base}/post/upload?crop=thumbnail_channel_size&nailType=channelThumb', function(data){
             if (data.status == 200) {
                 var path = data.path;
                 $("#thumbnail_image").css("background", "url(" + path + ") no-repeat scroll center 0 rgba(0, 0, 0, 0)");

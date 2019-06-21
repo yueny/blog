@@ -7,14 +7,15 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mtons.mblog.dao.mapper.DemoMapper;
 import com.mtons.mblog.entity.DemoEntry;
-import com.mtons.mblog.modules.data.DemoVO;
-import com.mtons.mblog.modules.service.*;
+import com.mtons.mblog.bo.DemoVO;
+import com.mtons.mblog.service.DemoService;
+import com.mtons.mblog.service.impl.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ import java.util.*;
  *
  */
 @Service
-public class DemoServiceImpl extends BaseService implements DemoService {
+public class DemoServiceImpl extends BaseBaoService<DemoMapper, DemoEntry> implements DemoService {
 	@Autowired
 	private DemoMapper demoMapper;
 

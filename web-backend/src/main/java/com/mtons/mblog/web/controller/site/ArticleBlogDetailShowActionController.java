@@ -2,8 +2,8 @@ package com.mtons.mblog.web.controller.site;
 
 import com.mtons.mblog.base.utils.MarkdownUtils;
 import com.mtons.mblog.bo.AccountProfile;
-import com.mtons.mblog.modules.data.FavoriteVO;
-import com.mtons.mblog.modules.data.PostVO;
+import com.mtons.mblog.bo.FavoriteVO;
+import com.mtons.mblog.bo.PostVO;
 import com.mtons.mblog.modules.service.FavoriteService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.web.controller.BaseController;

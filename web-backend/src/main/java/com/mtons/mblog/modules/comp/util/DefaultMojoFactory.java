@@ -2,7 +2,7 @@ package com.mtons.mblog.modules.comp.util;
 
 import com.mtons.mblog.base.BlogConstant;
 import com.mtons.mblog.base.enums.AuthoredType;
-import com.mtons.mblog.modules.data.CommentVO;
+import com.mtons.mblog.bo.CommentVO;
 
 /**
  * <code>

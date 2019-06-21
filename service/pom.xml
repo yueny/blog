@@ -17,6 +17,15 @@
             <groupId>com.mtons.mblog</groupId>
             <artifactId>mblog-bo</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.mtons.mblog</groupId>
+            <artifactId>mblog-dao</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+        </dependency>
+
 
         <dependency>
             <groupId>com.yueny.rapid.message</groupId>

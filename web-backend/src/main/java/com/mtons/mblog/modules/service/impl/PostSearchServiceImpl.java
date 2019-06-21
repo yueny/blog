@@ -1,8 +1,8 @@
 package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.modules.aspect.PostStatusFilter;
-import com.mtons.mblog.modules.data.PostVO;
-import com.mtons.mblog.modules.data.UserVO;
+import com.mtons.mblog.bo.PostVO;
+import com.mtons.mblog.bo.UserVO;
 import com.mtons.mblog.entity.Post;
 import com.mtons.mblog.modules.service.PostSearchService;
 import com.mtons.mblog.modules.service.UserService;

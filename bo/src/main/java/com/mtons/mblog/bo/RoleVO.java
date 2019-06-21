@@ -7,8 +7,9 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.modules.data;
+package com.mtons.mblog.bo;
 
+import com.mtons.mblog.bo.PermissionVO;
 import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
 import com.yueny.superclub.api.pojo.IBo;
 import lombok.EqualsAndHashCode;

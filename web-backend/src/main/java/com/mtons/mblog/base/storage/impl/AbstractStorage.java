@@ -81,6 +81,7 @@ public abstract class AbstractStorage implements Storage {
         resourceVo = new ResourceVO();
         resourceVo.setMd5(md5);
         resourceVo.setPath(fullPath);
+        resourceVo.setResourceType(nailPath.getNailType().getResourceType());
         String thumbnailCode = resourceManagerService.save(resourceVo);
 
         return new AbstractMap.SimpleEntry<>(thumbnailCode, fullPath);

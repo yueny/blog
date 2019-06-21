@@ -7,9 +7,9 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.modules.service;
+package com.mtons.mblog.service;
 
-import com.mtons.mblog.modules.data.DemoVO;
+import com.mtons.mblog.bo.DemoVO;
 
 import java.util.List;
 

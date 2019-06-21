@@ -1,33 +1,40 @@
 package com.mtons.mblog.base.storage;
 
-import com.mtons.mblog.base.lang.StorageConsts;
+import com.mtons.mblog.base.consts.StorageConsts;
+import com.mtons.mblog.base.enums.ResourceType;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 
 public enum NailType {
     /**
-     * 博文
+     * 博文中的附件
      */
-    blog(StorageConsts.blognailPath, true),
+    blogAttr(StorageConsts.blognailPath, ResourceType.BLOG_ATTR, true),
     /**
      * 栏目缩略图
      */
-    channel(StorageConsts.thumbnailPath, false),
+    channelThumb(StorageConsts.thumbnailPath, ResourceType.THUMB_CHANNEL, false),
     /**
-     * 缩略图， 如文章缩略图等
+     * 文章缩略图
      */
-    thumb(StorageConsts.thumbnailPath, false),
+    blogThumb(StorageConsts.thumbnailPath, ResourceType.THUMB_BLOG, false),
+    /**
+     * 其他部分单独分类的缩略图
+     */
+    thumb(StorageConsts.thumbnailPath, ResourceType.THUMB, true),
     /**
      * 头像
      */
-    avatar(StorageConsts.avatarPath, true),
+    avatar(StorageConsts.avatarPath, ResourceType.AVATARS, true),
     /**
      * 不属于上述分类的储存目录
      */
-    vague(StorageConsts.vaguePath, true),;
+    vague(StorageConsts.vaguePath, ResourceType.VAGUE, true),;
 
     @Getter
     private String nailPath;
+    @Getter
+    private ResourceType resourceType;
 
     /**
      *
@@ -36,14 +43,15 @@ public enum NailType {
     @Getter
     private boolean isFormat;
 
-    NailType(String nailPath, boolean isFormat){
+    NailType(String nailPath, ResourceType resourceType, boolean isFormat){
         this.nailPath = nailPath;
+        this.resourceType = resourceType;
         this.isFormat = isFormat;
     }
 
-    public static NailType get(String uType){
+    public static NailType get(String nailType){
         for (NailType type: values()) {
-            if(StringUtils.equals(uType, type.name())) {
+            if(StringUtils.equals(nailType, type.name())) {
                 return type;
             }
         }

@@ -2,8 +2,8 @@ package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.modules.data.PostTagVO;
-import com.mtons.mblog.modules.data.PostVO;
-import com.mtons.mblog.modules.data.TagVO;
+import com.mtons.mblog.bo.PostVO;
+import com.mtons.mblog.bo.TagVO;
 import com.mtons.mblog.entity.PostTag;
 import com.mtons.mblog.entity.Tag;
 import com.mtons.mblog.modules.repository.PostTagRepository;
@@ -11,6 +11,7 @@ import com.mtons.mblog.modules.repository.TagRepository;
 import com.mtons.mblog.modules.service.TagService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.base.utils.BeanMapUtils;
+import com.mtons.mblog.service.impl.BaseService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

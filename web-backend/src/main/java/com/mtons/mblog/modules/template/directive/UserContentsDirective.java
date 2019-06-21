@@ -3,7 +3,7 @@
  */
 package com.mtons.mblog.modules.template.directive;
 
-import com.mtons.mblog.modules.data.PostVO;
+import com.mtons.mblog.bo.PostVO;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.template.TemplateDirective;

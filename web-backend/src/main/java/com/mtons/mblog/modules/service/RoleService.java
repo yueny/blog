@@ -1,7 +1,7 @@
 package com.mtons.mblog.modules.service;
 
-import com.mtons.mblog.modules.data.PermissionVO;
-import com.mtons.mblog.modules.data.RoleVO;
+import com.mtons.mblog.bo.PermissionVO;
+import com.mtons.mblog.bo.RoleVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

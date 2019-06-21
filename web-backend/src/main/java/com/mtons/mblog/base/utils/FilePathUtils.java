@@ -3,7 +3,7 @@
  */
 package com.mtons.mblog.base.utils;
 
-import com.mtons.mblog.base.lang.StorageConsts;
+import com.mtons.mblog.base.consts.StorageConsts;
 import org.apache.commons.text.RandomStringGenerator;
 
 /**

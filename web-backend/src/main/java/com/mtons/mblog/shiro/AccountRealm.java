@@ -2,8 +2,8 @@ package com.mtons.mblog.shiro;
 
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.AccountProfile;
-import com.mtons.mblog.modules.data.RoleVO;
-import com.mtons.mblog.modules.data.UserVO;
+import com.mtons.mblog.bo.RoleVO;
+import com.mtons.mblog.bo.UserVO;
 import com.mtons.mblog.modules.service.UserRoleService;
 import com.mtons.mblog.modules.service.UserService;
 import org.apache.shiro.SecurityUtils;

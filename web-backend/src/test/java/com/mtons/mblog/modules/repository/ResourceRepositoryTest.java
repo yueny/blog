@@ -1,6 +1,7 @@
 package com.mtons.mblog.modules.repository;
 
 import com.mtons.mblog.BootApplication;
+import com.mtons.mblog.dao.mapper.ResourceRepository;
 import com.mtons.mblog.entity.Resource;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,5 +1,6 @@
-package com.mtons.mblog.modules.data;
+package com.mtons.mblog.bo;
 
+import com.mtons.mblog.bo.PostVO;
 import com.yueny.superclub.api.pojo.IBo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

@@ -7,14 +7,15 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mtons.mblog.bo.ResourceVO;
 import com.mtons.mblog.entity.Resource;
-import com.mtons.mblog.modules.repository.ResourceRepository;
+import com.mtons.mblog.dao.mapper.ResourceRepository;
 import com.mtons.mblog.service.ResourceService;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,14 +27,14 @@ import java.util.List;
  */
 @Service
 @Transactional(readOnly = true)
-public class ResourceServiceImpl extends BaseService implements ResourceService {
-	@Autowired
-	private ResourceRepository resourceRepository;
-
-
+public class ResourceServiceImpl extends BaseBaoService<ResourceRepository, Resource>
+        implements ResourceService {
     @Override
     public ResourceVO findByMd5(String md5) {
-        Resource entry = resourceRepository.findByMd5(md5);
+        LambdaQueryWrapper<Resource> queryWrapper = new QueryWrapper<Resource>().lambda();
+        queryWrapper.eq(Resource::getMd5, md5);
+
+        Resource entry = getOne(queryWrapper);
 
         if(entry == null){
             return null;
@@ -43,7 +44,10 @@ public class ResourceServiceImpl extends BaseService implements ResourceService 
 
     @Override
     public ResourceVO findByThumbnailCode(String thumbnailCode) {
-        Resource entry = resourceRepository.findByThumbnailCode(thumbnailCode);
+        LambdaQueryWrapper<Resource> queryWrapper = new QueryWrapper<Resource>().lambda();
+        queryWrapper.eq(Resource::getThumbnailCode, thumbnailCode);
+
+        Resource entry = getOne(queryWrapper);
 
         if(entry == null){
             return null;
@@ -53,7 +57,10 @@ public class ResourceServiceImpl extends BaseService implements ResourceService 
 
     @Override
     public List<ResourceVO> findByMd5In(List<String> md5) {
-        List<Resource> entrys = resourceRepository.findByMd5In(md5);
+        LambdaQueryWrapper<Resource> queryWrapper = new QueryWrapper<Resource>().lambda();
+        queryWrapper.in(Resource::getMd5, md5);
+
+        List<Resource> entrys = list(queryWrapper);
 
         if(CollectionUtils.isEmpty(entrys)){
             return Collections.emptyList();
@@ -63,7 +70,11 @@ public class ResourceServiceImpl extends BaseService implements ResourceService 
 
     @Override
     public List<ResourceVO> find0Before(String time) {
-        List<Resource> entrys = resourceRepository.find0Before(time);
+        LambdaQueryWrapper<Resource> queryWrapper = new QueryWrapper<Resource>().lambda();
+        queryWrapper.le(Resource::getAmount, 0); //amount <= 0
+        queryWrapper.lt(Resource::getUpdated, time); //update_time < :time
+
+        List<Resource> entrys = list(queryWrapper);
 
         if(CollectionUtils.isEmpty(entrys)){
             return Collections.emptyList();

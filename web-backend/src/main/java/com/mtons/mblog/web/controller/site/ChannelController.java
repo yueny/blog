@@ -11,7 +11,7 @@ package com.mtons.mblog.web.controller.site;
 
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.ChannelVO;
-import com.mtons.mblog.modules.data.PostVO;
+import com.mtons.mblog.bo.PostVO;
 import com.mtons.mblog.service.ChannelService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.web.controller.BaseController;

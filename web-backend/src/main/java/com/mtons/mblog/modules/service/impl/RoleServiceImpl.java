@@ -1,9 +1,9 @@
 package com.mtons.mblog.modules.service.impl;
 
 import com.google.common.collect.Sets;
-import com.mtons.mblog.modules.data.PermissionVO;
+import com.mtons.mblog.bo.PermissionVO;
 import com.mtons.mblog.bo.RolePermissionVO;
-import com.mtons.mblog.modules.data.RoleVO;
+import com.mtons.mblog.bo.RoleVO;
 import com.mtons.mblog.entity.Role;
 import com.mtons.mblog.entity.RolePermission;
 import com.mtons.mblog.entity.UserRole;
@@ -12,6 +12,7 @@ import com.mtons.mblog.modules.repository.RoleRepository;
 import com.mtons.mblog.modules.repository.UserRoleRepository;
 import com.mtons.mblog.modules.service.RoleService;
 import com.mtons.mblog.modules.service.RolePermissionService;
+import com.mtons.mblog.service.impl.BaseService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

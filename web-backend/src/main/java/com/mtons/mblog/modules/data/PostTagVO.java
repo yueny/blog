@@ -1,5 +1,6 @@
 package com.mtons.mblog.modules.data;
 
+import com.mtons.mblog.bo.PostVO;
 import com.mtons.mblog.entity.PostTag;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

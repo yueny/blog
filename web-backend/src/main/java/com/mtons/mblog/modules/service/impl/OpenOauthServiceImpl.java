@@ -11,7 +11,7 @@ package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.service.comp.IPasswdService;
 import com.mtons.mblog.bo.OpenOauthVO;
-import com.mtons.mblog.modules.data.UserVO;
+import com.mtons.mblog.bo.UserVO;
 import com.mtons.mblog.entity.UserOauth;
 import com.mtons.mblog.entity.User;
 import com.mtons.mblog.modules.repository.UserRepository;

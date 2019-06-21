@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.modules.service;
 
-import com.mtons.mblog.modules.data.UserVO;
+import com.mtons.mblog.bo.UserVO;
 import com.mtons.mblog.bo.OpenOauthVO;
 
 /**

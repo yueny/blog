@@ -1,6 +1,6 @@
 package com.mtons.mblog.modules.service;
 
-import com.mtons.mblog.modules.data.PermissionVO;
+import com.mtons.mblog.bo.PermissionVO;
 import com.mtons.mblog.bo.RolePermissionVO;
 
 import java.util.List;

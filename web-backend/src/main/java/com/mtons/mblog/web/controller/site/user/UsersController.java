@@ -11,7 +11,7 @@ package com.mtons.mblog.web.controller.site.user;
 
 import com.mtons.mblog.base.lang.MtonsException;
 import com.mtons.mblog.bo.AccountProfile;
-import com.mtons.mblog.modules.data.UserVO;
+import com.mtons.mblog.bo.UserVO;
 import com.mtons.mblog.modules.service.MessageService;
 import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.web.controller.BaseController;

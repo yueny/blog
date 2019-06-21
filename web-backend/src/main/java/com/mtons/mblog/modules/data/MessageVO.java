@@ -1,5 +1,7 @@
 package com.mtons.mblog.modules.data;
 
+import com.mtons.mblog.bo.PostVO;
+import com.mtons.mblog.bo.UserVO;
 import com.mtons.mblog.entity.Message;
 
 /**

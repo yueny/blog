@@ -1,6 +1,7 @@
 package com.mtons.mblog.base.storage;
 
 import lombok.Builder;
+import lombok.Getter;
 import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
 
@@ -13,6 +14,7 @@ public class NailPathData {
     /**
      * StorageConsts 里面的路径值
      */
+    @Getter
     private NailType nailType;
 
     /**

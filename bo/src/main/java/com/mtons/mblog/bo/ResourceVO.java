@@ -9,6 +9,7 @@
 */
 package com.mtons.mblog.bo;
 
+import com.mtons.mblog.base.enums.ResourceType;
 import com.yueny.superclub.api.pojo.IBo;
 import com.yueny.superclub.api.pojo.instance.AbstractBo;
 import lombok.Getter;
@@ -53,10 +54,17 @@ public class ResourceVO extends AbstractBo implements IBo {
 
 	@Getter
 	@Setter
-	private Date createTime;
+	private Date created;
 
 	@Getter
 	@Setter
-	private Date updateTime;
+	private Date updated;
+
+	/**
+	 * 附件类型
+	 */
+	@Getter
+	@Setter
+	private ResourceType resourceType;
 
 }

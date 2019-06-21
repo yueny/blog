@@ -70,7 +70,7 @@
 
 <script>
     $('#default_avatar_btn').change(function(){
-        $(this).upload(_MTONS.BASE_PATH + '/post/upload?crop=thumbnail_post_size&uType=avatar', function(data){
+        $(this).upload(_MTONS.BASE_PATH + '/post/upload?crop=thumbnail_post_size&nailType=avatar', function(data){
             if (data.status == 200) {
                 location.reload();
                 // var path = data.path;

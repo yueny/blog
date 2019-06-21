@@ -135,9 +135,9 @@ public interface OptionsKeysConsts {
     String STORAGE_SCHEME = "storage_scheme";
 
     /**
-     * 默认头像路径
+     * 默认用户头像路径
      */
-    String DEFAULT_AVATAR_PATH = "default_avatar_path";
+    String USER_AVATAR_DEFAULT_PATH = "user_avatar_default_path";
 
     //aliyun_oss_endpoint
     // aliyun_oss_bucket

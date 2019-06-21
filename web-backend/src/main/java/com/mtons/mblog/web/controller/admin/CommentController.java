@@ -13,7 +13,7 @@ import java.util.List;
 
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.web.controller.BaseController;
-import com.mtons.mblog.modules.data.CommentVO;
+import com.mtons.mblog.bo.CommentVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

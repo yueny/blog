@@ -17,6 +17,7 @@ import com.mtons.mblog.modules.repository.ChannelRepository;
 import com.mtons.mblog.service.ChannelService;
 import com.mtons.mblog.entity.Channel;
 import com.mtons.mblog.service.ResourceService;
+import com.mtons.mblog.service.impl.BaseService;
 import com.yueny.rapid.lang.util.UuidUtil;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;

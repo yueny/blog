@@ -1,5 +1,7 @@
 package com.mtons.mblog.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.mtons.mblog.base.enums.ResourceType;
 import com.mtons.mblog.entity.api.IEntry;
 import lombok.Data;
 import lombok.Getter;
@@ -21,12 +23,25 @@ import java.util.Date;
 @Table(name = "mto_resource",
         uniqueConstraints = {@UniqueConstraint(name = "UK_MD5", columnNames = {"md5"})}
 )
+@TableName("mto_resource")
 public class Resource implements IEntry, Serializable {
     private static final long serialVersionUID = -2263990565349962964L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "created", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP")
+    @Generated(GenerationTime.INSERT)
+    @Temporal(value = TemporalType.TIMESTAMP)
+    private Date created;
+
+    @Column(name = "updated", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @Generated(GenerationTime.ALWAYS)
+    @Temporal(value = TemporalType.TIMESTAMP)
+    private Date updated;
+
+
 
     /**
      * 图片资源编号
@@ -51,14 +66,11 @@ public class Resource implements IEntry, Serializable {
     @Column(name = "amount", columnDefinition = "bigint(20) NOT NULL DEFAULT '0'")
     private long amount;
 
-    @Column(name = "create_time", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP")
-    @Generated(GenerationTime.INSERT)
-    @Temporal(value = TemporalType.TIMESTAMP)
-    private Date createTime;
-
-    @Column(name = "update_time", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    @Generated(GenerationTime.ALWAYS)
-    @Temporal(value = TemporalType.TIMESTAMP)
-    private Date updateTime;
+    /**
+     * 附件类型
+     */
+    @Getter
+    @Setter
+    private ResourceType resourceType;
 
 }

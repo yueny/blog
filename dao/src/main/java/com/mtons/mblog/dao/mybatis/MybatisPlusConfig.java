@@ -1,5 +1,6 @@
 package com.mtons.mblog.dao.mybatis;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.mtons.mblog.dao.mybatis.interceptor.IgnoreCreateDateFieldInterceptor;
@@ -51,6 +52,8 @@ public class MybatisPlusConfig extends AbstractMybatisPlusConfig {
 
         // 数据库相关配置
         GlobalConfig.DbConfig dbConfig = new GlobalConfig.DbConfig();
+        // 全局唯一ID (idWorker)
+        dbConfig.setIdType(IdType.ID_WORKER);
 //        // 逻辑删除值
 //        dbConfig.setLogicDeleteValue(String.valueOf(DelEnum.DEL.getVal()));
 //        // 逻辑未删除值

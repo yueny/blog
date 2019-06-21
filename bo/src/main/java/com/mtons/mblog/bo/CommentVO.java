@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.modules.data;
+package com.mtons.mblog.bo;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.mtons.mblog.base.enums.AuthoredType;

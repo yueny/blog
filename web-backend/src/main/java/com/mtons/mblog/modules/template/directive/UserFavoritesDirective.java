@@ -3,8 +3,8 @@
  */
 package com.mtons.mblog.modules.template.directive;
 
-import com.mtons.mblog.modules.data.FavoriteVO;
-import com.mtons.mblog.modules.data.UserVO;
+import com.mtons.mblog.bo.FavoriteVO;
+import com.mtons.mblog.bo.UserVO;
 import com.mtons.mblog.modules.service.FavoriteService;
 import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.modules.template.DirectiveHandler;

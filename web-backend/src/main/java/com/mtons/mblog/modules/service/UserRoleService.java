@@ -1,6 +1,6 @@
 package com.mtons.mblog.modules.service;
 
-import com.mtons.mblog.modules.data.RoleVO;
+import com.mtons.mblog.bo.RoleVO;
 
 import java.util.List;
 import java.util.Map;

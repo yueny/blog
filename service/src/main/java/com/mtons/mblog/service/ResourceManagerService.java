@@ -9,14 +9,16 @@
 */
 package com.mtons.mblog.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.mtons.mblog.bo.ResourceVO;
+import com.mtons.mblog.entity.Resource;
 
 import java.util.Collection;
 
 /**
  * 图片资源管理
  */
-public interface ResourceManagerService {
+public interface ResourceManagerService extends IService<Resource> {
 	int updateAmount(Collection<String> md5s, long increment);
 
 	int updateAmountByIds(Collection<Long> ids, long increment);

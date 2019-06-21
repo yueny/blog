@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.web.controller.site;
 
-import com.mtons.mblog.modules.data.PostVO;
+import com.mtons.mblog.bo.PostVO;
 import com.mtons.mblog.modules.service.PostSearchService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.apache.commons.lang3.StringUtils;

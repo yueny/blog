@@ -7,9 +7,10 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.modules.data;
+package com.mtons.mblog.bo;
 
 import com.mtons.mblog.bo.BaseVO;
+import com.mtons.mblog.bo.PostVO;
 import lombok.*;
 
 /**
@@ -50,6 +51,6 @@ public class DemoVO extends BaseVO {
 	 */
 	private Integer guaranteeMode;
 
-	private  PostVO post;
+	private PostVO post;
 
 }

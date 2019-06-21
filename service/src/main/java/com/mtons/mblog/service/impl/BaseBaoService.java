@@ -1,5 +1,7 @@
-package com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.service.impl;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mtons.mblog.entity.api.IEntry;
 import com.yueny.superclub.api.pojo.IBo;
 import org.apache.commons.collections4.CollectionUtils;
@@ -21,7 +23,7 @@ import java.util.Set;
  *
  * @date 2015年8月9日 下午7:21:34
  */
-abstract class BaseService {
+abstract class BaseBaoService<M extends BaseMapper<T>, T> extends ServiceImpl<M, T> {
 	/**
 	 * LoggerUtil available to subclasses.
 	 */

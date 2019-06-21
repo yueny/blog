@@ -7,7 +7,7 @@ import com.google.common.collect.Sets;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.utils.BeanMapUtils;
 import com.mtons.mblog.bo.ChannelVO;
-import com.mtons.mblog.modules.data.PostVO;
+import com.mtons.mblog.bo.PostVO;
 import com.mtons.mblog.service.ChannelService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.modules.template.DirectiveHandler;

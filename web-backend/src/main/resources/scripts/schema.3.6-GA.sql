@@ -46,5 +46,19 @@ alter table `mto_post` add column uid varchar(256) COMMENT 'uid' after author_id
 update `mto_post` set uid=author_id where uid is null;
 
 --  ok
+-- 20190621
+alter table `mto_user` add column thumbnail_code varchar(128) NOT NULL DEFAULT '' COMMENT '图片资源编号' after avatar;
 
+-- -- 默认配置表
+-- CREATE TABLE `func_default` (
+--   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+--   `age` varchar(255) DEFAULT NULL,
+--   `asset_code` varchar(255) DEFAULT NULL,
+--   `contract_no` varchar(255) DEFAULT NULL,
+--   `created` datetime DEFAULT NULL,
+--   `guarantee_mode` int(11) DEFAULT NULL,
+--   `order_id` varchar(255) DEFAULT NULL,
+--   PRIMARY KEY (`id`),
+--   KEY `IK_ORDER_ID` (`order_id`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

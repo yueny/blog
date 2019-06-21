@@ -57,15 +57,16 @@ public class UploadController extends BaseController {
      * 文章中的图片上传， 预览图
      *
      * @param file 上传的文件
-     * @param uType 上传类型， blog 博文 | channel 栏目 | thumb 缩略图 | avatar 头像
+     * @param nailType 上传类型， blogAttr 博文 | channelThumb、blogThumb、thumb 缩略图 | avatar 头像 | vague 其他
      * @param request
      */
     @PostMapping("/upload")
     @ResponseBody
     public UploadResult upload(@RequestParam(value = "file", required = false) MultipartFile file,
-                               @RequestParam(value = "uType", required = false, defaultValue = "blog") String uType,
+                               @RequestParam(value = "nailType", required = false, defaultValue = "blogAttr") String nailType,
                                HttpServletRequest request) throws IOException {
         UploadResult result = new UploadResult();
+        // 获取缩略图允许的像素大小， 如 360x200
         String crop = request.getParameter("crop");
         int size = ServletRequestUtils.getIntParameter(request, "size", siteOptions.getIntegerValue(Consts.STORAGE_MAX_WIDTH));
 
@@ -92,13 +93,12 @@ public class UploadController extends BaseController {
 
         // 获取用户信息
         AccountProfile profile = getProfile();
-        NailPathData nailPath = NailPathData.builder().nailType(NailType.get(uType)).placeVal(String.valueOf(profile.getId())).build();
+        NailPathData nailPath = NailPathData.builder().nailType(NailType.get(nailType)).placeVal(String.valueOf(profile.getId())).build();
 
         // 保存图片
         try {
             Map.Entry<String, String> entry;
             if (StringUtils.isNotBlank(crop)) {
-                // 获取缩略图允许的像素大小， 如 360x200
                 Integer[] imageSize = siteOptions.getIntegerArrayValue(crop, Consts.SEPARATOR_X);
 
                 int width = ServletRequestUtils.getIntParameter(request, "width", imageSize[0]);

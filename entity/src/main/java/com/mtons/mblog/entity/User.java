@@ -25,6 +25,8 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "mto_user")
+@Getter
+@Setter
 public class User implements IEntry, Serializable {
 	private static final long serialVersionUID = -3629784071225214858L;
 
@@ -35,8 +37,6 @@ public class User implements IEntry, Serializable {
 	/**
 	 * 用户唯一标示
 	 */
-	@Getter
-	@Setter
 	@Column(name = "uid", unique = true, nullable = false)
 	private String uid;
 
@@ -46,15 +46,21 @@ public class User implements IEntry, Serializable {
 	/**
 	 * 自定义个性域名
 	 */
-	@Getter
-	@Setter
 	@Column(name = "domain_hack", unique = true, nullable = false, length = 64)
 	private String domainHack;
 
 	@Column(name = "password", length = 64)
 	private String password; // 密码
 
-	private String avatar;  // 头像
+	/**
+	 * 用户头像路径。如果为空，由 thumbnailCode 代替
+	 */
+	@Deprecated
+	private String avatar;
+	/**
+	 * 上传的头像编号， 取自mto_resource表
+	 */
+	private String thumbnailCode;
 
 	@Column(name = "name", length = 18)
 	private String name;  // 昵称
@@ -78,115 +84,11 @@ public class User implements IEntry, Serializable {
 	private int status; // 用户状态， 0为可用， 1为不可用
 
 	public User() {
-
+		//.
 	}
 
 	public User(long id) {
 		this.id = id;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Date getCreated() {
-		return created;
-	}
-
-	public void setCreated(Date created) {
-		this.created = created;
-	}
-
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Date getLastLogin() {
-		return lastLogin;
-	}
-
-	public void setLastLogin(Date lastLogin) {
-		this.lastLogin = lastLogin;
-	}
-
-	public String getAvatar() {
-		return avatar;
-	}
-
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
-	}
-
-	public int getGender() {
-		return gender;
-	}
-
-	public void setGender(int gender) {
-		this.gender = gender;
-	}
-
-	public int getPosts() {
-		return posts;
-	}
-
-	public void setPosts(int posts) {
-		this.posts = posts;
-	}
-
-	public int getComments() {
-		return comments;
-	}
-
-	public void setComments(int comments) {
-		this.comments = comments;
-	}
-
-	public String getSignature() {
-		return signature;
-	}
-
-	public void setSignature(String signature) {
-		this.signature = signature;
 	}
 
 }

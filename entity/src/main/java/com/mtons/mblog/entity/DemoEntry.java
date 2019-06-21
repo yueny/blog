@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.*;
 import com.mtons.mblog.entity.api.IEntry;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -26,6 +27,7 @@ import java.util.Date;
 @TableName("demo")
 @Getter
 @Setter
+@ToString
 public class DemoEntry implements IEntry {
     /** 自然主键 */
     /* 该配置自动创建表 START */
