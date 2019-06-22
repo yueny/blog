@@ -81,6 +81,10 @@ public interface OptionsKeysConsts {
      */
     String MAIL_SMTP_HOST = "mail_smtp_host";
     /**
+     * mail_pw_ps 不为null, 则 decrypt="true"
+     */
+    String MAIL_PW_PS = "mail_pw_ps";
+    /**
      * 又拍云或oss密码
      */
     String UPYUN_OSS_PASSWORD = "upyun_oss_password";

@@ -89,7 +89,7 @@ public class EmailController extends BaseController {
 
         String title = MessageFormat.format(EMAIL_TITLE, siteOptions.getValue(OptionsKeysConsts.SITE_NAME));
         mailService.sendTemplateEmail(email, title, Consts.EMAIL_TEMPLATE_CODE, context);
-        return Result.successMessage("邮件发送成功");
+        return Result.successMessage("邮件已发送， 如未收到邮件，请联系管理员!");
     }
 
 }

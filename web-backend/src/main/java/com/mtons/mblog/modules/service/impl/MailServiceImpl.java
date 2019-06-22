@@ -40,9 +40,22 @@ public class MailServiceImpl implements MailService {
         String mailHost = siteOptions.getValue(OptionsKeysConsts.MAIL_SMTP_HOST);
         String mailUsername = siteOptions.getValue(OptionsKeysConsts.MAIL_SMTP_USERNAME);
         String mailPassowrd = siteOptions.getValue(OptionsKeysConsts.MAIL_SMTP_PASSWORD);
+        String pwPs = siteOptions.getValue(OptionsKeysConsts.MAIL_PW_PS);
 
         if (StringUtils.isNoneBlank(mailHost, mailUsername, mailPassowrd)) {
-            OkEmail.config(MailSmtpType._126, mailUsername, mailPassowrd);
+            MailSmtpType type = MailSmtpType._126;
+            if(StringUtils.endsWith(mailHost, "126.com")){
+                type = MailSmtpType._126;
+            }else if(StringUtils.endsWith(mailHost, "muzinuo.com") |
+                    StringUtils.endsWith(mailHost, "codealy.com")){
+                type = MailSmtpType._ALIYUN;
+            }
+
+            if(StringUtils.isNotEmpty(pwPs)){
+                OkEmail.config(type, mailUsername, mailPassowrd, true, pwPs);
+            }else{
+                OkEmail.config(type, mailUsername, mailPassowrd);
+            }
         } else {
             log.error("邮件服务配置信息未设置, 请在后台系统配置中进行设置");
         }
@@ -70,7 +83,12 @@ public class MailServiceImpl implements MailService {
                     if(future == null){
                         log.error("mail send fail, result is null.");
                     }else{
-                        log.info("email: {} send result:{}.", to, future.get());
+                        ThreadEmailEntry entry = future.get();
+                        if(entry.isSucess()){
+                            log.info("email: {} send result:{}.", to, entry);
+                        }else{
+                            log.error("mail send error: ", entry.getThrowable());
+                        }
                     }
                 } catch(Exception ex){
                     log.error("mail send error: ", ex);
