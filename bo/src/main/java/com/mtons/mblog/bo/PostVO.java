@@ -11,8 +11,6 @@ package com.mtons.mblog.bo;
 
 import com.mtons.mblog.base.enums.BlogFeaturedType;
 import com.mtons.mblog.base.consts.Consts;
-import com.mtons.mblog.bo.ChannelVO;
-import com.mtons.mblog.bo.UserVO;
 import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
 import com.yueny.superclub.api.pojo.IBo;
 import lombok.EqualsAndHashCode;
@@ -100,7 +98,7 @@ public class PostVO extends AbstractMaskBo implements IBo, Serializable {
 
 
 
-	private UserVO author;
+	private UserBO author;
 
 	private ChannelVO channel;
 

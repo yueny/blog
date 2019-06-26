@@ -4,28 +4,28 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.yueny.superclub.api.enums.core.IEnumType;
 
 /**
- * 鉴权类型
+ * 是否需要改变类型
  */
-public enum AuthoredType implements IEnumType {
+public enum NeedChangeType implements IEnumType {
     /**
-     * 访客
+     * 不需要
      */
-    GUEST(NeedChangeType.NO.getValue()),
+    NO(0),
     /**
-     * 认证用户
+     * 需要
      */
-    AUTHORED(NeedChangeType.YES.getValue());
+    YES(1);
 
 
     @EnumValue
     private Integer value;
 
-    AuthoredType(Integer value){
+    NeedChangeType(Integer value){
         this.value = value;
     }
 
-    public static AuthoredType getBy(Integer value) {
-        for(AuthoredType type : values()) {
+    public static NeedChangeType getBy(Integer value) {
+        for(NeedChangeType type : values()) {
             if(type.getValue() == value) {
                 return type;
             }
@@ -33,8 +33,8 @@ public enum AuthoredType implements IEnumType {
         return null;
     }
 
-    public boolean isAuthor() {
-        return this.value == AUTHORED.value;
+    public boolean isNeed() {
+        return this.value == YES.value;
     }
 
     @com.yueny.superclub.api.annnotation.EnumValue

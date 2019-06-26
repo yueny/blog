@@ -22,11 +22,11 @@ import org.springframework.beans.BeanUtils;
 public class BeanMapUtils {
     private static String[] USER_IGNORE = new String[]{"password", "extend", "roles"};
 
-    public static UserVO copy(User po) {
+    public static UserBO copy(User po) {
         if (po == null) {
             return null;
         }
-        UserVO ret = new UserVO();
+        UserBO ret = new UserBO();
         BeanUtils.copyProperties(po, ret, USER_IGNORE);
         return ret;
     }

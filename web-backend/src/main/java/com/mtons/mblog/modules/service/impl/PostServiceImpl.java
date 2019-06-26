@@ -19,7 +19,7 @@ import com.mtons.mblog.base.utils.PreviewTextUtils;
 import com.mtons.mblog.modules.aspect.PostStatusFilter;
 import com.mtons.mblog.bo.ChannelVO;
 import com.mtons.mblog.bo.PostVO;
-import com.mtons.mblog.bo.UserVO;
+import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.Post;
 import com.mtons.mblog.entity.PostAttribute;
 import com.mtons.mblog.modules.event.PostUpdateEvent;
@@ -425,7 +425,7 @@ public class PostServiceImpl extends BaseService implements PostService {
 	}
 
 	private void buildUsers(Collection<PostVO> posts, Set<Long> uids) {
-		Map<Long, UserVO> userMap = userService.findMapByIds(uids);
+		Map<Long, UserBO> userMap = userService.findMapByIds(uids);
 		posts.forEach(p -> p.setAuthor(userMap.get(p.getAuthorId())));
 	}
 

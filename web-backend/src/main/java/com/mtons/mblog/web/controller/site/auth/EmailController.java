@@ -5,7 +5,7 @@ import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.consts.OptionsKeysConsts;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.bo.AccountProfile;
-import com.mtons.mblog.bo.UserVO;
+import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.modules.service.MailService;
 import com.mtons.mblog.modules.service.SecurityCodeService;
 import com.mtons.mblog.modules.service.UserService;
@@ -72,7 +72,7 @@ public class EmailController extends BaseController {
                 break;
             // 找回密码
             case Consts.CODE_FORGOT:
-                UserVO user = userService.getByEmail(email);
+                UserBO user = userService.getByEmail(email);
                 Assert.notNull(user, "账户不存在");
                 key = String.valueOf(user.getId());
                 break;

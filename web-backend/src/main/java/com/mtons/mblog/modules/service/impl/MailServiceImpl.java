@@ -46,8 +46,7 @@ public class MailServiceImpl implements MailService {
             MailSmtpType type = MailSmtpType._126;
             if(StringUtils.endsWith(mailHost, "126.com")){
                 type = MailSmtpType._126;
-            }else if(StringUtils.endsWith(mailHost, "muzinuo.com") |
-                    StringUtils.endsWith(mailHost, "codealy.com")){
+            }else if(StringUtils.endsWith(mailHost, "aliyun.com")){
                 type = MailSmtpType._ALIYUN;
             }
 

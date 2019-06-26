@@ -6,7 +6,7 @@ import com.mtons.mblog.bo.PostVO;
 import com.mtons.mblog.entity.Message;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.modules.repository.MessageRepository;
-import com.mtons.mblog.bo.UserVO;
+import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.modules.service.MessageService;
 import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.base.utils.BeanMapUtils;
@@ -58,7 +58,7 @@ public class MessageServiceImpl implements MessageService {
 
         // 加载
         Map<Long, PostVO> posts = postService.findMapByIds(postIds);
-        Map<Long, UserVO> fromUsers = userService.findMapByIds(fromUserIds);
+        Map<Long, UserBO> fromUsers = userService.findMapByIds(fromUserIds);
 
         rets.forEach(n -> {
             if (n.getPostId() > 0) {

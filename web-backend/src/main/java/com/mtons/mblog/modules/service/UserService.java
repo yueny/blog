@@ -11,7 +11,7 @@ package com.mtons.mblog.modules.service;
 
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.AccountProfile;
-import com.mtons.mblog.bo.UserVO;
+import com.mtons.mblog.bo.UserBO;
 import com.yueny.rapid.lang.exception.invalid.InvalidException;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -33,9 +33,9 @@ public interface UserService {
 	 * @param pageable
 	 * @param name
 	 */
-	Page<UserVO> paging(Pageable pageable, String name);
+	Page<UserBO> paging(Pageable pageable, String name);
 
-	Map<Long, UserVO> findMapByIds(Set<Long> ids);
+	Map<Long, UserBO> findMapByIds(Set<Long> ids);
 
 	/**
 	 * 登录
@@ -56,7 +56,7 @@ public interface UserService {
 	 * 注册
 	 * @param user
 	 */
-	UserVO register(UserVO user);
+	UserBO register(UserBO user);
 
 	/**
 	 * 修改用户信息
@@ -64,7 +64,7 @@ public interface UserService {
 	 * @return
 	 */
 	@CacheEvict(key = "#user.getId()")
-	AccountProfile update(UserVO user);
+	AccountProfile update(UserBO user);
 
 	/**
 	 * 修改用户信息
@@ -80,11 +80,11 @@ public interface UserService {
 	 * @return
 	 */
 	@Cacheable(key = "#userId")
-	UserVO get(long userId);
+    UserBO get(long userId);
 
-	UserVO getByUsername(String username);
+	UserBO getByUsername(String username);
 
-	UserVO getByEmail(String email);
+	UserBO getByEmail(String email);
 
 	/**
 	 * 修改头像
@@ -122,6 +122,6 @@ public interface UserService {
 	/**
 	 * 查询个性化域名的所有人信息. 不存在则返回null
 	 */
-	UserVO getByDomainHack(String domainHack);
+	UserBO getByDomainHack(String domainHack);
 
 }

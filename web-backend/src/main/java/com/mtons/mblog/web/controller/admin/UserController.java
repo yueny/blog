@@ -12,7 +12,7 @@ package com.mtons.mblog.web.controller.admin;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.RoleVO;
-import com.mtons.mblog.bo.UserVO;
+import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.modules.service.RoleService;
 import com.mtons.mblog.modules.service.UserRoleService;
 import com.mtons.mblog.modules.service.UserService;
@@ -49,9 +49,9 @@ public class UserController extends BaseController {
 	@RequestMapping("/list")
 	public String list(String name, ModelMap model) {
 		Pageable pageable = wrapPageable();
-		Page<UserVO> page = userService.paging(pageable, name);
+		Page<UserBO> page = userService.paging(pageable, name);
 
-		List<UserVO> users = page.getContent();
+		List<UserBO> users = page.getContent();
 		List<Long> userIds = new ArrayList<>();
 
 		users.forEach(item -> {
@@ -70,7 +70,7 @@ public class UserController extends BaseController {
 
 	@RequestMapping("/view")
 	public String view(Long id, ModelMap model) {
-		UserVO view = userService.get(id);
+		UserBO view = userService.get(id);
 		view.setRoles(userRoleService.listRoles(view.getId()));
 		model.put("view", view);
 		model.put("roles", roleService.list());
@@ -88,7 +88,7 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/pwd", method = RequestMethod.GET)
 //	@RequiresPermissions("user:pwd")
 	public String pwsView(Long id, ModelMap model) {
-		UserVO ret = userService.get(id);
+		UserBO ret = userService.get(id);
 		model.put("view", ret);
 		return "/admin/user/pwd";
 	}
@@ -96,7 +96,7 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/pwd", method = RequestMethod.POST)
 //	@RequiresPermissions("user:pwd")
 	public String pwd(Long id, String newPassword, ModelMap model) {
-		UserVO ret = userService.get(id);
+		UserBO ret = userService.get(id);
 		model.put("view", ret);
 
 		try {

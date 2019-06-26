@@ -23,7 +23,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class UserVO extends AbstractMaskBo implements Serializable {
+public class UserBO extends AbstractMaskBo implements Serializable {
 	private static final long serialVersionUID = 107193816173103116L;
 
 	private long id;

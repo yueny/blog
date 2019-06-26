@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.modules.service;
 
-import com.mtons.mblog.bo.UserVO;
+import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.bo.OpenOauthVO;
 
 /**
@@ -17,7 +17,7 @@ import com.mtons.mblog.bo.OpenOauthVO;
  */
 public interface OpenOauthService {
     //通过 oauth_token 查询 user
-    UserVO getUserByOauthToken(String oauth_token);
+    UserBO getUserByOauthToken(String oauth_token);
 
     OpenOauthVO getOauthByToken(String oauth_token);
     

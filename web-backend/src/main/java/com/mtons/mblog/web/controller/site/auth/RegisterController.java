@@ -7,7 +7,7 @@ import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.consts.StorageConsts;
 import com.mtons.mblog.bo.AccountProfile;
-import com.mtons.mblog.bo.UserVO;
+import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.modules.service.SecurityCodeService;
 import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.web.controller.BaseController;
@@ -45,7 +45,7 @@ public class RegisterController extends BaseController {
 	}
 	
 	@PostMapping("/register")
-	public String register(UserVO post, HttpServletRequest request, ModelMap model) {
+	public String register(UserBO post, HttpServletRequest request, ModelMap model) {
 		String view = view(Views.REGISTER);
 		try {
 			if (siteOptions.getControls().isRegister_email_validate()) {

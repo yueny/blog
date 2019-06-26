@@ -12,7 +12,7 @@ package com.mtons.mblog.modules.service.impl;
 import com.mtons.mblog.modules.comp.util.DefaultMojoFactory;
 import com.mtons.mblog.bo.CommentVO;
 import com.mtons.mblog.bo.PostVO;
-import com.mtons.mblog.bo.UserVO;
+import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.Comment;
 import com.mtons.mblog.modules.repository.CommentRepository;
 import com.mtons.mblog.modules.service.CommentService;
@@ -215,7 +215,7 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 	}
 
 	private void buildUsers(Collection<CommentVO> posts, Set<Long> uids) {
-		Map<Long, UserVO> userMap = userService.findMapByIds(uids);
+		Map<Long, UserBO> userMap = userService.findMapByIds(uids);
 
 		posts.forEach(post -> {
 			if(!post.getCommitAuthoredType().isAuthor()){
@@ -224,11 +224,11 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 				return;
 			}
 
-			UserVO userVO = userMap.get(post.getAuthorId());
-			if (userVO == null) {
+			UserBO userBO = userMap.get(post.getAuthorId());
+			if (userBO == null) {
 				return;
 			}
-			CommentVO.UserCommentModel uc = mapAny(userVO, CommentVO.UserCommentModel.class);
+			CommentVO.UserCommentModel uc = mapAny(userBO, CommentVO.UserCommentModel.class);
 			post.setAuthor(uc);
 		});
 	}

@@ -1,7 +1,7 @@
 package com.mtons.mblog.modules.data;
 
 import com.mtons.mblog.bo.PostVO;
-import com.mtons.mblog.bo.UserVO;
+import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.Message;
 
 /**
@@ -9,14 +9,14 @@ import com.mtons.mblog.entity.Message;
  */
 public class MessageVO extends Message {
     // extend
-    private UserVO from;
+    private UserBO from;
     private PostVO post;
 
-    public UserVO getFrom() {
+    public UserBO getFrom() {
         return from;
     }
 
-    public void setFrom(UserVO from) {
+    public void setFrom(UserBO from) {
         this.from = from;
     }
 

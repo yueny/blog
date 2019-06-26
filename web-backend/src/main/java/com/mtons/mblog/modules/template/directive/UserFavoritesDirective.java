@@ -4,7 +4,7 @@
 package com.mtons.mblog.modules.template.directive;
 
 import com.mtons.mblog.bo.FavoriteVO;
-import com.mtons.mblog.bo.UserVO;
+import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.modules.service.FavoriteService;
 import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
@@ -38,8 +38,8 @@ public class UserFavoritesDirective extends TemplateDirective {
         long userId = handler.getInteger("userId", 0);
         Pageable pageable = wrapPageable(handler);
 
-        UserVO userVO = userService.get(userId);
-        Page<FavoriteVO> result = favoriteService.pagingByUserId(pageable, userVO.getUid());
+        UserBO userBO = userService.get(userId);
+        Page<FavoriteVO> result = favoriteService.pagingByUserId(pageable, userBO.getUid());
         handler.put(RESULTS, result).render();
     }
 

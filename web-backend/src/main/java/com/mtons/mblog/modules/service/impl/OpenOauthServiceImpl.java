@@ -11,7 +11,7 @@ package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.service.comp.IPasswdService;
 import com.mtons.mblog.bo.OpenOauthVO;
-import com.mtons.mblog.bo.UserVO;
+import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.UserOauth;
 import com.mtons.mblog.entity.User;
 import com.mtons.mblog.modules.repository.UserRepository;
@@ -40,7 +40,7 @@ public class OpenOauthServiceImpl implements OpenOauthService {
     private IPasswdService passwdService;
 
     @Override
-    public UserVO getUserByOauthToken(String oauth_token) {
+    public UserBO getUserByOauthToken(String oauth_token) {
         UserOauth thirdToken = userOauthRepository.findByAccessToken(oauth_token);
         Optional<User> po = userRepository.findById(thirdToken.getId());
         return BeanMapUtils.copy(po.get());

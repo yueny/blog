@@ -15,7 +15,7 @@ import com.mtons.mblog.service.comp.IPasswdService;
 import com.mtons.mblog.service.comp.IUserPassportService;
 import com.mtons.mblog.bo.AccountProfile;
 import com.mtons.mblog.bo.BadgesCount;
-import com.mtons.mblog.bo.UserVO;
+import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.User;
 import com.mtons.mblog.modules.repository.RoleRepository;
 import com.mtons.mblog.modules.repository.UserRepository;
@@ -58,7 +58,7 @@ public class UserServiceImpl extends BaseService implements UserService {
     private ISeqContainer seqContainer;
 
     @Override
-    public Page<UserVO> paging(Pageable pageable, String name) {
+    public Page<UserBO> paging(Pageable pageable, String name) {
         Page<User> page = userRepository.findAll((root, query, builder) -> {
             Predicate predicate = builder.conjunction();
 
@@ -71,28 +71,28 @@ public class UserServiceImpl extends BaseService implements UserService {
             return predicate;
         }, pageable);
 
-        List<UserVO> rets = new ArrayList<>();
+        List<UserBO> rets = new ArrayList<>();
         page.getContent().forEach(n -> {
-            UserVO userVO = map(n, UserVO.class);
-            userVO.setPassword("");
-            rets.add(userVO);
+            UserBO userBO = map(n, UserBO.class);
+            userBO.setPassword("");
+            rets.add(userBO);
         });
         return new PageImpl<>(rets, pageable, page.getTotalElements());
     }
 
     @Override
-    public Map<Long, UserVO> findMapByIds(Set<Long> ids) {
+    public Map<Long, UserBO> findMapByIds(Set<Long> ids) {
         if (ids == null || ids.isEmpty()) {
             return Collections.emptyMap();
         }
 
         List<User> list = userRepository.findAllById(ids);
-        Map<Long, UserVO> ret = new HashMap<>();
+        Map<Long, UserBO> ret = new HashMap<>();
 
         list.forEach(po -> {
-            UserVO userVO = map(po, UserVO.class);
-            userVO.setPassword("");
-            ret.put(po.getId(), userVO);
+            UserBO userBO = map(po, UserBO.class);
+            userBO.setPassword("");
+            ret.put(po.getId(), userBO);
         });
 
         return ret;
@@ -143,7 +143,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
     @Transactional
-    public UserVO register(UserVO user) {
+    public UserBO register(UserBO user) {
         Assert.notNull(user, "Parameter user can not be null!");
 
         Assert.hasLength(user.getUsername(), "用户名不能为空!");
@@ -174,12 +174,12 @@ public class UserServiceImpl extends BaseService implements UserService {
 
         userRepository.save(po);
 
-        return map(po, UserVO.class);
+        return map(po, UserBO.class);
     }
 
     @Override
     @Transactional
-    public AccountProfile update(UserVO user) {
+    public AccountProfile update(UserBO user) {
         User po = userRepository.findById(user.getId()).get();
         po.setName(user.getName());
         po.setSignature(user.getSignature());
@@ -217,7 +217,7 @@ public class UserServiceImpl extends BaseService implements UserService {
     }
 
     @Override
-    public UserVO get(long userId) {
+    public UserBO get(long userId) {
         Optional<User> optional = userRepository.findById(userId);
         if (optional.isPresent()) {
             User user = optional.get();
@@ -225,23 +225,23 @@ public class UserServiceImpl extends BaseService implements UserService {
                 return null;
             }
 
-            return map(user, UserVO.class);
+            return map(user, UserBO.class);
         }
         return null;
     }
 
     @Override
-    public UserVO getByUsername(String username) {
+    public UserBO getByUsername(String username) {
         User user = userRepository.findByUsername(username);
         if (user == null) {
             return null;
         }
 
-        return map(user, UserVO.class);
+        return map(user, UserBO.class);
     }
 
     @Override
-    public UserVO getByEmail(String email) {
+    public UserBO getByEmail(String email) {
         return BeanMapUtils.copy(userRepository.findByEmail(email));
     }
 
@@ -291,13 +291,13 @@ public class UserServiceImpl extends BaseService implements UserService {
     }
 
     @Override
-    public UserVO getByDomainHack(String domainHack) {
+    public UserBO getByDomainHack(String domainHack) {
         User user = userRepository.findByDomainHack(domainHack);
         if (user == null) {
             return null;
         }
 
-        return map(user, UserVO.class);
+        return map(user, UserBO.class);
 //        return BeanMapUtils.copy(userRepository.findByDomainHack(domainHack));
     }
 

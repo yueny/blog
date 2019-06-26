@@ -7,7 +7,7 @@ import com.mtons.mblog.base.utils.FileKit;
 import com.mtons.mblog.base.utils.FilePathUtils;
 import com.mtons.mblog.base.utils.ImageUtils;
 import com.mtons.mblog.bo.AccountProfile;
-import com.mtons.mblog.bo.UserVO;
+import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.modules.service.SecurityCodeService;
 import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.web.controller.BaseController;
@@ -41,7 +41,7 @@ public class SettingsController extends BaseController {
     @GetMapping(value = "/profile")
     public String view(ModelMap model) {
         AccountProfile profile = getProfile();
-        UserVO view = userService.get(profile.getId());
+        UserBO view = userService.get(profile.getId());
         model.put("view", view);
         return view(Views.SETTINGS_PROFILE);
     }
@@ -75,7 +75,7 @@ public class SettingsController extends BaseController {
         AccountProfile profile = getProfile();
 
         try {
-            UserVO user = new UserVO();
+            UserBO user = new UserBO();
             user.setId(profile.getId());
             user.setName(name);
             user.setSignature(signature);
@@ -88,7 +88,7 @@ public class SettingsController extends BaseController {
             putProfile(userService.update(user));
 
             // put 最新信息
-            UserVO view = userService.get(profile.getId());
+            UserBO view = userService.get(profile.getId());
             model.put("view", view);
 
             data = Result.success();

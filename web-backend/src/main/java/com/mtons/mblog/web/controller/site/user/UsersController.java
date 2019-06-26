@@ -11,7 +11,7 @@ package com.mtons.mblog.web.controller.site.user;
 
 import com.mtons.mblog.base.lang.MtonsException;
 import com.mtons.mblog.bo.AccountProfile;
-import com.mtons.mblog.bo.UserVO;
+import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.modules.service.MessageService;
 import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.web.controller.BaseController;
@@ -64,12 +64,12 @@ public class UsersController extends BaseController {
                          ModelMap model, HttpServletRequest request) {
         model.put("pageNo", ServletRequestUtils.getIntParameter(request, "pageNo", 1));
 
-        UserVO userVo = userService.getByDomainHack(domainHack);
-        if(userVo == null){
+        UserBO userBO = userService.getByDomainHack(domainHack);
+        if(userBO == null){
             throw new MtonsException("无效或已失效的地址");
         }
 
-        long userId = userVo.getId();
+        long userId = userBO.getId();
 
         // 访问消息页, 判断登录
         if (Views.METHOD_MESSAGES.equals(method)) {

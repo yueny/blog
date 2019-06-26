@@ -11,7 +11,7 @@ import com.mtons.mblog.base.utils.FilePathUtils;
 import com.mtons.mblog.base.utils.ImageUtils;
 import com.mtons.mblog.bo.AccountProfile;
 import com.mtons.mblog.bo.OpenOauthVO;
-import com.mtons.mblog.bo.UserVO;
+import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.modules.service.OpenOauthService;
 import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.web.controller.BaseController;
@@ -350,9 +350,9 @@ public class CallbackController extends BaseController {
         if (thirdToken != null) {
             username = userService.get(thirdToken.getUserId()).getUsername();
         } else { // 不存在：注册新用户，并绑定此token，登录
-            UserVO user = userService.getByUsername(username);
+            UserBO user = userService.getByUsername(username);
             if (user == null) {
-                UserVO u = userService.register(wrapUser(openOauth));
+                UserBO u = userService.register(wrapUser(openOauth));
 
                 // 将远程图片下载到本地
                 String ava100 = StorageConsts.avatarPath + getAvaPath(u.getId(), 100);
@@ -391,8 +391,8 @@ public class CallbackController extends BaseController {
         throw new MtonsException("登录失败");
     }
 
-    private UserVO wrapUser(OpenOauthVO openOauth) {
-        UserVO user = new UserVO();
+    private UserBO wrapUser(OpenOauthVO openOauth) {
+        UserBO user = new UserBO();
         user.setUsername(openOauth.getUsername());
         user.setName(openOauth.getNickname());
         user.setPassword(openOauth.getAccessToken());

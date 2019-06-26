@@ -14,6 +14,8 @@ import com.mtons.mblog.base.enums.AuthoredType;
 import com.mtons.mblog.entity.api.IEntry;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -40,6 +42,11 @@ public class Comment implements IEntry {
     /** 表创建时间 */
     @TableField(fill = FieldFill.INSERT)
     private Date created;
+
+//    @Column(name = "updated", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+//    @Generated(GenerationTime.ALWAYS)
+//    @Temporal(value = TemporalType.TIMESTAMP)
+//    private Date updated;
 
     /**
      * 针对性回复的评论ID(父评论ID)

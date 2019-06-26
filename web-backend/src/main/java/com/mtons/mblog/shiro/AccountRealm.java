@@ -3,7 +3,7 @@ package com.mtons.mblog.shiro;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.AccountProfile;
 import com.mtons.mblog.bo.RoleVO;
-import com.mtons.mblog.bo.UserVO;
+import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.modules.service.UserRoleService;
 import com.mtons.mblog.modules.service.UserService;
 import org.apache.shiro.SecurityUtils;
@@ -33,7 +33,7 @@ public class AccountRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         AccountProfile profile = (AccountProfile) SecurityUtils.getSubject().getPrincipal();
         if (profile != null) {
-            UserVO user = userService.get(profile.getId());
+            UserBO user = userService.get(profile.getId());
             if (user != null) {
                 SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
                 List<RoleVO> roles = userRoleService.listRoles(user.getId());

@@ -2,7 +2,7 @@ package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.modules.aspect.PostStatusFilter;
 import com.mtons.mblog.bo.PostVO;
-import com.mtons.mblog.bo.UserVO;
+import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.Post;
 import com.mtons.mblog.modules.service.PostSearchService;
 import com.mtons.mblog.modules.service.UserService;
@@ -105,7 +105,7 @@ public class PostSearchServiceImpl implements PostSearchService {
         }
         HashSet<Long> uids = new HashSet<>();
         list.forEach(n -> uids.add(n.getAuthorId()));
-        Map<Long, UserVO> userMap = userService.findMapByIds(uids);
+        Map<Long, UserBO> userMap = userService.findMapByIds(uids);
         list.forEach(p -> p.setAuthor(userMap.get(p.getAuthorId())));
     }
 }
