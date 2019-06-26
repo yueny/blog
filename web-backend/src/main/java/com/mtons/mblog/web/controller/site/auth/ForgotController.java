@@ -5,6 +5,7 @@ import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.modules.service.SecurityCodeService;
 import com.mtons.mblog.service.atom.UserService;
+import com.mtons.mblog.service.comp.IUserPassportService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.web.controller.site.Views;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class ForgotController extends BaseController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private IUserPassportService userPassportService;
     @Autowired
     private SecurityCodeService securityCodeService;
 
@@ -41,7 +44,7 @@ public class ForgotController extends BaseController {
             securityCodeService.verify(String.valueOf(user.getId()), Consts.CODE_FORGOT, code);
 
             // 验证码通过后，直接修改密码
-            userService.updatePassword(user.getUid(), password);
+            userPassportService.changePassword(user.getUid(), password);
             model.put("data", Result.successMessage("恭喜您, 密码重置成功"));
             view = view(Views.REGISTER);
         } catch (Exception e) {

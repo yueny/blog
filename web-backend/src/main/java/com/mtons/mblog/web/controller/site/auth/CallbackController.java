@@ -1,6 +1,7 @@
 package com.mtons.mblog.web.controller.site.auth;
 
 import com.mtons.mblog.base.consts.OptionsKeysConsts;
+import com.mtons.mblog.model.UserVO;
 import com.mtons.mblog.service.exception.MtonsException;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.consts.StorageConsts;
@@ -8,6 +9,7 @@ import com.mtons.mblog.base.oauth.*;
 import com.mtons.mblog.base.oauth.utils.OpenOauthBean;
 import com.mtons.mblog.base.oauth.utils.TokenUtil;
 import com.mtons.mblog.base.utils.FilePathUtils;
+import com.mtons.mblog.service.manager.IUserManagerService;
 import com.mtons.mblog.service.util.ImageUtils;
 import com.mtons.mblog.bo.AccountProfile;
 import com.mtons.mblog.bo.OpenOauthVO;
@@ -46,6 +48,8 @@ public class CallbackController extends BaseController {
     private OpenOauthService openOauthService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private IUserManagerService userManagerService;
 
     /**
      * 跳转到微博进行授权
@@ -352,7 +356,7 @@ public class CallbackController extends BaseController {
         } else { // 不存在：注册新用户，并绑定此token，登录
             UserBO user = userService.getByUsername(username);
             if (user == null) {
-                UserBO u = userService.register(wrapUser(openOauth));
+                UserVO u = userManagerService.register(wrapUser(openOauth));
 
                 // 将远程图片下载到本地
                 String ava100 = StorageConsts.avatarPath + getAvaPath(u.getId(), 100);

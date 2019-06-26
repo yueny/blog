@@ -9,6 +9,7 @@
 */
 package com.mtons.mblog.service.manager;
 
+import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.model.UserVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,4 +36,18 @@ public interface IUserManagerService {
      * @param name
      */
     Page<UserVO> paging(Pageable pageable, String name);
+
+    /**
+     * 注册服务
+     * @param userBo
+     */
+    UserVO register(UserBO userBo);
+
+    /**
+     * 尝试登录动作
+     * @param username 用户名
+     * @param tryPassword 尝试的密码明文， 不代表真实密码
+     * @return 尝试密码的加密密码， 不校验与实际密码的正确性
+     */
+    String tryLogin(String username, String tryPassword);
 }

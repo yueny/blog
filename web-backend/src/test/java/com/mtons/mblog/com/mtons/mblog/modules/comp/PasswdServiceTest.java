@@ -20,7 +20,7 @@ public class PasswdServiceTest {
 
     @Test
     public void testEncode() {
-        String mima = passwdService.encode("123456", "");
+        String mima = passwdService.encode("123456", passwdService.getSalt());
 
         System.out.println(mima);
     }

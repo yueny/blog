@@ -16,6 +16,7 @@ import com.mtons.mblog.model.UserVO;
 import com.mtons.mblog.service.atom.RoleService;
 import com.mtons.mblog.service.atom.UserRoleService;
 import com.mtons.mblog.service.atom.UserService;
+import com.mtons.mblog.service.comp.IUserPassportService;
 import com.mtons.mblog.service.manager.IUserManagerService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.yueny.rapid.lang.exception.invalid.InvalidException;
@@ -36,8 +37,10 @@ import java.util.Set;
 @RequestMapping("/admin/user")
 public class UserController extends BaseController {
 	@Autowired
-	private UserService userService;
+	private IUserPassportService userPassportService;
 
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private RoleService roleService;
 
@@ -89,7 +92,7 @@ public class UserController extends BaseController {
 		model.put("view", ret);
 
 		try {
-			userService.updatePassword(ret.getUid(), newPassword);
+			userPassportService.changePassword(ret.getUid(), newPassword);
 			model.put("message", "修改成功， 新密码 " + newPassword + "， 请牢记！");
 		} catch (IllegalArgumentException | InvalidException e) {
 			model.put("message", e.getMessage());

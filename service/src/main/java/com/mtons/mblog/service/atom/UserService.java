@@ -111,14 +111,6 @@ public interface UserService {
 	boolean updatePassword(String uid, String newPassword) throws InvalidException;
 
 	/**
-	 * 修改密码
-	 * @param uid
-	 * @param oldPassword  旧密码，输入明文
-	 * @param newPassword  新密码，输入明文
-	 */
-	boolean updatePassword(String uid, String oldPassword, String newPassword) throws InvalidException;
-
-	/**
 	 * 修改用户状态
 	 * @param id
 	 * @param status

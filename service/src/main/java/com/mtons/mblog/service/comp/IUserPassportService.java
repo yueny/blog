@@ -35,4 +35,15 @@ public interface IUserPassportService {
 	 */
 	boolean modifyPassPort(final String uid, final String oldPassport, final String resetPwd) throws InvalidException;
 
+	/**
+	 * 非校验式的更改密码， 不含事务
+	 *
+	 * @param uid
+	 *            用户uid
+	 * @param resetPwd
+	 *            欲重置密码的明文
+	 *
+	 */
+	boolean changePassword(String uid, String resetPwd) throws InvalidException;
+
 }

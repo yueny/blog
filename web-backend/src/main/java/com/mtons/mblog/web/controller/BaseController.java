@@ -12,8 +12,8 @@ package com.mtons.mblog.web.controller;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.storage.StorageFactory;
 import com.mtons.mblog.config.SiteOptions;
-import com.mtons.mblog.service.comp.IPasswdService;
 import com.mtons.mblog.bo.AccountProfile;
+import com.mtons.mblog.service.manager.IUserManagerService;
 import com.mtons.mblog.web.formatter.StringEscapeEditor;
 import com.yueny.rapid.lang.agent.UserAgentResource;
 import com.yueny.rapid.lang.agent.handler.UserAgentUtils;
@@ -54,7 +54,7 @@ public class BaseController {
     @Autowired
     protected SiteOptions siteOptions;
     @Autowired
-    private IPasswdService passwdService;
+    private IUserManagerService userManagerService;
 
     /**
      * 存放当前线程的HttpServletRequest对象
@@ -107,7 +107,7 @@ public class BaseController {
     /**
      * 组装分页条件
      */
-    protected PageRequest wrapPageable(Sort sort) {
+    protected <T> PageRequest wrapPageable(Sort sort) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         int pageSize = ServletRequestUtils.getIntParameter(request, "pageSize", 10);
         int pageNo = ServletRequestUtils.getIntParameter(request, "pageNo", 1);
@@ -225,14 +225,22 @@ public class BaseController {
         return "/" + siteOptions.getValue("theme") + view;
     }
 
+    /**
+     *
+     * @param username 用户名
+     * @param password 密码明文
+     * @param rememberMe
+     * @return
+     */
     protected Result<AccountProfile> executeLogin(String username, String password, boolean rememberMe) {
         Result<AccountProfile> ret = Result.failure("登录失败");
 
-        if (StringUtils.isAnyBlank(username, password)) {
+        String pw = userManagerService.tryLogin(username, password);
+        if (StringUtils.isEmpty(pw)) {
             return ret;
         }
 
-        UsernamePasswordToken token = new UsernamePasswordToken(username, passwdService.encode(password, ""), rememberMe);
+        UsernamePasswordToken token = new UsernamePasswordToken(username, pw, rememberMe);
 
         try {
             SecurityUtils.getSubject().login(token);

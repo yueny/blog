@@ -9,6 +9,10 @@
 */
 package com.mtons.mblog.service.atom.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.mtons.mblog.base.enums.NeedChangeType;
+import com.mtons.mblog.bo.UserSecurityBO;
 import com.mtons.mblog.dao.mapper.UserSecurityMapper;
 import com.mtons.mblog.entity.UserSecurityEntry;
 import com.mtons.mblog.service.atom.IUserSecurityService;
@@ -24,6 +28,37 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserSecurityServiceImpl extends BaseBaoService<UserSecurityMapper, UserSecurityEntry>
 		implements IUserSecurityService {
+	@Override
+	public boolean save(UserSecurityBO bo) {
+		// 不存在数据
+		if(getByUid(bo.getUid()) == null){
+			int rs = baseMapper.insert(map(bo, UserSecurityEntry.class));
+			return rs == 1;
+		}
+
+		// 已经存在，则更新
+		UserSecurityEntry entry = new UserSecurityEntry();
+		entry.setNeedChangePw(bo.getNeedChangePw());
+		entry.setSalt(bo.getSalt());
+
+		LambdaQueryWrapper<UserSecurityEntry> queryWrapper = new QueryWrapper<UserSecurityEntry>().lambda();
+		queryWrapper.eq(UserSecurityEntry::getUid, bo.getUid());
+		return baseMapper.update(entry, queryWrapper) == 1;
+	}
+
+	@Override
+	public UserSecurityBO getByUid(String uid) {
+		LambdaQueryWrapper<UserSecurityEntry> queryWrapper = new QueryWrapper<UserSecurityEntry>().lambda();
+		queryWrapper.eq(UserSecurityEntry::getUid, uid);
+
+		UserSecurityEntry entry = getOne(queryWrapper);
+		if(entry == null){
+			return null;
+		}
+
+		return map(entry, UserSecurityBO.class);
+	}
+
 //	@Autowired
 //	private DemoMapper demoMapper;
 //

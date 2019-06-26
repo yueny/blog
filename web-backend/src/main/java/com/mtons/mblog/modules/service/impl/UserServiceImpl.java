@@ -10,15 +10,13 @@
 package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.base.consts.EntityStatus;
+import com.mtons.mblog.dao.repository.UserRepository;
 import com.mtons.mblog.service.exception.MtonsException;
 import com.mtons.mblog.service.comp.IPasswdService;
-import com.mtons.mblog.service.comp.IUserPassportService;
 import com.mtons.mblog.bo.AccountProfile;
 import com.mtons.mblog.bo.BadgesCount;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.User;
-import com.mtons.mblog.dao.repository.RoleRepository;
-import com.mtons.mblog.dao.repository.UserRepository;
 import com.mtons.mblog.service.BaseService;
 import com.mtons.mblog.service.seq.SeqType;
 import com.mtons.mblog.service.seq.container.ISeqContainer;
@@ -45,13 +43,9 @@ import java.util.*;
 @Transactional(readOnly = true)
 public class UserServiceImpl extends BaseService implements UserService {
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository userMapper;
     @Autowired
     private MessageService messageService;
-    @Autowired
-    private IUserPassportService userPassportService;
-    @Autowired
-    private RoleRepository roleRepository;
     @Autowired
     private IPasswdService passwdService;
     @Autowired
@@ -59,7 +53,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
     public Page<UserBO> paging(Pageable pageable, String name) {
-        Page<User> page = userRepository.findAll((root, query, builder) -> {
+        Page<User> page = userMapper.findAll((root, query, builder) -> {
             Predicate predicate = builder.conjunction();
 
             if (StringUtils.isNoneBlank(name)) {
@@ -86,7 +80,7 @@ public class UserServiceImpl extends BaseService implements UserService {
             return Collections.emptyMap();
         }
 
-        List<User> list = userRepository.findAllById(ids);
+        Iterable<User> list = userMapper.findAllById(ids);
         Map<Long, UserBO> ret = new HashMap<>();
 
         list.forEach(po -> {
@@ -101,7 +95,7 @@ public class UserServiceImpl extends BaseService implements UserService {
     @Override
     @Transactional
     public AccountProfile login(String username, String password) {
-        User po = userRepository.findByUsername(username);
+        User po = userMapper.findByUsername(username);
         Assert.notNull(po, "账户不存在");
 
 //		Assert.state(po.getStatus() != Const.STATUS_CLOSED, "您的账户已被封禁");
@@ -109,7 +103,7 @@ public class UserServiceImpl extends BaseService implements UserService {
         Assert.state(StringUtils.equals(po.getPassword(), password), "密码错误");
 
         po.setLastLogin(Calendar.getInstance().getTime());
-        userRepository.save(po);
+        userMapper.save(po);
 
         AccountProfile u = mapAny(po, AccountProfile.class);
         //AccountProfile u = BeanMapUtils.copyPassport(po);
@@ -124,7 +118,7 @@ public class UserServiceImpl extends BaseService implements UserService {
     @Override
     @Transactional
     public AccountProfile findProfile(Long id) {
-        User po = userRepository.findById(id).get();
+        User po = userMapper.findById(id).get();
 
         Assert.notNull(po, "账户不存在");
 
@@ -142,45 +136,20 @@ public class UserServiceImpl extends BaseService implements UserService {
     }
 
     @Override
-    @Transactional
     public UserBO register(UserBO user) {
-        Assert.notNull(user, "Parameter user can not be null!");
+        User entry = map(user, User.class);
+        entry.setCreated(Calendar.getInstance().getTime());
+        entry.setUpdated(Calendar.getInstance().getTime());
 
-        Assert.hasLength(user.getUsername(), "用户名不能为空!");
-        Assert.hasLength(user.getPassword(), "密码不能为空!");
+        userMapper.save(entry);
 
-        User check = userRepository.findByUsername(user.getUsername());
-
-        Assert.isNull(check, "用户名已经存在!");
-
-        User po = map(user, User.class);
-
-        if (StringUtils.isBlank(po.getName())) {
-            po.setName(user.getUsername());
-        }
-
-        Date now = Calendar.getInstance().getTime();
-
-        // 密码加密方式
-        String pw = passwdService.encode(user.getPassword(), "");
-        po.setPassword(pw);
-        po.setStatus(EntityStatus.ENABLED);
-        po.setCreated(now);
-
-        String uid = seqContainer.getStrategy(SeqType.USER_U_ID).get("");
-        po.setUid(uid);
-        // 默认
-        po.setDomainHack(seqContainer.getStrategy(SeqType.SIMPLE).get(""));
-
-        userRepository.save(po);
-
-        return map(po, UserBO.class);
+        return user;
     }
 
     @Override
     @Transactional
     public AccountProfile update(UserBO user) {
-        User po = userRepository.findById(user.getId()).get();
+        User po = userMapper.findById(user.getId()).get();
         po.setName(user.getName());
         po.setSignature(user.getSignature());
 
@@ -190,7 +159,8 @@ public class UserServiceImpl extends BaseService implements UserService {
             po.setDomainHack(String.valueOf(user.getId()));
         }
 
-        userRepository.save(po);
+        po.setUpdated(Calendar.getInstance().getTime());
+        userMapper.save(po);
 
         // BeanMapUtils.copyPassport(po);
         return mapAny(po, AccountProfile.class);
@@ -199,26 +169,27 @@ public class UserServiceImpl extends BaseService implements UserService {
     @Override
     @Transactional
     public AccountProfile updateEmail(long id, String email) {
-        User po = userRepository.findById(id).get();
+        User po = userMapper.findById(id).get();
 
         if (email.equals(po.getEmail())) {
             throw new MtonsException("邮箱地址没做更改");
         }
 
-        User check = userRepository.findByEmail(email);
+        User check = userMapper.findByEmail(email);
 
         if (check != null && check.getId() != po.getId()) {
             throw new MtonsException("该邮箱地址已经被使用了");
         }
         po.setEmail(email);
-        userRepository.save(po);
+        po.setUpdated(Calendar.getInstance().getTime());
+        userMapper.save(po);
 
         return mapAny(po, AccountProfile.class);
     }
 
     @Override
     public UserBO get(long userId) {
-        Optional<User> optional = userRepository.findById(userId);
+        Optional<User> optional = userMapper.findById(userId);
         if (optional.isPresent()) {
             User user = optional.get();
             if (user == null) {
@@ -232,7 +203,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
     public UserBO get(String uid) {
-        User user = userRepository.findByUid(uid);
+        User user = userMapper.findByUid(uid);
         if (user == null) {
             return null;
         }
@@ -242,7 +213,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
     public UserBO getByUsername(String username) {
-        User user = userRepository.findByUsername(username);
+        User user = userMapper.findByUsername(username);
         if (user == null) {
             return null;
         }
@@ -252,15 +223,17 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
     public UserBO getByEmail(String email) {
-        return BeanMapUtils.copy(userRepository.findByEmail(email));
+        return BeanMapUtils.copy(userMapper.findByEmail(email));
     }
 
     @Override
     @Transactional
     public AccountProfile updateAvatar(long id, String path) {
-        User po = userRepository.findById(id).get();
+        User po = userMapper.findById(id).get();
         po.setAvatar(path);
-        userRepository.save(po);
+        po.setUpdated(Calendar.getInstance().getTime());
+
+        userMapper.save(po);
 
         return mapAny(po, AccountProfile.class);
     }
@@ -270,34 +243,26 @@ public class UserServiceImpl extends BaseService implements UserService {
     public boolean updatePassword(String uid, String newPassword) throws InvalidException{
         Assert.hasLength(newPassword, "密码不能为空!");
 
-        return passwdService.changePassword(uid, newPassword);
-    }
-
-    @Override
-    @Transactional
-    public boolean updatePassword(String uid, String oldPassword, String newPassword) throws InvalidException {
-        Assert.hasLength(newPassword, "新密码不能为空!");
-
-        return userPassportService.modifyPassPort(uid, oldPassword, newPassword);
+        return userMapper.changePassword(uid, newPassword, Calendar.getInstance().getTime()) == 1;
     }
 
     @Override
     @Transactional
     public boolean updateStatus(long id, int status) {
-        User po = userRepository.findById(id).get();
+        User po = userMapper.findById(id).get();
 
         po.setStatus(status);
-        return userRepository.updateStatus(id, status) == 1;
+        return userMapper.updateStatus(id, status, Calendar.getInstance().getTime()) == 1;
     }
 
     @Override
     public long count() {
-        return userRepository.count();
+        return userMapper.count();
     }
 
     @Override
     public UserBO getByDomainHack(String domainHack) {
-        User user = userRepository.findByDomainHack(domainHack);
+        User user = userMapper.findByDomainHack(domainHack);
         if (user == null) {
             return null;
         }

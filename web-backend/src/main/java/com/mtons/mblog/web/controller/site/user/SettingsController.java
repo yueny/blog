@@ -5,6 +5,7 @@ import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.consts.StorageConsts;
 import com.mtons.mblog.base.utils.FileKit;
 import com.mtons.mblog.base.utils.FilePathUtils;
+import com.mtons.mblog.service.comp.IUserPassportService;
 import com.mtons.mblog.service.util.ImageUtils;
 import com.mtons.mblog.bo.AccountProfile;
 import com.mtons.mblog.bo.UserBO;
@@ -34,6 +35,8 @@ public class SettingsController extends BaseController {
     private UserService userService;
     @Autowired
     private SecurityCodeService securityCodeService;
+    @Autowired
+    private IUserPassportService userPassportService;
 
     /**
      * 查看个人基本信息
@@ -127,7 +130,7 @@ public class SettingsController extends BaseController {
         Result data;
         try {
             AccountProfile profile = getProfile();
-            userService.updatePassword(profile.getUid(), oldPassword, password);
+            userPassportService.modifyPassPort(profile.getUid(), oldPassword, password);
 
             data = Result.success();
         } catch (Exception e) {

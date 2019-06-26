@@ -20,6 +20,7 @@ import com.mtons.mblog.model.ChannelTreeVO;
 import com.mtons.mblog.service.atom.ChannelService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -63,6 +64,16 @@ public class ChannelController extends BaseController {
 	}
 
 	/**
+	 * 添加栏目
+	 */
+	@RequestMapping("/view.html")
+	public String viewd(ModelMap model) {
+		viewed("");
+
+		return "/admin/channel/view";
+	}
+
+	/**
 	 * 直接添加栏目\在树上添加子栏目
 	 * @param channelCode   渠道编号
 	 */
@@ -72,6 +83,7 @@ public class ChannelController extends BaseController {
 
 		return "/admin/channel/view";
 	}
+
 	/**
 	 * 在树上添加子栏目
 	 * @param channelCode 渠道编号
@@ -91,7 +103,7 @@ public class ChannelController extends BaseController {
 	private void viewed(String channelCode) {
 		setModelAttribute("nodeTypeList", ChannelNodeType.values());
 
-		if (channelCode != null) {
+		if (StringUtils.isNotEmpty(channelCode)) {
 			// 取得该栏目基本信息
 			ChannelVO channelVO = channelService.getByChannelCode(channelCode);
 			if(channelVO == null){

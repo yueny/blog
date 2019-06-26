@@ -10,6 +10,8 @@
 package com.mtons.mblog.modules.service;
 
 /**
+ * 验证码服务
+ *
  * @author langhsu on 2015/8/14.
  */
 public interface SecurityCodeService {

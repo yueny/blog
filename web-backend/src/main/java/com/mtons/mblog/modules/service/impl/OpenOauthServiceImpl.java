@@ -9,12 +9,14 @@
 */
 package com.mtons.mblog.modules.service.impl;
 
+import com.mtons.mblog.bo.UserSecurityBO;
+import com.mtons.mblog.dao.repository.UserRepository;
+import com.mtons.mblog.service.atom.IUserSecurityService;
 import com.mtons.mblog.service.comp.IPasswdService;
 import com.mtons.mblog.bo.OpenOauthVO;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.UserOauth;
 import com.mtons.mblog.entity.User;
-import com.mtons.mblog.dao.repository.UserRepository;
 import com.mtons.mblog.modules.service.OpenOauthService;
 import com.mtons.mblog.base.utils.BeanMapUtils;
 import com.mtons.mblog.dao.repository.UserOauthRepository;
@@ -35,14 +37,16 @@ public class OpenOauthServiceImpl implements OpenOauthService {
     @Autowired
     private UserOauthRepository userOauthRepository;
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository userMapper;
     @Autowired
     private IPasswdService passwdService;
+    @Autowired
+    private IUserSecurityService userSecurityService;
 
     @Override
     public UserBO getUserByOauthToken(String oauth_token) {
         UserOauth thirdToken = userOauthRepository.findByAccessToken(oauth_token);
-        Optional<User> po = userRepository.findById(thirdToken.getId());
+        Optional<User> po = userMapper.findById(thirdToken.getId());
         return BeanMapUtils.copy(po.get());
     }
 
@@ -72,12 +76,17 @@ public class OpenOauthServiceImpl implements OpenOauthService {
     public boolean checkIsOriginalPassword(long userId) {
         UserOauth po = userOauthRepository.findByUserId(userId);
         if (po != null) {
-            Optional<User> optional = userRepository.findById(userId);
+            Optional<User> optional = userMapper.findById(userId);
 
-            String pwd = passwdService.encode(po.getAccessToken(), "");
             // 判断用户密码 和 登录状态
-            if (optional.isPresent() && pwd.equals(optional.get().getPassword())) {
-                return true;
+            if (optional.isPresent()) {
+                User user = optional.get();
+                UserSecurityBO us = userSecurityService.getByUid(user.getUid());
+                String pwd = passwdService.encode(po.getAccessToken(), us.getSalt());
+
+                if (pwd.equals(user.getPassword())) {
+                    return true;
+                }
             }
         }
         return false;

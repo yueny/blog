@@ -10,6 +10,7 @@
 package com.mtons.mblog.service.atom;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.mtons.mblog.bo.UserSecurityBO;
 import com.mtons.mblog.entity.UserSecurityEntry;
 
 /**
@@ -20,5 +21,15 @@ import com.mtons.mblog.entity.UserSecurityEntry;
  *
  */
 public interface IUserSecurityService extends IService<UserSecurityEntry> {
-	//.
+    /**
+     * 数据保存。 如果数据存在则更新
+     *
+     * @param bo 实体对象
+     */
+    boolean save(UserSecurityBO bo);
+
+    /**
+     * 根据uid获取对象
+     */
+    UserSecurityBO getByUid(String uid);
 }

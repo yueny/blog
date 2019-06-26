@@ -11,9 +11,12 @@ package com.mtons.mblog.service.manager.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.mtons.mblog.base.consts.EntityStatus;
+import com.mtons.mblog.base.enums.NeedChangeType;
 import com.mtons.mblog.bo.ResourceBO;
 import com.mtons.mblog.bo.RoleVO;
 import com.mtons.mblog.bo.UserBO;
+import com.mtons.mblog.bo.UserSecurityBO;
 import com.mtons.mblog.entity.UserSecurityEntry;
 import com.mtons.mblog.model.UserVO;
 import com.mtons.mblog.service.BaseService;
@@ -21,17 +24,20 @@ import com.mtons.mblog.service.atom.IUserSecurityService;
 import com.mtons.mblog.service.atom.ResourceService;
 import com.mtons.mblog.service.atom.UserRoleService;
 import com.mtons.mblog.service.atom.UserService;
+import com.mtons.mblog.service.comp.IPasswdService;
 import com.mtons.mblog.service.manager.IUserManagerService;
+import com.mtons.mblog.service.seq.SeqType;
+import com.mtons.mblog.service.seq.container.ISeqContainer;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 用户管理服务，汇总用户信息、头像信息、权限角色信息和安全基本信息
@@ -51,6 +57,10 @@ public class UserManagerServiceImpl extends BaseService implements IUserManagerS
     private UserRoleService userRoleService;
     @Autowired
     private ResourceService resourceService;
+    @Autowired
+    private IPasswdService passwdService;
+    @Autowired
+    private ISeqContainer seqContainer;
 
     @Override
     public UserVO get(String uid) {
@@ -115,5 +125,61 @@ public class UserManagerServiceImpl extends BaseService implements IUserManagerS
         });
 
         return new PageImpl<>(list, pageable, page.getTotalElements());
+    }
+
+    @Override
+    @Transactional
+    public UserVO register(UserBO userBo) {
+        Assert.notNull(userBo, "Parameter user can not be null!");
+        Assert.hasLength(userBo.getUsername(), "用户名不能为空!");
+        Assert.hasLength(userBo.getPassword(), "密码不能为空!");
+        Assert.isNull(userService.getByUsername(userBo.getUsername()), "用户名已经存在!");
+
+        // 拷贝一份新对象，不破坏请求数据
+        UserBO user = mapAny(userBo, UserBO.class);
+        if (StringUtils.isBlank(user.getName())) {
+            user.setName(user.getUsername());
+        }
+
+        // 密码加密方式
+        String salt = passwdService.getSalt();
+        String pw = passwdService.encode(user.getPassword(), salt);
+        user.setPassword(pw);
+        user.setStatus(EntityStatus.ENABLED);
+
+        String uid = seqContainer.getStrategy(SeqType.USER_U_ID).get("");
+        user.setUid(uid);
+        // 默认
+        user.setDomainHack(seqContainer.getStrategy(SeqType.SIMPLE).get(""));
+        userService.register(user);
+
+        UserSecurityBO us = new UserSecurityBO();
+        us.setNeedChangePw(NeedChangeType.NO);
+        us.setSalt(salt);
+        us.setUid(uid);
+        if(!userSecurityService.save(us)){
+            // exception
+        };
+
+        return get(uid);
+    }
+
+    @Override
+    public String tryLogin(String username, String tryPassword) {
+        if (StringUtils.isAnyBlank(username, tryPassword)) {
+            return "";
+        }
+
+        UserBO userBO = userService.getByUsername(username);
+        if(userBO == null){
+            return "";
+        }
+
+        UserSecurityBO us = userSecurityService.getByUid(userBO.getUid());
+        if(us != null){
+            return passwdService.encode(tryPassword, us.getSalt());
+        }
+
+        return passwdService.encode(tryPassword, "");
     }
 }

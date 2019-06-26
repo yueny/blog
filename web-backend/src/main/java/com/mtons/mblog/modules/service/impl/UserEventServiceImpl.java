@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Set;
 
@@ -27,21 +28,21 @@ import java.util.Set;
 @Transactional
 public class UserEventServiceImpl implements UserEventService {
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository userMapper;
 
     @Override
     public void identityPost(Long userId, boolean plus) {
-        userRepository.updatePosts(userId, (plus) ? Consts.IDENTITY_STEP : Consts.DECREASE_STEP);
+        userMapper.updatePosts(userId, (plus) ? Consts.IDENTITY_STEP : Consts.DECREASE_STEP, Calendar.getInstance().getTime());
     }
 
     @Override
     public void identityComment(Long userId, boolean plus) {
-        userRepository.updateComments(Collections.singleton(userId), (plus) ? Consts.IDENTITY_STEP : Consts.DECREASE_STEP);
+        userMapper.updateComments(Collections.singleton(userId), (plus) ? Consts.IDENTITY_STEP : Consts.DECREASE_STEP, Calendar.getInstance().getTime());
     }
 
     @Override
     public void identityComment(Set<Long> userIds, boolean plus) {
-        userRepository.updateComments(userIds, (plus) ? Consts.IDENTITY_STEP : Consts.DECREASE_STEP);
+        userMapper.updateComments(userIds, (plus) ? Consts.IDENTITY_STEP : Consts.DECREASE_STEP, Calendar.getInstance().getTime());
     }
 
 }

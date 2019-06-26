@@ -9,8 +9,6 @@
  */
 package com.mtons.mblog.service.comp;
 
-import com.yueny.rapid.lang.exception.invalid.InvalidException;
-
 /**
  * 密码服务 
  * 
@@ -30,15 +28,9 @@ public interface IPasswdService {
 	 */
 	String encode(String passwordVal, String salt);
 
-
 	/**
-	 * 非校验式的更改密码， 不含事务
-	 *
-	 * @param uid
-	 *            用户uid
-	 * @param resetPwd
-	 *            欲重置密码的明文
-	 *
+	 * 获取合法的盐值
 	 */
-	boolean changePassword(String uid, String resetPwd) throws InvalidException;
+	String getSalt();
+
 }
