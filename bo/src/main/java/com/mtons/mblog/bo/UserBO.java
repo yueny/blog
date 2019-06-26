@@ -16,9 +16,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
@@ -70,15 +68,5 @@ public class UserBO extends AbstractMaskBo implements Serializable {
 	private String signature; // 个性签名
 
 	private int status;
-
-	/**
-	 * 上传的头像信息， 取自mto_resource表
-	 */
-	@Deprecated
-	private ResourceBO thumbnailVo;
-
-	@JSONField(serialize = false)
-	@Deprecated
-	private List<RoleVO> roles = new ArrayList<>();
 
 }

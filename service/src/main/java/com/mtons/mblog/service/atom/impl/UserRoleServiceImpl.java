@@ -1,10 +1,10 @@
-package com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.service.atom.impl;
 
 import com.mtons.mblog.bo.RoleVO;
 import com.mtons.mblog.dao.repository.UserRoleRepository;
 import com.mtons.mblog.entity.UserRole;
-import com.mtons.mblog.modules.service.RoleService;
-import com.mtons.mblog.modules.service.UserRoleService;
+import com.mtons.mblog.service.atom.RoleService;
+import com.mtons.mblog.service.atom.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

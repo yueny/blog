@@ -1,4 +1,4 @@
-package com.mtons.mblog.service.atom.impl;
+package com.mtons.mblog.service;
 
 import com.mtons.mblog.entity.api.IEntry;
 import com.yueny.superclub.api.pojo.IBo;
@@ -15,13 +15,12 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 基类， 使用 BaseBaoService  代替
+ * 业务基类
  *
  * @author yueny(yueny09@163.com)
  *
  * @date 2015年8月9日 下午7:21:34
  */
-@Deprecated
 public abstract class BaseService {
 	/**
 	 * LoggerUtil available to subclasses.

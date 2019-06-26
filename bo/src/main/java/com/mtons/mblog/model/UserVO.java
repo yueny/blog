@@ -10,6 +10,7 @@
 package com.mtons.mblog.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.mtons.mblog.base.enums.NeedChangeType;
 import com.mtons.mblog.bo.ResourceBO;
 import com.mtons.mblog.bo.RoleVO;
 import com.mtons.mblog.bo.UserBO;
@@ -34,6 +35,11 @@ public class UserVO extends UserBO implements Serializable {
 	 * 上传的头像信息， 取自mto_resource表
 	 */
 	private ResourceBO thumbnail;
+
+	/**
+	 * 是否需要修改密码， 0为不需要，1为需要修改密码
+	 */
+	private NeedChangeType needChangePw;
 
 	@JSONField(serialize = false)
 	private List<RoleVO> roles = new ArrayList<>();

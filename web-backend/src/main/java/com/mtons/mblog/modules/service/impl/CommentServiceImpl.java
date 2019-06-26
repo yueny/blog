@@ -20,7 +20,7 @@ import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.modules.service.UserEventService;
 import com.mtons.mblog.service.atom.UserService;
 import com.mtons.mblog.base.utils.BeanMapUtils;
-import com.mtons.mblog.service.atom.impl.BaseService;
+import com.mtons.mblog.service.BaseService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;

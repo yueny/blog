@@ -17,7 +17,7 @@ import com.mtons.mblog.dao.repository.ChannelRepository;
 import com.mtons.mblog.service.atom.ChannelService;
 import com.mtons.mblog.entity.Channel;
 import com.mtons.mblog.service.atom.ResourceService;
-import com.mtons.mblog.service.atom.impl.BaseService;
+import com.mtons.mblog.service.BaseService;
 import com.yueny.rapid.lang.util.UuidUtil;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;

@@ -19,7 +19,7 @@ import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.User;
 import com.mtons.mblog.dao.repository.RoleRepository;
 import com.mtons.mblog.dao.repository.UserRepository;
-import com.mtons.mblog.service.atom.impl.BaseService;
+import com.mtons.mblog.service.BaseService;
 import com.mtons.mblog.service.seq.SeqType;
 import com.mtons.mblog.service.seq.container.ISeqContainer;
 import com.mtons.mblog.modules.service.MessageService;
@@ -231,6 +231,16 @@ public class UserServiceImpl extends BaseService implements UserService {
     }
 
     @Override
+    public UserBO get(String uid) {
+        User user = userRepository.findByUid(uid);
+        if (user == null) {
+            return null;
+        }
+
+        return map(user, UserBO.class);
+    }
+
+    @Override
     public UserBO getByUsername(String username) {
         User user = userRepository.findByUsername(username);
         if (user == null) {
@@ -269,11 +279,6 @@ public class UserServiceImpl extends BaseService implements UserService {
         Assert.hasLength(newPassword, "新密码不能为空!");
 
         return userPassportService.modifyPassPort(uid, oldPassword, newPassword);
-
-//        String pw = passwdService.encode(newPassword, "");
-//        User po = userRepository.findByUid(uid);
-//        po.setPassword(pw);
-//        userRepository.save(po);
     }
 
     @Override
@@ -298,7 +303,6 @@ public class UserServiceImpl extends BaseService implements UserService {
         }
 
         return map(user, UserBO.class);
-//        return BeanMapUtils.copy(userRepository.findByDomainHack(domainHack));
     }
 
 }

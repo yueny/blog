@@ -27,7 +27,7 @@ import com.mtons.mblog.dao.repository.PostAttributeRepository;
 import com.mtons.mblog.dao.repository.PostRepository;
 import com.mtons.mblog.service.atom.ChannelService;
 import com.mtons.mblog.service.atom.UserService;
-import com.mtons.mblog.service.atom.impl.BaseService;
+import com.mtons.mblog.service.BaseService;
 import com.mtons.mblog.service.seq.SeqType;
 import com.mtons.mblog.service.seq.container.ISeqContainer;
 import com.mtons.mblog.modules.service.*;

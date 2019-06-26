@@ -82,6 +82,14 @@ public interface UserService {
 	@Cacheable(key = "#userId")
     UserBO get(long userId);
 
+	/**
+	 * 查询单个用户
+	 * @param uid
+	 * @return
+	 */
+	@Cacheable(key = "#uid")
+	UserBO get(String uid);
+
 	UserBO getByUsername(String username);
 
 	UserBO getByEmail(String email);

@@ -4,7 +4,7 @@ import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.AccountProfile;
 import com.mtons.mblog.bo.RoleVO;
 import com.mtons.mblog.bo.UserBO;
-import com.mtons.mblog.modules.service.UserRoleService;
+import com.mtons.mblog.service.atom.UserRoleService;
 import com.mtons.mblog.service.atom.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;

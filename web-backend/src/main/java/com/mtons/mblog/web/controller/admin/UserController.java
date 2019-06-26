@@ -11,11 +11,12 @@ package com.mtons.mblog.web.controller.admin;
 
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.consts.Consts;
-import com.mtons.mblog.bo.RoleVO;
 import com.mtons.mblog.bo.UserBO;
-import com.mtons.mblog.modules.service.RoleService;
-import com.mtons.mblog.modules.service.UserRoleService;
+import com.mtons.mblog.model.UserVO;
+import com.mtons.mblog.service.atom.RoleService;
+import com.mtons.mblog.service.atom.UserRoleService;
 import com.mtons.mblog.service.atom.UserService;
+import com.mtons.mblog.service.manager.IUserManagerService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.yueny.rapid.lang.exception.invalid.InvalidException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -44,24 +42,13 @@ public class UserController extends BaseController {
 	private RoleService roleService;
 
 	@Autowired
+	private IUserManagerService userManagerService;
+	@Autowired
 	private UserRoleService userRoleService;
 
 	@RequestMapping("/list")
 	public String list(String name, ModelMap model) {
-		Pageable pageable = wrapPageable();
-		Page<UserBO> page = userService.paging(pageable, name);
-
-		List<UserBO> users = page.getContent();
-		List<Long> userIds = new ArrayList<>();
-
-		users.forEach(item -> {
-			userIds.add(item.getId());
-		});
-
-		Map<Long, List<RoleVO>> map = userRoleService.findMapByUserIds(userIds);
-		users.forEach(item -> {
-			item.setRoles(map.get(item.getId()));
-		});
+		Page<UserVO> page = userManagerService.paging(wrapPageable(), name);
 
 		model.put("name", name);
 		model.put("page", page);
@@ -70,9 +57,11 @@ public class UserController extends BaseController {
 
 	@RequestMapping("/view")
 	public String view(Long id, ModelMap model) {
-		UserBO view = userService.get(id);
-		view.setRoles(userRoleService.listRoles(view.getId()));
-		model.put("view", view);
+		UserBO bo = userService.get(id);
+
+		UserVO userVO = userManagerService.get(bo.getUid());
+
+		model.put("view", userVO);
 		model.put("roles", roleService.list());
 		return "/admin/user/view";
 	}

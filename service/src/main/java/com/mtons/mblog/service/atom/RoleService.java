@@ -1,4 +1,4 @@
-package com.mtons.mblog.modules.service;
+package com.mtons.mblog.service.atom;
 
 import com.mtons.mblog.bo.PermissionVO;
 import com.mtons.mblog.bo.RoleVO;
