@@ -10,7 +10,6 @@
 package com.mtons.mblog.bo;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.mtons.mblog.bo.RoleVO;
 import com.yueny.rapid.lang.mask.annotation.Mask;
 import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
 import lombok.Getter;
@@ -27,6 +26,14 @@ public class UserBO extends AbstractMaskBo implements Serializable {
 	private static final long serialVersionUID = 107193816173103116L;
 
 	private long id;
+
+	/** 表创建时间 */
+	private Date created;
+
+	/** 表修改时间 */
+	private Date updated;
+
+
 	private String username;
 
 	@JSONField(serialize = false)
@@ -59,7 +66,6 @@ public class UserBO extends AbstractMaskBo implements Serializable {
 	private int posts; // 文章数
 	private int comments; // 发布评论数
 
-	private Date created;
 	private Date lastLogin;
 	private String signature; // 个性签名
 
@@ -68,9 +74,11 @@ public class UserBO extends AbstractMaskBo implements Serializable {
 	/**
 	 * 上传的头像信息， 取自mto_resource表
 	 */
-	private ResourceVO thumbnailVo;
+	@Deprecated
+	private ResourceBO thumbnailVo;
 
 	@JSONField(serialize = false)
+	@Deprecated
 	private List<RoleVO> roles = new ArrayList<>();
 
 }

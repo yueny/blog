@@ -2,12 +2,12 @@ package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.bo.PermissionVO;
 import com.mtons.mblog.bo.RolePermissionVO;
-import com.mtons.mblog.modules.repository.PermissionRepository;
-import com.mtons.mblog.modules.repository.RolePermissionRepository;
+import com.mtons.mblog.dao.repository.PermissionRepository;
+import com.mtons.mblog.dao.repository.RolePermissionRepository;
 import com.mtons.mblog.entity.Permission;
 import com.mtons.mblog.entity.RolePermission;
 import com.mtons.mblog.modules.service.RolePermissionService;
-import com.mtons.mblog.service.impl.BaseService;
+import com.mtons.mblog.service.atom.impl.BaseService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

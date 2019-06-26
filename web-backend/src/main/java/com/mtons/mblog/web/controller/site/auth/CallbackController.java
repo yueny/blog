@@ -13,7 +13,7 @@ import com.mtons.mblog.bo.AccountProfile;
 import com.mtons.mblog.bo.OpenOauthVO;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.modules.service.OpenOauthService;
-import com.mtons.mblog.modules.service.UserService;
+import com.mtons.mblog.service.atom.UserService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.web.controller.site.Views;
 import lombok.extern.slf4j.Slf4j;

@@ -12,7 +12,7 @@ package com.mtons.mblog.modules.service.impl;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.lang.EntityStatus;
 import com.mtons.mblog.base.lang.MtonsException;
-import com.mtons.mblog.modules.repository.SecurityCodeRepository;
+import com.mtons.mblog.dao.repository.SecurityCodeRepository;
 import com.mtons.mblog.modules.service.SecurityCodeService;
 import com.mtons.mblog.entity.SecurityCode;
 import org.apache.commons.lang3.RandomStringUtils;

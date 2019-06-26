@@ -3,7 +3,7 @@ package com.mtons.mblog.web.controller.site;
 import com.mtons.mblog.base.utils.MarkdownUtils;
 import com.mtons.mblog.bo.DemoVO;
 import com.mtons.mblog.bo.PostVO;
-import com.mtons.mblog.service.DemoService;
+import com.mtons.mblog.service.atom.DemoService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;

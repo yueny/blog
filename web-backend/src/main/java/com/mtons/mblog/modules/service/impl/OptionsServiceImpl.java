@@ -10,7 +10,7 @@
 package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.entity.Options;
-import com.mtons.mblog.modules.repository.OptionsRepository;
+import com.mtons.mblog.dao.repository.OptionsRepository;
 import com.mtons.mblog.modules.service.OptionsService;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Session;

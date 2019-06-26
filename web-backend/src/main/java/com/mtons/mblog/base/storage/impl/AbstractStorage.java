@@ -14,9 +14,9 @@ import com.mtons.mblog.base.storage.NailPathData;
 import com.mtons.mblog.base.storage.Storage;
 import com.mtons.mblog.base.utils.*;
 import com.mtons.mblog.config.SiteOptions;
-import com.mtons.mblog.bo.ResourceVO;
-import com.mtons.mblog.service.ResourceManagerService;
-import com.mtons.mblog.service.ResourceService;
+import com.mtons.mblog.bo.ResourceBO;
+import com.mtons.mblog.service.atom.ResourceManagerService;
+import com.mtons.mblog.service.atom.ResourceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
@@ -69,20 +69,20 @@ public abstract class AbstractStorage implements Storage {
 
     public Map.Entry<String, String> writeToStore(byte[] bytes, NailPathData nailPath, String originalFilename) throws Exception {
         String md5 = MD5.md5File(bytes);
-        ResourceVO resourceVo = resourceService.findByMd5(md5);
-        if (resourceVo != null){
-            return new AbstractMap.SimpleEntry<>(resourceVo.getThumbnailCode(), resourceVo.getPath());
+        ResourceBO resourceBO = resourceService.findByMd5(md5);
+        if (resourceBO != null){
+            return new AbstractMap.SimpleEntry<>(resourceBO.getThumbnailCode(), resourceBO.getPath());
         }
 
         String path = FilePathUtils.wholePathName(nailPath.get(), originalFilename, md5);
         String fullPath = writeToStore(bytes, path);
 
         // 图片入库
-        resourceVo = new ResourceVO();
-        resourceVo.setMd5(md5);
-        resourceVo.setPath(fullPath);
-        resourceVo.setResourceType(nailPath.getNailType().getResourceType());
-        String thumbnailCode = resourceManagerService.save(resourceVo);
+        resourceBO = new ResourceBO();
+        resourceBO.setMd5(md5);
+        resourceBO.setPath(fullPath);
+        resourceBO.setResourceType(nailPath.getNailType().getResourceType());
+        String thumbnailCode = resourceManagerService.save(resourceBO);
 
         return new AbstractMap.SimpleEntry<>(thumbnailCode, fullPath);
     }

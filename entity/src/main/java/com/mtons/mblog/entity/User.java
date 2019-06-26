@@ -9,9 +9,13 @@
 */
 package com.mtons.mblog.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.mtons.mblog.entity.api.IEntry;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -33,6 +37,19 @@ public class User implements IEntry, Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+
+	/** 表创建时间 */
+	/* 该配置自动创建表 START */
+	@TableField(fill = FieldFill.INSERT)
+	/* 该配置自动创建表 END */
+	private Date created;
+
+	/** 表修改时间 */
+	@Column(name = "updated", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+	@Generated(GenerationTime.ALWAYS)
+	@Temporal(value = TemporalType.TIMESTAMP)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
+	private Date updated;
 
 	/**
 	 * 用户唯一标示
@@ -73,8 +90,6 @@ public class User implements IEntry, Serializable {
 	private int posts; // 文章数
 
 	private int comments; // 发布评论数
-
-	private Date created;  // 注册时间
 
 	@Column(name = "last_login")
 	private Date lastLogin;

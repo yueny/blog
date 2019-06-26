@@ -1,7 +1,7 @@
 package com.mtons.mblog.shiro;
 
 import com.mtons.mblog.bo.AccountProfile;
-import com.mtons.mblog.modules.service.UserService;
+import com.mtons.mblog.service.atom.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.mgt.DefaultSubjectFactory;
 import org.apache.shiro.mgt.SecurityManager;

@@ -50,6 +50,12 @@ public class UserSecurityEntry implements IEntry {
     private Date updated;
 
     /**
+     * 用户唯一标示
+     */
+    @Column(name = "uid", unique = true, nullable = false)
+    private String uid;
+
+    /**
      * 密码盐值
      */
     private String salt;

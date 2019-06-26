@@ -8,7 +8,7 @@ import com.mtons.mblog.bo.AccountProfile;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.modules.service.MailService;
 import com.mtons.mblog.modules.service.SecurityCodeService;
-import com.mtons.mblog.modules.service.UserService;
+import com.mtons.mblog.service.atom.UserService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;

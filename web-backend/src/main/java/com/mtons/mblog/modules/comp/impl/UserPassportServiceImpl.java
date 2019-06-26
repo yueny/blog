@@ -4,7 +4,7 @@ import com.mtons.mblog.base.enums.ErrorType;
 import com.mtons.mblog.service.comp.IPasswdService;
 import com.mtons.mblog.service.comp.IUserPassportService;
 import com.mtons.mblog.entity.User;
-import com.mtons.mblog.modules.repository.UserRepository;
+import com.mtons.mblog.dao.repository.UserRepository;
 import com.yueny.rapid.lang.exception.invalid.InvalidException;
 import com.yueny.rapid.lang.util.StringUtil;
 import org.apache.commons.lang.StringUtils;

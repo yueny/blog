@@ -24,16 +24,19 @@ import java.util.Date;
 @Getter
 @Setter
 public class UserSecurityBO extends AbstractMaskBo implements Serializable {
-
-
-	private long id;
-	private String username;
+	/** 自然主键 */
+	private Long id;
 
 	/** 表创建时间 */
 	private Date created;
 
 	/** 表修改时间 */
 	private Date updated;
+
+	/**
+	 * 用户唯一标示
+	 */
+	private String uid;
 
 	/**
 	 * 密码盐值

@@ -2,7 +2,7 @@ package com.mtons.mblog.config;
 
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.entity.Options;
-import com.mtons.mblog.service.ChannelService;
+import com.mtons.mblog.service.atom.ChannelService;
 import com.mtons.mblog.modules.service.MailService;
 import com.mtons.mblog.modules.service.OptionsService;
 import lombok.extern.slf4j.Slf4j;

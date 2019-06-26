@@ -1,7 +1,7 @@
 package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.bo.RoleVO;
-import com.mtons.mblog.modules.repository.UserRoleRepository;
+import com.mtons.mblog.dao.repository.UserRoleRepository;
 import com.mtons.mblog.entity.UserRole;
 import com.mtons.mblog.modules.service.RoleService;
 import com.mtons.mblog.modules.service.UserRoleService;

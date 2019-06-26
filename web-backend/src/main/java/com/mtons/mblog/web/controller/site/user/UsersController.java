@@ -13,7 +13,7 @@ import com.mtons.mblog.base.lang.MtonsException;
 import com.mtons.mblog.bo.AccountProfile;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.modules.service.MessageService;
-import com.mtons.mblog.modules.service.UserService;
+import com.mtons.mblog.service.atom.UserService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.web.controller.site.Views;
 import org.springframework.beans.factory.annotation.Autowired;

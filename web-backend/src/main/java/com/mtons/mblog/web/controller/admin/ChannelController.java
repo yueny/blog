@@ -17,7 +17,7 @@ import com.mtons.mblog.base.tree.QTree;
 import com.mtons.mblog.config.ContextStartup;
 import com.mtons.mblog.bo.ChannelVO;
 import com.mtons.mblog.model.ChannelTreeVO;
-import com.mtons.mblog.service.ChannelService;
+import com.mtons.mblog.service.atom.ChannelService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;

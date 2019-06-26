@@ -13,7 +13,7 @@ import com.mtons.mblog.base.enums.ErrorType;
 import com.mtons.mblog.base.utils.MD5;
 import com.mtons.mblog.service.comp.IPasswdService;
 import com.mtons.mblog.entity.User;
-import com.mtons.mblog.modules.repository.UserRepository;
+import com.mtons.mblog.dao.repository.UserRepository;
 import com.yueny.rapid.lang.exception.invalid.InvalidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

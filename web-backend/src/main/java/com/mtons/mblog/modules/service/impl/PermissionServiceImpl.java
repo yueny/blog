@@ -2,7 +2,7 @@ package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.modules.data.PermissionTree;
 import com.mtons.mblog.entity.Permission;
-import com.mtons.mblog.modules.repository.PermissionRepository;
+import com.mtons.mblog.dao.repository.PermissionRepository;
 import com.mtons.mblog.modules.service.PermissionService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;

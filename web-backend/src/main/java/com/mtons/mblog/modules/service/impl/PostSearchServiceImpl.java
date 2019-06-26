@@ -5,7 +5,7 @@ import com.mtons.mblog.bo.PostVO;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.Post;
 import com.mtons.mblog.modules.service.PostSearchService;
-import com.mtons.mblog.modules.service.UserService;
+import com.mtons.mblog.service.atom.UserService;
 import com.mtons.mblog.base.utils.BeanMapUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

@@ -12,12 +12,12 @@ package com.mtons.mblog.modules.service.impl;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.model.ChannelTreeVO;
 import com.mtons.mblog.bo.ChannelVO;
-import com.mtons.mblog.bo.ResourceVO;
-import com.mtons.mblog.modules.repository.ChannelRepository;
-import com.mtons.mblog.service.ChannelService;
+import com.mtons.mblog.bo.ResourceBO;
+import com.mtons.mblog.dao.repository.ChannelRepository;
+import com.mtons.mblog.service.atom.ChannelService;
 import com.mtons.mblog.entity.Channel;
-import com.mtons.mblog.service.ResourceService;
-import com.mtons.mblog.service.impl.BaseService;
+import com.mtons.mblog.service.atom.ResourceService;
+import com.mtons.mblog.service.atom.impl.BaseService;
 import com.yueny.rapid.lang.util.UuidUtil;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -278,7 +278,7 @@ public class ChannelServiceImpl extends BaseService implements ChannelService {
 
 	private void assemblyChannel(ChannelVO channelVO, String thumbnailCode){
 		if(StringUtils.isNotEmpty(thumbnailCode)){
-			ResourceVO vo = resourceService.findByThumbnailCode(thumbnailCode);
+			ResourceBO vo = resourceService.findByThumbnailCode(thumbnailCode);
 
 			if(vo != null){
 				channelVO.setThumbnail(vo.getPath());
