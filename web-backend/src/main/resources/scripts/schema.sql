@@ -13,6 +13,7 @@ File Encoding         : 65001
 Date: 2019-01-18 22:17:57
 */
 
+use db_mblog;
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
@@ -232,7 +233,7 @@ CREATE TABLE `mto_favorite` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `created` datetime DEFAULT NULL,
   `post_id` bigint(20) DEFAULT NULL,
-  article_blog_id varchar(64) NOT NULL DEFAULT '' COMMENT '文章扩展ID'
+  article_blog_id varchar(64) NOT NULL DEFAULT '' COMMENT '文章扩展ID',
   `user_id` bigint(20) DEFAULT NULL,
   uid varchar(256) COMMENT 'uid'DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -240,3 +241,61 @@ CREATE TABLE `mto_favorite` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- alter table `mto_favorite` add column article_blog_id varchar(64) NOT NULL DEFAULT '' COMMENT '文章扩展ID' after `post_id`;
 -- alter table `mto_favorite` add column uid varchar(256) COMMENT 'uid';
+
+CREATE TABLE `mto_resource` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `amount` bigint(20) NOT NULL DEFAULT '0',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `md5` varchar(100) NOT NULL DEFAULT '',
+  `path` varchar(255) NOT NULL DEFAULT '',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_MD5` (`md5`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+-- 博文表
+CREATE TABLE `mto_post` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `author_id` bigint(20) DEFAULT NULL,
+  `channel_id` int(11) DEFAULT NULL,
+  `comments` int(11) NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `favors` int(11) NOT NULL,
+  `featured` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `summary` varchar(140) DEFAULT NULL,
+  `tags` varchar(64) DEFAULT NULL,
+  `thumbnail` varchar(128) DEFAULT NULL,
+  `title` varchar(64) DEFAULT NULL,
+  `views` int(11) NOT NULL,
+  `weight` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IK_CHANNEL_ID` (`channel_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+-- 评论表
+CREATE TABLE `mto_comment` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `author_id` bigint(20) DEFAULT NULL,
+  `content` varchar(255) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `pid` bigint(20) NOT NULL,
+  `post_id` bigint(20) DEFAULT NULL,
+  `status` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IK_POST_ID` (`post_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- 图片资源表
+CREATE TABLE `mto_resource` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `thumbnail_code` varchar(128) NOT NULL DEFAULT '' COMMENT '图片资源编号',
+  `amount` bigint(20) NOT NULL DEFAULT '0',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `md5` varchar(100) NOT NULL DEFAULT '',
+  `path` varchar(255) NOT NULL DEFAULT '',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_MD5` (`md5`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
