@@ -10,7 +10,7 @@
 package com.mtons.mblog.base.storage.impl;
 
 import com.mtons.mblog.base.consts.OptionsKeysConsts;
-import com.mtons.mblog.base.lang.MtonsException;
+import com.mtons.mblog.service.exception.MtonsException;
 import com.mtons.mblog.base.storage.Storage;
 import com.mtons.mblog.base.utils.FileKit;
 import com.qiniu.common.QiniuException;

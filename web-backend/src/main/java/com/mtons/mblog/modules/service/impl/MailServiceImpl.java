@@ -5,7 +5,7 @@ import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.mtons.mblog.base.consts.OptionsKeysConsts;
-import com.mtons.mblog.base.lang.MtonsException;
+import com.mtons.mblog.service.exception.MtonsException;
 import com.mtons.mblog.config.SiteOptions;
 import com.mtons.mblog.modules.service.MailService;
 import com.yueny.rapid.email.OkEmail;

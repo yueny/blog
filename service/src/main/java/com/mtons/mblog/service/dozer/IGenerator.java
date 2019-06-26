@@ -1,4 +1,4 @@
-package com.mtons.mblog.base.dozer;
+package com.mtons.mblog.service.dozer;
 
 public interface IGenerator {
     //.

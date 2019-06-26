@@ -2,7 +2,7 @@ package com.mtons.mblog;
 
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.PutObjectResult;
-import com.mtons.mblog.base.utils.ImageUtils;
+import com.mtons.mblog.service.util.ImageUtils;
 import com.upyun.UpYunUtils;
 
 import java.io.ByteArrayInputStream;

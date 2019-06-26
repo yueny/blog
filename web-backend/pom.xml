@@ -23,10 +23,8 @@
         <aliyun.sdk.version>2.8.3</aliyun.sdk.version>
         <qiniu.sdk.version>7.2.18</qiniu.sdk.version>
         <flyway.version>5.2.4</flyway.version>
-        <commonmark.version>0.12.1</commonmark.version>
 
         <logback.ext.spring.version>0.1.4</logback.ext.spring.version>
-        <cfg.diamond.client.version>3.4-GA-SNAPSHOT</cfg.diamond.client.version>
     </properties>
 
     <dependencies>
@@ -47,13 +45,6 @@
             <artifactId>mblog-service</artifactId>
         </dependency>
 
-        <!-- cfg -->
-        <dependency>
-            <groupId>com.taobao.diamond</groupId>
-            <artifactId>diamond-client</artifactId>
-            <version>${cfg.diamond.client.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
@@ -69,23 +60,6 @@
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>${org.jsoup}</version>
-        </dependency>
-
-        <!-- Markdown渲染 -->
-        <dependency>
-            <groupId>com.atlassian.commonmark</groupId>
-            <artifactId>commonmark</artifactId>
-            <version>${commonmark.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.atlassian.commonmark</groupId>
-            <artifactId>commonmark-ext-gfm-tables</artifactId>
-            <version>${commonmark.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.atlassian.commonmark</groupId>
-            <artifactId>commonmark-ext-yaml-front-matter</artifactId>
-            <version>${commonmark.version}</version>
         </dependency>
 
         <!-- database -->

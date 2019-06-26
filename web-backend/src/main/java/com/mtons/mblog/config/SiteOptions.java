@@ -10,17 +10,13 @@
 package com.mtons.mblog.config;
 
 import com.mtons.mblog.config.xml.UploadConfigUtil;
-import com.taobao.diamond.extend.DynamicProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
-import javax.validation.constraints.NotNull;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**

@@ -1,6 +1,6 @@
-package com.mtons.mblog.modules.comp.util;
+package com.mtons.mblog.service.util;
 
-import com.mtons.mblog.base.BlogConstant;
+import com.mtons.mblog.base.consts.BlogConstant;
 import com.mtons.mblog.base.enums.AuthoredType;
 import com.mtons.mblog.bo.CommentVO;
 

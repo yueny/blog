@@ -1,4 +1,4 @@
-package com.mtons.mblog.modules.comp.impl;
+package com.mtons.mblog.service.comp.impl;
 
 import com.mtons.mblog.base.enums.ErrorType;
 import com.mtons.mblog.service.comp.IPasswdService;

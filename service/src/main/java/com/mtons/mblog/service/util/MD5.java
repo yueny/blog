@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.base.utils;
+package com.mtons.mblog.service.util;
 
 import org.apache.commons.lang3.StringUtils;
 

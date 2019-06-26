@@ -5,7 +5,7 @@ import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.consts.StorageConsts;
 import com.mtons.mblog.base.utils.FileKit;
 import com.mtons.mblog.base.utils.FilePathUtils;
-import com.mtons.mblog.base.utils.ImageUtils;
+import com.mtons.mblog.service.util.ImageUtils;
 import com.mtons.mblog.bo.AccountProfile;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.modules.service.SecurityCodeService;

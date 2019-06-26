@@ -1,4 +1,4 @@
-package com.mtons.mblog.base;
+package com.mtons.mblog.base.consts;
 
 /**
  * 常量类

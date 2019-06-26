@@ -1,4 +1,4 @@
-package com.mtons.mblog.base.utils;
+package com.mtons.mblog.service.util;
 
 import org.commonmark.Extension;
 import org.commonmark.ext.front.matter.YamlFrontMatterExtension;

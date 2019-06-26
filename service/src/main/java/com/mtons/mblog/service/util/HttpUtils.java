@@ -7,11 +7,10 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.base.utils;
+package com.mtons.mblog.service.util;
 
-import com.mtons.mblog.base.lang.MtonsException;
+import com.mtons.mblog.service.exception.MtonsException;
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;

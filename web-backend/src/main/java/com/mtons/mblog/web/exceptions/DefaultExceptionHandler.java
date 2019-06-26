@@ -11,7 +11,7 @@ package com.mtons.mblog.web.exceptions;
 
 import com.alibaba.fastjson.JSON;
 import com.mtons.mblog.base.lang.Result;
-import com.mtons.mblog.base.lang.MtonsException;
+import com.mtons.mblog.service.exception.MtonsException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;

@@ -7,9 +7,9 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.service.comp;
+package com.mtons.mblog.modules.comp;
 
-import com.mtons.mblog.bo.SiteOptionsControlsVO;
+import com.mtons.mblog.model.SiteOptionsControlsVO;
 
 /**
  * 开关控制配置获取

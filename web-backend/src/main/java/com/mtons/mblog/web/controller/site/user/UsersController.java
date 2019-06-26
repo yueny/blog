@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.web.controller.site.user;
 
-import com.mtons.mblog.base.lang.MtonsException;
+import com.mtons.mblog.service.exception.MtonsException;
 import com.mtons.mblog.bo.AccountProfile;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.modules.service.MessageService;

@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.modules.service.impl;
 
-import com.mtons.mblog.modules.comp.util.DefaultMojoFactory;
+import com.mtons.mblog.service.util.DefaultMojoFactory;
 import com.mtons.mblog.bo.CommentVO;
 import com.mtons.mblog.bo.PostVO;
 import com.mtons.mblog.bo.UserBO;

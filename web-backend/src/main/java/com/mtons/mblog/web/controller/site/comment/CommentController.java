@@ -3,11 +3,11 @@
  */
 package com.mtons.mblog.web.controller.site.comment;
 
-import com.mtons.mblog.base.BlogConstant;
+import com.mtons.mblog.base.consts.BlogConstant;
 import com.mtons.mblog.base.enums.AuthoredType;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.lang.Result;
-import com.mtons.mblog.service.comp.ISiteOptionsControlsService;
+import com.mtons.mblog.modules.comp.ISiteOptionsControlsService;
 import com.mtons.mblog.bo.AccountProfile;
 import com.mtons.mblog.bo.CommentVO;
 import com.mtons.mblog.bo.PostVO;

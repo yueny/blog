@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.bo;
+package com.mtons.mblog.model;
 
 import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
 import lombok.Getter;

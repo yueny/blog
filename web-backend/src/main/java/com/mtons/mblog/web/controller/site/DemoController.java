@@ -1,6 +1,6 @@
 package com.mtons.mblog.web.controller.site;
 
-import com.mtons.mblog.base.utils.MarkdownUtils;
+import com.mtons.mblog.service.util.MarkdownUtils;
 import com.mtons.mblog.bo.DemoVO;
 import com.mtons.mblog.bo.PostVO;
 import com.mtons.mblog.service.atom.DemoService;

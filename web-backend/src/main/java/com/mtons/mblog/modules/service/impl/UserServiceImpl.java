@@ -9,8 +9,8 @@
 */
 package com.mtons.mblog.modules.service.impl;
 
-import com.mtons.mblog.base.lang.EntityStatus;
-import com.mtons.mblog.base.lang.MtonsException;
+import com.mtons.mblog.base.consts.EntityStatus;
+import com.mtons.mblog.service.exception.MtonsException;
 import com.mtons.mblog.service.comp.IPasswdService;
 import com.mtons.mblog.service.comp.IUserPassportService;
 import com.mtons.mblog.bo.AccountProfile;

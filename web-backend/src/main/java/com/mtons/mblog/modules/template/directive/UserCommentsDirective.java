@@ -3,7 +3,7 @@
  */
 package com.mtons.mblog.modules.template.directive;
 
-import com.mtons.mblog.base.BlogConstant;
+import com.mtons.mblog.base.consts.BlogConstant;
 import com.mtons.mblog.bo.CommentVO;
 import com.mtons.mblog.modules.service.CommentService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
