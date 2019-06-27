@@ -1,6 +1,5 @@
 package com.mtons.mblog.bo;
 
-import com.mtons.mblog.bo.PostVO;
 import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
 import com.yueny.superclub.api.pojo.IBo;
 import lombok.Getter;
@@ -39,5 +38,5 @@ public class FavoriteVO extends AbstractMaskBo implements IBo, Serializable {
 
 
     // extend
-    private PostVO post;
+    private PostBO post;
 }

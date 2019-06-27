@@ -10,7 +10,7 @@ import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.modules.comp.ISiteOptionsControlsService;
 import com.mtons.mblog.bo.AccountProfile;
 import com.mtons.mblog.bo.CommentVO;
-import com.mtons.mblog.bo.PostVO;
+import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.modules.event.MessageEvent;
 import com.mtons.mblog.modules.service.CommentService;
 import com.mtons.mblog.modules.service.PostService;
@@ -153,8 +153,8 @@ public class CommentController extends BaseController {
         // 此处不知道文章作者, 让通知事件系统补全
         event.setPostId(postId);
 
-        PostVO postVO = postService.get(postId);
-        event.setArticleBlogId(postVO.getArticleBlogId());
+        PostBO postBO = postService.get(postId);
+        event.setArticleBlogId(postBO.getArticleBlogId());
 
         applicationContext.publishEvent(event);
     }

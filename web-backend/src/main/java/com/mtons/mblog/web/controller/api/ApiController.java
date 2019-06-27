@@ -13,7 +13,7 @@ import com.google.common.collect.Sets;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.utils.BeanMapUtils;
-import com.mtons.mblog.bo.PostVO;
+import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,7 @@ public class ApiController extends BaseController {
     }
 
     @RequestMapping("/posts")
-    public Page<PostVO> posts(HttpServletRequest request) {
+    public Page<PostBO> posts(HttpServletRequest request) {
         String order = ServletRequestUtils.getStringParameter(request, "order", Consts.order.NEWEST);
         int channelId = ServletRequestUtils.getIntParameter(request, "channelId", 0);
         return postService.paging(wrapPageable(Sort.by(Sort.Direction.DESC, BeanMapUtils.postOrder(order))), Sets.newHashSet(channelId), null);

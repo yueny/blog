@@ -2,7 +2,7 @@ package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.modules.data.MessageVO;
-import com.mtons.mblog.bo.PostVO;
+import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.entity.Message;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.dao.repository.MessageRepository;
@@ -57,7 +57,7 @@ public class MessageServiceImpl implements MessageService {
         });
 
         // 加载
-        Map<Long, PostVO> posts = postService.findMapByIds(postIds);
+        Map<Long, PostBO> posts = postService.findMapByIds(postIds);
         Map<Long, UserBO> fromUsers = userService.findMapByIds(fromUserIds);
 
         rets.forEach(n -> {

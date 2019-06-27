@@ -27,7 +27,7 @@ import java.util.Date;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = false)
-public class PostVO extends AbstractMaskBo implements IBo, Serializable {
+public class PostBO extends AbstractMaskBo implements IBo, Serializable {
 	private long id;
 
 	/**
@@ -99,22 +99,29 @@ public class PostVO extends AbstractMaskBo implements IBo, Serializable {
 
 	// 扩展
 
-	//	/**
-//	 * 预览图
-//	 */
-//	private String thumbnail;
+    /**
+	 * 预览图
+	 */
+	@Deprecated
+	private String thumbnail;
+    @Deprecated
+    private ResourceBO resource;
 
+    @Deprecated
 	private UserBO author;
 
+    @Deprecated
 	private ChannelVO channel;
 
 	/**
 	 * 编辑器
 	 */
+    @Deprecated
 	private String editor;
 	/**
 	 * 内容
 	 */
+    @Deprecated
 	private String content;
 
 //	/**

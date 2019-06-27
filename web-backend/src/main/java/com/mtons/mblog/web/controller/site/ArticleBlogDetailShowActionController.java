@@ -3,7 +3,7 @@ package com.mtons.mblog.web.controller.site;
 import com.mtons.mblog.service.util.MarkdownUtils;
 import com.mtons.mblog.bo.AccountProfile;
 import com.mtons.mblog.bo.FavoriteVO;
-import com.mtons.mblog.bo.PostVO;
+import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.modules.service.FavoriteService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.web.controller.BaseController;
@@ -42,7 +42,7 @@ public class ArticleBlogDetailShowActionController extends BaseController {
 	public String getArticleInfoPage(@PathVariable final String articleBlogId, final HttpServletResponse response) {
 		logger.info("【查看 html 文章详细页面】入参:{}", articleBlogId);
 
-		PostVO view = postService.get(articleBlogId);
+		PostBO view = postService.get(articleBlogId);
 
 		Assert.notNull(view, "该文章已被删除");
 

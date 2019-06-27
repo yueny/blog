@@ -11,7 +11,7 @@ package com.mtons.mblog.modules.service;
 
 import com.mtons.mblog.base.enums.BlogFeaturedType;
 import com.mtons.mblog.base.consts.Consts;
-import com.mtons.mblog.bo.PostVO;
+import com.mtons.mblog.bo.PostBO;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -36,9 +36,9 @@ public interface PostService {
 	 * @param channelIds 分组Id
 	 */
 	@Cacheable
-	Page<PostVO> paging(Pageable pageable, Set<Integer> channelIds, Set<Integer> excludeChannelIds);
+	Page<PostBO> paging(Pageable pageable, Set<Integer> channelIds, Set<Integer> excludeChannelIds);
 
-	Page<PostVO> paging4Admin(Pageable pageable, int channelId, String title);
+	Page<PostBO> paging4Admin(Pageable pageable, int channelId, String title);
 	
 	/**
 	 * 查询个人发布文章
@@ -46,7 +46,7 @@ public interface PostService {
 	 * @param userId
 	 */
 	@Cacheable
-	Page<PostVO> pagingByAuthorId(Pageable pageable, long userId);
+	Page<PostBO> pagingByAuthorId(Pageable pageable, long userId);
 
 	/**
 	 * 查询最近更新 - 按发布时间排序
@@ -54,7 +54,7 @@ public interface PostService {
 	 * @return
 	 */
 	@Cacheable(key = "'latest_' + #maxResults")
-	List<PostVO> findLatestPosts(int maxResults);
+	List<PostBO> findLatestPosts(int maxResults);
 
 	/**
 	 * 查询热门文章 - 按浏览次数排序
@@ -62,21 +62,21 @@ public interface PostService {
 	 * @return
 	 */
 	@Cacheable(key = "'hottest_' + #maxResults")
-	List<PostVO> findHottestPosts(int maxResults);
+	List<PostBO> findHottestPosts(int maxResults);
 	
 	/**
 	 * 根据Ids查询
 	 * @param ids
 	 * @return <id, 文章对象>
 	 */
-	Map<Long, PostVO> findMapByIds(Set<Long> ids);
+	Map<Long, PostBO> findMapByIds(Set<Long> ids);
 
 	/**
 	 * 发布文章
 	 * @param post
 	 */
 	@CacheEvict(allEntries = true)
-	long post(PostVO post);
+	long post(PostBO post);
 	
 	/**
 	 * 文章详情
@@ -84,7 +84,7 @@ public interface PostService {
 	 * @return
 	 */
 	@Cacheable(key = "'post_' + #id")
-	PostVO get(long id);
+    PostBO get(long id);
 
 	/**
 	 * 文章详情
@@ -92,14 +92,14 @@ public interface PostService {
 	 * @return
 	 */
 	@Cacheable(key = "'post_' + #articleBlogId")
-	PostVO get(String articleBlogId);
+    PostBO get(String articleBlogId);
 
 	/**
 	 * 更新文章方法
 	 * @param p
 	 */
 	@CacheEvict(allEntries = true)
-	void update(PostVO p);
+	void update(PostBO p);
 
 	/**
 	 * 推荐/消荐

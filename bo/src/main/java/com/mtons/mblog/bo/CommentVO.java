@@ -77,7 +77,7 @@ public class CommentVO extends AbstractMaskBo implements IBo, Serializable {
 	/**
 	 * 所评论的博文信息。允许为null
 	 */
-	private PostVO post;
+	private PostBO post;
 
 	/**
 	 * 评论相关的用户数据

@@ -1,7 +1,7 @@
 package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.modules.aspect.PostStatusFilter;
-import com.mtons.mblog.bo.PostVO;
+import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.Post;
 import com.mtons.mblog.modules.service.PostSearchService;
@@ -48,7 +48,7 @@ public class PostSearchServiceImpl implements PostSearchService {
 
     @Override
     @PostStatusFilter
-    public Page<PostVO> search(Pageable pageable, String term) throws Exception {
+    public Page<PostBO> search(Pageable pageable, String term) throws Exception {
         FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
         QueryBuilder builder = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Post.class).get();
 
@@ -70,8 +70,8 @@ public class PostSearchServiceImpl implements PostSearchService {
         Highlighter highlighter = new Highlighter(formatter, scorer);
 
         List<Post> list = query.getResultList();
-        List<PostVO> rets = list.stream().map(po -> {
-            PostVO post = BeanMapUtils.copy(po);
+        List<PostBO> rets = list.stream().map(po -> {
+            PostBO post = BeanMapUtils.copy(po);
 
             try {
                 // 处理高亮
@@ -99,7 +99,7 @@ public class PostSearchServiceImpl implements PostSearchService {
         fullTextEntityManager.createIndexer(Post.class).start();
     }
 
-    private void buildUsers(List<PostVO> list) {
+    private void buildUsers(List<PostBO> list) {
         if (null == list) {
             return;
         }

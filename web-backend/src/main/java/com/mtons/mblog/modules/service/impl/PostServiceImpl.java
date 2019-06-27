@@ -18,7 +18,7 @@ import com.mtons.mblog.service.util.MarkdownUtils;
 import com.mtons.mblog.base.utils.PreviewTextUtils;
 import com.mtons.mblog.modules.aspect.PostStatusFilter;
 import com.mtons.mblog.bo.ChannelVO;
-import com.mtons.mblog.bo.PostVO;
+import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.Post;
 import com.mtons.mblog.entity.PostAttribute;
@@ -70,7 +70,7 @@ public class PostServiceImpl extends BaseService implements PostService {
 
 	@Override
 	@PostStatusFilter
-	public Page<PostVO> paging(Pageable pageable, Set<Integer> channelIds, Set<Integer> excludeChannelIds) {
+	public Page<PostBO> paging(Pageable pageable, Set<Integer> channelIds, Set<Integer> excludeChannelIds) {
 		Page<Post> page = postRepository.findAll((root, query, builder) -> {
 			Predicate predicate = builder.conjunction();
 
@@ -102,7 +102,7 @@ public class PostServiceImpl extends BaseService implements PostService {
 	}
 
 	@Override
-	public Page<PostVO> paging4Admin(Pageable pageable, int channelId, String title) {
+	public Page<PostBO> paging4Admin(Pageable pageable, int channelId, String title) {
 		Page<Post> page = postRepository.findAll((root, query, builder) -> {
             Predicate predicate = builder.conjunction();
 			if (channelId > Consts.ZERO) {
@@ -121,37 +121,37 @@ public class PostServiceImpl extends BaseService implements PostService {
 
 	@Override
 	@PostStatusFilter
-	public Page<PostVO> pagingByAuthorId(Pageable pageable, long userId) {
+	public Page<PostBO> pagingByAuthorId(Pageable pageable, long userId) {
 		Page<Post> page = postRepository.findAllByAuthorId(pageable, userId);
 		return new PageImpl<>(toPosts(page.getContent()), pageable, page.getTotalElements());
 	}
 
 	@Override
 	@PostStatusFilter
-	public List<PostVO> findLatestPosts(int maxResults) {
+	public List<PostBO> findLatestPosts(int maxResults) {
 		return find("created", maxResults).stream().map(BeanMapUtils::copy).collect(Collectors.toList());
 	}
 	
 	@Override
 	@PostStatusFilter
-	public List<PostVO> findHottestPosts(int maxResults) {
+	public List<PostBO> findHottestPosts(int maxResults) {
 		return find("views", maxResults).stream().map(BeanMapUtils::copy).collect(Collectors.toList());
 	}
 	
 	@Override
 	@PostStatusFilter
-	public Map<Long, PostVO> findMapByIds(Set<Long> ids) {
+	public Map<Long, PostBO> findMapByIds(Set<Long> ids) {
 		if (ids == null || ids.isEmpty()) {
 			return Collections.emptyMap();
 		}
 
 		List<Post> list = postRepository.findAllById(ids);
-		Map<Long, PostVO> rets = new HashMap<>();
+		Map<Long, PostBO> rets = new HashMap<>();
 
 		HashSet<Long> uids = new HashSet<>();
 
 		list.forEach(po -> {
-			rets.put(po.getId(), map(po, PostVO.class));
+			rets.put(po.getId(), map(po, PostBO.class));
 			uids.add(po.getAuthorId());
 		});
 		
@@ -162,7 +162,7 @@ public class PostServiceImpl extends BaseService implements PostService {
 
 	@Override
 	@Transactional
-	public long post(PostVO post) {
+	public long post(PostBO post) {
 		Post po = map(post, Post.class);
 
 		if(StringUtils.isEmpty(po.getArticleBlogId())){
@@ -204,10 +204,10 @@ public class PostServiceImpl extends BaseService implements PostService {
 	}
 
 	@Override
-	public PostVO get(long id) {
+	public PostBO get(long id) {
 		Optional<Post> po = postRepository.findById(id);
 		if (po.isPresent()) {
-			PostVO d = BeanMapUtils.copy(po.get());
+			PostBO d = BeanMapUtils.copy(po.get());
 
 			d.setAuthor(userService.get(d.getAuthorId()));
 			d.setChannel(channelService.getById(d.getChannelId()));
@@ -221,13 +221,13 @@ public class PostServiceImpl extends BaseService implements PostService {
 	}
 
 	@Override
-	public PostVO get(String articleBlogId) {
+	public PostBO get(String articleBlogId) {
 		Post po = postRepository.findByArticleBlogId(articleBlogId);
 		if(po == null){
 			return  null;
 		}
 
-		PostVO d = map(po, PostVO.class);
+		PostBO d = map(po, PostBO.class);
 
 		d.setAuthor(userService.get(d.getAuthorId()));
 		d.setChannel(channelService.getById(d.getChannelId()));
@@ -245,7 +245,7 @@ public class PostServiceImpl extends BaseService implements PostService {
 	 */
 	@Override
 	@Transactional
-	public void update(PostVO pp){
+	public void update(PostBO pp){
 		Optional<Post> optional = postRepository.findById(pp.getId());
 
 		if (optional.isPresent()) {
@@ -406,8 +406,8 @@ public class PostServiceImpl extends BaseService implements PostService {
 		}
 	}
 
-	private List<PostVO> toPosts(List<Post> posts) {
-		List<PostVO> rets = new ArrayList<>();
+	private List<PostBO> toPosts(List<Post> posts) {
+		List<PostBO> rets = new ArrayList<>();
 
 		HashSet<Long> uids = new HashSet<>();
 		HashSet<Integer> groupIds = new HashSet<>();
@@ -425,12 +425,12 @@ public class PostServiceImpl extends BaseService implements PostService {
 		return rets;
 	}
 
-	private void buildUsers(Collection<PostVO> posts, Set<Long> uids) {
+	private void buildUsers(Collection<PostBO> posts, Set<Long> uids) {
 		Map<Long, UserBO> userMap = userService.findMapByIds(uids);
 		posts.forEach(p -> p.setAuthor(userMap.get(p.getAuthorId())));
 	}
 
-	private void buildGroups(Collection<PostVO> posts, Set<Integer> groupIds) {
+	private void buildGroups(Collection<PostBO> posts, Set<Integer> groupIds) {
 		Map<Integer, ChannelVO> map = channelService.findMapByIds(groupIds);
 		posts.forEach(p -> p.setChannel(map.get(p.getChannelId())));
 	}

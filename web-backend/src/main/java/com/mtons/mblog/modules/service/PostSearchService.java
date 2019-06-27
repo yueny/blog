@@ -1,6 +1,6 @@
 package com.mtons.mblog.modules.service;
 
-import com.mtons.mblog.bo.PostVO;
+import com.mtons.mblog.bo.PostBO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -16,7 +16,7 @@ public interface PostSearchService {
      * @param term 关键字
      * @throws Exception
      */
-    Page<PostVO> search(Pageable pageable, String term) throws Exception;
+    Page<PostBO> search(Pageable pageable, String term) throws Exception;
 
     /**
      * 重建

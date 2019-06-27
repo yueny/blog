@@ -2,7 +2,7 @@ package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.modules.data.PostTagVO;
-import com.mtons.mblog.bo.PostVO;
+import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.bo.TagVO;
 import com.mtons.mblog.entity.PostTag;
 import com.mtons.mblog.entity.Tag;
@@ -61,7 +61,7 @@ public class TagServiceImpl extends BaseService implements TagService {
             return BeanMapUtils.copy(po);
         }).collect(Collectors.toList());
 
-        Map<Long, PostVO> posts = postService.findMapByIds(postIds);
+        Map<Long, PostBO> posts = postService.findMapByIds(postIds);
         rets.forEach(n -> n.setPost(posts.get(n.getPostId())));
         return new PageImpl<>(rets, pageable, page.getTotalElements());
     }

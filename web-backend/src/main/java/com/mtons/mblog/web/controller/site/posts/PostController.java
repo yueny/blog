@@ -6,7 +6,7 @@ package com.mtons.mblog.web.controller.site.posts;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.bo.AccountProfile;
-import com.mtons.mblog.bo.PostVO;
+import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.service.atom.ChannelService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.web.controller.BaseController;
@@ -44,7 +44,7 @@ public class PostController extends BaseController {
 
 		if(StringUtils.isNotEmpty(articleBlogId)){
 			AccountProfile profile = getProfile();
-			PostVO view = postService.get(articleBlogId);
+			PostBO view = postService.get(articleBlogId);
 
 			Assert.notNull(view, "该文章已被删除");
 			Assert.isTrue(view.getAuthorId() == profile.getId(), "该文章不属于你");
@@ -66,7 +66,7 @@ public class PostController extends BaseController {
 	 * @return
 	 */
 	@PostMapping("/submit")
-	public String post(PostVO post) {
+	public String post(PostBO post) {
 		Assert.notNull(post, "参数不完整");
 		Assert.state(StringUtils.isNotBlank(post.getTitle()), "标题不能为空");
 		Assert.state(StringUtils.isNotBlank(post.getContent()), "内容不能为空");
@@ -79,7 +79,7 @@ public class PostController extends BaseController {
 
 		// 修改时, 验证归属
 		if (post.getId() > 0 && StringUtils.isNotEmpty(post.getArticleBlogId())) {
-			PostVO exist = postService.get(post.getId());
+			PostBO exist = postService.get(post.getId());
 			Assert.notNull(exist, "文章不存在");
 			Assert.isTrue(exist.getAuthorId() == profile.getId(), "该文章不属于你");
 

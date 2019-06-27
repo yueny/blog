@@ -11,7 +11,7 @@ package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.service.util.DefaultMojoFactory;
 import com.mtons.mblog.bo.CommentVO;
-import com.mtons.mblog.bo.PostVO;
+import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.Comment;
 import com.mtons.mblog.dao.repository.CommentRepository;
@@ -234,10 +234,10 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 	}
 
 	private void buildPosts(Collection<CommentVO> comments, Set<Long> postIds) {
-		Map<Long, PostVO> postMap = postService.findMapByIds(postIds);
+		Map<Long, PostBO> postMap = postService.findMapByIds(postIds);
 		comments.forEach(p -> {
-			PostVO postVo = postMap.get(p.getPostId());
-			p.setPost(postVo);
+			PostBO postBO = postMap.get(p.getPostId());
+			p.setPost(postBO);
 		});
 	}
 

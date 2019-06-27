@@ -14,7 +14,7 @@ import com.mtons.mblog.base.enums.BlogFeaturedType;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.bo.AccountProfile;
-import com.mtons.mblog.bo.PostVO;
+import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.service.atom.ChannelService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.web.controller.BaseController;
@@ -57,7 +57,7 @@ public class PostController extends BaseController {
 		int channelId = ServletRequestUtils.getIntParameter(request, "channelId", Consts.ZERO);
 
 		Pageable pageable = wrapPageable(Sort.by(Sort.Direction.DESC, "weight", "created"));
-		Page<PostVO> page = postService.paging4Admin(pageable, channelId, title);
+		Page<PostBO> page = postService.paging4Admin(pageable, channelId, title);
 
 		model.put("page", page);
 		model.put("title", title);
@@ -81,7 +81,7 @@ public class PostController extends BaseController {
 		String editor = siteOptions.getValue("editor");
 
 		if(StringUtils.isNotEmpty(articleBlogId)){
-			PostVO view = postService.get(articleBlogId);
+			PostBO view = postService.get(articleBlogId);
 			if(view != null){
 				if (StringUtils.isNoneBlank(view.getEditor())) {
 					editor = view.getEditor();
@@ -100,7 +100,7 @@ public class PostController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String subUpdate(PostVO post) {
+	public String subUpdate(PostBO post) {
 		if (post != null) {
 			if (post.getId() > 0 || StringUtils.isNotEmpty(post.getArticleBlogId())) {
 				postService.update(post);

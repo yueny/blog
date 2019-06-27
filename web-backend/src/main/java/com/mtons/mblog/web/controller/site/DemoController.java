@@ -2,7 +2,7 @@ package com.mtons.mblog.web.controller.site;
 
 import com.mtons.mblog.service.util.MarkdownUtils;
 import com.mtons.mblog.bo.DemoVO;
-import com.mtons.mblog.bo.PostVO;
+import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.service.atom.DemoService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.web.controller.BaseController;
@@ -35,7 +35,7 @@ public class DemoController extends BaseController {
 	 */
 	@RequestMapping(value = "/demo", method = { RequestMethod.GET })
 	public DemoVO demo(String articleBlogId) {
-		PostVO view = postService.get(articleBlogId);
+		PostBO view = postService.get(articleBlogId);
 
 		Assert.notNull(view, "该文章已被删除");
 

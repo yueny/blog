@@ -1,6 +1,5 @@
 package com.mtons.mblog.bo;
 
-import com.mtons.mblog.bo.PostVO;
 import com.yueny.superclub.api.pojo.IBo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -56,5 +55,5 @@ public class TagVO implements IBo, Serializable {
     /**
      * 最近增加的一遍博文信息
      */
-    private PostVO post;
+    private PostBO post;
 }

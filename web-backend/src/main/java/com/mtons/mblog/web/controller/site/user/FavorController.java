@@ -3,7 +3,7 @@ package com.mtons.mblog.web.controller.site.user;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.AccountProfile;
-import com.mtons.mblog.bo.PostVO;
+import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.modules.event.MessageEvent;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.web.controller.BaseController;
@@ -37,8 +37,8 @@ public class FavorController extends BaseController {
                 AccountProfile up = getProfile();
                 postService.favor(up.getUid(), articleBlogId);
 
-                PostVO postVo = postService.get(articleBlogId);
-                sendMessage(up.getId(), postVo.getId(), articleBlogId);
+                PostBO postBO = postService.get(articleBlogId);
+                sendMessage(up.getId(), postBO.getId(), articleBlogId);
 
                 data = Result.success();
             } catch (Exception e) {

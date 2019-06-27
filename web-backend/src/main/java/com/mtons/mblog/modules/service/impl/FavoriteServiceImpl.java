@@ -1,7 +1,7 @@
 package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.bo.FavoriteVO;
-import com.mtons.mblog.bo.PostVO;
+import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.dao.repository.FavoriteRepository;
 import com.mtons.mblog.base.utils.BeanMapUtils;
 import com.mtons.mblog.entity.Favorite;
@@ -43,10 +43,10 @@ public class FavoriteServiceImpl extends BaseService implements FavoriteService 
         }
 
         if (postIds.size() > 0) {
-            Map<Long, PostVO> posts = postService.findMapByIds(postIds);
+            Map<Long, PostBO> posts = postService.findMapByIds(postIds);
 
             for (FavoriteVO t : rets) {
-                PostVO p = posts.get(t.getPostId());
+                PostBO p = posts.get(t.getPostId());
                 t.setPost(p);
             }
         }
@@ -71,7 +71,7 @@ public class FavoriteServiceImpl extends BaseService implements FavoriteService 
 
         Assert.isNull(po, "您已经收藏过此文章");
 
-        PostVO articleBlog = postService.get(articleBlogId);
+        PostBO articleBlog = postService.get(articleBlogId);
 
         // 如果没有喜欢过, 则添加记录
         po = new Favorite();
