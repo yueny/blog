@@ -252,7 +252,7 @@ public class PostServiceImpl extends BaseService implements PostService {
 			Post po = optional.get();
 			po.setTitle(pp.getTitle());//标题
 			po.setChannelId(pp.getChannelId());
-			po.setThumbnail(pp.getThumbnail());
+			po.setThumbnailCode(pp.getThumbnailCode());
 			po.setStatus(pp.getStatus());
 
 			if(StringUtils.isEmpty(po.getArticleBlogId())){

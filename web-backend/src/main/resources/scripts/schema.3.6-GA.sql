@@ -53,6 +53,11 @@ alter table `mto_resource` add column resource_type varchar(32)  NOT NULL DEFAUL
 
 alter table mto_channel drop column thumbnail;
 
+alter table `mto_post` add column thumbnail_code varchar(128)  DEFAULT '' COMMENT '图片资源编号' after thumbnail;
+alter table mto_post drop column thumbnail;
+
+
+
 -- -- 默认配置表
 -- CREATE TABLE `func_default` (
 --   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',

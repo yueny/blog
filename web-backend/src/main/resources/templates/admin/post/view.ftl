@@ -21,6 +21,8 @@
             <input type="hidden" name="status" value="${view.status!0}"/>
             <input type="hidden" name="editor" value="${editor!'tinymce'}"/>
             <input type="hidden" id="thumbnail" name="thumbnail" value="${view.thumbnail}">
+            <input type="hidden" id="thumbnailCode" name="thumbnailCode" value="${view.thumbnailCode}">
+
             <div class="col-md-9 side-left">
                 <div class="box">
                     <div class="box-header with-border">
@@ -87,6 +89,7 @@ $(function() {
                 var path = data.path;
                 $("#thumbnail_image").css("background", "url(" + path + ") no-repeat scroll center 0 rgba(0, 0, 0, 0)");
                 $("#thumbnail").val(path);
+                $("#thumbnailCode").val(data.thumbnailCode);
             }
         });
     });

@@ -51,11 +51,6 @@ public class PostVO extends AbstractMaskBo implements IBo, Serializable {
 	private String summary;
 
 	/**
-	 * 预览图
-	 */
-	private String thumbnail;
-
-	/**
 	 * 标签, 多个逗号隔开
 	 */
 	private String tags;
@@ -96,7 +91,18 @@ public class PostVO extends AbstractMaskBo implements IBo, Serializable {
 	 */
 	private int weight;
 
+	/**
+	 * 预览图编号
+	 */
+	private String thumbnailCode;
 
+
+	// 扩展
+
+	//	/**
+//	 * 预览图
+//	 */
+//	private String thumbnail;
 
 	private UserBO author;
 

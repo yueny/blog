@@ -82,12 +82,6 @@ public class Post implements IEntry, Serializable {
 	private String summary;
 
 	/**
-	 * 预览图
-	 */
-	@Column(length = 128)
-	private String thumbnail;
-
-	/**
 	 * 标签, 多个逗号隔开
 	 */
 	@Field
@@ -137,4 +131,16 @@ public class Post implements IEntry, Serializable {
 	 * 置顶状态
 	 */
 	private int weight;
+
+//	/**
+//	 * 预览图
+//	 */
+//	@Column(length = 128)
+//	private String thumbnail;
+	/**
+	 * 预览图编号
+	 */
+	@Column(name = "thumbnail_code", columnDefinition = "varchar(128)  DEFAULT '' COMMENT '图片资源编号'")
+	private String thumbnailCode;
+
 }
