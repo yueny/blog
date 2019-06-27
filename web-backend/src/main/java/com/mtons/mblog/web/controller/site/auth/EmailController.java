@@ -6,7 +6,7 @@ import com.mtons.mblog.base.consts.OptionsKeysConsts;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.bo.AccountProfile;
 import com.mtons.mblog.bo.UserBO;
-import com.mtons.mblog.modules.service.MailService;
+import com.mtons.mblog.modules.comp.MailService;
 import com.mtons.mblog.modules.service.SecurityCodeService;
 import com.mtons.mblog.service.atom.UserService;
 import com.mtons.mblog.web.controller.BaseController;

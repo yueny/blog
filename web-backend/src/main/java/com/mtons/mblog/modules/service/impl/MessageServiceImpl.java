@@ -1,7 +1,7 @@
 package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.base.consts.Consts;
-import com.mtons.mblog.modules.data.MessageVO;
+import com.mtons.mblog.bo.MessageVO;
 import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.entity.Message;
 import com.mtons.mblog.modules.service.PostService;

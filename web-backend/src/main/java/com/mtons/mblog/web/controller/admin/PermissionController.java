@@ -1,6 +1,6 @@
 package com.mtons.mblog.web.controller.admin;
 
-import com.mtons.mblog.modules.data.PermissionTree;
+import com.mtons.mblog.bo.PermissionTree;
 import com.mtons.mblog.modules.service.PermissionService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;

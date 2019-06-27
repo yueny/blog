@@ -1,4 +1,4 @@
-package com.mtons.mblog.modules.aspect;
+package com.mtons.mblog.service.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -22,7 +22,7 @@ public class HibernateFilterAspect {
     @PersistenceContext
     protected EntityManager em;
 
-    @Pointcut("@annotation(com.mtons.mblog.modules.aspect.PostStatusFilter)")
+    @Pointcut("@annotation(com.mtons.mblog.service.aspect.PostStatusFilter)")
     public void filter() {
     }
 

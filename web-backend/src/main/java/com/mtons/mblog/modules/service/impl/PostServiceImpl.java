@@ -16,7 +16,7 @@ import com.mtons.mblog.service.exception.MtonsException;
 import com.mtons.mblog.base.utils.BeanMapUtils;
 import com.mtons.mblog.service.util.MarkdownUtils;
 import com.mtons.mblog.base.utils.PreviewTextUtils;
-import com.mtons.mblog.modules.aspect.PostStatusFilter;
+import com.mtons.mblog.service.aspect.PostStatusFilter;
 import com.mtons.mblog.bo.ChannelVO;
 import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.bo.UserBO;

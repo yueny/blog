@@ -3,7 +3,7 @@
  */
 package com.mtons.mblog.modules.template.directive;
 
-import com.mtons.mblog.modules.data.MessageVO;
+import com.mtons.mblog.bo.MessageVO;
 import com.mtons.mblog.modules.service.MessageService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.template.TemplateDirective;

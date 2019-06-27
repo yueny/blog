@@ -1,6 +1,6 @@
 package com.mtons.mblog.modules.service.impl;
 
-import com.mtons.mblog.modules.data.PermissionTree;
+import com.mtons.mblog.bo.PermissionTree;
 import com.mtons.mblog.entity.Permission;
 import com.mtons.mblog.dao.repository.PermissionRepository;
 import com.mtons.mblog.modules.service.PermissionService;

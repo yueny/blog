@@ -1,6 +1,6 @@
 package com.mtons.mblog.modules.service;
 
-import com.mtons.mblog.modules.data.MessageVO;
+import com.mtons.mblog.bo.MessageVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

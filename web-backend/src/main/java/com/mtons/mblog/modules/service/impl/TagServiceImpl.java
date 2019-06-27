@@ -1,7 +1,7 @@
 package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.base.consts.Consts;
-import com.mtons.mblog.modules.data.PostTagVO;
+import com.mtons.mblog.bo.PostTagVO;
 import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.bo.TagVO;
 import com.mtons.mblog.entity.PostTag;

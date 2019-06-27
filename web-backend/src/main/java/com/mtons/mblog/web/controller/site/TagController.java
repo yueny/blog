@@ -3,7 +3,7 @@
  */
 package com.mtons.mblog.web.controller.site;
 
-import com.mtons.mblog.modules.data.PostTagVO;
+import com.mtons.mblog.bo.PostTagVO;
 import com.mtons.mblog.bo.TagVO;
 import com.mtons.mblog.modules.service.TagService;
 import com.mtons.mblog.web.controller.BaseController;

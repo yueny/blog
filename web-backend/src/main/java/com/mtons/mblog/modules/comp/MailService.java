@@ -1,4 +1,4 @@
-package com.mtons.mblog.modules.service;
+package com.mtons.mblog.modules.comp;
 
 import java.util.Map;
 
