@@ -51,8 +51,9 @@
         var _MTONS = _MTONS || {};
         _MTONS.BASE_PATH = '${base}';
         _MTONS.LOGIN_TOKEN = '${profile.id}';
-        <#--  未登录是否允许评论  -->
-        _MTONS.ALLOW_COMMENT_WITHOUT_LOGIN = 'true';
+
+        <#--  未登录是否允许评论 BaseInterceptor ${commentAllowAnonymouss}  -->
+        _MTONS.ALLOW_COMMENT_WITHOUT_LOGIN = '${commentAllowAnonymous}';
     </script>
 
     <script src="${base}/dist/js/sea.js"></script>

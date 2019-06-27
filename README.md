@@ -22,7 +22,8 @@
 * [栏目管理]新增栏目编号字段, 仅新增生成, 不可被修改, 作为栏目关联的唯一标示
 * 邀请码
 * 默认头像管理
-
+  + 默认值 https://static.codealy.com/images/default/default-none.jpeg
+  + 管理
 
 ### 版本(3.6-GA)更新内容：
 * 允许登录按钮隐藏, 配置为 site.controls.login_show

@@ -51,6 +51,9 @@ public class BaseInterceptor extends HandlerInterceptorAdapter {
 		SiteOptionsControlsVO controlsVo = controlsService.getControls();
 		request.setAttribute("commentAllowAnonymous", controlsVo.isCommentAllowAnonymous());
 
+		// site default 配置
+		//request.setAttribute("site", controlsVo.isCommentAllowAnonymous());
+
 		interceptorHookManager.postHandle(request,response,handler,modelAndView);
 	}
 

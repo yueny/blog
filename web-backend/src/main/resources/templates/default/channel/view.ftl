@@ -142,10 +142,12 @@
         <div class="chat_reply"></div>
     </li>
 </script>
+
+<#-- 默认头像的值取自  StorageConsts.AVATAR -->
 <script type="text/plain" id="guest_template">
     <li id="chat{5}">
         <a target="_blank" disabled="true" readonly="true" href="javascript:void(0);">
-            <img src="${base}/dist/images/ava/default.png">
+            <img src="https://static.codealy.com/images/default/default-none.jpeg">
         </a>
         <div class="chat_body">
             <h5>
