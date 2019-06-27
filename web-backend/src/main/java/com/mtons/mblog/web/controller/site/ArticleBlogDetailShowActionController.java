@@ -1,9 +1,10 @@
 package com.mtons.mblog.web.controller.site;
 
+import com.mtons.mblog.model.PostVO;
+import com.mtons.mblog.modules.service.PostManagerService;
 import com.mtons.mblog.service.util.MarkdownUtils;
 import com.mtons.mblog.bo.AccountProfile;
 import com.mtons.mblog.bo.FavoriteVO;
-import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.modules.service.FavoriteService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.web.controller.BaseController;
@@ -28,6 +29,8 @@ import javax.servlet.http.HttpServletResponse;
 public class ArticleBlogDetailShowActionController extends BaseController {
 
 	@Autowired
+	private PostManagerService postManagerService;
+	@Autowired
 	private PostService postService;
 	@Autowired
 	private FavoriteService favoriteService;
@@ -42,7 +45,7 @@ public class ArticleBlogDetailShowActionController extends BaseController {
 	public String getArticleInfoPage(@PathVariable final String articleBlogId, final HttpServletResponse response) {
 		logger.info("【查看 html 文章详细页面】入参:{}", articleBlogId);
 
-		PostBO view = postService.get(articleBlogId);
+		PostVO view = postManagerService.get(articleBlogId);
 
 		Assert.notNull(view, "该文章已被删除");
 

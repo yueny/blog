@@ -15,6 +15,8 @@ import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.bo.AccountProfile;
 import com.mtons.mblog.bo.PostBO;
+import com.mtons.mblog.model.PostVO;
+import com.mtons.mblog.modules.service.PostManagerService;
 import com.mtons.mblog.service.atom.ChannelService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.web.controller.BaseController;
@@ -46,6 +48,8 @@ public class PostController extends BaseController {
 	@Autowired
 	private PostService postService;
 	@Autowired
+	private PostManagerService postManagerService;
+	@Autowired
 	private ChannelService channelService;
 
 	/**
@@ -57,7 +61,7 @@ public class PostController extends BaseController {
 		int channelId = ServletRequestUtils.getIntParameter(request, "channelId", Consts.ZERO);
 
 		Pageable pageable = wrapPageable(Sort.by(Sort.Direction.DESC, "weight", "created"));
-		Page<PostBO> page = postService.paging4Admin(pageable, channelId, title);
+		Page<PostVO> page = postManagerService.paging4Admin(pageable, channelId, title);
 
 		model.put("page", page);
 		model.put("title", title);
@@ -81,7 +85,7 @@ public class PostController extends BaseController {
 		String editor = siteOptions.getValue("editor");
 
 		if(StringUtils.isNotEmpty(articleBlogId)){
-			PostBO view = postService.get(articleBlogId);
+			PostVO view = postManagerService.get(articleBlogId);
 			if(view != null){
 				if (StringUtils.isNoneBlank(view.getEditor())) {
 					editor = view.getEditor();
@@ -100,16 +104,16 @@ public class PostController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String subUpdate(PostBO post) {
+	public String subUpdate(PostVO post) {
 		if (post != null) {
 			if (post.getId() > 0 || StringUtils.isNotEmpty(post.getArticleBlogId())) {
-				postService.update(post);
+				postManagerService.update(post);
 			} else {
 				AccountProfile profile = getProfile();
 				post.setAuthorId(profile.getId());
 				post.setUid(profile.getUid());
 
-				postService.post(post);
+				postManagerService.post(post);
 			}
 		}
 		return "redirect:/admin/post/list";
@@ -170,7 +174,7 @@ public class PostController extends BaseController {
 				Set<String> articleBlogIds = Sets.newHashSet();
 				articleBlogIds.addAll(articleBlogId);
 
-				postService.delete(articleBlogIds);
+				postManagerService.delete(articleBlogIds);
 
 				data = Result.success();
 			} catch (Exception e) {

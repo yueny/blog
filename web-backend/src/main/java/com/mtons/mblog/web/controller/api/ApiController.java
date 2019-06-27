@@ -13,8 +13,8 @@ import com.google.common.collect.Sets;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.utils.BeanMapUtils;
-import com.mtons.mblog.bo.PostBO;
-import com.mtons.mblog.modules.service.PostService;
+import com.mtons.mblog.model.PostVO;
+import com.mtons.mblog.modules.service.PostManagerService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/api")
 public class ApiController extends BaseController {
     @Autowired
-    private PostService postService;
+    private PostManagerService postManagerService;
 
     @PostMapping(value = "/login")
     public Result login(String username, String password) {
@@ -43,9 +43,9 @@ public class ApiController extends BaseController {
     }
 
     @RequestMapping("/posts")
-    public Page<PostBO> posts(HttpServletRequest request) {
+    public Page<PostVO> posts(HttpServletRequest request) {
         String order = ServletRequestUtils.getStringParameter(request, "order", Consts.order.NEWEST);
         int channelId = ServletRequestUtils.getIntParameter(request, "channelId", 0);
-        return postService.paging(wrapPageable(Sort.by(Sort.Direction.DESC, BeanMapUtils.postOrder(order))), Sets.newHashSet(channelId), null);
+        return postManagerService.paging(wrapPageable(Sort.by(Sort.Direction.DESC, BeanMapUtils.postOrder(order))), Sets.newHashSet(channelId), null);
     }
 }

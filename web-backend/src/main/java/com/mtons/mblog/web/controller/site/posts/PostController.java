@@ -7,6 +7,8 @@ import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.bo.AccountProfile;
 import com.mtons.mblog.bo.PostBO;
+import com.mtons.mblog.model.PostVO;
+import com.mtons.mblog.modules.service.PostManagerService;
 import com.mtons.mblog.service.atom.ChannelService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.web.controller.BaseController;
@@ -30,6 +32,8 @@ public class PostController extends BaseController {
 	private PostService postService;
 	@Autowired
 	private ChannelService channelService;
+	@Autowired
+	private PostManagerService postManagerService;
 
 	/**
 	 * 用户写新文章和发布文章页
@@ -44,7 +48,7 @@ public class PostController extends BaseController {
 
 		if(StringUtils.isNotEmpty(articleBlogId)){
 			AccountProfile profile = getProfile();
-			PostBO view = postService.get(articleBlogId);
+			PostVO view = postManagerService.get(articleBlogId);
 
 			Assert.notNull(view, "该文章已被删除");
 			Assert.isTrue(view.getAuthorId() == profile.getId(), "该文章不属于你");
@@ -66,7 +70,7 @@ public class PostController extends BaseController {
 	 * @return
 	 */
 	@PostMapping("/submit")
-	public String post(PostBO post) {
+	public String post(PostVO post) {
 		Assert.notNull(post, "参数不完整");
 		Assert.state(StringUtils.isNotBlank(post.getTitle()), "标题不能为空");
 		Assert.state(StringUtils.isNotBlank(post.getContent()), "内容不能为空");
@@ -83,12 +87,12 @@ public class PostController extends BaseController {
 			Assert.notNull(exist, "文章不存在");
 			Assert.isTrue(exist.getAuthorId() == profile.getId(), "该文章不属于你");
 
-			postService.update(post);
+			postManagerService.update(post);
 		} else {
 			post.setAuthorId(profile.getId());
 			post.setUid(profile.getUid());
 
-			postService.post(post);
+			postManagerService.post(post);
 		}
 		return String.format(Views.REDIRECT_USER_HOME, profile.getDomainHack());
 	}
@@ -103,7 +107,7 @@ public class PostController extends BaseController {
 	public Result delete(@PathVariable String articleBlogId) {
 		Result data;
 		try {
-			postService.delete(articleBlogId, getProfile().getId());
+			postManagerService.delete(articleBlogId, getProfile().getId());
 			data = Result.success();
 		} catch (Exception e) {
 			data = Result.failure(e.getMessage());

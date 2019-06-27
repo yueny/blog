@@ -1,12 +1,14 @@
 package com.mtons.mblog.modules.service.impl;
 
-import com.mtons.mblog.service.aspect.PostStatusFilter;
+import com.mtons.mblog.base.utils.BeanMapUtils;
 import com.mtons.mblog.bo.PostBO;
+import com.mtons.mblog.model.PostSearchVO;
+import com.mtons.mblog.service.BaseService;
+import com.mtons.mblog.service.aspect.PostStatusFilter;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.Post;
 import com.mtons.mblog.modules.service.PostSearchService;
 import com.mtons.mblog.service.atom.UserService;
-import com.mtons.mblog.base.utils.BeanMapUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
@@ -39,7 +41,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @Transactional
-public class PostSearchServiceImpl implements PostSearchService {
+public class PostSearchServiceImpl extends BaseService implements PostSearchService {
     @Autowired
     private EntityManager entityManager;
 
@@ -71,6 +73,7 @@ public class PostSearchServiceImpl implements PostSearchService {
 
         List<Post> list = query.getResultList();
         List<PostBO> rets = list.stream().map(po -> {
+            //PostBO post = map(po, PostBO.class);
             PostBO post = BeanMapUtils.copy(po);
 
             try {
@@ -89,7 +92,9 @@ public class PostSearchServiceImpl implements PostSearchService {
             }
             return post;
         }).collect(Collectors.toList());
+
         buildUsers(rets);
+
         return new PageImpl<>(rets, pageable, query.getResultSize());
     }
 
@@ -103,9 +108,11 @@ public class PostSearchServiceImpl implements PostSearchService {
         if (null == list) {
             return;
         }
+
         HashSet<Long> uids = new HashSet<>();
         list.forEach(n -> uids.add(n.getAuthorId()));
         Map<Long, UserBO> userMap = userService.findMapByIds(uids);
+
         list.forEach(p -> p.setAuthor(userMap.get(p.getAuthorId())));
     }
 }

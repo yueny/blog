@@ -11,9 +11,9 @@ package com.mtons.mblog.web.controller.site;
 
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.ChannelVO;
-import com.mtons.mblog.bo.PostBO;
+import com.mtons.mblog.model.PostVO;
+import com.mtons.mblog.modules.service.PostManagerService;
 import com.mtons.mblog.service.atom.ChannelService;
-import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,7 +35,7 @@ public class ChannelController extends BaseController {
 	@Autowired
 	private ChannelService channelService;
 	@Autowired
-	private PostService postService;
+	private PostManagerService postManagerService;
 	
 	@RequestMapping("/channel/{flag}")
 	public String channel(@PathVariable String flag, ModelMap model,
@@ -62,9 +62,9 @@ public class ChannelController extends BaseController {
 	@RequestMapping("/post/{id:\\d*}")
 	@Deprecated
 	public String view(@PathVariable Long id, ModelMap model) {
-		PostBO postBO = postService.get(id);
-		if(postBO != null){
-			return redirectAction("/article/" + postBO.getArticleBlogId() + ".html");
+		PostVO postVO = postManagerService.get(id);
+		if(postVO != null){
+			return redirectAction("/article/" + postVO.getArticleBlogId() + ".html");
 		}
 
 		// 找不到文章，回首页

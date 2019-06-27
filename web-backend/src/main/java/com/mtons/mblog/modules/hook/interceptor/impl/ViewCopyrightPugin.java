@@ -1,6 +1,7 @@
 package com.mtons.mblog.modules.hook.interceptor.impl;
 
 import com.mtons.mblog.bo.PostBO;
+import com.mtons.mblog.model.PostVO;
 import com.mtons.mblog.modules.hook.interceptor.InterceptorHookSupport;
 import com.mtons.mblog.web.controller.site.ChannelController;
 import org.springframework.stereotype.Component;
@@ -29,7 +30,7 @@ public class ViewCopyrightPugin extends InterceptorHookSupport {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, HandlerMethod handler, ModelAndView modelAndView) throws Exception {
-        PostBO ret = (PostBO) modelAndView.getModel().get("view");
+        PostVO ret = (PostVO) modelAndView.getModel().get("view");
         Object editing = modelAndView.getModel().get("editing");
         if (null == editing && ret != null) {
             String content = ret.getContent();

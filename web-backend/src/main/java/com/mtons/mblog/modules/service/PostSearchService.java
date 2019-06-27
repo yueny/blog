@@ -1,6 +1,7 @@
 package com.mtons.mblog.modules.service;
 
 import com.mtons.mblog.bo.PostBO;
+import com.mtons.mblog.model.PostSearchVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

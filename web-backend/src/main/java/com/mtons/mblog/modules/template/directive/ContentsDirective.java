@@ -8,8 +8,10 @@ import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.utils.BeanMapUtils;
 import com.mtons.mblog.bo.ChannelVO;
 import com.mtons.mblog.bo.PostBO;
-import com.mtons.mblog.service.atom.ChannelService;
+import com.mtons.mblog.model.PostVO;
+import com.mtons.mblog.modules.service.PostManagerService;
 import com.mtons.mblog.modules.service.PostService;
+import com.mtons.mblog.service.atom.ChannelService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.template.TemplateDirective;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,8 @@ import java.util.Set;
  */
 @Component
 public class ContentsDirective extends TemplateDirective {
+    @Autowired
+    private PostManagerService postManagerService;
     @Autowired
     private PostService postService;
     @Autowired

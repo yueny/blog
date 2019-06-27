@@ -96,6 +96,9 @@ public interface Consts {
 	 */
 	int MESSAGE_EVENT_COMMENT_REPLY = 4;
 
+	/**
+	 * 缓存键， @CacheConfig(cacheNames = Consts.CACHE_POST_MANAGER)
+	 */
 	String CACHE_USER = "userCaches";
 	String CACHE_POST = "postCaches";
 

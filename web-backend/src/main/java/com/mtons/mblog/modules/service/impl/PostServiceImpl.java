@@ -10,18 +10,17 @@
 package com.mtons.mblog.modules.service.impl;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.mtons.mblog.base.enums.BlogFeaturedType;
 import com.mtons.mblog.base.consts.Consts;
+import com.mtons.mblog.bo.ResourceBO;
+import com.mtons.mblog.service.atom.ResourceService;
 import com.mtons.mblog.service.exception.MtonsException;
 import com.mtons.mblog.base.utils.BeanMapUtils;
-import com.mtons.mblog.service.util.MarkdownUtils;
-import com.mtons.mblog.base.utils.PreviewTextUtils;
 import com.mtons.mblog.service.aspect.PostStatusFilter;
 import com.mtons.mblog.bo.ChannelVO;
 import com.mtons.mblog.bo.PostBO;
-import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.Post;
-import com.mtons.mblog.entity.PostAttribute;
 import com.mtons.mblog.modules.event.PostUpdateEvent;
 import com.mtons.mblog.dao.repository.PostAttributeRepository;
 import com.mtons.mblog.dao.repository.PostRepository;
@@ -34,7 +33,6 @@ import com.mtons.mblog.modules.service.*;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,9 +62,9 @@ public class PostServiceImpl extends BaseService implements PostService {
 	@Autowired
 	private TagService tagService;
 	@Autowired
-	private ApplicationContext applicationContext;
-	@Autowired
 	private ISeqContainer seqContainer;
+	@Autowired
+	private ResourceService resourceService;
 
 	@Override
 	@PostStatusFilter
@@ -146,61 +144,42 @@ public class PostServiceImpl extends BaseService implements PostService {
 		}
 
 		List<Post> list = postRepository.findAllById(ids);
+
 		Map<Long, PostBO> rets = new HashMap<>();
-
-		HashSet<Long> uids = new HashSet<>();
-
 		list.forEach(po -> {
 			rets.put(po.getId(), map(po, PostBO.class));
-			uids.add(po.getAuthorId());
 		});
-		
-		// 加载用户信息
-		buildUsers(rets.values(), uids);
+
 		return rets;
 	}
 
 	@Override
-	@Transactional
-	public long post(PostBO post) {
-		Post po = map(post, Post.class);
+	public Long post(PostBO post) {
+		Post entry = map(post, Post.class);
 
-		if(StringUtils.isEmpty(po.getArticleBlogId())){
-			String articleBlogId = seqContainer.getStrategy(SeqType.ARTICLE_BLOG_ID).get(po.getTitle());
+		if(StringUtils.isEmpty(entry.getArticleBlogId())){
+			String articleBlogId = seqContainer.getStrategy(SeqType.ARTICLE_BLOG_ID).get(entry.getTitle());
 
 			// 判断该编号是否存在，存在则随机生成
 			while(postRepository.findByArticleBlogId(articleBlogId) != null){
 				articleBlogId = seqContainer.getStrategy(SeqType.ARTICLE_BLOG_ID).get("");
 			}
 
-			po.setArticleBlogId(articleBlogId);
+			entry.setArticleBlogId(articleBlogId);
 		}
 
-		po.setCreated(new Date());
-		po.setStatus(post.getStatus());
-
-		// 处理摘要
-		if (StringUtils.isBlank(post.getSummary())) {
-			po.setSummary(trimSummary(post.getEditor(), post.getContent()));
-		} else {
-			po.setSummary(post.getSummary());
-		}
+		entry.setCreated(new Date());
+		entry.setStatus(post.getStatus());
+		entry.setSummary(post.getSummary());
 
 		try{
-			postRepository.save(po);
-			tagService.batchUpdate(po.getTags(), po.getId());
-
-			PostAttribute attr = new PostAttribute();
-			attr.setContent(post.getContent());
-			attr.setEditor(post.getEditor());
-			attr.setId(po.getId());
-			postAttributeRepository.save(attr);
+			postRepository.save(entry);
 		} catch(Exception ex){
 			throw new MtonsException("数据操作异常：" + ex.getMessage());
 		}
 
-		onPushEvent(po, PostUpdateEvent.ACTION_PUBLISH);
-		return po.getId();
+		post.setId(entry.getId());
+		return entry.getId();
 	}
 
 	@Override
@@ -209,12 +188,9 @@ public class PostServiceImpl extends BaseService implements PostService {
 		if (po.isPresent()) {
 			PostBO d = BeanMapUtils.copy(po.get());
 
-			d.setAuthor(userService.get(d.getAuthorId()));
-			d.setChannel(channelService.getById(d.getChannelId()));
+			// 加载资源信息
+			buildResource(d);
 
-			PostAttribute attr = postAttributeRepository.findById(d.getId()).get();
-			d.setContent(attr.getContent());
-			d.setEditor(attr.getEditor());
 			return d;
 		}
 		return null;
@@ -229,12 +205,8 @@ public class PostServiceImpl extends BaseService implements PostService {
 
 		PostBO d = map(po, PostBO.class);
 
-		d.setAuthor(userService.get(d.getAuthorId()));
-		d.setChannel(channelService.getById(d.getChannelId()));
-
-		PostAttribute attr = postAttributeRepository.findById(d.getId()).get();
-		d.setContent(attr.getContent());
-		d.setEditor(attr.getEditor());
+		// 加载资源信息
+		buildResource(d);
 
 		return d;
 	}
@@ -244,7 +216,6 @@ public class PostServiceImpl extends BaseService implements PostService {
 	 * @param pp
 	 */
 	@Override
-	@Transactional
 	public void update(PostBO pp){
 		Optional<Post> optional = postRepository.findById(pp.getId());
 
@@ -266,23 +237,10 @@ public class PostServiceImpl extends BaseService implements PostService {
 				po.setArticleBlogId(articleBlogId);
 			}
 
-			// 处理摘要
-			if (StringUtils.isBlank(pp.getSummary())) {
-				po.setSummary(trimSummary(pp.getEditor(), pp.getContent()));
-			} else {
-				po.setSummary(pp.getSummary());
-			}
-
+			po.setSummary(pp.getSummary());
 			po.setTags(pp.getTags());//标签
 
-			// 保存扩展
-			PostAttribute attr = new PostAttribute();
-			attr.setContent(pp.getContent());
-			attr.setEditor(pp.getEditor());
-			attr.setId(po.getId());
-			postAttributeRepository.save(attr);
-
-			tagService.batchUpdate(po.getTags(), po.getId());
+			// TODO  nothing
 		}
 	}
 
@@ -312,30 +270,27 @@ public class PostServiceImpl extends BaseService implements PostService {
 	}
 
 	@Override
-	@Transactional
 	public void delete(String articleBlogId, long authorId) {
 		Post po = postRepository.findByArticleBlogId(articleBlogId);
 		// 判断文章是否属于当前登录用户
 		Assert.isTrue(po.getAuthorId() == authorId, "认证失败");
 
 		postRepository.deleteById(po.getId());
-		postAttributeRepository.deleteById(po.getId());
-
-		onPushEvent(po, PostUpdateEvent.ACTION_DELETE);
 	}
 
 	@Override
-	@Transactional
-	public void delete(Set<String> articleBlogIds) {
+	public Set<Long> delete(Set<String> articleBlogIds) {
+		Set<Long> ids = Sets.newHashSet();
 		if (CollectionUtils.isNotEmpty(articleBlogIds)) {
 			List<Post> list = postRepository.findAllByArticleBlogId(articleBlogIds);
 			list.forEach(po -> {
 				postRepository.delete(po);
 
-				postAttributeRepository.deleteById(po.getId());
-				onPushEvent(po, PostUpdateEvent.ACTION_DELETE);
+				ids.add(po.getId());
 			});
 		}
+
+		return ids;
 	}
 
 	@Override
@@ -393,56 +348,35 @@ public class PostServiceImpl extends BaseService implements PostService {
 		return page.getContent();
 	}
 
-	/**
-	 * 截取文章内容
-	 * @param text
-	 * @return
-	 */
-	private String trimSummary(String editor, final String text){
-		if (Consts.EDITOR_MARKDOWN.endsWith(editor)) {
-			return PreviewTextUtils.getText(MarkdownUtils.renderMarkdown(text), 126);
-		} else {
-			return PreviewTextUtils.getText(text, 126);
-		}
-	}
-
 	private List<PostBO> toPosts(List<Post> posts) {
-		List<PostBO> rets = new ArrayList<>();
-
-		HashSet<Long> uids = new HashSet<>();
-		HashSet<Integer> groupIds = new HashSet<>();
+		List<PostBO> list = new ArrayList<>();
 
 		posts.forEach(po -> {
-			uids.add(po.getAuthorId());
-			groupIds.add(po.getChannelId());
-			rets.add(BeanMapUtils.copy(po));
+			PostBO postBO = BeanMapUtils.copy(po);
+			// 加载资源信息
+			buildResource(postBO);
+			list.add(postBO);
 		});
 
-		// 加载用户信息
-		buildUsers(rets, uids);
-		buildGroups(rets, groupIds);
-
-		return rets;
+		return list;
 	}
 
-	private void buildUsers(Collection<PostBO> posts, Set<Long> uids) {
-		Map<Long, UserBO> userMap = userService.findMapByIds(uids);
-		posts.forEach(p -> p.setAuthor(userMap.get(p.getAuthorId())));
+	private void buildResource(Collection<PostBO> posts) {
+		posts.forEach(post -> {
+			buildResource(post);
+		});
 	}
 
-	private void buildGroups(Collection<PostBO> posts, Set<Integer> groupIds) {
-		Map<Integer, ChannelVO> map = channelService.findMapByIds(groupIds);
-		posts.forEach(p -> p.setChannel(map.get(p.getChannelId())));
-	}
+	private void buildResource(PostBO post) {
+		if(StringUtils.isEmpty(post.getThumbnailCode())){
+			return;
+		}
 
-	private void onPushEvent(Post post, int action) {
-		PostUpdateEvent event = new PostUpdateEvent(System.currentTimeMillis());
-		event.setPostId(post.getId());
-		event.setUserId(post.getAuthorId());
-		event.setAction(action);
+		ResourceBO resourceBO = resourceService.findByThumbnailCode(post.getThumbnailCode());
+		if(resourceBO == null){
+			return;
+		}
 
-		event.setArticleBlogId(post.getArticleBlogId());
-
-		applicationContext.publishEvent(event);
+		post.setThumbnail(resourceBO.getPath());
 	}
 }

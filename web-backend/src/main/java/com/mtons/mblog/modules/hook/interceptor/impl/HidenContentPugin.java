@@ -2,6 +2,7 @@ package com.mtons.mblog.modules.hook.interceptor.impl;
 
 import com.mtons.mblog.bo.AccountProfile;
 import com.mtons.mblog.bo.PostBO;
+import com.mtons.mblog.model.PostVO;
 import com.mtons.mblog.modules.hook.interceptor.InterceptorHookSupport;
 import com.mtons.mblog.modules.service.CommentService;
 import com.mtons.mblog.web.controller.site.ChannelController;
@@ -39,10 +40,10 @@ public class HidenContentPugin extends InterceptorHookSupport {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, HandlerMethod handler, ModelAndView modelAndView) throws Exception {
-        PostBO ret = (PostBO) modelAndView.getModelMap().get("view");
+        PostVO ret = (PostVO) modelAndView.getModelMap().get("view");
         Object editing = modelAndView.getModel().get("editing");
         if (null == editing && ret != null && check(ret.getId(), ret.getAuthor().getId())) {
-            PostBO post = new PostBO();
+            PostVO post = new PostVO();
             BeanUtils.copyProperties(ret, post);
             post.setContent(replace(post.getContent()));
             modelAndView.getModelMap().put("view", post);

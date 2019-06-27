@@ -1,10 +1,10 @@
 package com.mtons.mblog.web.controller.site;
 
+import com.mtons.mblog.model.PostVO;
+import com.mtons.mblog.modules.service.PostManagerService;
 import com.mtons.mblog.service.util.MarkdownUtils;
 import com.mtons.mblog.bo.DemoVO;
-import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.service.atom.DemoService;
-import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class DemoController extends BaseController {
 
 	@Autowired
-	private PostService postService;
+	private PostManagerService postManagerService;
 	@Autowired
 	private DemoService demoService;
 
@@ -35,7 +35,7 @@ public class DemoController extends BaseController {
 	 */
 	@RequestMapping(value = "/demo", method = { RequestMethod.GET })
 	public DemoVO demo(String articleBlogId) {
-		PostBO view = postService.get(articleBlogId);
+		PostVO view = postManagerService.get(articleBlogId);
 
 		Assert.notNull(view, "该文章已被删除");
 

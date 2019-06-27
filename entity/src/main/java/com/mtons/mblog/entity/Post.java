@@ -132,11 +132,6 @@ public class Post implements IEntry, Serializable {
 	 */
 	private int weight;
 
-//	/**
-//	 * 预览图
-//	 */
-//	@Column(length = 128)
-//	private String thumbnail;
 	/**
 	 * 预览图编号
 	 */

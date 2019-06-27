@@ -7,15 +7,19 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.bo;
+package com.mtons.mblog.model;
 
-import com.mtons.mblog.base.enums.BlogFeaturedType;
 import com.mtons.mblog.base.consts.Consts;
+import com.mtons.mblog.base.enums.BlogFeaturedType;
+import com.mtons.mblog.bo.ChannelVO;
+import com.mtons.mblog.bo.ResourceBO;
+import com.mtons.mblog.bo.UserBO;
 import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
 import com.yueny.superclub.api.pojo.IBo;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -25,7 +29,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class PostBO extends AbstractMaskBo implements IBo, Serializable {
+public class PostSearchVO extends AbstractMaskBo implements IBo, Serializable {
 	private long id;
 
 	/**
@@ -101,13 +105,26 @@ public class PostBO extends AbstractMaskBo implements IBo, Serializable {
 	 */
 	private String thumbnail;
 
-	private UserBO author;
-
 	public String[] getTagsArray() {
 		if (StringUtils.isNotBlank(getTags())) {
 			return getTags().split(Consts.SEPARATOR);
 		}
 		return null;
 	}
+
+	private ResourceBO resource;
+
+	private UserBO author;
+
+	private ChannelVO channel;
+
+	/**
+	 * 编辑器
+	 */
+	private String editor;
+	/**
+	 * 内容
+	 */
+	private String content;
 
 }

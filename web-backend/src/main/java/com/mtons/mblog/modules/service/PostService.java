@@ -27,7 +27,7 @@ import java.util.Set;
  * @author langhsu
  *
  */
-@CacheConfig(cacheNames = Consts.CACHE_USER)
+@CacheConfig(cacheNames = Consts.CACHE_POST)
 public interface PostService {
 	/**
 	 * 分页查询所有文章
@@ -53,7 +53,7 @@ public interface PostService {
 	 * @param maxResults
 	 * @return
 	 */
-	@Cacheable(key = "'latest_' + #maxResults")
+	@Cacheable
 	List<PostBO> findLatestPosts(int maxResults);
 
 	/**
@@ -76,7 +76,7 @@ public interface PostService {
 	 * @param post
 	 */
 	@CacheEvict(allEntries = true)
-	long post(PostBO post);
+	Long post(PostBO post);
 	
 	/**
 	 * 文章详情
@@ -129,9 +129,10 @@ public interface PostService {
 	 * 批量删除文章, 且刷新缓存
 	 *
 	 * @param articleBlogIds
+	 * @return 删除的主键列表
 	 */
 	@CacheEvict(allEntries = true)
-	void delete(Set<String> articleBlogIds);
+	Set<Long>  delete(Set<String> articleBlogIds);
 	
 	/**
 	 * 自增浏览数
