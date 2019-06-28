@@ -10,7 +10,7 @@
 package com.mtons.mblog.web.controller.site.user;
 
 import com.mtons.mblog.service.exception.MtonsException;
-import com.mtons.mblog.bo.AccountProfile;
+import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.service.atom.MessageService;
 import com.mtons.mblog.service.atom.UserService;

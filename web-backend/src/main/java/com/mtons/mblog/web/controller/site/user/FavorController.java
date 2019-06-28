@@ -2,7 +2,7 @@ package com.mtons.mblog.web.controller.site.user;
 
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.consts.Consts;
-import com.mtons.mblog.bo.AccountProfile;
+import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.service.event.MessageEvent;
 import com.mtons.mblog.service.atom.PostService;

@@ -10,14 +10,14 @@
 package com.mtons.mblog.modules.comp.impl;
 
 import com.mtons.mblog.config.SiteOptions;
-import com.mtons.mblog.modules.comp.ISiteOptionsControlsService;
+import com.mtons.mblog.modules.comp.ISiteOptionsGetService;
 import com.mtons.mblog.model.SiteOptionsControlsVO;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * 开关控制配置获取
+ * 配置获取
  *
  * @author yueny09 <deep_blue_yang@163.com>
  *
@@ -25,7 +25,7 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-public class SiteOptionsControlsServiceImpl implements ISiteOptionsControlsService {
+public class SiteOptionsGetServiceImpl implements ISiteOptionsGetService {
 	@Autowired
 	private SiteOptions siteOptions;
 	/** */
@@ -37,5 +37,10 @@ public class SiteOptionsControlsServiceImpl implements ISiteOptionsControlsServi
 		SiteOptions.Controls controls = siteOptions.getControls();
 
 		return mapper.map(controls, SiteOptionsControlsVO.class);
+	}
+
+	@Override
+	public String getVersion() {
+		return siteOptions.getVersion();
 	}
 }

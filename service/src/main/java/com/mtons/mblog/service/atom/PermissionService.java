@@ -1,4 +1,4 @@
-package com.mtons.mblog.modules.service;
+package com.mtons.mblog.service.atom;
 
 import com.mtons.mblog.bo.PermissionTree;
 import com.mtons.mblog.entity.Permission;

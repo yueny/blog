@@ -7,7 +7,7 @@ import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.bo.PermissionVO;
 import com.mtons.mblog.bo.RoleVO;
 import com.mtons.mblog.entity.Role;
-import com.mtons.mblog.modules.service.PermissionService;
+import com.mtons.mblog.service.atom.PermissionService;
 import com.mtons.mblog.service.atom.RoleService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;

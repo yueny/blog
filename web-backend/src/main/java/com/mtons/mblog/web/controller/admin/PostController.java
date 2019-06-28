@@ -13,7 +13,7 @@ import com.google.common.collect.Sets;
 import com.mtons.mblog.base.enums.BlogFeaturedType;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.lang.Result;
-import com.mtons.mblog.bo.AccountProfile;
+import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.model.PostVO;
 import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.service.atom.ChannelService;

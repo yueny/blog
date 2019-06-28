@@ -11,7 +11,7 @@ package com.mtons.mblog.service.atom.impl;
 
 import com.mtons.mblog.dao.repository.UserRepository;
 import com.mtons.mblog.service.exception.MtonsException;
-import com.mtons.mblog.bo.AccountProfile;
+import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.BadgesCount;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.User;

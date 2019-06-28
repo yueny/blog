@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.modules.service;
+package com.mtons.mblog.service.atom;
 
 /**
  * 验证码服务

@@ -13,6 +13,7 @@ import com.mtons.mblog.base.enums.AuthoredType;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.*;
 import com.mtons.mblog.entity.*;
+import com.mtons.mblog.model.AccountProfile;
 import org.springframework.beans.BeanUtils;
 
 /**

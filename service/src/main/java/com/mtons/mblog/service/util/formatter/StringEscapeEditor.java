@@ -6,7 +6,7 @@
 |   http://www.mtons.com
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.web.formatter;
+package com.mtons.mblog.service.util.formatter;
 
 import lombok.extern.slf4j.Slf4j;
 

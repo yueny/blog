@@ -147,7 +147,7 @@
 <script type="text/plain" id="guest_template">
     <li id="chat{5}">
         <a class="avt fl" disabled="true" readonly="true" href="javascript:void(0);">
-            <img class="img-circle" src="https://static.codealy.com/images/default/default-none.jpeg">
+            <img class="img-circle" src="{1}">
         </a>
         <div class="chat_body">
             <h5>
@@ -218,7 +218,7 @@
                 }else{
                     item = jQuery.format(guestTemplate,
                             '',
-                            '',
+                            '${siterProfile.userDefaultAvatar}',
                             data.author.name,
                             data.created,
                             content,

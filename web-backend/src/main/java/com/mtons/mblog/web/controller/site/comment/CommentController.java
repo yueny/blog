@@ -7,8 +7,8 @@ import com.mtons.mblog.base.consts.BlogConstant;
 import com.mtons.mblog.base.enums.AuthoredType;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.lang.Result;
-import com.mtons.mblog.modules.comp.ISiteOptionsControlsService;
-import com.mtons.mblog.bo.AccountProfile;
+import com.mtons.mblog.modules.comp.ISiteOptionsGetService;
+import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.CommentVO;
 import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.service.event.MessageEvent;
@@ -45,7 +45,7 @@ public class CommentController extends BaseController {
     @Autowired
     private ApplicationContext applicationContext;
     @Autowired
-    private ISiteOptionsControlsService controlsService;
+    private ISiteOptionsGetService controlsService;
     @Autowired
     private PostService postService;
 

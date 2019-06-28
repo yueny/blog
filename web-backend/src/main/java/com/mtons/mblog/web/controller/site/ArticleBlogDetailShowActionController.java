@@ -3,7 +3,7 @@ package com.mtons.mblog.web.controller.site;
 import com.mtons.mblog.model.PostVO;
 import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.service.util.MarkdownUtils;
-import com.mtons.mblog.bo.AccountProfile;
+import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.FavoriteVO;
 import com.mtons.mblog.service.atom.FavoriteService;
 import com.mtons.mblog.service.atom.PostService;

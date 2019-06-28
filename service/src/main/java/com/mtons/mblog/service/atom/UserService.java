@@ -10,7 +10,7 @@
 package com.mtons.mblog.service.atom;
 
 import com.mtons.mblog.base.consts.Consts;
-import com.mtons.mblog.bo.AccountProfile;
+import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.UserBO;
 import com.yueny.rapid.lang.exception.invalid.InvalidException;
 import org.springframework.cache.annotation.CacheConfig;

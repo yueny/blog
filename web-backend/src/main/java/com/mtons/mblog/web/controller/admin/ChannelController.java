@@ -170,18 +170,17 @@ public class ChannelController extends BaseController {
 
 	/**
 	 * 删除
-	 * @param ids 渠道编码，如果是多个，则逗号,分隔
+	 * @param channelCode 渠道编码，单个
 	 * @return
 	 */
 	@RequestMapping("/delete.json")
 	@ResponseBody
 //	@RequiresPermissions("channel:delete")
-	public Result delete(String ids) {
+	public Result delete(String channelCode) {
 		Result<String> data = Result.failure("操作失败");
-		if (ids != null) {
+		if (StringUtils.isNotEmpty(channelCode)) {
 			try {
-				String channelCode = ids;
-				channelService.delete(ids);
+				channelService.delete(channelCode);
 				data = Result.success();
 
 				contextStartup.resetChannels();

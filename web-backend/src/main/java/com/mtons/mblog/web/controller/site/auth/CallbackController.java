@@ -11,7 +11,7 @@ import com.mtons.mblog.base.oauth.utils.TokenUtil;
 import com.mtons.mblog.base.utils.FilePathUtils;
 import com.mtons.mblog.service.manager.IUserManagerService;
 import com.mtons.mblog.service.util.ImageUtils;
-import com.mtons.mblog.bo.AccountProfile;
+import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.OpenOauthVO;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.modules.service.OpenOauthService;

@@ -40,7 +40,7 @@
             mouseenter:function(){
                 var that = this;
                 tips =layer.tips(
-                        "<span style='color:#000;'>3.6-GA</span>",
+                        "<span style='color:#000;'>${siterProfile.version}</span>",
                         that,
                         {tips:[2,'#fff'],time:0,area: 'auto',maxWidth:500}
                 );

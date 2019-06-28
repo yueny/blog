@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.bo;
+package com.mtons.mblog.model;
 
 import com.mtons.mblog.bo.BadgesCount;
 import com.yueny.superclub.api.pojo.IBo;

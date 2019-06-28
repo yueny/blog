@@ -1,9 +1,9 @@
-package com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.service.atom.impl;
 
 import com.mtons.mblog.bo.PermissionTree;
 import com.mtons.mblog.entity.Permission;
 import com.mtons.mblog.dao.repository.PermissionRepository;
-import com.mtons.mblog.modules.service.PermissionService;
+import com.mtons.mblog.service.atom.PermissionService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

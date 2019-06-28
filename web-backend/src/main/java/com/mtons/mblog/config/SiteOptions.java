@@ -36,6 +36,7 @@ public class SiteOptions extends SiteConfigOption {
     /**
      * 系统版本号
      */
+    @Getter
     @Setter
     @Value("${"+SITE_VERSION_KEY+"}")
     private String version;
