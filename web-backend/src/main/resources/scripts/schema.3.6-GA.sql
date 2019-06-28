@@ -45,7 +45,6 @@ alter table `mto_comment` add column client_agent varchar(256) COMMENT '客户�
 alter table `mto_post` add column uid varchar(256) COMMENT 'uid' after author_id;
 update `mto_post` set uid=author_id where uid is null;
 
---  ok
 -- 20190621
 alter table `mto_user` add column thumbnail_code varchar(128)  DEFAULT '' COMMENT '图片资源编号' after avatar;
 
@@ -56,6 +55,7 @@ alter table mto_channel drop column thumbnail;
 alter table `mto_post` add column thumbnail_code varchar(128)  DEFAULT '' COMMENT '图片资源编号' after thumbnail;
 alter table mto_post drop column thumbnail;
 
+--  ok
 
 
 -- -- 默认配置表
