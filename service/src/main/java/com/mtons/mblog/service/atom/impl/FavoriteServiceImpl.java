@@ -1,12 +1,12 @@
-package com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.service.atom.impl;
 
 import com.mtons.mblog.bo.FavoriteVO;
 import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.dao.repository.FavoriteRepository;
-import com.mtons.mblog.base.utils.BeanMapUtils;
+import com.mtons.mblog.service.util.BeanMapUtils;
 import com.mtons.mblog.entity.Favorite;
-import com.mtons.mblog.modules.service.FavoriteService;
-import com.mtons.mblog.modules.service.PostService;
+import com.mtons.mblog.service.atom.FavoriteService;
+import com.mtons.mblog.service.atom.PostService;
 import com.mtons.mblog.service.BaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

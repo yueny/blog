@@ -5,7 +5,7 @@ package com.mtons.mblog.modules.template.directive;
 
 import com.mtons.mblog.bo.FavoriteVO;
 import com.mtons.mblog.bo.UserBO;
-import com.mtons.mblog.modules.service.FavoriteService;
+import com.mtons.mblog.service.atom.FavoriteService;
 import com.mtons.mblog.service.atom.UserService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.template.TemplateDirective;

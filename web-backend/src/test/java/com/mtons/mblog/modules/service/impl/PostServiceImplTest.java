@@ -1,6 +1,7 @@
 package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.BootApplication;
+import com.mtons.mblog.service.atom.impl.PostServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

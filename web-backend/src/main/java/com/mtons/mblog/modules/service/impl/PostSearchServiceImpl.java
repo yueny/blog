@@ -1,8 +1,7 @@
 package com.mtons.mblog.modules.service.impl;
 
-import com.mtons.mblog.base.utils.BeanMapUtils;
+import com.mtons.mblog.service.util.BeanMapUtils;
 import com.mtons.mblog.bo.PostBO;
-import com.mtons.mblog.model.PostSearchVO;
 import com.mtons.mblog.service.BaseService;
 import com.mtons.mblog.service.aspect.PostStatusFilter;
 import com.mtons.mblog.bo.UserBO;

@@ -1,15 +1,15 @@
-package com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.service.atom.impl;
 
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.MessageVO;
 import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.entity.Message;
-import com.mtons.mblog.modules.service.PostService;
+import com.mtons.mblog.service.atom.PostService;
 import com.mtons.mblog.dao.repository.MessageRepository;
 import com.mtons.mblog.bo.UserBO;
-import com.mtons.mblog.modules.service.MessageService;
+import com.mtons.mblog.service.atom.MessageService;
 import com.mtons.mblog.service.atom.UserService;
-import com.mtons.mblog.base.utils.BeanMapUtils;
+import com.mtons.mblog.service.util.BeanMapUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

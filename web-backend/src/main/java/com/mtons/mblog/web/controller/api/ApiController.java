@@ -12,7 +12,7 @@ package com.mtons.mblog.web.controller.api;
 import com.google.common.collect.Sets;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.lang.Result;
-import com.mtons.mblog.base.utils.BeanMapUtils;
+import com.mtons.mblog.service.util.BeanMapUtils;
 import com.mtons.mblog.model.PostVO;
 import com.mtons.mblog.modules.service.PostManagerService;
 import com.mtons.mblog.web.controller.BaseController;

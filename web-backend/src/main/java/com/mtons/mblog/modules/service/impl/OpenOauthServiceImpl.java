@@ -18,7 +18,7 @@ import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.UserOauth;
 import com.mtons.mblog.entity.User;
 import com.mtons.mblog.modules.service.OpenOauthService;
-import com.mtons.mblog.base.utils.BeanMapUtils;
+import com.mtons.mblog.service.util.BeanMapUtils;
 import com.mtons.mblog.dao.repository.UserOauthRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

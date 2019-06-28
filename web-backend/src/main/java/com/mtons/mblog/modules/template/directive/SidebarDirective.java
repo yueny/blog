@@ -1,7 +1,7 @@
 package com.mtons.mblog.modules.template.directive;
 
 import com.mtons.mblog.modules.service.CommentService;
-import com.mtons.mblog.modules.service.PostService;
+import com.mtons.mblog.service.atom.PostService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.template.TemplateDirective;
 import org.springframework.beans.factory.annotation.Autowired;

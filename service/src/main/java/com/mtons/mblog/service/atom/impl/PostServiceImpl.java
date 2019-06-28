@@ -7,29 +7,25 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.service.atom.impl;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mtons.mblog.base.enums.BlogFeaturedType;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.ResourceBO;
-import com.mtons.mblog.service.atom.ResourceService;
+import com.mtons.mblog.service.atom.*;
 import com.mtons.mblog.service.exception.MtonsException;
-import com.mtons.mblog.base.utils.BeanMapUtils;
+import com.mtons.mblog.service.util.BeanMapUtils;
 import com.mtons.mblog.service.aspect.PostStatusFilter;
 import com.mtons.mblog.bo.ChannelVO;
 import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.entity.Post;
-import com.mtons.mblog.modules.event.PostUpdateEvent;
 import com.mtons.mblog.dao.repository.PostAttributeRepository;
 import com.mtons.mblog.dao.repository.PostRepository;
-import com.mtons.mblog.service.atom.ChannelService;
-import com.mtons.mblog.service.atom.UserService;
 import com.mtons.mblog.service.BaseService;
 import com.mtons.mblog.service.seq.SeqType;
 import com.mtons.mblog.service.seq.container.ISeqContainer;
-import com.mtons.mblog.modules.service.*;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

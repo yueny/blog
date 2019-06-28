@@ -13,7 +13,7 @@ import com.mtons.mblog.bo.CommentVO;
 import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.modules.event.MessageEvent;
 import com.mtons.mblog.modules.service.CommentService;
-import com.mtons.mblog.modules.service.PostService;
+import com.mtons.mblog.service.atom.PostService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.yueny.rapid.lang.agent.UserAgentResource;
 import com.yueny.rapid.lang.util.IpUtil;

@@ -1,7 +1,5 @@
 package com.mtons.mblog.bo;
 
-import com.mtons.mblog.bo.PostBO;
-import com.mtons.mblog.bo.UserBO;
 import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
 import lombok.Getter;
 import lombok.Setter;

@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="${base}/dist/vendors/bootstrap-select/1.13.7/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="${base}/dist/vendors/bootstrap-switch/css/bootstrap3/bootstrap-switch.css">
     <link rel="stylesheet" href="${base}/dist/css/checkbox.css">
+    <link rel="stylesheet" href="${base}/dist/css/style.css"/>
 
     <!-- Theme Style -->
     <link href="${base}/theme/admin/dist/css/site.css" rel="stylesheet">

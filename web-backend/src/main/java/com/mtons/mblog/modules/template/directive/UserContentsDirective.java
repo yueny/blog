@@ -3,10 +3,8 @@
  */
 package com.mtons.mblog.modules.template.directive;
 
-import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.model.PostVO;
 import com.mtons.mblog.modules.service.PostManagerService;
-import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.template.TemplateDirective;
 import org.springframework.beans.factory.annotation.Autowired;
