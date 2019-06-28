@@ -1,0 +1,17 @@
+logs.runtime.home=/data/var/logs/javalog/blog/runtime/blog
+logs.level=debug
+logs.level.digest=info
+logs.max.history=90
+logs.max.file.size=100MB
+
+app.name=corpui
+app.system.code=CROPUI
+app.profile.env=prod
+
+#博文编辑时，如果摘要为空，则取文章标题的长度
+blog.article.digest.sub.length=50
+# 截取后添加的后缀
+blog.article.digest.sub.append.suffix=......
+
+# 博文编辑时，AES 加解密时的密钥。 Key要16位的，因为AES是128\192\256
+blog.article.publish.aes.secret.key=(none-tell)

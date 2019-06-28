@@ -154,9 +154,9 @@
                                     <a href="${base}/settings/profile">编辑资料</a>
                                 </li>
                                 <li class="divider"></li>
-                                <@shiro.hasPermission name="admin">
-                                    <li><a href="${base}/admin">后台管理</a></li>
-                                </@shiro.hasPermission>
+                                    <@shiro.hasPermission name="admin">
+                                        <li><a href="${base}/admin">后台管理</a></li>
+                                    </@shiro.hasPermission>
                                 <li class="divider"></li>
                                 <li><a href="${base}/logout">退出</a></li>
                             </ul>

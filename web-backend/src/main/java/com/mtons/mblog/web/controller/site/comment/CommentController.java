@@ -101,7 +101,7 @@ public class CommentController extends BaseController {
 
         // 如果允许匿名评论且 authorId 为空或者未登录, 则取 clientUserAgent
         String clentAgent = "";
-        // TODO clentAgent值
+        // TODO clentAgent值 为null
         clientUserAgent.getBrowser();
         c.setClientAgent(clentAgent);
 

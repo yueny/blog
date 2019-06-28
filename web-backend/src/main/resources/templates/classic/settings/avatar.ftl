@@ -21,7 +21,7 @@
 				</label>
 			</div>
 			<div class="update_ava">
-				<img src="<@resource src=profile.avatar/>" id="target" alt="[Example]" />
+				<img class="img-thumbnail" src="<@resource src=profile.avatar/>" id="target" alt="[Example]" />
 			</div>
 	</div><!-- /panel-content -->
 </div><!-- /panel -->

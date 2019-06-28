@@ -1,0 +1,33 @@
+# db_style,choose MY_SQL or DB2 etc
+database.style.config=MY_SQL
+
+# mysql
+# 废弃， 使用 db.mysql.driverClassName
+db.mysql.jdbc.driverClassName=com.mysql.jdbc.Driver
+db.mysql.driverClassName=com.mysql.jdbc.Driver
+db.mysql.type=com.alibaba.druid.pool.DruidDataSource
+
+# stat标识启用监控; wall用于防火墙
+db.mysql.filters=config,stat,wall,log4j
+
+db.mysql.validationQuery=SELECT 'x'
+db.mysql.testWhileIdle=true
+db.mysql.testOnBorrow=false
+db.mysql.testOnReturn=false
+db.mysql.poolPreparedStatements=true
+db.mysql.maxOpenPreparedStatements=20
+
+db.mysql.connect.stat.slowSqlMillis=5000
+db.mysql.connect.connectTimeout=1000
+db.mysql.connect.socketTimeout=5000
+db.mysql.default.pool.initialSize=5
+db.mysql.default.pool.minIdle=2
+db.mysql.default.pool.maxIdle=5
+db.mysql.default.pool.maxActive=10
+db.mysql.default.pool.maxWait=60000
+db.mysql.default.pool.timeBetweenEvictionRunsMillis=3000
+db.mysql.default.pool.minEvictableIdleTimeMillis=300000
+db.mysql.default.pool.timeBetweenLogStatsMillis=300000
+
+# Druid配置
+druid.config.filterUrl=/*

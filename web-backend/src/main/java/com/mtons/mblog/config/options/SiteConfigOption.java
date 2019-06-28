@@ -7,10 +7,13 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.config;
+package com.mtons.mblog.config.options;
 
 import com.taobao.diamond.extend.DynamicProperties;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
+import org.springframework.stereotype.Service;
 
 /**
  * 读取配置中心配置信息
@@ -18,28 +21,34 @@ import lombok.ToString;
 @ToString
 public abstract class SiteConfigOption {
     protected static final String SITE_VERSION_KEY = "site.version";
+
+    /**
+     *  controls 的一系列配置 site.controls.*
+     */
     /* 注册开关 */
-    protected static final String SITE_CONTROLS_REGISTER_KEY = "site.controls.register";
+    private static final String SITE_CONTROLS_REGISTER_KEY = "site.controls.register";
     /*  登陆开关是否显示 */
-    protected static final String SITE_CONTROLS_LOGIN_SHOW_KEY = "site.controls.login_show";
+    private static final String SITE_CONTROLS_LOGIN_SHOW_KEY = "site.controls.login_show";
     /* 发布文章开关 */
-    protected static final String SITE_CONTROLS_POST_KEY = "site.controls.post";
+    private static final String SITE_CONTROLS_POST_KEY = "site.controls.post";
     /* 评论开关, true 为允许评论 */
-    protected static final String SITE_CONTROLS_COMMENT_KEY = "site.controls.comment";
+    private static final String SITE_CONTROLS_COMMENT_KEY = "site.controls.comment";
     /* 是否允许匿名评论开关, true 为允许匿名评论 */
-    protected static final String SITE_CONTROLS_COMMENT_ALLOW_ANONYMOUS_KEY = "site.controls.comment.allow.anonymous";
-    /* 注册开启邮箱验证，未生效，未实现，配置中心配置 */
-    protected static final String SITE_CONTROLS_REGISTER_EMAIL_VALIDATE_KEY = "site.controls.register_email_validate";
+    private static final String SITE_CONTROLS_COMMENT_ALLOW_ANONYMOUS_KEY = "site.controls.comment.allow.anonymous";
 
-//    /**
-//     * 系统版本号
-//     */
-//    private String version;
+    /**
+     *  default 的一系列配置 site.settings.*
+     */
+    /* 用户的默认头像 */
+    private static final String SITE_SETTINGS_USERAVATAR_KEY = "site.settings.userAvatar";
 
-    public String getVersion() {
-        return DynamicProperties.staticProperties.getProperty(SITE_VERSION_KEY);
-    }
+    ///////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////
 
+    /**
+     * controls
+     */
     @ToString
     public static class Control {
         private boolean register;
@@ -89,4 +98,22 @@ public abstract class SiteConfigOption {
 
     }
 
+    /**
+     *  Setting
+     */
+    @ToString
+    public static class Setting {
+        /**
+         * 用户默认头像 "site.settings.userAvatar"
+         */
+        @Setter
+        private String userAvatar;
+
+        public String getUserAvatar() {
+            userAvatar = DynamicProperties.staticProperties.getProperty(SITE_SETTINGS_USERAVATAR_KEY);
+
+            return userAvatar;
+        }
+
+    }
 }

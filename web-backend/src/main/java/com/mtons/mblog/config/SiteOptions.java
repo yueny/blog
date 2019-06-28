@@ -9,10 +9,14 @@
 */
 package com.mtons.mblog.config;
 
+import com.mtons.mblog.config.options.SiteConfigOption;
 import com.mtons.mblog.config.xml.UploadConfigUtil;
+import com.taobao.diamond.extend.DynamicProperties;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -30,36 +34,54 @@ import java.util.Map;
 //@RefreshScope
 public class SiteOptions extends SiteConfigOption {
     /**
-     * 运行文件存储路径
+     * 系统版本号
      */
+    @Setter
+    @Value("${"+SITE_VERSION_KEY+"}")
+    private String version;
+
+    /**
+     * 运行文件存储路径。
+     * 配置由[application.yml] site:location: ${user.dir} 加载
+     */
+    @Setter
     private String location;
 
     /**
-     * 控制器配置
+     * 控制器配置。
+     * 配置由配置中心 配置项 site.controls.* 和 [application.yml] site:controls:* 加载
      */
     @Getter
     private Controls controls;
 
     /**
-     * 属性配置
+     * 属性配置。
+     * 配置由[application.yml] site.options.* 加载
+     * 以及 ContextStartup中读取数据库配置通过map.put增加配置项
      */
     @Getter
+    @Setter
     private Map<String, String> options = new HashMap<>();
 
-    public String getLocation() {
-        return UploadConfigUtil.getUploadConfig().getLocation();
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
+    /**
+     * 默认值配置。
+     * 配置由配置中心 配置项 site.settings.* 加载
+     */
+    // TODO 此处取值为null， 需要确定原因
+    @Getter
+    @Deprecated
+    private Settings settings;
 
     public void setControls(Controls controls) {
         this.controls = controls;
     }
 
-    public void setOptions(Map<String, String> options) {
-        this.options = options;
+    public void setSettings(Settings settings) {
+        this.settings = settings;
+    }
+
+    public String getLocation() {
+        return UploadConfigUtil.getUploadConfig().getLocation();
     }
 
     public String getValue(String key) {
@@ -87,13 +109,21 @@ public class SiteOptions extends SiteConfigOption {
         return StringUtils.isNotBlank(options.get(key));
     }
 
-    public static class Controls extends Control {
+    @ToString
+    public static class Controls extends SiteConfigOption.Control {
         @Setter
         private boolean register_email_validate;
+        /* 注册开启邮箱验证，未生效，未实现，配置中心配置 */
+        //protected static final String SITE_CONTROLS_REGISTER_EMAIL_VALIDATE_KEY = "site.controls.register_email_validate";
 
         public boolean isRegister_email_validate() {
             return register_email_validate;
         }
+    }
+
+    @ToString
+    public static class Settings extends SiteConfigOption.Setting {
+        //.
     }
 
 }

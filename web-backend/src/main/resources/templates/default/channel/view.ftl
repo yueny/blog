@@ -143,11 +143,11 @@
     </li>
 </script>
 
-<#-- 默认头像的值取自  StorageConsts.AVATAR -->
+<#-- 默认头像的值取自  StorageConsts.AVATAR， 图片格式为 img-circle  -->
 <script type="text/plain" id="guest_template">
     <li id="chat{5}">
         <a target="_blank" disabled="true" readonly="true" href="javascript:void(0);">
-            <img src="https://static.codealy.com/images/default/default-none.jpeg">
+            <img class="img-circle"  src="https://static.codealy.com/images/default/default-none.jpeg">
         </a>
         <div class="chat_body">
             <h5>
