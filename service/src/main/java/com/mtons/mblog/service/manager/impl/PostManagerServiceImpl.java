@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.service.manager.impl;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -20,9 +20,9 @@ import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.dao.repository.PostAttributeRepository;
 import com.mtons.mblog.entity.PostAttribute;
 import com.mtons.mblog.model.PostVO;
-import com.mtons.mblog.modules.event.PostUpdateEvent;
+import com.mtons.mblog.service.event.PostUpdateEvent;
 import com.mtons.mblog.service.atom.FavoriteService;
-import com.mtons.mblog.modules.service.PostManagerService;
+import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.service.atom.PostService;
 import com.mtons.mblog.service.atom.TagService;
 import com.mtons.mblog.service.BaseService;

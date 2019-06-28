@@ -1,4 +1,4 @@
-package com.mtons.mblog.modules.event;
+package com.mtons.mblog.service.event;
 
 import lombok.Getter;
 import lombok.Setter;

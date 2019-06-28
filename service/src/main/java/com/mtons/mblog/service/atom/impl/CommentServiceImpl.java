@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.service.atom.impl;
 
 import com.mtons.mblog.service.util.DefaultMojoFactory;
 import com.mtons.mblog.bo.CommentVO;
@@ -15,9 +15,9 @@ import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.Comment;
 import com.mtons.mblog.dao.repository.CommentRepository;
-import com.mtons.mblog.modules.service.CommentService;
+import com.mtons.mblog.service.atom.CommentService;
 import com.mtons.mblog.service.atom.PostService;
-import com.mtons.mblog.modules.service.UserEventService;
+import com.mtons.mblog.service.manager.UserEventService;
 import com.mtons.mblog.service.atom.UserService;
 import com.mtons.mblog.service.util.BeanMapUtils;
 import com.mtons.mblog.service.BaseService;

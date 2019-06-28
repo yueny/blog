@@ -1,9 +1,9 @@
-package com.mtons.mblog.modules.event.handler;
+package com.mtons.mblog.service.event.handler;
 
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.MessageVO;
 import com.mtons.mblog.bo.PostBO;
-import com.mtons.mblog.modules.event.MessageEvent;
+import com.mtons.mblog.service.event.MessageEvent;
 import com.mtons.mblog.service.atom.MessageService;
 import com.mtons.mblog.service.atom.PostService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -7,11 +7,11 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.service.manager.impl;
 
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.dao.repository.UserRepository;
-import com.mtons.mblog.modules.service.UserEventService;
+import com.mtons.mblog.service.manager.UserEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

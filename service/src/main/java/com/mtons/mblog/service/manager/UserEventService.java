@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.modules.service;
+package com.mtons.mblog.service.manager;
 
 import com.mtons.mblog.base.consts.Consts;
 import org.springframework.cache.annotation.CacheEvict;

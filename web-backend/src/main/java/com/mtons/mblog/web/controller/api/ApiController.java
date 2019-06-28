@@ -14,7 +14,7 @@ import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.service.util.BeanMapUtils;
 import com.mtons.mblog.model.PostVO;
-import com.mtons.mblog.modules.service.PostManagerService;
+import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

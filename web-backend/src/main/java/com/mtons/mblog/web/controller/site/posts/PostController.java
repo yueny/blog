@@ -8,7 +8,7 @@ import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.bo.AccountProfile;
 import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.model.PostVO;
-import com.mtons.mblog.modules.service.PostManagerService;
+import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.service.atom.ChannelService;
 import com.mtons.mblog.service.atom.PostService;
 import com.mtons.mblog.web.controller.BaseController;

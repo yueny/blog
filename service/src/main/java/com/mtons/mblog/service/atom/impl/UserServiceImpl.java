@@ -7,17 +7,15 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.service.atom.impl;
 
 import com.mtons.mblog.dao.repository.UserRepository;
 import com.mtons.mblog.service.exception.MtonsException;
-import com.mtons.mblog.service.comp.IPasswdService;
 import com.mtons.mblog.bo.AccountProfile;
 import com.mtons.mblog.bo.BadgesCount;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.User;
 import com.mtons.mblog.service.BaseService;
-import com.mtons.mblog.service.seq.container.ISeqContainer;
 import com.mtons.mblog.service.atom.MessageService;
 import com.mtons.mblog.service.atom.UserService;
 import com.mtons.mblog.service.util.BeanMapUtils;
@@ -44,10 +42,6 @@ public class UserServiceImpl extends BaseService implements UserService {
     private UserRepository userMapper;
     @Autowired
     private MessageService messageService;
-    @Autowired
-    private IPasswdService passwdService;
-    @Autowired
-    private ISeqContainer seqContainer;
 
     @Override
     public Page<UserBO> paging(Pageable pageable, String name) {

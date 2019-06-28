@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.modules.service.impl;
+package com.mtons.mblog.service.atom.impl;
 
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.model.ChannelTreeVO;
