@@ -73,15 +73,16 @@ public class UserServiceImpl extends BaseService implements UserService {
         }
 
         Iterable<User> list = userMapper.findAllById(ids);
-        Map<Long, UserBO> ret = new HashMap<>();
 
+        Map<Long, UserBO> maps = new HashMap<>();
         list.forEach(po -> {
             UserBO userBO = map(po, UserBO.class);
             userBO.setPassword("");
-            ret.put(po.getId(), userBO);
+
+            maps.put(po.getId(), userBO);
         });
 
-        return ret;
+        return maps;
     }
 
     @Override

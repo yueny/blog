@@ -73,7 +73,8 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 		Set<Long> postIds = new HashSet<>();
 
 		page.getContent().forEach(po -> {
-			CommentVO c = map(po, CommentVO.class);
+			//CommentVO c = map(po, CommentVO.class);
+			CommentVO c = BeanMapUtils.copy(po);
 
 			if (c.getPid() > 0) {
 				parentIds.add(c.getPid());

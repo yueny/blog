@@ -16,22 +16,17 @@ import com.mtons.mblog.service.util.PreviewTextUtils;
 import com.mtons.mblog.bo.ChannelVO;
 import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.bo.ResourceBO;
-import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.dao.repository.PostAttributeRepository;
 import com.mtons.mblog.entity.PostAttribute;
 import com.mtons.mblog.model.PostVO;
 import com.mtons.mblog.service.event.PostUpdateEvent;
-import com.mtons.mblog.service.atom.FavoriteService;
 import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.service.atom.PostService;
 import com.mtons.mblog.service.atom.TagService;
 import com.mtons.mblog.service.BaseService;
 import com.mtons.mblog.service.atom.ChannelService;
 import com.mtons.mblog.service.atom.ResourceService;
-import com.mtons.mblog.service.atom.UserService;
-import com.mtons.mblog.service.comp.impl.CacheService;
 import com.mtons.mblog.service.exception.MtonsException;
-import com.mtons.mblog.service.seq.container.ISeqContainer;
 import com.mtons.mblog.service.util.MarkdownUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -54,21 +49,13 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 	@Autowired
 	private PostAttributeRepository postAttributeRepository;
 	@Autowired
-	private UserService userService;
-	@Autowired
-	private FavoriteService favoriteService;
-	@Autowired
 	private ChannelService channelService;
 	@Autowired
 	private TagService tagService;
 	@Autowired
 	private ApplicationContext applicationContext;
 	@Autowired
-	private ISeqContainer seqContainer;
-	@Autowired
 	private ResourceService resourceService;
-	@Autowired
-	private CacheService cacheService;
 
 	@Override
 	public Page<PostVO> paging(Pageable pageable, Set<Integer> channelIds, Set<Integer> excludeChannelIds) {
@@ -90,18 +77,6 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 		return new PageImpl<>(toPosts(page.getContent()), pageable, page.getTotalElements());
 	}
 
-//	@Override
-//	@PostStatusFilter
-//	public List<PostBO> findLatestPosts(int maxResults) {
-//		return find("created", maxResults).stream().map(BeanMapUtils::copy).collect(Collectors.toList());
-//	}
-//
-//	@Override
-//	@PostStatusFilter
-//	public List<PostBO> findHottestPosts(int maxResults) {
-//		return find("views", maxResults).stream().map(BeanMapUtils::copy).collect(Collectors.toList());
-//	}
-
 	@Override
 	public Map<Long, PostVO> findMapByIds(Set<Long> ids) {
 		if (ids == null || ids.isEmpty()) {
@@ -110,17 +85,12 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 
 		Map<Long, PostBO> rets = postService.findMapByIds(ids);
 
-		HashSet<Long> uids = new HashSet<>();
 		Map<Long, PostVO> list = new HashMap<>();
 		for (Map.Entry<Long, PostBO> entry : rets.entrySet()) {
 			PostVO postVO = mapAny(entry.getValue(), PostVO.class);
 
-			uids.add(postVO.getAuthorId());
 			list.put(entry.getKey(), postVO);
 		}
-
-		// 加载用户信息
-		buildUsers(list.values(), uids);
 
 		return list;
 	}
@@ -147,7 +117,7 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 			throw new MtonsException("数据操作异常：" + ex.getMessage());
 		}
 
-		PostBO postBO = postService.get(post.getArticleBlogId());
+		PostBO postBO = postService.get(post.getId());
 		onPushEvent(postBO, PostUpdateEvent.ACTION_PUBLISH);
 
 		return id;
@@ -161,8 +131,6 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 		}
 
 		PostVO vo = mapAny(po, PostVO.class);
-		// 加载用户信息
-		buildUsers(Lists.newArrayList(vo), Sets.newHashSet(vo.getAuthorId()));
 		buildGroups(Lists.newArrayList(vo), Sets.newHashSet(vo.getChannelId()));
 
 		buildResource(vo);
@@ -184,8 +152,6 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 
 		PostVO vo = mapAny(po, PostVO.class);
 
-		// 加载用户信息
-		buildUsers(Lists.newArrayList(vo), Sets.newHashSet(vo.getAuthorId()));
 		buildGroups(Lists.newArrayList(vo), Sets.newHashSet(vo.getChannelId()));
 
 		buildResource(vo);
@@ -224,38 +190,14 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 		return true;
 	}
 
-//	@Override
-//	@Transactional
-//	public void updateFeatured(String articleBlogId, BlogFeaturedType featuredType) {
-//		Post po = postRepository.findByArticleBlogId(articleBlogId);
-//
-//		po.setFeatured(featuredType);
-//
-//		postRepository.save(po);
-//	}
-//
-//	@Override
-//	@Transactional
-//	public void updateWeight(String articleBlogId, int weighted) {
-//		Post po = postRepository.findByArticleBlogId(articleBlogId);
-//
-//		// 在实际weight处理中， 如果为置顶操作，则值为当前数据库内置顶weight最大值。
-//		int max = Consts.ZERO;
-//		if (Consts.ACTIVE == weighted) {
-//			max = postRepository.maxWeight() + 1;
-//		}
-//		po.setWeight(max);
-//
-//		postRepository.save(po);
-//	}
-
 	@Override
 	@Transactional
 	public void delete(String articleBlogId, long authorId) {
-		postService.delete(articleBlogId, authorId);
-
 		PostBO po = postService.get(articleBlogId);
+
 		postAttributeRepository.deleteById(po.getId());
+
+		postService.delete(articleBlogId, authorId);
 
 		onPushEvent(po, PostUpdateEvent.ACTION_DELETE);
 	}
@@ -284,6 +226,122 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 		}
 	}
 
+
+	private List<PostVO> toPosts(List<PostBO> posts) {
+		List<PostVO> rets = new ArrayList<>();
+
+		HashSet<Long> uids = new HashSet<>();
+		HashSet<Integer> groupIds = new HashSet<>();
+
+		posts.forEach(po -> {
+			uids.add(po.getAuthorId());
+			groupIds.add(po.getChannelId());
+
+			PostVO vo = mapAny(po, PostVO.class);
+			rets.add(vo);
+		});
+
+		buildGroups(rets, groupIds);
+
+		// 加载资源
+		buildResource(rets);
+
+		return rets;
+	}
+
+	private void buildResource(Collection<PostVO> posts) {
+		posts.forEach(post -> {
+			buildResource(post);
+		});
+	}
+
+	private void buildResource(PostVO post) {
+		if(StringUtils.isEmpty(post.getThumbnailCode())){
+			return;
+		}
+
+		ResourceBO resourceBO = resourceService.findByThumbnailCode(post.getThumbnailCode());
+		if(resourceBO == null){
+			return;
+		}
+		post.setResource(resourceBO);
+		if(StringUtils.isEmpty(post.getThumbnail())){
+			post.setThumbnail(resourceBO.getPath());
+		}
+	}
+//
+//	private void buildUsers(Collection<PostVO> posts, Set<Long> uids) {
+//		Map<Long, UserBO> userMap = userService.findMapByIds(uids);
+//		posts.forEach(p -> p.setAuthor(userMap.get(p.getAuthorId())));
+//	}
+
+	private void buildGroups(Collection<PostVO> posts, Set<Integer> groupIds) {
+		Map<Integer, ChannelVO> map = channelService.findMapByIds(groupIds);
+		posts.forEach(p -> p.setChannel(map.get(p.getChannelId())));
+	}
+
+	/**
+	 * 截取文章内容
+	 * @param text
+	 * @return
+	 */
+	private String trimSummary(String editor, final String text){
+		if (Consts.EDITOR_MARKDOWN.endsWith(editor)) {
+			return PreviewTextUtils.getText(MarkdownUtils.renderMarkdown(text), 126);
+		} else {
+			return PreviewTextUtils.getText(text, 126);
+		}
+	}
+
+	private void onPushEvent(PostBO postBO, int action) {
+		PostUpdateEvent event = new PostUpdateEvent(System.currentTimeMillis());
+		event.setPostId(postBO.getId());
+		event.setUserId(postBO.getAuthorId());
+		event.setAction(action);
+
+		event.setArticleBlogId(postBO.getArticleBlogId());
+
+		applicationContext.publishEvent(event);
+	}
+
+
+//	@Override
+//	@Transactional
+//	public void updateFeatured(String articleBlogId, BlogFeaturedType featuredType) {
+//		Post po = postRepository.findByArticleBlogId(articleBlogId);
+//
+//		po.setFeatured(featuredType);
+//
+//		postRepository.save(po);
+//	}
+//
+//	@Override
+//	@Transactional
+//	public void updateWeight(String articleBlogId, int weighted) {
+//		Post po = postRepository.findByArticleBlogId(articleBlogId);
+//
+//		// 在实际weight处理中， 如果为置顶操作，则值为当前数据库内置顶weight最大值。
+//		int max = Consts.ZERO;
+//		if (Consts.ACTIVE == weighted) {
+//			max = postRepository.maxWeight() + 1;
+//		}
+//		po.setWeight(max);
+//
+//		postRepository.save(po);
+//	}
+//
+//	@Override
+//	@PostStatusFilter
+//	public List<PostBO> findLatestPosts(int maxResults) {
+//		return find("created", maxResults).stream().map(BeanMapUtils::copy).collect(Collectors.toList());
+//	}
+//
+//	@Override
+//	@PostStatusFilter
+//	public List<PostBO> findHottestPosts(int maxResults) {
+//		return find("views", maxResults).stream().map(BeanMapUtils::copy).collect(Collectors.toList());
+//	}
+//
 //	@Override
 //	@Transactional
 //	public void identityViews(String articleBlogId) {
@@ -351,83 +409,5 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 //			return PreviewTextUtils.getText(text, 126);
 //		}
 //	}
-
-	private List<PostVO> toPosts(List<PostBO> posts) {
-		List<PostVO> rets = new ArrayList<>();
-
-		HashSet<Long> uids = new HashSet<>();
-		HashSet<Integer> groupIds = new HashSet<>();
-
-		posts.forEach(po -> {
-			uids.add(po.getAuthorId());
-			groupIds.add(po.getChannelId());
-
-			PostVO vo = mapAny(po, PostVO.class);
-			rets.add(vo);
-		});
-
-		// 加载用户信息
-		buildUsers(rets, uids);
-		buildGroups(rets, groupIds);
-
-		// 加载资源
-		buildResource(rets);
-
-		return rets;
-	}
-
-	private void buildResource(Collection<PostVO> posts) {
-		posts.forEach(post -> {
-			buildResource(post);
-		});
-	}
-
-	private void buildResource(PostVO post) {
-		if(StringUtils.isEmpty(post.getThumbnailCode())){
-			return;
-		}
-
-		ResourceBO resourceBO = resourceService.findByThumbnailCode(post.getThumbnailCode());
-		if(resourceBO == null){
-			return;
-		}
-
-		post.setResource(resourceBO);
-		post.setThumbnail(resourceBO.getPath());
-	}
-
-	private void buildUsers(Collection<PostVO> posts, Set<Long> uids) {
-		Map<Long, UserBO> userMap = userService.findMapByIds(uids);
-		posts.forEach(p -> p.setAuthor(userMap.get(p.getAuthorId())));
-	}
-
-	private void buildGroups(Collection<PostVO> posts, Set<Integer> groupIds) {
-		Map<Integer, ChannelVO> map = channelService.findMapByIds(groupIds);
-		posts.forEach(p -> p.setChannel(map.get(p.getChannelId())));
-	}
-
-	/**
-	 * 截取文章内容
-	 * @param text
-	 * @return
-	 */
-	private String trimSummary(String editor, final String text){
-		if (Consts.EDITOR_MARKDOWN.endsWith(editor)) {
-			return PreviewTextUtils.getText(MarkdownUtils.renderMarkdown(text), 126);
-		} else {
-			return PreviewTextUtils.getText(text, 126);
-		}
-	}
-
-	private void onPushEvent(PostBO postBO, int action) {
-		PostUpdateEvent event = new PostUpdateEvent(System.currentTimeMillis());
-		event.setPostId(postBO.getId());
-		event.setUserId(postBO.getAuthorId());
-		event.setAction(action);
-
-		event.setArticleBlogId(postBO.getArticleBlogId());
-
-		applicationContext.publishEvent(event);
-	}
 
 }

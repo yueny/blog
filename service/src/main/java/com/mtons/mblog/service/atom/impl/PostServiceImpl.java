@@ -14,6 +14,7 @@ import com.google.common.collect.Sets;
 import com.mtons.mblog.base.enums.BlogFeaturedType;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.ResourceBO;
+import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.service.atom.*;
 import com.mtons.mblog.service.exception.MtonsException;
 import com.mtons.mblog.service.util.BeanMapUtils;
@@ -141,10 +142,15 @@ public class PostServiceImpl extends BaseService implements PostService {
 
 		List<Post> list = postRepository.findAllById(ids);
 
+		HashSet<Long> uids = new HashSet<>();
 		Map<Long, PostBO> rets = new HashMap<>();
 		list.forEach(po -> {
+			uids.add(po.getAuthorId());
 			rets.put(po.getId(), map(po, PostBO.class));
 		});
+
+		// 加载用户信息
+		buildUsers(rets.values(), uids);
 
 		return rets;
 	}
@@ -184,6 +190,8 @@ public class PostServiceImpl extends BaseService implements PostService {
 		if (po.isPresent()) {
 			PostBO d = BeanMapUtils.copy(po.get());
 
+			// 加载用户信息
+			buildUsers(Lists.newArrayList(d), Sets.newHashSet(d.getAuthorId()));
 			// 加载资源信息
 			buildResource(d);
 
@@ -201,6 +209,8 @@ public class PostServiceImpl extends BaseService implements PostService {
 
 		PostBO d = map(po, PostBO.class);
 
+		// 加载用户信息
+		buildUsers(Lists.newArrayList(d), Sets.newHashSet(d.getAuthorId()));
 		// 加载资源信息
 		buildResource(d);
 
@@ -349,12 +359,27 @@ public class PostServiceImpl extends BaseService implements PostService {
 
 		posts.forEach(po -> {
 			PostBO postBO = BeanMapUtils.copy(po);
+
+			buildUsers(postBO, postBO.getUid());
 			// 加载资源信息
 			buildResource(postBO);
 			list.add(postBO);
 		});
 
 		return list;
+	}
+
+	private void buildUsers(PostBO post, String uid) {
+		UserBO userBo = userService.get(uid);
+		if(userBo != null){
+			userBo.setPassword("");
+			post.setAuthor(userBo);
+		}
+	}
+
+	private void buildUsers(Collection<PostBO> posts, Set<Long> uids) {
+		Map<Long, UserBO> userMap = userService.findMapByIds(uids);
+		posts.forEach(p -> p.setAuthor(userMap.get(p.getAuthorId())));
 	}
 
 	private void buildResource(Collection<PostBO> posts) {
@@ -372,7 +397,6 @@ public class PostServiceImpl extends BaseService implements PostService {
 		if(resourceBO == null){
 			return;
 		}
-
 		post.setThumbnail(resourceBO.getPath());
 	}
 }

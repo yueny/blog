@@ -95,7 +95,7 @@ public class PostBO extends AbstractMaskBo implements IBo, Serializable {
 	private String thumbnailCode;
 
 
-	// 扩展
+	//////////////////////// 扩展字段
 	/**
 	 * 预览图
 	 */

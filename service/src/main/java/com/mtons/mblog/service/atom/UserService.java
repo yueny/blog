@@ -35,6 +35,12 @@ public interface UserService {
 	 */
 	Page<UserBO> paging(Pageable pageable, String name);
 
+
+	/**
+	 * 根据用户主键列表查询用户信息列表
+	 * @param ids
+	 * @return
+	 */
 	Map<Long, UserBO> findMapByIds(Set<Long> ids);
 
 	/**

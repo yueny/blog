@@ -8,7 +8,6 @@ import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.service.util.BeanMapUtils;
 import com.mtons.mblog.bo.ChannelVO;
 import com.mtons.mblog.bo.PostBO;
-import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.service.atom.PostService;
 import com.mtons.mblog.service.atom.ChannelService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
@@ -40,8 +39,6 @@ import java.util.Set;
  */
 @Component
 public class ContentsDirective extends TemplateDirective {
-    @Autowired
-    private PostManagerService postManagerService;
     @Autowired
     private PostService postService;
     @Autowired
