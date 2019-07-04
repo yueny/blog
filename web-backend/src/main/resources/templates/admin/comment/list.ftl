@@ -23,14 +23,15 @@
                         <input type="hidden" name="pageNo" value="${page.number + 1}"/>
                     </form>
                     <div class="table-responsive">
-                        <table id="dataGrid" class="table table-striped table-bordered">
+                        <table id="dataGrid" class="table table-striped table-bordered"
+                               style="word-break:break-all; word-wrap:break-all;">
                             <thead>
                             <tr>
                                 <th width="50"><input type="checkbox" class="checkall"></th>
-                                <th width="80">#</th>
-                                <th>内容</th>
-                                <th>目标pid</th>
-                                <th>作者</th>
+                                <th width="80">博文名</th>
+                                <th>评论内容</th>
+                                <th>评论作者</th>
+                                <th>被回复内容</th>
                                 <th>发表/回复日期</th>
                                 <th width="50">操作</th>
                             </tr>
@@ -41,15 +42,29 @@
                                     <td>
                                         <input type="checkbox" name="id" value="${row.id}">
                                     </td>
-                                    <td>${row.id}</td>
-                                    <td>${row.content}</td>
-                                    <#-- 目标pid -->
                                     <td>
-                                        ${row.pid}
-                                        跳转:
-                                        <a href="${base}/post/${row.postId}.html" target="_blank">go!</a>
+                                        「
+                                        <a href="${base}/article/${row.articleBlogId}.html" target="_blank">
+                                            <span class="small">${row.post.title}</span>
+                                        </a>
+                                        」
                                     </td>
-                                    <td>${row.author.username}</td>
+                                    <td>${row.content}</td>
+                                    <td>
+                                        <#if row.uid == 'guest'>
+                                            <span class="text-muted">匿名/${row.clientIp}/${row.clientAgent}</span>
+                                        <#else>
+                                            <span class="text-info">${row.author.username}/${row.author.name}</span>
+                                        </#if>
+                                    </td>
+                                    <td>
+                                        <#-- 回复的评论内容 -->
+                                        <#if row.pid == 0>
+                                            /
+                                        <#else>
+                                            <span class="small">${row.parent.content}</span>
+                                        </#if>
+                                    </td>
                                     <td>${row.created?string('yyyy-MM-dd')}</td>
                                     <td>
                                         <a href="javascript:void(0);" class="btn btn-xs btn-primary" data-id="${row.id}"

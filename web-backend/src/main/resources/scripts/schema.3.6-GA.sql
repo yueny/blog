@@ -56,6 +56,8 @@ alter table `mto_post` add column thumbnail_code varchar(128)  DEFAULT '' COMMEN
 alter table mto_post drop column thumbnail;
 
 --  ok
+alter table `mto_comment` add column article_blog_id varchar(64) NOT NULL DEFAULT '' COMMENT '文章扩展ID' after `post_id`;
+
 
 
 -- -- 默认配置表

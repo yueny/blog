@@ -49,18 +49,26 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 	@Override
 	public Page<CommentVO> paging4Admin(Pageable pageable) {
 		Page<Comment> page = commentRepository.findAll(pageable);
-		List<CommentVO> rets = new ArrayList<>();
 
-		HashSet<Long> uids= new HashSet<>();
+		List<CommentVO> commentList = new ArrayList<>();
+		Set<Long> parentCommentIds = new HashSet<>();
+		HashSet<Long> authorIds= new HashSet<>();
+		Set<Long> postIds = new HashSet<>();
+		page.getContent().forEach(comment -> {
+			if (comment.getPid() > 0) {
+				parentCommentIds.add(comment.getPid());
+			}
 
-		page.getContent().forEach(po -> {
-			uids.add(po.getAuthorId());
-			rets.add(BeanMapUtils.copy(po));
+			authorIds.add(comment.getAuthorId());
+			commentList.add(BeanMapUtils.copy(comment));
+			postIds.add(comment.getPostId());
 		});
 
-		buildUsers(rets, uids);
+		buildUsers(commentList, authorIds);
+		buildParent(commentList, parentCommentIds);
+		buildPosts(commentList, postIds);
 
-		return new PageImpl<>(rets, pageable, page.getTotalElements());
+		return new PageImpl<>(commentList, pageable, page.getTotalElements());
 	}
 
 	@Override
@@ -69,7 +77,7 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 
 		List<CommentVO> rets = new ArrayList<>();
 		Set<Long> parentIds = new HashSet<>();
-		Set<Long> uids = new HashSet<>();
+		Set<Long> authorIds = new HashSet<>();
 		Set<Long> postIds = new HashSet<>();
 
 		page.getContent().forEach(po -> {
@@ -79,7 +87,7 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 			if (c.getPid() > 0) {
 				parentIds.add(c.getPid());
 			}
-			uids.add(c.getAuthorId());
+			authorIds.add(c.getAuthorId());
 			postIds.add(c.getPostId());
 
 			rets.add(c);
@@ -88,7 +96,7 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 		// 加载父节点
 		buildParent(rets, parentIds);
 
-		buildUsers(rets, uids);
+		buildUsers(rets, authorIds);
 		buildPosts(rets, postIds);
 
 		return new PageImpl<>(rets, pageable, page.getTotalElements());
@@ -98,27 +106,27 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 	public Page<CommentVO> pagingByPostId(Pageable pageable, long postId) {
 		Page<Comment> page = commentRepository.findAllByPostId(pageable, postId);
 		
-		List<CommentVO> rets = new ArrayList<>();
-		Set<Long> parentIds = new HashSet<>();
-		Set<Long> uids = new HashSet<>();
+		List<CommentVO> commentList = new ArrayList<>();
+		Set<Long> parentCommentIds = new HashSet<>();
+		Set<Long> authorIds = new HashSet<>();
 
-		page.getContent().forEach(po -> {
-			CommentVO c = map(po, CommentVO.class);
+		page.getContent().forEach(comment -> {
+			CommentVO c = map(comment, CommentVO.class);
 
 			if (c.getPid() > 0) {
-				parentIds.add(c.getPid());
+				parentCommentIds.add(c.getPid());
 			}
-			uids.add(c.getAuthorId());
+			authorIds.add(c.getAuthorId());
 
-			rets.add(c);
+			commentList.add(c);
 		});
 
 		// 加载父节点
-		buildParent(rets, parentIds);
+		buildParent(commentList, parentCommentIds);
 
-		buildUsers(rets, uids);
+		buildUsers(commentList, authorIds);
 
-		return new PageImpl<>(rets, pageable, page.getTotalElements());
+		return new PageImpl<>(commentList, pageable, page.getTotalElements());
 	}
 
 	@Override
@@ -128,14 +136,14 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 		Page<Comment> page = commentRepository.findAll(pageable);
 		List<CommentVO> rets = new ArrayList<>();
 
-		HashSet<Long> uids= new HashSet<>();
+		HashSet<Long> authorIds= new HashSet<>();
 
 		page.getContent().forEach(po -> {
-			uids.add(po.getAuthorId());
+			authorIds.add(po.getAuthorId());
 			rets.add(BeanMapUtils.copy(po));
 		});
 
-		buildUsers(rets, uids);
+		buildUsers(rets, authorIds);
 		return rets;
 	}
 
@@ -143,14 +151,14 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 	public Map<Long, CommentVO> findByIds(Set<Long> ids) {
 		List<Comment> list = commentRepository.findAllById(ids);
 		Map<Long, CommentVO> ret = new HashMap<>();
-		Set<Long> uids = new HashSet<>();
+		Set<Long> authorIds = new HashSet<>();
 
 		list.forEach(po -> {
-			uids.add(po.getAuthorId());
+			authorIds.add(po.getAuthorId());
 			ret.put(po.getId(), BeanMapUtils.copy(po));
 		});
 
-		buildUsers(ret.values(), uids);
+		buildUsers(ret.values(), authorIds);
 		return ret;
 	}
 
@@ -215,8 +223,8 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 		return commentRepository.countByAuthorIdAndPostId(authorId, toId);
 	}
 
-	private void buildUsers(Collection<CommentVO> comments, Set<Long> uids) {
-		Map<Long, UserBO> userMap = userService.findMapByIds(uids);
+	private void buildUsers(Collection<CommentVO> comments, Set<Long> authorIds) {
+		Map<Long, UserBO> userMap = userService.findMapByIds(authorIds);
 
 		comments.forEach(comment -> {
 			if(!comment.getCommitAuthoredType().isAuthor()){
@@ -243,13 +251,15 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 		});
 	}
 
-	private void buildParent(Collection<CommentVO> comments, Set<Long> parentIds) {
-		if (!parentIds.isEmpty()) {
-			Map<Long, CommentVO> pm = findByIds(parentIds);
+	private void buildParent(Collection<CommentVO> comments, Set<Long> parentCommentIds) {
+		if (!parentCommentIds.isEmpty()) {
+			Map<Long, CommentVO> pm = findByIds(parentCommentIds);
 
 			comments.forEach(c -> {
 				if (c.getPid() > 0) {
 					c.setParent(pm.get(c.getPid()));
+				}else{
+					c.setParent(CommentVO.builder().build());
 				}
 			});
 		}

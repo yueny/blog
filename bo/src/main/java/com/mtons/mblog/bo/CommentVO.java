@@ -23,6 +23,9 @@ import java.util.Date;
  */
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class CommentVO extends AbstractMaskBo implements IBo, Serializable {
 
 	private long id;
@@ -35,7 +38,12 @@ public class CommentVO extends AbstractMaskBo implements IBo, Serializable {
 	/**
 	 * 所属博文的ID
 	 */
+	@Deprecated
 	private long postId;
+	/**
+	 * 文章扩展ID
+	 */
+	private String articleBlogId;
 
 	/**
 	 * 评论内容

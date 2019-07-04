@@ -16,6 +16,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
+import org.hibernate.search.annotations.Field;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -58,6 +59,12 @@ public class Comment implements IEntry {
      */
     @Column(name = "post_id")
     private long postId;
+    /**
+     * 文章编号扩展ID
+     */
+    @Field
+    @Column(name = "article_blog_id", length = 64)
+    private String articleBlogId;
 
     /**
      * 评论内容

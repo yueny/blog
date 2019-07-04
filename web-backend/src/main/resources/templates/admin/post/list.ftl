@@ -36,7 +36,8 @@
                         <button type="submit" class="btn btn-default">查询</button>
                     </form>
                     <div class="table-responsive">
-                        <table id="dataGrid" class="table table-striped table-bordered">
+                        <table id="dataGrid" class="table table-striped table-bordered"
+                               style="word-break:break-all; word-wrap:break-all;">
                             <thead>
                             <tr>
                                 <th width="30"><input type="checkbox" class="checkall"></th>

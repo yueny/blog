@@ -17,6 +17,7 @@ import com.mtons.mblog.bo.CommentVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +38,11 @@ public class CommentController extends BaseController {
 	
 	@RequestMapping("/list")
 	public String list(ModelMap model) {
-		Pageable pageable = wrapPageable();
+		Sort sort = Sort.by(
+				new Sort.Order(Sort.Direction.DESC, "created")
+		);
+
+		Pageable pageable = wrapPageable(sort);
 		Page<CommentVO> page = commentService.paging4Admin(pageable);
 		model.put("page", page);
 		return "/admin/comment/list";
