@@ -85,55 +85,27 @@
 					</#if>
 
 					<#list channels as row>
-                        <#--  是否为叶子节点。1为是叶子节点，0为不是叶子节点(存在后续分支) isLeaf -->
-                        <#--
                         <#if row.nodeType?? && row.nodeType.isLeaf == 1>
                             <li>
                                 <a href="${base}/channel/${row.flag}" nav="${row.name}">${row.name}</a>
                             </li>
                         <#else>
-                            <li class="dropdown">
-                                <a href="${base}/channel/${row.flag}" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                   aria-expanded="false">
-                                    ${row.name}
-                                    <b class="caret"></b>
-                                </a>
-
-                                <ul class="dropdown-menu">
-                                    <#if row.children??>
-                                        <#list row.children as cc>
-                                            <li><a href="${base}/channel/${cc.flag}" nav="${cc.name}">${cc.name}</a href="${base}/channel/${cc.flag}"></li>
-                                        </#list>
-                                    <#else>
-                                        <li role="presentation" class="dropdown-header">无</li>
-                                    </#if>
+                            <#-- 菜单模式 -->
+                            <li class="current-menu-item">
+                                <a href="${base}/channel/${row.flag}" class="sf-with-ul">${row.name}</a>
+                                <ul class="sf-menu" style="display: none;">
+                                    <li class="current">
+                                        <a href="#">nothing</a>
+                                    </li>
+                                    <#--
+                                    <li>
+                                        <a href="h">产品增长</a>
+                                    </li>
+                                    <li><a href="h">增长模式</a></li>
+                                    -->
                                 </ul>
                             </li>
                         </#if>
-                          -->
-                        <#if row.nodeType?? && row.nodeType.isLeaf == 1>
-                            <li>
-                                <a href="${base}/channel/${row.flag}" nav="${row.name}">${row.name}</a>
-                            </li>
-                        <#else>
-                            <li>
-                                <a href="${base}/channel/${row.flag}" nav="${row.name}"
-                                   t="popover" data-placement="bottom"
-                                   data-content="
-                                        <#if row.children??>
-                                            <#list row.children as cc>
-                                                ${cc.name}
-                                                <#if cc_has_next>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</#if>
-                                            </#list>
-                                        <#else>
-                                            无
-                                        </#if>
-                                        ">
-                                 ${row.name}
-                                 </a>
-                            </li>
-                        </#if>
-
 					</#list>
 
                     <li>
@@ -145,8 +117,10 @@
                     <li view="search" class="hidden-xs hidden-sm">
                         <form method="GET" action="${base}/search" accept-charset="UTF-8" class="navbar-form navbar-left">
                             <div class="form-group">
-                                <input class="form-control search-input mac-style" placeholder="搜索" name="kw" type="text" value="${kw}">
-                                <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
+                                <input class="form-control search-input mac-style" placeholder="搜索"
+                                       name="kw" type="text" value="${kw}">
+                                <button class="search-btn" type="submit">
+                                    <i class="fa fa-search"></i></button>
                             </div>
                         </form>
                     </li>
@@ -154,8 +128,7 @@
                     <#if profile??>
                         <@controls name="post">
                             <li>
-                                <a href="${base}/post/editing" class="plus"
-                                   data-toggle="popover" data-placement="bottom" data-content="写文章">
+                                <a href="${base}/post/editing" class="plus">
                                     <i class="icon icon-note"></i>
                                     写文章
                                 </a>
@@ -231,18 +204,12 @@
     });
 </script>
 
-<script language="JavaScript">
-    $("[t='popover']").on("click mouseenter",function(e){
-        e.stopPropagation();
-        var $this=$(this);
-        $this.popover("show");
-        $(document).one("click",function(){
-            $this.popover("hide");
+<script>
+    (function($){ //create closure so we can safely use $ as alias for jQuery
+        $(document).ready(function(){
+            jQuery('ul.sf-menu').superfish();
         });
-        $(".popover").on("click",function(e){
-            e.stopPropagation();
-        });
-    });
+    })(jQuery);
 </script>
 
 <!-- Header END -->

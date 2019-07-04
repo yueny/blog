@@ -190,11 +190,13 @@
             post_url: '${base}/comment/submit',
             toId: '${view.id}',
             onLoad: function (i, data) {
-                var content = data.content;
+                var comment = data;
 
+                // 留言内容  comment.clientAgent
+                var content = comment.content;
                 var quoto = '';
-                if (data.pid > 0 && !(data.parent === null)) {
-                    var pat = data.parent;
+                if (comment.pid > 0 && !(comment.parent === null)) {
+                    var pat = comment.parent;
                     var pcontent = pat.content;
 
                     /* 回复的超链接和图标样式 */

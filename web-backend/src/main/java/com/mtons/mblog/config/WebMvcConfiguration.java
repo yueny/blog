@@ -35,7 +35,9 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         registry.addInterceptor(baseInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/dist/**", "/store/**", "/static/**");
-        registry.addInterceptor(userAgentResolverHandlerInterceptor());
+
+        registry.addInterceptor(userAgentResolverHandlerInterceptor())
+                .addPathPatterns("/**");
     }
 
     @Override

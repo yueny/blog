@@ -26,6 +26,8 @@ spring:
             max-file-size: 10MB
             max-request-size: 10MB
     freemarker:
+        # ftlh转义html,ftlx转义xml
+        suffix: .ftl
         template-loader-path:
         - classpath:/templates
         - file:${site.location}/storage/templates
@@ -33,6 +35,8 @@ spring:
         check-template-location: true
         charset: utf-8
         settings:
+            # 如果不设置,转义不生效
+            recognize_standard_file_extensions: true
             classic_compatible: true #处理空值
             template_exception_handler: rethrow
             template_update_delay: 0

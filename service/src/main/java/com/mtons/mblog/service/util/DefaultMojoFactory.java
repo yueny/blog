@@ -3,6 +3,7 @@ package com.mtons.mblog.service.util;
 import com.mtons.mblog.base.consts.BlogConstant;
 import com.mtons.mblog.base.enums.AuthoredType;
 import com.mtons.mblog.bo.CommentVO;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * <code>
@@ -13,10 +14,10 @@ import com.mtons.mblog.bo.CommentVO;
  * @DATE 2019/6/21 上午10:34
  */
 public class DefaultMojoFactory {
-    public static CommentVO.UserCommentModel guestCommentGet(String clientIp){
+    public static CommentVO.UserCommentModel guestCommentGet(String clientIp, String clientAgent){
         // 存在访客评论的评论信息
         CommentVO.UserCommentModel uc = CommentVO.UserCommentModel.builder()
-                .name(clientIp)
+                .name(StringUtils.isEmpty(clientAgent) ? clientIp : clientIp + "/" + clientAgent)
                 .avatar("")
                 .domainHack("guest")
                 .uid(BlogConstant.DEFAULT_GUEST_U_ID)

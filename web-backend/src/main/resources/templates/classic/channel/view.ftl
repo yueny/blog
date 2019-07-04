@@ -7,6 +7,14 @@
 <@layout title>
 <div class="row main">
     <div class="col-xs-12 col-md-9 side-left topics-show">
+        <#--
+        导航条
+        <ol class="breadcrumb">
+            <li><a href="${base}/">首页</a></li>
+            <li class="active">${view.title}</li>
+        </ol>
+        -->
+
         <!-- view show -->
         <div class="topic panel panel-default">
             <div class="infos panel-heading">
@@ -200,12 +208,15 @@
             post_url: '${base}/comment/submit',
             toId: '${view.id}',
             onLoad: function (i, data) {
-                // 留言内容
-                var content = data.content;
+                var comment = data;
+
+                // 留言内容  comment.clientAgent
+                var content = comment.content;
                 var quoto = '';
-                if (data.pid > 0 && !(data.parent === null)) {
-                    var pat = data.parent;
+                if (comment.pid > 0 && !(comment.parent === null)) {
+                    var pat = comment.parent;
                     var pcontent = pat.content;
+                    
                     /* 回复的超链接和图标样式 */
                     if(pat.author.commitAuthoredType == 'AUTHORED'){
                         quoto = '<div class="quote"><a href="${base}/users/' + pat.author.domainHack + '">@' + pat.author.name + '</a>: ' + pcontent + '</div>';

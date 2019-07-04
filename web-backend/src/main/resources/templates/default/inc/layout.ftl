@@ -40,12 +40,18 @@
     <link href="${base}/dist/vendors/simple-line-icons/css/simple-line-icons.css" rel="stylesheet"/>
     <link href="${base}/dist/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
 
+    <!-- link to the CSS files for this menu type -->
+    <link media="screen" href="${base}/dist/vendors/superfish/css/superfish.css" rel="stylesheet">
+
     <script src="${base}/dist/vendors/pace/pace.min.js"></script>
 
     <script src="${base}/dist/js/jquery.min.js"></script>
     <script src="${base}/dist/vendors/layer/layer.js"></script>
     <script src="${base}/dist/vendors/bootstrap/js/bootstrap.min.js"></script>
 
+    <!-- link to the JavaScript files (hoverIntent is optional) -->
+    <script src="${base}/dist/vendors/superfish/js/hoverIntent.js"></script>
+    <script src="${base}/dist/vendors/superfish/js/superfish.js"></script>
     <script src="${base}/dist/vendors/qiaoJs/qiao.js"></script>
 
     <script type="text/javascript">
@@ -81,6 +87,7 @@
 
 <!-- footer -->
 <#include "/default/inc/footer.ftl"/>
+
 
 </body>
 </html>

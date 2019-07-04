@@ -16,6 +16,7 @@ import com.mtons.mblog.service.atom.CommentService;
 import com.mtons.mblog.service.atom.PostService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.yueny.rapid.lang.agent.UserAgentResource;
+import com.yueny.rapid.lang.agent.handler.UserAgentUtils;
 import com.yueny.rapid.lang.util.IpUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +67,7 @@ public class CommentController extends BaseController {
      * @return
      */
     @RequestMapping("/submit")
-    public Result post(Long toId, String text, HttpServletRequest request, UserAgentResource clientUserAgent) {
+    public Result post(Long toId, String text, HttpServletRequest request) {
         // 未登录且不允许匿名提交是否允许匿名提交评论功能, 如果允许, 则校验通过
         if (!isAuthenticated() && !controlsService.getControls().isCommentAllowAnonymous()) {
             return Result.failure("请先登录在进行操作");
@@ -99,11 +100,13 @@ public class CommentController extends BaseController {
         String clientIp = IpUtil.getClientIp(request);
         c.setClientIp(clientIp);
 
-        // 如果允许匿名评论且 authorId 为空或者未登录, 则取 clientUserAgent
-        String clentAgent = "";
-        // TODO clentAgent值 为null
-        clientUserAgent.getBrowser();
-        c.setClientAgent(clentAgent);
+        // UserAgentUtils
+        UserAgentResource userAgent = (UserAgentResource)request.getAttribute("currentUserAgentResource");
+        if(userAgent != null){
+            // 如果允许匿名评论且 authorId 为空或者未登录, 则取 clientUserAgent
+            String clentAgent = userAgent.getBrowser().getName() + "/" + userAgent.getOperatingSystem().getName();
+            c.setClientAgent(clentAgent);
+        }
 
         commentService.post(c);
 

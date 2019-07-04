@@ -215,22 +215,23 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 		return commentRepository.countByAuthorIdAndPostId(authorId, toId);
 	}
 
-	private void buildUsers(Collection<CommentVO> posts, Set<Long> uids) {
+	private void buildUsers(Collection<CommentVO> comments, Set<Long> uids) {
 		Map<Long, UserBO> userMap = userService.findMapByIds(uids);
 
-		posts.forEach(post -> {
-			if(!post.getCommitAuthoredType().isAuthor()){
+		comments.forEach(comment -> {
+			if(!comment.getCommitAuthoredType().isAuthor()){
 				// 存在访客评论的评论信息
-				post.setAuthor(DefaultMojoFactory.guestCommentGet(post.getClientIp()));
+				CommentVO.UserCommentModel author = DefaultMojoFactory.guestCommentGet(comment.getClientIp(), comment.getClientAgent());
+				comment.setAuthor(author);
 				return;
 			}
 
-			UserBO userBO = userMap.get(post.getAuthorId());
+			UserBO userBO = userMap.get(comment.getAuthorId());
 			if (userBO == null) {
 				return;
 			}
 			CommentVO.UserCommentModel uc = mapAny(userBO, CommentVO.UserCommentModel.class);
-			post.setAuthor(uc);
+			comment.setAuthor(uc);
 		});
 	}
 
