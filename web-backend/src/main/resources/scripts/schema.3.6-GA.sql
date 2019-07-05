@@ -55,9 +55,9 @@ alter table mto_channel drop column thumbnail;
 alter table `mto_post` add column thumbnail_code varchar(128)  DEFAULT '' COMMENT '图片资源编号' after thumbnail;
 alter table mto_post drop column thumbnail;
 
---  ok
 alter table `mto_comment` add column article_blog_id varchar(64) NOT NULL DEFAULT '' COMMENT '文章扩展ID' after `post_id`;
 
+--  ok
 
 
 -- -- 默认配置表
