@@ -101,7 +101,7 @@ public class CommentController extends BaseController {
         c.setClientIp(clientIp);
 
         // UserAgentUtils
-        UserAgentResource userAgent = (UserAgentResource)request.getAttribute("currentUserAgentResource");
+        UserAgentResource userAgent = (UserAgentResource)request.getAttribute(UserAgentUtils.CURRENT_USERAGENT_ATTRIBUTE);
         if(userAgent != null){
             // 如果允许匿名评论且 authorId 为空或者未登录, 则取 clientUserAgent
             String clentAgent = userAgent.getBrowser().getName() + "/" + userAgent.getOperatingSystem().getName();

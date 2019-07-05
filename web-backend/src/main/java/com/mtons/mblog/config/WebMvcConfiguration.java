@@ -2,6 +2,7 @@ package com.mtons.mblog.config;
 
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.mtons.mblog.web.interceptor.BaseInterceptor;
+import com.mtons.mblog.web.interceptor.ViewInterceptor;
 import com.yueny.rapid.lang.agent.UserAgentHandlerMethodArgumentResolver;
 import com.yueny.rapid.lang.agent.handler.UserAgentResolverHandlerInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Autowired
     private BaseInterceptor baseInterceptor;
     @Autowired
+    private ViewInterceptor viewInterceptor;
+
+    @Autowired
     private FastJsonHttpMessageConverter fastJsonHttpMessageConverter;
     @Autowired
     private SiteOptions siteOptions;
@@ -38,6 +42,14 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
         registry.addInterceptor(userAgentResolverHandlerInterceptor())
                 .addPathPatterns("/**");
+
+        registry.addInterceptor(viewInterceptor)
+                .addPathPatterns("/**")
+                .excludePathPatterns("/dist/**",
+                        "/store/**",
+                        "/static/**",
+                        "/theme/**",
+                        "/storage/**");
     }
 
     @Override

@@ -9,13 +9,14 @@
 */
 package com.mtons.mblog.web.interceptor;
 
-import com.mtons.mblog.base.consts.StorageConsts;
-import com.mtons.mblog.model.SiterProfile;
-import com.mtons.mblog.modules.comp.ISiteOptionsGetService;
-import com.mtons.mblog.model.SiteOptionsControlsVO;
+import com.mtons.mblog.bo.ViewLogVO;
 import com.mtons.mblog.modules.hook.interceptor.InterceptorHookManager;
+import com.mtons.mblog.service.manager.IViewLogManagerService;
+import com.yueny.rapid.lang.agent.UserAgentResource;
+import com.yueny.rapid.lang.agent.handler.UserAgentUtils;
+import com.yueny.rapid.lang.util.IpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -23,20 +24,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 
- * 基础拦截器 - 向 request 中添加一些基础变量.
- *
- * 需要注入Spring管理的对象，所以加入spring contexts
- * 
- * @author langhsu
- * 
+ * 浏览拦截器
  */
-@Component
-public class BaseInterceptor extends HandlerInterceptorAdapter {
+@Service
+public class ViewInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	private InterceptorHookManager interceptorHookManager;
 	@Autowired
-	private ISiteOptionsGetService siteOptionsGetService;
+	private IViewLogManagerService viewLogService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -47,19 +42,28 @@ public class BaseInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		request.setAttribute("base", request.getContextPath());
+		try{
+			UserAgentResource userAgent = (UserAgentResource)request.getAttribute(UserAgentUtils.CURRENT_USERAGENT_ATTRIBUTE);
+			StringBuilder clentAgent = new StringBuilder();
+			if(userAgent != null){
+				clentAgent.append(userAgent.getBrowser().getName());
+				clentAgent.append("&");
+				clentAgent.append(userAgent.getBrowserType().getName());
+				clentAgent.append("/");
+				clentAgent.append(userAgent.getOperatingSystem().getName());
+				clentAgent.append("/");
+				clentAgent.append(userAgent.getDeviceType().getName());
+			}
 
-		// 获取站点相关的配置， 不加载数据库配置，故只包含配置中心的配置
-		SiteOptionsControlsVO controlsVo = siteOptionsGetService.getControls();
-
-		// site 配置
-		SiterProfile siterProfile = SiterProfile.builder()
-				.commentAllowAnonymous(controlsVo.isCommentAllowAnonymous())
-				.version(siteOptionsGetService.getVersion())
-				// 用户默认头像路径或地址
-				.userDefaultAvatar(StorageConsts.AVATAR)
-				.build();
-		request.setAttribute("siterProfile", siterProfile);
+			ViewLogVO viewLogVO = ViewLogVO.builder()
+					.clientIp(IpUtil.getClientIp(request))
+					.clientAgent(clentAgent.toString())
+					.resourcePath(request.getRequestURI())
+					.build();
+			viewLogService.record(viewLogVO);
+		} catch(Exception e){
+			e.printStackTrace();
+		}
 
 		interceptorHookManager.postHandle(request,response,handler,modelAndView);
 	}

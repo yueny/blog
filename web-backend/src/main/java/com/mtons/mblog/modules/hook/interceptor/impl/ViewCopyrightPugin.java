@@ -1,6 +1,5 @@
 package com.mtons.mblog.modules.hook.interceptor.impl;
 
-import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.model.PostVO;
 import com.mtons.mblog.modules.hook.interceptor.InterceptorHookSupport;
 import com.mtons.mblog.web.controller.site.ChannelController;

@@ -69,7 +69,7 @@ public class CommentVO extends AbstractMaskBo implements IBo, Serializable {
 	 */
 	private String clientIp;
 	/**
-	 * 客户端ip
+	 * 客户端 agent
 	 */
 	private String clientAgent;
 
