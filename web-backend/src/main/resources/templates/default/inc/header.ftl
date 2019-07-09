@@ -181,6 +181,13 @@
     </div>
 </header>
 
+<script>
+    // very simple to use!
+    $(document).ready(function() {
+        $('.js-activated').dropdownHover();
+    });
+</script>
+
 <script type="text/javascript">
     $(function () {
         $('a[nav]').each(function(){

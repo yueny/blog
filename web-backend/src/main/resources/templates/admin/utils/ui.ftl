@@ -46,6 +46,8 @@
     <script src="${base}/dist/vendors/bootstrap-select/1.13.7/js/i18n/defaults-zh_CN.js"></script>
     <script src="${base}/dist/vendors/bootstrap-switch/js/bootstrap-switch.js"></script>
 
+    <script src='${base}/dist/vendors/bootstrap-hover/twitter-bootstrap-hover-dropdown.min.js'></script>
+
     <script src="${base}/dist/vendors/qiaoJs/qiao.js"></script>
     <script src="${base}/dist/vendors/qiaoJs/qiao.config.js"></script>
 
@@ -124,22 +126,25 @@
                 <li class="header">MENUS</li>
 
                 <li>
-                    <a href="${base}/admin" class="active"><i class="fa fa-dashboard"></i><span>仪表盘</span></a>
+                    <a href="${base}/admin" class=""><i class="fa fa-dashboard"></i><span>仪表盘</span></a>
                 </li>
 
                 <#-- 数据来自于菜单宏， @getName() -->
                 <@menus>
                     <#list results as menu>
+
                         <#-- 含子菜单: 不为空且长度不为0 -->
                         <#if menu.children?? && (menu.children)?size>0>
                             <li class="dropdown">
-                                <a href="#" data-toggle="dropdown">
+                                <a href="#" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-fw fa-plus"> </i>
-                                    ${menu.name} <span class="caret"> </span>
+                                    ${menu.name}
+                                    <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu">
                                     <#list menu.children as children>
-                                        <li>
+                                        <li class="disabled">
                                             <a href="${base}/${children.url}">
                                                 <i class="${children.icon}"></i>
                                                 <span>${children.name}</span>
@@ -149,7 +154,7 @@
                                 </ul>
                             </li>
                         <#else>
-                            <#-- 不含子菜单 -->
+                            <#-- 不含子菜单，一级菜单 -->
                             <li>
                                 <a href="${base}/${menu.url}">
                                     <i class="${menu.icon}"></i>
@@ -157,6 +162,7 @@
                                 </a>
                             </li>
                         </#if>
+
                     </#list>
                 </@menus>
             </ul>

@@ -31,6 +31,7 @@ abstract class BaseEntry implements IEntry {
      * 访问时间
      */
     @CreatedDate
+//    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date created;
 
     /**
@@ -40,6 +41,7 @@ abstract class BaseEntry implements IEntry {
     @Generated(GenerationTime.ALWAYS)
     @Temporal(value = TemporalType.TIMESTAMP)
     @LastModifiedDate
+//    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date updated;
 
 }

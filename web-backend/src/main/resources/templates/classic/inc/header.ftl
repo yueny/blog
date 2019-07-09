@@ -84,6 +84,41 @@
 						</li>
 					</#if>
 
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-hover="dropdown" data-delay="1000">1000ms Delay <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a tabindex="-1" href="#">Why Would</a></li>
+                            <li><a tabindex="-1" href="#">A Home Tab</a></li>
+                            <li><a tabindex="-1" href="#">Have Dropdowns?</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="${base}/users/${profile.domainHack}">默认
+                            <label>
+                                <span class="caret"></span>
+                                <span class="sr-only">切换下拉菜单</span>
+                            </label>
+                        </a>
+                    </li>
+                    <li>
+                        <span>
+                            <a href="${base}/users/${profile.domainHack}">默认111111</a>
+                            <a class=" dropdown-toggle"
+                                    data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">切换下拉菜单</span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">功能</a></li>
+                                <li><a href="#">另一个功能</a></li>
+                                <li><a href="#">其他</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">分离的链接</a></li>
+                            </ul>
+                        </span>
+                    </li>
+
 					<#list channels as row>
                         <#if row.nodeType?? && row.nodeType.isLeaf == 1>
                             <li>
@@ -174,6 +209,13 @@
         </nav>
     </div>
 </header>
+
+<script>
+    // very simple to use!
+    $(document).ready(function() {
+        $('.js-activated').dropdownHover();
+    });
+</script>
 
 <script type="text/javascript">
     $(function () {

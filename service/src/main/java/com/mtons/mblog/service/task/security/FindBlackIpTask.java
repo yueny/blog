@@ -22,12 +22,12 @@ import java.util.Date;
 import java.util.Set;
 
 /**
- * 发现黑名单任务
+ * 发现黑名单任务， attackIpService.save 暂未生效
  *
  * @Author yueny09 <deep_blue_yang@163.com>
  * @Date 2019-07-08 10:57
  */
-@Service
+//@Service
 public class FindBlackIpTask extends AbstractService implements ISecurityAction {
     @Autowired
     private ViewLogService viewLogService;
@@ -45,30 +45,34 @@ public class FindBlackIpTask extends AbstractService implements ISecurityAction 
         logger.info("黑名单ip发现与增加开始执行，执行时间:{}.", new Date());
         DurationTimer timer = new DurationTimer();
 
-        IPage<ViewLogEntry> page = new Page<>(0, 50);
-        LambdaQueryWrapper<ViewLogEntry> queryWrapper = assemblyQueryCondition();
-        IPage<ViewLogEntry> pageResult = viewLogService.page(page, queryWrapper);
+        try{
+            IPage<ViewLogEntry> page = new Page<>(0, 50);
+            LambdaQueryWrapper<ViewLogEntry> queryWrapper = assemblyQueryCondition();
+            IPage<ViewLogEntry> pageResult = viewLogService.page(page, queryWrapper);
 
-        Set<String> attackIps = Sets.newHashSet();
-        if(pageResult.getRecords().isEmpty()){
-            logger.info("一小时内未发现攻击行为.");
-        }else{
-            attackIps.addAll(computer(pageResult, queryWrapper));
-        }
-
-        if(!attackIps.isEmpty()){
-            ConfiguterGetService.getSecurityIpWhite().forEach(ip->{
-                attackIps.remove(ip);
-            });
-        }
-        if(!attackIps.isEmpty()){
-            logger.info("一小时内发现攻击行为：{} 条， ip 明细：{}.", attackIps.size(), attackIps);
-
-            for (String attackIp : attackIps) {
-                AttackIpBo attackIpBo = new AttackIpBo();
-                attackIpBo.setClientIp(attackIp);
-                attackIpService.saveIfAbsent(attackIpBo);
+            Set<String> attackIps = Sets.newHashSet();
+            if(pageResult.getRecords().isEmpty()){
+                logger.info("一小时内未发现攻击行为.");
+            }else{
+                attackIps.addAll(computer(pageResult, queryWrapper));
             }
+
+            if(!attackIps.isEmpty()){
+                ConfiguterGetService.getSecurityIpWhite().forEach(ip->{
+                    attackIps.remove(ip);
+                });
+            }
+            if(!attackIps.isEmpty()){
+                logger.info("一小时内发现攻击行为：{} 条， ip 明细：{}.", attackIps.size(), attackIps);
+
+                for (String attackIp : attackIps) {
+                    AttackIpBo attackIpBo = new AttackIpBo();
+                    attackIpBo.setClientIp(attackIp);
+                    attackIpService.saveIfAbsent(attackIpBo);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
         logger.info("黑名单ip发现与增加执行结束，耗时时间:{} ms.", timer.duration());

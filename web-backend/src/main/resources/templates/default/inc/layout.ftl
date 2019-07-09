@@ -49,9 +49,7 @@
     <script src="${base}/dist/vendors/layer/layer.js"></script>
     <script src="${base}/dist/vendors/bootstrap/js/bootstrap.min.js"></script>
 
-    <!-- link to the JavaScript files (hoverIntent is optional) -->
-    <script src="${base}/dist/vendors/superfish/js/hoverIntent.js"></script>
-    <script src="${base}/dist/vendors/superfish/js/superfish.js"></script>
+    <script src='${base}/dist/vendors/bootstrap-hover/twitter-bootstrap-hover-dropdown.min.js'></script>
     <script src="${base}/dist/vendors/qiaoJs/qiao.js"></script>
 
     <script type="text/javascript">
