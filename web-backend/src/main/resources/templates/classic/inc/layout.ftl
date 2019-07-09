@@ -30,26 +30,22 @@
     <title>${title?default(options['site_name'])}</title>
 
     <link href="${base}/dist/vendors/pace/themes/pace-theme-minimal.css" rel="stylesheet"/>
-    <link href="${base}/dist/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="${base}/dist/vendors/bootstrap/3.3.7.1/css/bootstrap.min.css" rel="stylesheet"/>
 
     <link href="${base}/theme/classic/dist/css/style.css" rel="stylesheet"/>
     <link href="${base}/dist/css/editor.css" rel="stylesheet"/>
     <link href="${base}/dist/css/plugins.css" rel="stylesheet"/>
-    <link href="${base}/dist/css/style.css" rel="stylesheet"/>
 
     <link href="${base}/dist/vendors/simple-line-icons/css/simple-line-icons.css" rel="stylesheet"/>
     <link href="${base}/dist/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
-
-    <!-- link to the CSS files for this menu type -->
-    <link media="screen" href="${base}/dist/vendors/superfish/css/superfish.css" rel="stylesheet">
 
     <script src="${base}/dist/vendors/pace/pace.min.js"></script>
 
     <script src="${base}/dist/js/jquery.min.js"></script>
     <script src="${base}/dist/vendors/layer/layer.js"></script>
-    <script src="${base}/dist/vendors/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${base}/dist/vendors/bootstrap/3.3.7.1/js/bootstrap.min.js"></script>
 
-    <script src='${base}/dist/vendors/bootstrap-hover/twitter-bootstrap-hover-dropdown.min.js'></script>
+    <script src='${base}/dist/vendors/bootstrap-hover/twitter-bootstrap-hover-dropdown.js'></script>
     <script src="${base}/dist/vendors/qiaoJs/qiao.js"></script>
 
     <script type="text/javascript">

@@ -12,7 +12,7 @@
     <link rel="shortcut icon" href="https://static.codealy.com/favicon.ico"/>
 
     <!-- Bootstrap -->
-    <link href="${base}/dist/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${base}/dist/vendors/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="${base}/dist/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- Latest compiled and minified CSS -->
@@ -38,7 +38,7 @@
     <script src="${base}/dist/js/jquery.min.js"></script>
 
     <!-- Bootstrap -->
-    <script src="${base}/dist/vendors/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${base}/dist/vendors/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="${base}/dist/vendors/bootstrap-select/1.13.7/js/bootstrap-select.min.js"></script>
@@ -46,7 +46,7 @@
     <script src="${base}/dist/vendors/bootstrap-select/1.13.7/js/i18n/defaults-zh_CN.js"></script>
     <script src="${base}/dist/vendors/bootstrap-switch/js/bootstrap-switch.js"></script>
 
-    <script src='${base}/dist/vendors/bootstrap-hover/twitter-bootstrap-hover-dropdown.min.js'></script>
+    <script src='${base}/dist/vendors/bootstrap-hover/twitter-bootstrap-hover-dropdown.js'></script>
 
     <script src="${base}/dist/vendors/qiaoJs/qiao.js"></script>
     <script src="${base}/dist/vendors/qiaoJs/qiao.config.js"></script>

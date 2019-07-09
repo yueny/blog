@@ -72,7 +72,7 @@
                 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="${base}/">
+                <a class="navbar-brand" href="${base}">
                     <img src="<@resource src=options['site_logo']/>"/>
                 </a>
             </div>
@@ -84,62 +84,32 @@
 						</li>
 					</#if>
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-hover="dropdown" data-delay="1000">1000ms Delay <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a tabindex="-1" href="#">Why Would</a></li>
-                            <li><a tabindex="-1" href="#">A Home Tab</a></li>
-                            <li><a tabindex="-1" href="#">Have Dropdowns?</a></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a href="${base}/users/${profile.domainHack}">默认
-                            <label>
-                                <span class="caret"></span>
-                                <span class="sr-only">切换下拉菜单</span>
-                            </label>
-                        </a>
-                    </li>
-                    <li>
-                        <span>
-                            <a href="${base}/users/${profile.domainHack}">默认111111</a>
-                            <a class=" dropdown-toggle"
-                                    data-toggle="dropdown">
-                                <span class="caret"></span>
-                                <span class="sr-only">切换下拉菜单</span>
-                            </a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">功能</a></li>
-                                <li><a href="#">另一个功能</a></li>
-                                <li><a href="#">其他</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">分离的链接</a></li>
-                            </ul>
-                        </span>
-                    </li>
-
 					<#list channels as row>
+                        <#--  是否为叶子节点。1为是叶子节点，0为不是叶子节点(存在后续分支) isLeaf  -->
                         <#if row.nodeType?? && row.nodeType.isLeaf == 1>
                             <li>
                                 <a href="${base}/channel/${row.flag}" nav="${row.name}">${row.name}</a>
                             </li>
                         <#else>
                             <#-- 菜单模式 -->
-                            <li class="current-menu-item">
-                                <a href="${base}/channel/${row.flag}" class="sf-with-ul">${row.name}</a>
-                                <ul class="sf-menu" style="display: none;">
-                                    <li class="current">
-                                        <a href="#">nothing</a>
-                                    </li>
-                                    <#--
-                                    <li>
-                                        <a href="h">产品增长</a>
-                                    </li>
-                                    <li><a href="h">增长模式</a></li>
-                                    -->
-                                </ul>
-                            </li>
+                            <#if row.children??>
+                                <li class="dropdown">
+                                    <a href="${base}/channel/${row.flag}" class="dropdown-toggle js-activated"
+                                       aria-haspopup="true" aria-expanded="false">
+                                        ${row.name} <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <#list row.children as cc>
+                                            <li><a href="${base}/channel/${cc.flag}" nav="${cc.name}" tabindex="-1">${cc.name}</a></li>
+                                        </#list>
+                                    </ul>
+                                </li>
+                            <#else>
+                                <#-- 无节点菜单 -->
+                                <li>
+                                    <a href="${base}/channel/${row.flag}" nav="${row.name}">${row.name}</a>
+                                </li>
+                            </#if>
                         </#if>
 					</#list>
 
@@ -211,8 +181,7 @@
 </header>
 
 <script>
-    // very simple to use!
-    $(document).ready(function() {
+    $(function () {
         $('.js-activated').dropdownHover();
     });
 </script>
@@ -244,14 +213,6 @@
             }
         });
     });
-</script>
-
-<script>
-    (function($){ //create closure so we can safely use $ as alias for jQuery
-        $(document).ready(function(){
-            jQuery('ul.sf-menu').superfish();
-        });
-    })(jQuery);
 </script>
 
 <!-- Header END -->

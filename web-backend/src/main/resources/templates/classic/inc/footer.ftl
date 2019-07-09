@@ -35,6 +35,8 @@
         main.init();
     });
 </script>
+
+<#-- 版本号展示的控制 -->
 <script>
     $(function(){
         var tips;
