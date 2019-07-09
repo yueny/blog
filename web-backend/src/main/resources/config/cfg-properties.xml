@@ -26,6 +26,8 @@
         <property name="configs">
             <list>
             	<!-- groupId  dataId -->
+                <value>security, ip-list</value>
+
                 <value>common, redis</value>
                 <value>common, db</value>
 

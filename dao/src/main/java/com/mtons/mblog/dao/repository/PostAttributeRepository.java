@@ -1,6 +1,6 @@
 package com.mtons.mblog.dao.repository;
 
-import com.mtons.mblog.entity.PostAttribute;
+import com.mtons.mblog.entity.jpa.PostAttribute;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

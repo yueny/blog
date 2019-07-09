@@ -2,10 +2,9 @@ package com.mtons.mblog.service;
 
 import com.mtons.mblog.entity.api.IEntry;
 import com.yueny.superclub.api.pojo.IBo;
+import lombok.Getter;
 import org.apache.commons.collections4.CollectionUtils;
 import org.dozer.Mapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
@@ -21,13 +20,10 @@ import java.util.Set;
  *
  * @date 2015年8月9日 下午7:21:34
  */
-public abstract class BaseService {
-	/**
-	 * LoggerUtil available to subclasses.
-	 */
-	protected final Logger logger = LoggerFactory.getLogger(getClass());
+public abstract class BaseService extends AbstractService {
 	/** */
 	@Autowired
+	@Getter
 	private Mapper mapper;
 
 	/**
@@ -108,6 +104,7 @@ public abstract class BaseService {
 		}
 		return targetList;
 	}
+
 	/**
 	 * 将对象实体转换为业务对象, Entry --> Bo
 	 *
@@ -162,5 +159,4 @@ public abstract class BaseService {
 		Assert.notNull(sourceEntry, "映射的实体对象不可为空");
 		return mapper.map(sourceEntry, targetBOClass);
 	}
-
 }

@@ -4,7 +4,7 @@ import com.mtons.mblog.model.PostVO;
 import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.service.util.MarkdownUtils;
 import com.mtons.mblog.bo.DemoVO;
-import com.mtons.mblog.service.atom.DemoService;
+import com.mtons.mblog.service.atom.bao.DemoService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;

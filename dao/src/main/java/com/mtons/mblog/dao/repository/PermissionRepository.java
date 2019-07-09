@@ -1,6 +1,6 @@
 package com.mtons.mblog.dao.repository;
 
-import com.mtons.mblog.entity.Permission;
+import com.mtons.mblog.entity.jpa.Permission;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;

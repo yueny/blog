@@ -9,10 +9,10 @@
 */
 package com.mtons.mblog.web.controller.admin;
 
-import com.mtons.mblog.service.atom.ChannelService;
-import com.mtons.mblog.service.atom.CommentService;
-import com.mtons.mblog.service.atom.PostService;
-import com.mtons.mblog.service.atom.UserService;
+import com.mtons.mblog.service.atom.jpa.ChannelService;
+import com.mtons.mblog.service.atom.jpa.CommentService;
+import com.mtons.mblog.service.atom.jpa.PostService;
+import com.mtons.mblog.service.atom.jpa.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

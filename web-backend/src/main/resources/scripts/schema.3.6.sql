@@ -32,3 +32,14 @@ CREATE TABLE `view_log` (
 
 
 --  ok
+CREATE TABLE `attack_ip` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `deny_time_unit` char(1) DEFAULT 'H' COMMENT '攻击者拒绝单位时间类型',
+  `deny_time_val` bigint(12) DEFAULT 1 COMMENT '攻击者拒绝单位时间值',
+  `client_ip` varchar(255) DEFAULT NULL COMMENT '客户端ip',
+  `created` datetime DEFAULT NULL,
+  `updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `U_CLIENT_IP` (`client_ip`),
+  KEY `IK_CLIENT_IP` (`client_ip`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

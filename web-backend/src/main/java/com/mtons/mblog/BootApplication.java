@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * SprintBootApplication
@@ -13,8 +15,11 @@ import org.springframework.context.annotation.ImportResource;
 @Slf4j
 @SpringBootApplication
 @EnableCaching
+@EnableJpaAuditing
 @ImportResource(locations = { "classpath:/config/cfg-properties.xml",
-        "classpath:/config/spring-jpa.xml"})
+        "classpath:/config/spring-jpa.xml",
+        "classpath:/config/spring-bean.xml"})
+@EnableScheduling
 public class BootApplication {
 
     public static void main(String[] args) {

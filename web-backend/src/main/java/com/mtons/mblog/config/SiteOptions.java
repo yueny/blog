@@ -11,7 +11,7 @@ package com.mtons.mblog.config;
 
 import com.mtons.mblog.config.options.SiteConfigOption;
 import com.mtons.mblog.config.xml.UploadConfigUtil;
-import com.taobao.diamond.extend.DynamicProperties;
+import com.mtons.mblog.service.comp.IConfiguterGetService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -38,7 +38,7 @@ public class SiteOptions extends SiteConfigOption {
      */
     @Getter
     @Setter
-    @Value("${"+SITE_VERSION_KEY+"}")
+    @Value("${"+ IConfiguterGetService.SITE_VERSION_KEY +"}")
     private String version;
 
     /**

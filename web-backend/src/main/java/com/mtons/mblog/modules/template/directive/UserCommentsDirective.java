@@ -5,7 +5,7 @@ package com.mtons.mblog.modules.template.directive;
 
 import com.mtons.mblog.base.consts.BlogConstant;
 import com.mtons.mblog.bo.CommentVO;
-import com.mtons.mblog.service.atom.CommentService;
+import com.mtons.mblog.service.atom.jpa.CommentService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.template.TemplateDirective;
 import org.springframework.beans.factory.annotation.Autowired;

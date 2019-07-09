@@ -1,7 +1,7 @@
 package com.mtons.mblog.dao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.mtons.mblog.entity.UserSecurityEntry;
+import com.mtons.mblog.entity.bao.UserSecurityEntry;
 
 /**
  *

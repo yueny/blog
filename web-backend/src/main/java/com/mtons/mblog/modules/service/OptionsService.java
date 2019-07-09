@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.modules.service;
 
-import com.mtons.mblog.entity.Options;
+import com.mtons.mblog.entity.jpa.Options;
 import org.springframework.core.io.Resource;
 
 import java.util.List;

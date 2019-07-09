@@ -1,6 +1,6 @@
 package com.mtons.mblog.dao.repository;
 
-import com.mtons.mblog.entity.UserRole;
+import com.mtons.mblog.entity.jpa.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

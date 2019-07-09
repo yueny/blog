@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mtons.mblog.service.atom.CommentService;
+import com.mtons.mblog.service.atom.jpa.CommentService;
 
 /**
  * @author langhsu

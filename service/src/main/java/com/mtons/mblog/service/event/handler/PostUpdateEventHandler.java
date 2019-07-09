@@ -1,10 +1,10 @@
 package com.mtons.mblog.service.event.handler;
 
 import com.mtons.mblog.service.event.PostUpdateEvent;
-import com.mtons.mblog.service.atom.CommentService;
-import com.mtons.mblog.service.atom.FavoriteService;
-import com.mtons.mblog.service.atom.MessageService;
-import com.mtons.mblog.service.atom.TagService;
+import com.mtons.mblog.service.atom.jpa.CommentService;
+import com.mtons.mblog.service.atom.jpa.FavoriteService;
+import com.mtons.mblog.service.atom.jpa.MessageService;
+import com.mtons.mblog.service.atom.jpa.TagService;
 import com.mtons.mblog.service.manager.UserEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;

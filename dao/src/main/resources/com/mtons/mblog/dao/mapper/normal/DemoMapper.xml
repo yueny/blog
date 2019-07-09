@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mtons.mblog.dao.mapper.DemoMapper">
 
-    <resultMap id="DetailMap" type="com.mtons.mblog.entity.DemoEntry" extends="ListMap">
+    <resultMap id="DetailMap" type="com.mtons.mblog.entity.bao.DemoEntry" extends="ListMap">
     </resultMap>
 
-    <resultMap id="ListMap" type="com.mtons.mblog.entity.DemoEntry">
+    <resultMap id="ListMap" type="com.mtons.mblog.entity.bao.DemoEntry">
     </resultMap>
 
     <select id="selectByOrderId" resultMap="DetailMap">

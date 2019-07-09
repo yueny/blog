@@ -16,9 +16,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import javax.annotation.PostConstruct;
 import java.util.Map;
@@ -52,21 +50,8 @@ public class SiteConfiguration {
     }
 
     @Bean
-    public TaskExecutor taskExecutor() {
-        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(2);
-        executor.setMaxPoolSize(8);
-        executor.setQueueCapacity(100);
-        executor.setKeepAliveSeconds(60);
-        executor.setThreadNamePrefix("siteConfiguration.logThread-");
-        executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
-        executor.setWaitForTasksToCompleteOnShutdown(true);
-        return executor;
-    }
-
-    @Bean
-    public ListeningExecutorService executorService() {
-        NamedThreadFactory threadFactory = new NamedThreadFactory("siteConfiguration-pool");
+    public ListeningExecutorService commonExecutorService() {
+        NamedThreadFactory threadFactory = new NamedThreadFactory("common-executorService-pool");
 
         ExecutorService es = new MonitorThreadPoolExecutor(2, 8,
                 60L, TimeUnit.MILLISECONDS,
@@ -75,6 +60,15 @@ public class SiteConfiguration {
         ListeningExecutorService executor = MoreExecutors.listeningDecorator(es);
 
         return executor;
+//        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+//        executor.setCorePoolSize(2);
+//        executor.setMaxPoolSize(8);
+//        executor.setQueueCapacity(100);
+//        executor.setKeepAliveSeconds(60);
+//        executor.setThreadNamePrefix("siteConfiguration.logThread-");
+//        executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+//        executor.setWaitForTasksToCompleteOnShutdown(true);
+//        return executor;
     }
 
     @Bean

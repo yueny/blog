@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.dao.repository;
 
-import com.mtons.mblog.entity.Post;
+import com.mtons.mblog.entity.jpa.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

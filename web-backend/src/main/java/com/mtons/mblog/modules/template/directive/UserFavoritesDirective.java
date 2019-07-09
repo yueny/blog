@@ -5,8 +5,8 @@ package com.mtons.mblog.modules.template.directive;
 
 import com.mtons.mblog.bo.FavoriteVO;
 import com.mtons.mblog.bo.UserBO;
-import com.mtons.mblog.service.atom.FavoriteService;
-import com.mtons.mblog.service.atom.UserService;
+import com.mtons.mblog.service.atom.jpa.FavoriteService;
+import com.mtons.mblog.service.atom.jpa.UserService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.template.TemplateDirective;
 import org.springframework.beans.factory.annotation.Autowired;

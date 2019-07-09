@@ -1,6 +1,6 @@
 package com.mtons.mblog.dao.repository;
 
-import com.mtons.mblog.entity.PostTag;
+import com.mtons.mblog.entity.jpa.PostTag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

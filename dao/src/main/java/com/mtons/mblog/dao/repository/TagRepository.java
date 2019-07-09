@@ -1,6 +1,6 @@
 package com.mtons.mblog.dao.repository;
 
-import com.mtons.mblog.entity.Tag;
+import com.mtons.mblog.entity.jpa.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;

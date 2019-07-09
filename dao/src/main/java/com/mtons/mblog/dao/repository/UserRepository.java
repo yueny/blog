@@ -9,8 +9,7 @@
 */
 package com.mtons.mblog.dao.repository;
 
-import com.mtons.mblog.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.mtons.mblog.entity.jpa.User;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

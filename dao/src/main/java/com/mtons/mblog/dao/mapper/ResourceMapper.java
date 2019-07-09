@@ -1,7 +1,7 @@
 package com.mtons.mblog.dao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.mtons.mblog.entity.Resource;
+import com.mtons.mblog.entity.bao.Resource;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;

@@ -33,7 +33,7 @@ public class MailServiceImpl implements MailService {
     @Autowired
     private SiteOptions siteOptions;
     @Autowired
-    private ListeningExecutorService executorService;
+    private ListeningExecutorService commonExecutorService;
 
     @Override
     public void config() {
@@ -65,7 +65,7 @@ public class MailServiceImpl implements MailService {
         String text = render(template, content);
         String from = siteOptions.getValue(OptionsKeysConsts.SITE_NAME);
 
-        ListenableFuture<Future<ThreadEmailEntry>> task = executorService.submit(() -> {
+        ListenableFuture<Future<ThreadEmailEntry>> task = commonExecutorService.submit(() -> {
             Future<ThreadEmailEntry> future = OkEmail.subject(title)
                     .from(from)
                     .to(to)
