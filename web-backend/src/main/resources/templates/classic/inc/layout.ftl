@@ -30,7 +30,7 @@
     <title>${title?default(options['site_name'])}</title>
 
     <link href="${base}/dist/vendors/pace/themes/pace-theme-minimal.css" rel="stylesheet"/>
-    <link href="${base}/dist/vendors/bootstrap/3.3.7.1/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="${base}/dist/vendors/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
 
     <link href="${base}/theme/classic/dist/css/style.css" rel="stylesheet"/>
     <link href="${base}/dist/css/editor.css" rel="stylesheet"/>
@@ -43,7 +43,7 @@
 
     <script src="${base}/dist/js/jquery.min.js"></script>
     <script src="${base}/dist/vendors/layer/layer.js"></script>
-    <script src="${base}/dist/vendors/bootstrap/3.3.7.1/js/bootstrap.min.js"></script>
+    <script src="${base}/dist/vendors/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script src='${base}/dist/vendors/bootstrap-hover/twitter-bootstrap-hover-dropdown.js'></script>
     <script src="${base}/dist/vendors/qiaoJs/qiao.js"></script>
