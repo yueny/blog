@@ -14,6 +14,7 @@ import com.mtons.mblog.modules.hook.interceptor.InterceptorHookManager;
 import com.mtons.mblog.service.manager.IViewLogManagerService;
 import com.yueny.rapid.lang.agent.UserAgentResource;
 import com.yueny.rapid.lang.agent.handler.UserAgentUtils;
+import com.yueny.rapid.lang.json.JsonUtil;
 import com.yueny.rapid.lang.util.IpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,15 +36,9 @@ public class ViewInterceptor extends HandlerInterceptorAdapter {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		interceptorHookManager.preHandle(request, response, handler);
-		return true;
-	}
-
-	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
 		try{
-			UserAgentResource userAgent = (UserAgentResource)request.getAttribute(UserAgentUtils.CURRENT_USERAGENT_ATTRIBUTE);
+			UserAgentResource userAgent = (UserAgentResource)request.getAttribute(
+					UserAgentUtils.CURRENT_USERAGENT_ATTRIBUTE);
 			StringBuilder clentAgent = new StringBuilder();
 			if(userAgent != null){
 				clentAgent.append(userAgent.getBrowser().getName());
@@ -55,6 +50,8 @@ public class ViewInterceptor extends HandlerInterceptorAdapter {
 				clentAgent.append(userAgent.getDeviceType().getName());
 			}
 
+			String method = request.getMethod();
+			String parameterMap = JsonUtil.toJson(request.getParameterMap());
 			ViewLogVO viewLogVO = ViewLogVO.builder()
 					.clientIp(IpUtil.getClientIp(request))
 					.clientAgent(clentAgent.toString())
@@ -65,18 +62,30 @@ public class ViewInterceptor extends HandlerInterceptorAdapter {
 			e.printStackTrace();
 		}
 
+		interceptorHookManager.preHandle(request, response, handler);
+
+		return true;
+	}
+
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+		super.postHandle(request, response, handler, modelAndView);
+
 		interceptorHookManager.postHandle(request,response,handler,modelAndView);
 	}
 
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 		super.afterCompletion(request, response, handler, ex);
+
 		interceptorHookManager.afterCompletion(request, response, handler, ex);
 	}
 
 	@Override
 	public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		super.afterConcurrentHandlingStarted(request, response, handler);
+
 		interceptorHookManager.afterConcurrentHandlingStarted(request, response, handler);
 	}
 

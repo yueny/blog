@@ -4,6 +4,7 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.mtons.mblog.web.interceptor.BaseInterceptor;
 import com.mtons.mblog.web.interceptor.SecurityInterceptor;
 import com.mtons.mblog.web.interceptor.ViewInterceptor;
+import com.mtons.mblog.web.interceptor.limit.RateLimitInterceptor;
 import com.yueny.rapid.lang.agent.UserAgentHandlerMethodArgumentResolver;
 import com.yueny.rapid.lang.agent.handler.UserAgentResolverHandlerInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,9 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author langhsu
@@ -60,6 +63,15 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                         "/static/**",
                         "/theme/**",
                         "/storage/**");
+
+        // 限流
+        registry.addInterceptor(rateLimitInterceptor())
+                .addPathPatterns("/**")
+                .excludePathPatterns("/dist/**",
+                        "/store/**",
+                        "/static/**",
+                        "/theme/**",
+                        "/storage/**");
     }
 
     @Override
@@ -99,6 +111,18 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Bean
     public UserAgentHandlerMethodArgumentResolver userAgentHandlerMethodArgumentResolver() 	{
         return new UserAgentHandlerMethodArgumentResolver();
+    }
+
+    @Bean
+    public RateLimitInterceptor rateLimitInterceptor() 	{
+        RateLimitInterceptor rateLimitInterceptor = new RateLimitInterceptor();
+
+        //限流配置项
+        Map<String, Integer> urlProperties = new HashMap<>();
+//        urlProperties.put("/", 100);
+
+        rateLimitInterceptor.setUrlProperties(urlProperties);
+        return rateLimitInterceptor;
     }
 
 }

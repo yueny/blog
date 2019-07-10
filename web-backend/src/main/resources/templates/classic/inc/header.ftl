@@ -72,7 +72,7 @@
                 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="${base}">
+                <a class="navbar-brand" href="${base}/">
                     <img src="<@resource src=options['site_logo']/>"/>
                 </a>
             </div>

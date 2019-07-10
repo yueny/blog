@@ -1,4 +1,4 @@
-package com.mtons.mblog.config.redis;
+package com.mtons.mblog.service.config.redis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,7 +26,7 @@ import redis.clients.jedis.JedisPoolConfig;
  *
  */
 @Configuration
-@EnableCaching //开启缓存注解
+@EnableCaching //开启缓存注解， 注解 @Cacheable、@CacheEvict、@CachePut
 public class RedisConfiguration {
     @Value("${redis.client.host}")
     private String host;

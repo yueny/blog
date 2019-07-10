@@ -1,11 +1,5 @@
 [
   {
-    "icon": "fa fa-dashboard",
-    "name": "仪表盘",
-    "url": "admin",
-    "permission": "index"
-  },
-  {
     "icon": "fa fa-tags icon-xlarge",
     "name": "栏目管理",
     "url": "admin/channel/list.html",
@@ -47,10 +41,10 @@
     "url": "admin/options/index",
     "permission": "options:index"
   },
-
   {
     "icon": "fa fa-fw fa-plus",
-    "name": "功能配置",
+    "name": "功能配置类",
+    "url": "/none",
     "permission": "func:index",
     "children": [
       {
@@ -69,28 +63,23 @@
   },
   {
     "icon": "fa fa-fw fa-plus",
-    "name": "其他配置1",
-    "permission": "func:index1",
+    "name": "访问记录类",
+    "url": "/none",
+    "permission": "guest:index",
     "children": [
       {
         "icon": "fa fa-fw fa-twitter",
-        "name": "默认值管理111",
-        "url": "admin/func/default/index111",
-        "permission": "func:default:index111"
+        "name": "默认值管理",
+        "url": "admin/func/default/index",
+        "permission": "func:default:index"
       },
       {
         "icon": "fa fa-fw fa-dropbox",
-        "name": "权限值管理xxxxx111",
-        "url": "admin/func/permission/index111",
-        "permission": "func:permission:index111"
+        "name": "权限值管理xxxxx",
+        "url": "admin/func/permission/index",
+        "permission": "func:permission:index"
       }
     ]
-  },
-  {
-    "icon": "fa fa-sun-o icon-xlarge",
-    "name": "系统配置1",
-    "url": "admin/options/index1",
-    "permission": "options:index1"
   }
 
 ]

@@ -20,8 +20,10 @@ $(function () {
         var $this = $(this);
         var href = $this[0].href;
         if (href === page) {
+            // 地址匹配
             $this.closest('li').addClass("active");
         } else if (href.substring(0, href.lastIndexOf('/')) === page.substring(0, page.lastIndexOf('/'))) {
+            // 去除查询条件或返回参数后，地址匹配
             $this.closest('li').addClass("active");
         }
     });
