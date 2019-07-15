@@ -12,6 +12,9 @@ package com.mtons.mblog.service.atom.jpa;
 import com.mtons.mblog.bo.AttackIpBo;
 import com.mtons.mblog.entity.jpa.AttackIpEntry;
 
+import java.util.List;
+import java.util.Set;
+
 /**
  *
  */
@@ -30,6 +33,12 @@ public interface AttackIpService extends IBizService<AttackIpBo, AttackIpEntry>{
      * @return
      */
     AttackIpBo findByIp(String ip);
+
+    /**
+     * 查询所有ip列表
+     * @return 列表
+     */
+    Set<String> findAllIps();
 
     /**
      * 根据ip删除

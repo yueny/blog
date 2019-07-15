@@ -4,8 +4,14 @@ import com.mtons.mblog.bo.AttackIpBo;
 import com.mtons.mblog.dao.repository.AttackIpRepository;
 import com.mtons.mblog.entity.jpa.AttackIpEntry;
 import com.mtons.mblog.service.atom.jpa.AttackIpService;
+import com.yueny.rapid.lang.util.collect.CollectionUtil;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * 攻击者IP信息
@@ -43,6 +49,21 @@ public class AttackIpServiceImpl extends BaseBizService<AttackIpBo, AttackIpEntr
 		Example<AttackIpEntry> example = Example.of(condition);
 
 		return findOne(example);
+	}
+
+	/**
+	 * 查询所有ip列表
+	 * @return 列表
+	 */
+	@Override
+	public Set<String> findAllIps(){
+		List<AttackIpBo> list = findAll();
+
+		if(CollectionUtil.isEmpty(list)){
+			return Collections.emptySet();
+		}
+
+		return list.stream().map(AttackIpBo::getClientIp).collect(Collectors.toSet());
 	}
 
 	// TODO   cache

@@ -63,7 +63,10 @@ public class AttackIpEntry //extends BaseEntry
      * attackDenyTimeUnitType
      */
     @Column(name = "deny_time_unit")
-    private AttackDenyTimeUnitType denyTimeUnit;
+    private String denyTimeUnit;
+    // dozer 完成 AttackIpBo  和 AttackIpEntry 的AttackDenyTimeUnitType转化
+//    private AttackDenyTimeUnitType denyTimeUnit;
+
     /**
      * attackDenyTimeUnitType
      */
