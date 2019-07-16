@@ -169,7 +169,8 @@
                         </@controls>
                     </#if>
                     <li>
-                        <a class="plus">
+                        <a class="plus"
+                           href='mailto:invitations@muzinuo.com'>
                             <i class="tooltip-icon-info glyphicon glyphicon-exclamation-sign"></i>
                         </a>
                     </li>
@@ -203,7 +204,7 @@
             mouseenter:function(){
                 var that = this;
                 tips =layer.tips(
-                    "<span style='color:#000;'>本平台暂时不大面积对外开放，需要注册账户或权限升级问题，请联系邮箱: yueny09@163.com</span>",
+                    "<span style='color:#000;'>本平台暂时不大面积对外开放，需要注册账户或权限升级问题，请联系我。邮箱: invitations@muzinuo.com</span>",
                         that,
                         {tips:[2,'#fff'],time:0,area: 'auto',maxWidth:500}
                 );

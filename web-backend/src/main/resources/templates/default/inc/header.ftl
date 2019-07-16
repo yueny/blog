@@ -172,7 +172,16 @@
                         </@controls>
                     </#if>
                     <li>
-                        <a class="plus">
+                        <#--
+                        mailto为邮件协议开始
+                        接收人 mailto:user1@xxx.com,user11@xxx.com
+                        抄送为 cc=user2@xxx.com,user22@xxx.com
+                        密送为 bcc=user3@xxx.com,user33@xxx.com
+                        邮件主题：subject=这是邮件主题
+                        邮件内容：body=这是邮件内容
+                        -->
+                        <a class="plus"
+                           href='mailto:invitations@muzinuo.com'>
                             <i class="tooltip-icon-info glyphicon glyphicon-exclamation-sign"></i>
                         </a>
                     </li>
@@ -210,7 +219,7 @@
             mouseenter:function(){
                 var that = this;
                 tips =layer.tips(
-                        "<span style='color:#000;'>本平台暂时不大面积对外开放，需要注册账户或权限升级问题，请联系邮箱: yueny09@163.com</span>",
+                        "<span style='color:#000;'>本平台暂时不大面积对外开放，需要注册账户或权限升级问题，请联系我。邮箱: invitations@muzinuo.com</span>",
                         that,
                         {tips:[2,'#fff'],time:0,area: 'auto',maxWidth:500}
                 );

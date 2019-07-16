@@ -71,7 +71,7 @@
         </encoder>
     </appender>
 
-    <appender name="PROFILER-SLOW-LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="SLOWLY-DIGEST" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_HOME}/profiler-slow.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/profiler-slow.log</fileNamePattern>
@@ -91,8 +91,8 @@
         <appender-ref ref="CONSOLE"/>
     </logger>
 
-    <logger name="PACKAGE-DIGEST-LOGGER" level="${LEVEL}" additivity="false">
-        <appender-ref ref="PROFILER-SLOW-LOG"/>
+    <logger name="SLOWLY-DIGEST-LOGGER" level="${LEVEL}" additivity="false">
+        <appender-ref ref="SLOWLY-DIGEST"/>
     </logger>
 
     <!-- 默认日志 -->

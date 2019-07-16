@@ -14,6 +14,8 @@ import com.mtons.mblog.service.comp.impl.ConfiguterGetService;
 import com.yueny.rapid.lang.util.IpUtil;
 import com.yueny.rapid.lang.util.time.DurationTimer;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
@@ -27,11 +29,13 @@ import java.util.Set;
 /**
  * 安全拦截器
  */
-@Slf4j
 @Component
 public class SecurityInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	private AttackIpService attackIpService;
+
+	// logger name
+	private static final Logger log = LoggerFactory.getLogger("SLOWLY-DIGEST-LOGGER");
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
