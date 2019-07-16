@@ -9,13 +9,13 @@
 */
 package com.mtons.mblog.entity.jpa;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.mtons.mblog.entity.api.IEntry;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -39,16 +39,14 @@ public class User implements IEntry, Serializable {
 	private long id;
 
 	/** 表创建时间 */
-	/* 该配置自动创建表 START */
-	@TableField(fill = FieldFill.INSERT)
-	/* 该配置自动创建表 END */
+	@CreatedDate
 	private Date created;
 
 	/** 表修改时间 */
 	@Column(name = "updated", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
 	@Generated(GenerationTime.ALWAYS)
 	@Temporal(value = TemporalType.TIMESTAMP)
-	@TableField(fill = FieldFill.INSERT_UPDATE)
+	@LastModifiedDate
 	private Date updated;
 
 	/**

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 /**
  * @author : langhsu
  */
-@Repository
+//@Repository
 public interface TagRepository extends JpaRepository<Tag, Long>, JpaSpecificationExecutor<Tag> {
     /**
      * 根据name查询tag信息

@@ -20,6 +20,8 @@ public interface IConfiguterGetService {
 	String SITE_CONTROLS_REGISTER_KEY = "site.controls.register";
 	/*  登陆开关是否显示 */
 	String SITE_CONTROLS_LOGIN_SHOW_KEY = "site.controls.login_show";
+	/* 注册开启邮箱验证，配置中心配置 */
+	String SITE_CONTROLS_REGISTER_EMAIL_VALIDATE_KEY = "site.controls.register_email_validate";
 	/* 发布文章开关 */
 	String SITE_CONTROLS_POST_KEY = "site.controls.post";
 	/* 评论开关, true 为允许评论 */

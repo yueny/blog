@@ -12,6 +12,7 @@ package com.mtons.mblog.config;
 import com.mtons.mblog.config.options.SiteConfigOption;
 import com.mtons.mblog.config.xml.UploadConfigUtil;
 import com.mtons.mblog.service.comp.IConfiguterGetService;
+import com.mtons.mblog.service.comp.impl.ConfiguterGetService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -50,10 +51,10 @@ public class SiteOptions extends SiteConfigOption {
 
     /**
      * 控制器配置。
-     * 配置由配置中心 配置项 site.controls.* 和 [application.yml] site:controls:* 加载
+     * 配置由配置中心 配置项 site.controls.* 加载 和 [application.yml] site:controls: 进行controls对象实例化
      */
     @Getter
-    private Controls controls;
+    private Controls controls = new Controls();
 
     /**
      * 属性配置。
@@ -68,7 +69,7 @@ public class SiteOptions extends SiteConfigOption {
      * 默认值配置。
      * 配置由配置中心 配置项 site.settings.* 加载
      */
-    // TODO 此处取值为null， 需要确定原因
+    // TODO 此处取值为null， ConfigurationProperties 未生效，需要确定原因
     @Getter
     @Deprecated
     private Settings settings;
@@ -114,10 +115,11 @@ public class SiteOptions extends SiteConfigOption {
     public static class Controls extends SiteConfigOption.Control {
         @Setter
         private boolean register_email_validate;
-        /* 注册开启邮箱验证，未生效，未实现，配置中心配置 */
-        //protected static final String SITE_CONTROLS_REGISTER_EMAIL_VALIDATE_KEY = "site.controls.register_email_validate";
 
         public boolean isRegister_email_validate() {
+            String val = ConfiguterGetService.get(IConfiguterGetService.SITE_CONTROLS_REGISTER_EMAIL_VALIDATE_KEY);
+            register_email_validate =  Boolean.valueOf(val);
+
             return register_email_validate;
         }
     }

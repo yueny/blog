@@ -99,6 +99,7 @@
     <root level="${LEVEL}">
         <appender-ref ref="ERROR"/>
         <appender-ref ref="DEFAULT"/>
+        <appender-ref ref="CONSOLE"/>
     </root>
 
 </configuration>

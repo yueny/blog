@@ -36,7 +36,6 @@ import java.util.*;
  * 用户服务，该服务提供的对象，密码均为空
  */
 @Service
-@Transactional(readOnly = true)
 public class UserServiceImpl extends BaseService implements UserService {
     @Autowired
     private UserRepository userMapper;

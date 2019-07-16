@@ -73,9 +73,9 @@ logging:
 # site.options.theme: [default|classic]
 site:
     location: ${user.dir}
-    controls:
-        # 注册开启邮箱验证
-        register_email_validate: false
+#       controls:
+        # 注册开启邮箱验证, 配置中心配置
+        # register_email_validate: false
     options:
         theme: classic
         site_logo: /dist/images/logo/logo.png
