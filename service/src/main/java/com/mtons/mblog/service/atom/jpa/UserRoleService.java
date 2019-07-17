@@ -1,6 +1,6 @@
 package com.mtons.mblog.service.atom.jpa;
 
-import com.mtons.mblog.bo.RoleVO;
+import com.mtons.mblog.bo.RoleBO;
 
 import java.util.List;
 import java.util.Map;
@@ -22,14 +22,14 @@ public interface UserRoleService {
      * @param userId 用户ID
      * @return
      */
-    List<RoleVO> listRoles(long userId);
+    List<RoleBO> listRoles(long userId);
 
-    Map<Long, List<RoleVO>> findMapByUserIds(List<Long> userIds);
+    Map<Long, List<RoleBO>> findMapByUserIds(List<Long> userIds);
 
     /**
      * 修改用户角色
      * @param userId 用户ID
      * @param roleIds 要授权的角色ID
      */
-    void updateRole(long userId, Set<Long> roleIds);
+    void updateRole(long userId, String uid, Set<Long> roleIds);
 }

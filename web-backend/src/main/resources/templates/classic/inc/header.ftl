@@ -88,7 +88,14 @@
                         <#--  是否为叶子节点。1为是叶子节点，0为不是叶子节点(存在后续分支) isLeaf  -->
                         <#if row.nodeType?? && row.nodeType.isLeaf == 1>
                             <li>
-                                <a href="${base}/channel/${row.flag}" nav="${row.name}">${row.name}</a>
+                                <a href="${base}/channel/${row.flag}" nav="${row.name}">
+                                    <#--
+                                    <#if row.thumbnail?? && row.thumbnail != ''>
+                                        <img class="img-circle img-thumbnail img-responsive" src="<@resource src=row.thumbnail + '?t=' + .now?time />">
+                                    </#if>
+                                    -->
+                                    ${row.name}
+                                </a>
                             </li>
                         <#else>
                             <#-- 菜单模式 -->
@@ -96,6 +103,8 @@
                                 <li class="dropdown">
                                     <a href="${base}/channel/${row.flag}" class="dropdown-toggle js-activated"
                                        aria-haspopup="true" aria-expanded="false">
+                                        <#if row.thumbnail?? && row.thumbnail != ''>
+                                        </#if>
                                         ${row.name} <b class="caret"></b>
                                     </a>
                                     <ul class="dropdown-menu">

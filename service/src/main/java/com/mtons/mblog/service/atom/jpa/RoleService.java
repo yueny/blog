@@ -1,7 +1,7 @@
 package com.mtons.mblog.service.atom.jpa;
 
-import com.mtons.mblog.bo.PermissionVO;
-import com.mtons.mblog.bo.RoleVO;
+import com.mtons.mblog.bo.PermissionBO;
+import com.mtons.mblog.bo.RoleBO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -18,28 +18,28 @@ public interface RoleService {
      * @param pageable 分页对象
      * @param name 角色名称，模糊匹配，如果为null则忽略改查询条件
      */
-    Page<RoleVO> paging(Pageable pageable, String name);
+    Page<RoleBO> paging(Pageable pageable, String name);
 
     /**
      * 查询所有活动角色
      * @return 角色列表
      */
-    List<RoleVO> list();
+    List<RoleBO> list();
 
-    Map<Long, RoleVO> findByIds(Set<Long> ids);
+    Map<Long, RoleBO> findByIds(Set<Long> ids);
 
     /**
      * 根据角色ID获得角色信息
      * @param id 角色ID
      * @return Role
      */
-    RoleVO get(long id);
+    RoleBO get(long id);
 
     /**
      * 保存角色信息。如果角色存在，则更新其信息，如果角色不存在，则添加新角色
      * @param r 角色对象
      */
-    void update(RoleVO r, Set<PermissionVO> permissions);
+    void update(RoleBO r, Set<PermissionBO> permissions);
 
     /**
      * 删除角色，已被授权的角色不允许删除

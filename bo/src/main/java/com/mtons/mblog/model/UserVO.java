@@ -12,16 +12,13 @@ package com.mtons.mblog.model;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.mtons.mblog.base.enums.NeedChangeType;
 import com.mtons.mblog.bo.ResourceBO;
-import com.mtons.mblog.bo.RoleVO;
+import com.mtons.mblog.bo.RoleBO;
 import com.mtons.mblog.bo.UserBO;
-import com.yueny.rapid.lang.mask.annotation.Mask;
-import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -42,6 +39,6 @@ public class UserVO extends UserBO implements Serializable {
 	private NeedChangeType needChangePw;
 
 	@JSONField(serialize = false)
-	private List<RoleVO> roles = new ArrayList<>();
+	private List<RoleBO> roles = new ArrayList<>();
 
 }

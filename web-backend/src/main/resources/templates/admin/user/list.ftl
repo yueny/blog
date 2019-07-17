@@ -13,7 +13,10 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">用户列表</h3>
+                    <h3 class="box-title">用户列表</h3><div class="box-tools">
+                    <#-- 模态窗口 -->
+                    <a class="btn btn-default btn-sm" href="">添加用户(暂未实现)</a>
+                </div>
                 </div>
                 <div class="box-body">
                     <form id="qForm" class="form-inline search-row">

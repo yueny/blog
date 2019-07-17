@@ -15,7 +15,6 @@ import lombok.Setter;
 
 import java.util.List;
 
-
 /**
  * 渠道信息树实体
  */

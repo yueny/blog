@@ -14,7 +14,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mtons.mblog.base.consts.EntityStatus;
 import com.mtons.mblog.base.enums.NeedChangeType;
 import com.mtons.mblog.bo.ResourceBO;
-import com.mtons.mblog.bo.RoleVO;
+import com.mtons.mblog.bo.RoleBO;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.bo.UserSecurityBO;
 import com.mtons.mblog.entity.bao.UserSecurityEntry;
@@ -100,7 +100,7 @@ public class UserManagerServiceImpl extends BaseService implements IUserManagerS
         page.getContent().forEach(item -> {
             userIds.add(item.getId());
         });
-        Map<Long, List<RoleVO>> map = userRoleService.findMapByUserIds(userIds);
+        Map<Long, List<RoleBO>> map = userRoleService.findMapByUserIds(userIds);
 
         List<UserVO> list = mapAny(page.getContent(), UserVO.class);
         list.forEach(userVo -> {

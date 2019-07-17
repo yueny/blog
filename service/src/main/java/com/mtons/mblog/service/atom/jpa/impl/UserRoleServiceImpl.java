@@ -1,6 +1,6 @@
 package com.mtons.mblog.service.atom.jpa.impl;
 
-import com.mtons.mblog.bo.RoleVO;
+import com.mtons.mblog.bo.RoleBO;
 import com.mtons.mblog.dao.repository.UserRoleRepository;
 import com.mtons.mblog.entity.jpa.UserRole;
 import com.mtons.mblog.service.atom.jpa.RoleService;
@@ -33,13 +33,13 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public List<RoleVO> listRoles(long userId) {
+    public List<RoleBO> listRoles(long userId) {
         List<Long> roleIds = listRoleIds(userId);
-        return new ArrayList<RoleVO>(roleService.findByIds(new HashSet<>(roleIds)).values());
+        return new ArrayList<RoleBO>(roleService.findByIds(new HashSet<>(roleIds)).values());
     }
 
     @Override
-    public Map<Long, List<RoleVO>> findMapByUserIds(List<Long> userIds) {
+    public Map<Long, List<RoleBO>> findMapByUserIds(List<Long> userIds) {
         List<UserRole> list = userRoleRepository.findAllByUserIdIn(userIds);
         Map<Long, Set<Long>> map = new HashMap<>();
 
@@ -48,16 +48,16 @@ public class UserRoleServiceImpl implements UserRoleService {
             roleIds.add(po.getRoleId());
         });
 
-        Map<Long, List<RoleVO>> ret = new HashMap<>();
+        Map<Long, List<RoleBO>> ret = new HashMap<>();
         map.forEach((k, v) -> {
-            ret.put(k, new ArrayList<RoleVO>(roleService.findByIds(v).values()));
+            ret.put(k, new ArrayList<RoleBO>(roleService.findByIds(v).values()));
         });
         return ret;
     }
 
     @Override
     @Transactional
-    public void updateRole(long userId, Set<Long> roleIds) {
+    public void updateRole(long userId, String uid, Set<Long> roleIds) {
         // 判断是否清空已授权角色
         if (null == roleIds || roleIds.isEmpty()) {
             userRoleRepository.deleteByUserId(userId);
@@ -81,6 +81,7 @@ public class UserRoleServiceImpl implements UserRoleService {
                 UserRole po = new UserRole();
                 po.setUserId(userId);
                 po.setRoleId(roleId);
+                po.setUid(uid);
 
                 userRoleRepository.save(po);
             });

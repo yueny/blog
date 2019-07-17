@@ -112,6 +112,13 @@ public interface Views {
      */
     String POST_VIEW = "/channel/view";
 
+
+
+    /**
+     * 用户管理 -- 新增用户
+     */
+    String USER_ADD_VIEW = "/user/addUser";
+
     /**
 `     * url for getDomainHack. %d 整数类型（十进制）; s% 字符串类型
      */

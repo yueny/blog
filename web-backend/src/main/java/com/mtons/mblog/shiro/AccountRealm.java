@@ -2,7 +2,7 @@ package com.mtons.mblog.shiro;
 
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.model.AccountProfile;
-import com.mtons.mblog.bo.RoleVO;
+import com.mtons.mblog.bo.RoleBO;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.service.atom.jpa.UserRoleService;
 import com.mtons.mblog.service.atom.jpa.UserService;
@@ -36,7 +36,7 @@ public class AccountRealm extends AuthorizingRealm {
             UserBO user = userService.get(profile.getId());
             if (user != null) {
                 SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-                List<RoleVO> roles = userRoleService.listRoles(user.getId());
+                List<RoleBO> roles = userRoleService.listRoles(user.getId());
 
                 //赋予角色
                 roles.forEach(role -> {

@@ -9,7 +9,6 @@
 */
 package com.mtons.mblog.bo;
 
-import com.mtons.mblog.bo.PermissionVO;
 import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
 import com.yueny.superclub.api.pojo.IBo;
 import lombok.EqualsAndHashCode;
@@ -29,7 +28,7 @@ import java.util.List;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = false)
-public class RoleVO extends AbstractMaskBo implements IBo, Serializable {
+public class RoleBO extends AbstractMaskBo implements IBo, Serializable {
 	private long id;
 
 	private String name;
@@ -38,6 +37,7 @@ public class RoleVO extends AbstractMaskBo implements IBo, Serializable {
 
 	private int status;
 
-	private List<PermissionVO> permissions;
+	// 后续抽离 为  RolePermissionVO
+	private List<PermissionBO> permissions;
 
 }

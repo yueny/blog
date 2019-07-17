@@ -4,8 +4,8 @@
 package com.mtons.mblog.web.controller.admin;
 
 import com.mtons.mblog.base.lang.Result;
-import com.mtons.mblog.bo.PermissionVO;
-import com.mtons.mblog.bo.RoleVO;
+import com.mtons.mblog.bo.PermissionBO;
+import com.mtons.mblog.bo.RoleBO;
 import com.mtons.mblog.entity.jpa.Role;
 import com.mtons.mblog.service.atom.jpa.PermissionService;
 import com.mtons.mblog.service.atom.jpa.RoleService;
@@ -37,7 +37,7 @@ public class RoleController extends BaseController {
 	@GetMapping("/list")
 	public String paging(String name, ModelMap model) {
 		Pageable pageable = wrapPageable();
-		Page<RoleVO> page = roleService.paging(pageable, name);
+		Page<RoleBO> page = roleService.paging(pageable, name);
 		model.put("name", name);
 		model.put("page", page);
 		return "/admin/role/list";
@@ -46,7 +46,7 @@ public class RoleController extends BaseController {
 	@RequestMapping("/view")
 	public String view(Long id, ModelMap model) {
 		if (id != null && id > 0) {
-			RoleVO role = roleService.get(id);
+			RoleBO role = roleService.get(id);
 			model.put("view", role);
 		}
 
@@ -55,14 +55,14 @@ public class RoleController extends BaseController {
 	}
 	
 	@RequestMapping("/update")
-	public String update(RoleVO role, @RequestParam(value = "perms", required=false) List<Long> perms, ModelMap model) {
+	public String update(RoleBO role, @RequestParam(value = "perms", required=false) List<Long> perms, ModelMap model) {
 		Result data;
 
-		HashSet<PermissionVO> permissions = new HashSet<>();
+		HashSet<PermissionBO> permissions = new HashSet<>();
 		if(perms != null && perms.size() > 0){
 
             for(Long pid: perms){
-				PermissionVO p = new PermissionVO();
+				PermissionBO p = new PermissionBO();
                 p.setId(pid);
 				permissions.add(p);
             }

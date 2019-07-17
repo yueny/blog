@@ -15,8 +15,6 @@ import com.yueny.superclub.api.pojo.instance.AbstractBo;
 import lombok.Getter;
 import lombok.Setter;
 
-
-
 /**
  * 渠道信息实体
  */
@@ -90,6 +88,8 @@ public class ChannelVO extends AbstractBo implements IBo {
 	@Setter
 	private ChannelNodeType nodeType;
 
+
+
 	// ====================== 数据实体外信息
 	/**
 	 * 父渠道
@@ -97,7 +97,6 @@ public class ChannelVO extends AbstractBo implements IBo {
 	@Getter
 	@Setter
 	private ChannelVO parentChannelVo;
-
 
 	/**
 	 * 预览图路径

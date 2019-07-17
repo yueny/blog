@@ -20,9 +20,10 @@
                     <div class="box-body">
                         <#include "/admin/message.ftl">
                         <div class="form-group">
-                            <label class="col-lg-3 control-label">${view.username} 的新密码：</label>
+                            <label class="col-lg-3 control-label">${view.username} 的新密码(明文输入)：</label>
                             <div class="col-lg-4">
-                                <input type="text" class="input-small form-control" required name="newPassword" placeholder="新密码">
+                                <input type="text" class="input-medium form-control"
+                                       required name="newPassword" placeholder="新密码">
                             </div>
                         </div>
                     </div>

@@ -1,9 +1,9 @@
 package com.mtons.mblog.service.atom.jpa.impl;
 
 import com.google.common.collect.Sets;
-import com.mtons.mblog.bo.PermissionVO;
+import com.mtons.mblog.bo.PermissionBO;
 import com.mtons.mblog.bo.RolePermissionVO;
-import com.mtons.mblog.bo.RoleVO;
+import com.mtons.mblog.bo.RoleBO;
 import com.mtons.mblog.entity.jpa.Role;
 import com.mtons.mblog.entity.jpa.RolePermission;
 import com.mtons.mblog.entity.jpa.UserRole;
@@ -41,7 +41,7 @@ public class RoleServiceImpl extends BaseService implements RoleService {
     private UserRoleRepository userRoleRepository;
 
     @Override
-    public Page<RoleVO> paging(Pageable pageable, String name) {
+    public Page<RoleBO> paging(Pageable pageable, String name) {
         Page<Role> page = roleRepository.findAll((root, query, builder) -> {
             Predicate predicate = builder.conjunction();
 
@@ -54,36 +54,36 @@ public class RoleServiceImpl extends BaseService implements RoleService {
             return predicate;
         }, pageable);
 
-        Page<RoleVO> pager = new PageImpl<>(map(page.getContent(), RoleVO.class), page.getPageable(), page.getTotalElements());
+        Page<RoleBO> pager = new PageImpl<>(map(page.getContent(), RoleBO.class), page.getPageable(), page.getTotalElements());
         return pager;
     }
 
     @Override
-    public List<RoleVO> list() {
+    public List<RoleBO> list() {
         List<Role> list = roleRepository.findAllByStatus(Role.STATUS_NORMAL);
 
-        return map(list, RoleVO.class);
+        return map(list, RoleBO.class);
     }
 
     @Override
-    public Map<Long, RoleVO> findByIds(Set<Long> ids) {
+    public Map<Long, RoleBO> findByIds(Set<Long> ids) {
         List<Role> list = roleRepository.findAllById(ids);
 
-        Map<Long, RoleVO> ret = new LinkedHashMap<>();
+        Map<Long, RoleBO> ret = new LinkedHashMap<>();
         list.forEach(po -> {
-            RoleVO vo = toVO(po);
+            RoleBO vo = toVO(po);
             ret.put(vo.getId(), vo);
         });
         return ret;
     }
 
     @Override
-    public RoleVO get(long id) {
+    public RoleBO get(long id) {
         return toVO(roleRepository.findById(id).get());
     }
 
     @Override
-    public void update(RoleVO r, Set<PermissionVO> permissions) {
+    public void update(RoleBO r, Set<PermissionBO> permissions) {
         Optional<Role> optional = roleRepository.findById(r.getId());
         Role po = optional.orElse(new Role());
             po.setName(r.getName());
@@ -127,8 +127,8 @@ public class RoleServiceImpl extends BaseService implements RoleService {
         po.setStatus(active ? Role.STATUS_NORMAL : Role.STATUS_CLOSED);
     }
 
-    private RoleVO toVO(Role po) {
-        RoleVO r = new RoleVO();
+    private RoleBO toVO(Role po) {
+        RoleBO r = new RoleBO();
         r.setId(po.getId());
         r.setName(po.getName());
         r.setDescription(po.getDescription());

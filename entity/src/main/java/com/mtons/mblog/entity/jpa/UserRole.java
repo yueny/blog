@@ -1,6 +1,8 @@
 package com.mtons.mblog.entity.jpa;
 
 import com.mtons.mblog.entity.api.IEntry;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,6 +23,14 @@ public class UserRole implements IEntry, Serializable {
 
 	@Column(name = "user_id")
 	private Long userId;
+
+	/**
+	 * 用户唯一标示
+	 */
+	@Column(name = "uid", unique = true, nullable = false)
+	@Getter
+	@Setter
+	private String uid;
 
 	@Column(name = "role_id")
     private Long roleId;

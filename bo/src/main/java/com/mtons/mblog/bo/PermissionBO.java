@@ -27,7 +27,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = false)
-public class PermissionVO extends AbstractMaskBo implements IBo, Serializable {
+public class PermissionBO extends AbstractMaskBo implements IBo, Serializable {
 	private long id;
 
 	private long parentId;

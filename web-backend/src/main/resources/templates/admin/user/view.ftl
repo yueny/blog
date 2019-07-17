@@ -19,12 +19,14 @@
                     </div>
                     <div class="box-body">
                         <#include "/admin/message.ftl">
-                        <input type="hidden" name="id" value="${view.id}" />
+                        <input type="hidden" name="id" value="${view.id}"/>
+                        <input type="hidden" name="uid" value="${view.uid}"/>
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label">用户名</label>
                             <div class="col-sm-8">
-                                <input class="form-control" type="text" value="${view.username}" disabled style="width:200px;">
+                                <input class="form-control" type="text" value="${view.username}"
+                                       disabled style="width:200px;" title="用户名/登录名">
                             </div>
                         </div>
                         <div class="form-group">

@@ -19,6 +19,7 @@ import com.mtons.mblog.service.atom.jpa.UserService;
 import com.mtons.mblog.service.comp.IUserPassportService;
 import com.mtons.mblog.service.manager.IUserManagerService;
 import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.site.Views;
 import com.yueny.rapid.lang.exception.invalid.InvalidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Set;
 
 /**
@@ -48,6 +50,9 @@ public class UserController extends BaseController {
 	@Autowired
 	private UserRoleService userRoleService;
 
+	/**
+	 * 用户列表页面
+	 */
 	@RequestMapping("/list")
 	public String list(String name, ModelMap model) {
 		Page<UserVO> page = userManagerService.paging(wrapPageable(), name);
@@ -57,6 +62,9 @@ public class UserController extends BaseController {
 		return "/admin/user/list";
 	}
 
+	/**
+	 * 修改角色页面
+	 */
 	@RequestMapping("/view")
 	public String view(Long id, ModelMap model) {
 		UserBO bo = userService.get(id);
@@ -64,18 +72,26 @@ public class UserController extends BaseController {
 		UserVO userVO = userManagerService.get(bo.getUid());
 
 		model.put("view", userVO);
+
+		// 角色列表 admin/user/guest 等
 		model.put("roles", roleService.list());
 		return "/admin/user/view";
 	}
 
+	/**
+	 * 修改角色 动作
+	 */
 	@PostMapping("/update_role")
 //	@RequiresPermissions("user:role")
-	public String postAuthc(Long id, @RequestParam(value = "roleIds", required=false) Set<Long> roleIds, ModelMap model) {
-		userRoleService.updateRole(id, roleIds);
+	public String postAuthc(Long id, String uid, @RequestParam(value = "roleIds", required=false) Set<Long> roleIds, ModelMap model) {
+		userRoleService.updateRole(id, uid, roleIds);
 		model.put("data", Result.success());
 		return "redirect:/admin/user/list";
 	}
 
+	/**
+	 * 密码修改页面
+	 */
 	@RequestMapping(value = "/pwd", method = RequestMethod.GET)
 //	@RequiresPermissions("user:pwd")
 	public String pwsView(Long id, ModelMap model) {
@@ -84,6 +100,9 @@ public class UserController extends BaseController {
 		return "/admin/user/pwd";
 	}
 
+	/**
+	 * 密码修改 动作
+	 */
 	@RequestMapping(value = "/pwd", method = RequestMethod.POST)
 //	@RequiresPermissions("user:pwd")
 	public String pwd(Long id, String newPassword, ModelMap model) {
@@ -100,6 +119,9 @@ public class UserController extends BaseController {
 		return "/admin/user/pwd";
 	}
 
+	/**
+	 * 激活用户 动作
+	 */
 	@RequestMapping("/open")
 //	@RequiresPermissions("user:open")
 	@ResponseBody
@@ -108,6 +130,9 @@ public class UserController extends BaseController {
 		return Result.success();
 	}
 
+	/**
+	 * 禁用用户 动作
+	 */
 	@RequestMapping("/close")
 //	@RequiresPermissions("user:close")
 	@ResponseBody
@@ -115,4 +140,16 @@ public class UserController extends BaseController {
 		userService.updateStatus(id, Consts.STATUS_CLOSED);
 		return Result.success();
 	}
+
+//	/**
+//	 * 新增用户 动作
+//	 */
+//	@RequestMapping(value = "/add-user.json", method = { RequestMethod.POST })
+//	@ResponseBody
+//	public String addUser(HttpServletResponse response) {
+//		//.
+//
+//		return view(Views.USER_ADD_VIEW);
+//	}
+
 }

@@ -1,6 +1,6 @@
 package com.mtons.mblog.service.atom.jpa.impl;
 
-import com.mtons.mblog.bo.PermissionVO;
+import com.mtons.mblog.bo.PermissionBO;
 import com.mtons.mblog.bo.RolePermissionVO;
 import com.mtons.mblog.dao.repository.PermissionRepository;
 import com.mtons.mblog.dao.repository.RolePermissionRepository;
@@ -31,18 +31,18 @@ public class RolePermissionServiceImpl extends BaseService implements RolePermis
 
     @Override
     @Transactional(readOnly = true)
-    public List<PermissionVO> findPermissions(long roleId) {
+    public List<PermissionBO> findPermissions(long roleId) {
         List<RolePermission> rps = rolePermissionRepository.findAllByRoleId(roleId);
 
         if (CollectionUtils.isEmpty(rps)) {
-            return Collections.<PermissionVO>emptyList();
+            return Collections.<PermissionBO>emptyList();
         }
 
         Set<Long> pids = new HashSet<>();
         rps.forEach(rp -> pids.add(rp.getPermissionId()));
         List<Permission> entryList = permissionRepository.findAllById(pids);
 
-        return map(entryList, PermissionVO.class);
+        return map(entryList, PermissionBO.class);
     }
 
     @Override
