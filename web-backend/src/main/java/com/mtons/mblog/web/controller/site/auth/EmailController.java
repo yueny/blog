@@ -9,7 +9,9 @@ import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.modules.comp.MailService;
 import com.mtons.mblog.service.atom.jpa.SecurityCodeService;
 import com.mtons.mblog.service.atom.jpa.UserService;
+import com.mtons.mblog.service.comp.IConfiguterGetService;
 import com.mtons.mblog.web.controller.BaseController;
+import com.yueny.rapid.lang.util.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.Assert;
@@ -31,6 +33,10 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("/email")
 public class EmailController extends BaseController {
     @Autowired
+    private ICacheService cacheService;
+    @Autowired
+    private IConfiguterGetService getService;
+    @Autowired
     private UserService userService;
     @Autowired
     private MailService mailService;
@@ -43,23 +49,28 @@ public class EmailController extends BaseController {
 
     /**
      * 5分钟内最多发送验证码3次
+     * @param email  email
+     * @param type 类型，  bind email  1； forgot password 2； 注册 3
      */
     @GetMapping("/send_code")
     public Result sendCode(String email, @RequestParam(name = "type", defaultValue = "1") Integer type) {
         Assert.hasLength(email, "请输入邮箱地址");
         Assert.notNull(type, "缺少必要的参数");
 
-        // 如果键不存在则新增,存在则不改变已经有的值。 或者使用 hasKey
-        boolean isHaving = stringRedisTemplate.opsForValue().setIfAbsent(ICacheService.FREQUENCE_BLOCK_UNIT_KEY, "0", 5, TimeUnit.MINUTES);
+        String frequenceKey = cacheService.getFrequenceKey(type.toString());
+        // 如果键不存在则新增,存在则不改变已经有的值。 或者使用 hasKey。 默认计数值为 0
+        boolean isHaving = stringRedisTemplate.opsForValue().setIfAbsent(
+                frequenceKey, "0",
+                getService.getKeyLong(IConfiguterGetService.CODE_FREQUENCE_BLOCK_SECOND_KEY), TimeUnit.SECONDS);
         if(!isHaving){ // 已经存在，新增失败
-            int count = Integer.valueOf(stringRedisTemplate.opsForValue().get(ICacheService.FREQUENCE_BLOCK_UNIT_KEY));
+            int count = Integer.valueOf(stringRedisTemplate.opsForValue().get(frequenceKey));
             if(count > 3){
                 return Result.failure("请求过于频繁，请5分钟后再试~");
             }
         }
 
         //val +1
-        stringRedisTemplate.boundValueOps(ICacheService.FREQUENCE_BLOCK_UNIT_KEY).increment(1L);
+        stringRedisTemplate.boundValueOps(frequenceKey).increment(1L);
 
         String key = email;
 

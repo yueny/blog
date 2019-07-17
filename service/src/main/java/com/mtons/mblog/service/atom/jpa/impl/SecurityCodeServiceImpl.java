@@ -52,9 +52,10 @@ public class SecurityCodeServiceImpl implements SecurityCodeService {
             po.setType(type);
             po.setTarget(target);
         } else {
-
+            // 实际间隔
             long interval = ( now.getTime() - po.getCreated().getTime() ) / 1000;
 
+            // 允许的间隔判断。 默认间隔时间不少于1分钟
             if (interval <= 60) {
                 throw new MtonsException("发送间隔时间不能少于1分钟");
             }

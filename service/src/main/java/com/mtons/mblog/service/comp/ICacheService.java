@@ -6,10 +6,10 @@ package com.mtons.mblog.service.comp;
  */
 public interface ICacheService {
     /**
-     * 服务限流的key
-     *
-     * TODO 命名需更改，加业务名
+     * 默认限流的键
      */
-    public static String FREQUENCE_BLOCK_UNIT_KEY = "frequence_block_unit";
+    default String getFrequenceKey(String lkey){
+        return "mblog:frequence:" + lkey;
+    }
 
 }

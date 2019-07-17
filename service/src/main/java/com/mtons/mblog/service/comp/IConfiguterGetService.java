@@ -47,11 +47,35 @@ public interface IConfiguterGetService {
 	///////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////
 
+
+	/**
+	 *  应用配置
+	 */
+	/* 验证码连续发送频繁的强制间隔时间， 单位秒 */
+	String CODE_FREQUENCE_BLOCK_SECOND_KEY = "code.frequence.block.second";
+	/* 验证码连续发送次数 */
+	String CODE_FREQUENCE_MAX_COUNT_KEY = "code.frequence.max.count";
+
+
 	/**
 	 * 获取key键的配置值
 	 *
 	 * @return
 	 */
 	String getKey(String key);
+
+	/**
+	 * 获取key键的配置值
+	 *
+	 * @return
+	 */
+	Integer getKeyInt(String key);
+
+	/**
+	 * 获取key键的配置值
+	 *
+	 * @return
+	 */
+	Long getKeyLong(String key);
 
 }

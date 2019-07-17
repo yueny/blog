@@ -2,6 +2,7 @@ package com.mtons.mblog.service.comp.impl;
 
 import com.google.common.base.Splitter;
 import com.mtons.mblog.service.comp.IConfiguterGetService;
+import com.sun.imageio.plugins.common.I18N;
 import com.taobao.diamond.extend.DynamicProperties;
 import com.yueny.superclub.api.constant.Constants;
 import org.apache.commons.lang3.StringUtils;
@@ -25,6 +26,18 @@ public class ConfiguterGetService implements IConfiguterGetService {
 	@Override
 	public String getKey(String key) {
 		return get(key);
+	}
+
+	@Override
+	public Integer getKeyInt(String key) {
+		String val = get(key);
+		return Integer.parseInt(val);
+	}
+
+	@Override
+	public Long getKeyLong(String key) {
+		String val = get(key);
+		return Long.parseLong(val);
 	}
 
 	public static String get(String key) {
