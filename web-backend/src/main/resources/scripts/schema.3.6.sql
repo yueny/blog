@@ -31,7 +31,6 @@ CREATE TABLE `view_log` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 
---  ok
 CREATE TABLE `attack_ip` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `deny_time_unit` char(1) DEFAULT 'H' COMMENT '攻击者拒绝单位时间类型',
@@ -43,3 +42,7 @@ CREATE TABLE `attack_ip` (
   UNIQUE KEY `U_CLIENT_IP` (`client_ip`),
   KEY `IK_CLIENT_IP` (`client_ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--  ok
+
+
