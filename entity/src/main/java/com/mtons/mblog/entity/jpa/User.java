@@ -36,7 +36,7 @@ public class User implements IEntry, Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	/** 表创建时间 */
 	@CreatedDate
@@ -80,21 +80,21 @@ public class User implements IEntry, Serializable {
 	@Column(name = "name", length = 18)
 	private String name;  // 昵称
 
-	private int gender;   // 性别
+	private Integer gender;   // 性别
 
 	@Column(name = "email", unique = true, length = 64)
 	private String email;  // 邮箱
 
-	private int posts; // 文章数
+	private Integer posts; // 文章数
 
-	private int comments; // 发布评论数
+	private Integer comments; // 发布评论数
 
 	@Column(name = "last_login")
 	private Date lastLogin;
 
 	private String signature; // 个性签名
 
-	private int status; // 用户状态， 0为可用， 1为不可用
+	private Integer status; // 用户状态， 0为可用， 1为不可用
 
 	public User() {
 		//.

@@ -49,6 +49,8 @@ public interface IBizService<T extends IBo, S extends IEntry> {
 
     List<T> findAll(Example<S> example, Sort sort);
 
+    Page<T> findAll(Example<S> example, Pageable pageable);
+
     /**
      * 根据ID获得信息
      * @param id ID

@@ -16,7 +16,7 @@ spring:
         enabled: true
     jpa:
         database: mysql
-        show-sql: false
+        show-sql: true
         format-sql: true
         hibernate:
             ddl-auto: update

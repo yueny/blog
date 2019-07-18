@@ -10,6 +10,8 @@
 package com.mtons.mblog.entity.jpa;
 
 import com.mtons.mblog.entity.api.IEntry;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -20,16 +22,18 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "mto_user_oauth")
+@Getter
+@Setter
 public class UserOauth implements IEntry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "user_id")
-    private long userId; // 系统中的用户ID
+    private Long userId; // 系统中的用户ID
 
     @Column(name = "oauth_type")
-    private int oauthType; // 认证类型：QQ、新浪
+    private Integer oauthType; // 认证类型：QQ、新浪
 
     @Column(name = "oauth_user_id", length = 128)
     private String oauthUserId; // 对应第三方用户ID
@@ -46,67 +50,4 @@ public class UserOauth implements IEntry {
     @Column(name = "refresh_token", length = 128)
     private String refreshToken;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
-
-    public int getOauthType() {
-        return oauthType;
-    }
-
-    public void setOauthType(int oauthType) {
-        this.oauthType = oauthType;
-    }
-
-    public String getOauthUserId() {
-        return oauthUserId;
-    }
-
-    public void setOauthUserId(String oauthUserId) {
-        this.oauthUserId = oauthUserId;
-    }
-
-    public String getOauthCode() {
-        return oauthCode;
-    }
-
-    public void setOauthCode(String oauthCode) {
-        this.oauthCode = oauthCode;
-    }
-
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
-
-    public String getExpireIn() {
-        return expireIn;
-    }
-
-    public void setExpireIn(String expireIn) {
-        this.expireIn = expireIn;
-    }
-
-    public String getRefreshToken() {
-        return refreshToken;
-    }
-
-    public void setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
-    }
 }

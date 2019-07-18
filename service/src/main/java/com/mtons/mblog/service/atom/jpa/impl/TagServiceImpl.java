@@ -4,6 +4,7 @@ import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.PostTagVO;
 import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.bo.TagBO;
+import com.mtons.mblog.entity.jpa.AttackIpEntry;
 import com.mtons.mblog.entity.jpa.PostTag;
 import com.mtons.mblog.entity.jpa.Tag;
 import com.mtons.mblog.dao.repository.PostTagRepository;
@@ -12,11 +13,10 @@ import com.mtons.mblog.service.atom.jpa.TagService;
 import com.mtons.mblog.service.atom.jpa.PostService;
 import com.mtons.mblog.service.util.BeanMapUtils;
 import com.mtons.mblog.service.BaseService;
+import com.yueny.superclub.api.pojo.IBo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -28,8 +28,9 @@ import java.util.stream.Collectors;
  * @author : langhsu
  */
 @Service
-@Transactional(readOnly = true)
-public class TagServiceImpl extends BaseService implements TagService {
+@Transactional
+public class TagServiceImpl extends BaseBizService<TagBO, Tag, TagRepository>
+        implements TagService {
     @Autowired
     private TagRepository tagRepository;
     @Autowired
@@ -39,14 +40,32 @@ public class TagServiceImpl extends BaseService implements TagService {
 
     @Override
     public Page<TagBO> pagingQueryTags(Pageable pageable) {
-        Page<Tag> page = tagRepository.findAll(pageable);
+        Page<TagBO> page = findAll(pageable);
 
-        List<TagBO> rets = map(page.getContent(), TagBO.class);
-        rets.forEach(n -> {
+        page.getContent().forEach(n -> {
             // 根据 postid 查询post信息
             n.setPost(postService.get(n.getLatestPostId()));
         });
-        return new PageImpl<>(rets, pageable, page.getTotalElements());
+        return page;
+    }
+
+    @Override
+    public List<TagBO> findPagingTagsByNameLike(Pageable pageable, String name) {
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                //模糊查询匹配开头，即{username}%
+                //.withMatcher("username", ExampleMatcher.GenericPropertyMatchers.startsWith())
+                //全部模糊查询，即%{address}%
+                .withMatcher("name" ,ExampleMatcher.GenericPropertyMatchers.contains())
+                //忽略字段，即不管password是什么值都不加入查询条件
+                .withIgnorePaths("id");
+
+        Tag condition = new Tag();
+        condition.setName(name);
+        Example<Tag> example = Example.of(condition, matcher);
+
+        List<TagBO> list = findAll(example);
+
+        return list;
     }
 
     @Override

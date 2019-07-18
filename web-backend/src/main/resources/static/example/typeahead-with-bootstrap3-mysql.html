@@ -44,6 +44,7 @@
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         limit: 100,
+        // 每次输入变更均查询
         remote: {
             'cache': false,
             url: '/query/tags?q=%QUERY',

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -59,11 +60,12 @@ public class TagController extends BaseController {
     public String[] tags(String q) {
         Sort sort = Sort.by(Sort.Direction.DESC, "created", "posts");
 
-        Page<TagBO> tagList = tagService.pagingQueryTags(PageRequest.of(0, 10, sort));
+        List<TagBO> tagList = tagService.findPagingTagsByNameLike(
+                PageRequest.of(0, 10, sort), q);
 
-        String[] tags = new String[tagList.getNumberOfElements()];
-        for (int i = 0; i<tagList.getNumberOfElements(); i++){
-            TagBO tagBo = tagList.getContent().get(i);
+        String[] tags = new String[tagList.size()];
+        for (int i = 0; i<tagList.size(); i++){
+            TagBO tagBo = tagList.get(i);
 
             tags[i] = tagBo.getName();
         }

@@ -112,6 +112,20 @@ abstract class BaseBizService<T extends IBo, S extends IEntry,
     }
 
     @Override
+    public Page<T> findAll(Example<S> example, Pageable pageable) {
+        Page<S> pageEntrys = baseRepository.findAll(example, pageable);
+
+        if(CollectionUtil.isEmpty(pageEntrys.getContent())){
+            return new PageImpl<>(Collections.emptyList(),
+                    pageEntrys.getPageable(), pageEntrys.getTotalElements());
+        }
+
+        List<T> bos = map(pageEntrys.getContent(), boClazz);
+        return new PageImpl<>(bos,
+                pageEntrys.getPageable(), pageEntrys.getTotalElements());
+    }
+
+    @Override
     public T get(Long id) {
         Optional<S> optional = baseRepository.findById(id);
 
