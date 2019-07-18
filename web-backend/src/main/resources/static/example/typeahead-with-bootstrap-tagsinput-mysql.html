@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap -->
+    <!--<link href="../../bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="../dist/vendors/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
+
+    <!-- jQuery -->
+    <script type="text/javascript"  src="../dist/js/jquery.min.js"></script>
+
+    <!--<script src="../../bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript"
+            src="../dist/vendors/bootstrap-tagsinput/dist/bootstrap-tagsinput.js"></script>
+
+</head>
+<body>
+
+    tags:
+    <!-- method 1
+    <input type="text" name="tags"
+           data-provide="typeahead" data-role="tagsinput"
+       class="form-control" value="a, b"
+       placeholder="添加相关标签，逗号分隔 (最多4个)">
+       -->
+
+    <!-- method 2-->
+    <!--   -->
+    <input type="text" name="tags"
+           data-role="tagsinput"
+           class="form-control" value="a, b"
+           placeholder="添加相关标签，逗号分隔 (最多4个)">
+
+
+
+    end~
+
+<script type="text/javascript">
+    // var citynames = new Bloodhound({
+    //     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+    //     queryTokenizer: Bloodhound.tokenizers.whitespace,
+    //     prefetch: {
+    //         url: 'http://localhost:8090/dist/vendors/bootstrap-tagsinput/examples/assets/citynames.json',
+    //         filter: function(list) {
+    //             return $.map(list, function(cityname) {
+    //                 return { name: cityname }; });
+    //         }
+    //     }
+    // });
+    // citynames.initialize();
+    //
+    // $('input').tagsinput({
+    //     itemValue: 'value',
+    //     itemText: 'text',
+    //     typeaheadjs: {
+    //         name: 'cities',
+    //         displayKey: 'text',
+    //         source: cities.ttAdapter()
+    //     }
+    // });
+
+    // method 2
+    $('input').tagsinput({
+        typeahead: {
+            source: ['a', 'b', 'c', 'Beijing', 'Cairo']
+        }
+    });
+</script>
+
+</body>
+</html>

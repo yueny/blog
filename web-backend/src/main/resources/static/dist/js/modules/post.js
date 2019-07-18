@@ -39,10 +39,44 @@ define(function(require, exports, module) {
         },
         
         bindTagit : function () {
-            $('#tags').tagsinput({
-                maxTags: 4,
-                trimValue: true
-            });
+            // var citynames = new Bloodhound({
+            //     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+            //     queryTokenizer: Bloodhound.tokenizers.whitespace,
+            //     prefetch: {
+            //         url: [
+            //             "Amsterdam",
+            //             "Cairo",
+            //             "Cape Town",
+            //             "Kinshasa"
+            //         ],
+            //         filter: function(list) {
+            //             return $.map(list, function(cityname) {
+            //                 return { name: cityname }; });
+            //         }
+            //     }
+            // });
+            // citynames.initialize();
+
+            // $('#tags').tagsinput({
+            //     maxTags: 4,
+            //     trimValue: true,
+            //     name: 'citynames',
+            //     displayKey: 'name',
+            //     valueKey: 'name',
+            //     typeaheadjs: {
+            //         source: [
+            //             "Amsterdam",
+            //             "Cairo",
+            //             "Cape Town",
+            //             "Kinshasa"
+            //         ]
+            //         // source: citynames.ttAdapter()
+            //         // source: function(query) {
+            //         //     return $.get('http://someservice.com');
+            //         // }
+            //     },
+            //     freeInput: true
+            // });
         },
         
         bindUpload : function () {

@@ -1,7 +1,7 @@
 package com.mtons.mblog.service.atom.jpa;
 
 import com.mtons.mblog.bo.PostTagVO;
-import com.mtons.mblog.bo.TagVO;
+import com.mtons.mblog.bo.TagBO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,7 +14,8 @@ public interface TagService {
      * @param pageable
      * @return
      */
-    Page<TagVO> pagingQueryTags(Pageable pageable);
+    Page<TagBO> pagingQueryTags(Pageable pageable);
+
     Page<PostTagVO> pagingQueryPosts(Pageable pageable, String tagName);
 
     void batchUpdate(String names, long latestPostId);

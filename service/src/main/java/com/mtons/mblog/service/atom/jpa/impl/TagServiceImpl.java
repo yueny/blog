@@ -3,7 +3,7 @@ package com.mtons.mblog.service.atom.jpa.impl;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.PostTagVO;
 import com.mtons.mblog.bo.PostBO;
-import com.mtons.mblog.bo.TagVO;
+import com.mtons.mblog.bo.TagBO;
 import com.mtons.mblog.entity.jpa.PostTag;
 import com.mtons.mblog.entity.jpa.Tag;
 import com.mtons.mblog.dao.repository.PostTagRepository;
@@ -38,10 +38,10 @@ public class TagServiceImpl extends BaseService implements TagService {
     private PostService postService;
 
     @Override
-    public Page<TagVO> pagingQueryTags(Pageable pageable) {
+    public Page<TagBO> pagingQueryTags(Pageable pageable) {
         Page<Tag> page = tagRepository.findAll(pageable);
 
-        List<TagVO> rets = map(page.getContent(), TagVO.class);
+        List<TagBO> rets = map(page.getContent(), TagBO.class);
         rets.forEach(n -> {
             // 根据 postid 查询post信息
             n.setPost(postService.get(n.getLatestPostId()));

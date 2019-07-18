@@ -76,8 +76,8 @@ public class BeanMapUtils {
         return ret;
     }
 
-    public static TagVO copy(Tag po) {
-        TagVO ret = new TagVO();
+    public static TagBO copy(Tag po) {
+        TagBO ret = new TagBO();
         BeanUtils.copyProperties(po, ret);
         return ret;
     }

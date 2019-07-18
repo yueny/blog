@@ -1,6 +1,7 @@
 <#include "/admin/utils/ui.ftl"/>
 <@layout>
 <link rel='stylesheet' media='all' href='${base}/dist/css/plugins.css'/>
+<script type="text/javascript" src="${base}/dist/vendors/typeahead.js/dist/typeahead.bundle.js"></script>
 <script type="text/javascript" src="${base}/dist/vendors/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
 
 <section class="content-header">
@@ -69,7 +70,11 @@
                         </div>
                         <div class="form-group">
                             <label>标签</label>
-                            <input type="text" name="tags" data-role="tagsinput" class="form-control" value="${view.tags}" placeholder="添加相关标签，逗号分隔 (最多4个)">
+                            <#--<@textTag>-->
+                                <input type="text" name="tags" data-role="tagsinput"
+                                       class="form-control" value="${view.tags}"
+                                       placeholder="添加相关标签，逗号分隔 (最多4个)">
+                            <#--</@textTag>-->
                         </div>
                     </div>
                     <div class="box-footer">
@@ -81,6 +86,30 @@
         </form>
     </div>
 </section>
+
+<script>
+    <#--var citynames = new Bloodhound({-->
+        <#--datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),-->
+        <#--queryTokenizer: Bloodhound.tokenizers.whitespace,-->
+        <#--prefetch: {-->
+            <#--url: $.get('${base}/query/tags'),-->
+            <#--filter: function(list) {-->
+                <#--return $.map(list, function(cityname) {-->
+                    <#--return { name: cityname }; });-->
+            <#--}-->
+        <#--}-->
+    <#--});-->
+    <#--citynames.initialize();-->
+
+    $('#tags').tagsinput({
+        typeahead: {
+            source: function(query) {
+                return $.get('${base}/query/tags');
+            }
+        }
+    });
+</script>
+
 <script type="text/javascript">
 $(function() {
     $('#upload_btn').change(function(){
