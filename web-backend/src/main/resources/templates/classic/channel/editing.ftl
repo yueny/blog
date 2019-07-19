@@ -9,7 +9,6 @@
     <script src="${base}/dist/vendors/typeahead.js/dist/typeahead.bundle.min.js" type="text/javascript"></script>
 
     <script type="text/javascript" src="${base}/dist/vendors/bootstrap-tagsinput/dist/bootstrap-tagsinput.js"></script>
-    <script src="${base}/dist/js/modules/post.js"></script>
 
 <form id="submitForm" class="form" action="${base}/post/submit" method="post" enctype="multipart/form-data">
     <input type="hidden" name="status" value="${view.status!0}"/>
@@ -78,10 +77,12 @@
         </div>
     </div>
 </form>
+
 <!-- /form-actions -->
 <script type="text/javascript">
-seajs.use('post', function (post) {
-	post.init();
-});
+    seajs.use('post', function (post) {
+        post.init();
+    });
 </script>
+
 </@layout>

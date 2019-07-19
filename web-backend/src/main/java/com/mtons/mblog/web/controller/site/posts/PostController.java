@@ -65,7 +65,7 @@ public class PostController extends BaseController {
 	}
 
 	/**
-	 * 提交发布
+	 * 用户提交发布
 	 * @param post
 	 * @return
 	 */

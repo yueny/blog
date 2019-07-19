@@ -98,7 +98,7 @@ public class PostController extends BaseController {
 	}
 	
 	/**
-	 * 更新文章方法
+	 * 控制台更新文章方法
 	 * @author LBB
 	 * @return
 	 */

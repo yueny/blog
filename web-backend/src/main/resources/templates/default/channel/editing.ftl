@@ -73,10 +73,12 @@
             </div>
     </div>
 </form>
+
 <!-- /form-actions -->
 <script type="text/javascript">
-seajs.use('post', function (post) {
-	post.init();
-});
+    seajs.use('post', function (post) {
+        post.init();
+    });
 </script>
+
 </@layout>
