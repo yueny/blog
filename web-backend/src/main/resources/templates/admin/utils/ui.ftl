@@ -13,6 +13,8 @@
 
     <!-- Bootstrap -->
     <link href="${base}/dist/vendors/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${base}/dist/vendors/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
+
     <!-- Font Awesome -->
     <link href="${base}/dist/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- Latest compiled and minified CSS -->
@@ -59,6 +61,10 @@
     <script src="${base}/dist/vendors/layer/layer.js"></script>
     <script src="${base}/theme/admin/dist/js/site.js"></script>
     <script src="${base}/theme/admin/dist/js/site.base.js"></script>
+
+    <script src="${base}/dist/js/sea.js"></script>
+    <script src="${base}/dist/js/sea.config.js"></script>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">

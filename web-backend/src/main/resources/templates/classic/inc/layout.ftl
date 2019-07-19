@@ -31,6 +31,7 @@
 
     <link href="${base}/dist/vendors/pace/themes/pace-theme-minimal.css" rel="stylesheet"/>
     <link href="${base}/dist/vendors/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="${base}/dist/vendors/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
 
     <link href="${base}/theme/classic/dist/css/style.css" rel="stylesheet"/>
     <link href="${base}/dist/css/editor.css" rel="stylesheet"/>
@@ -41,12 +42,6 @@
 
     <script src="${base}/dist/vendors/pace/pace.min.js"></script>
 
-    <script src="${base}/dist/js/jquery.min.js"></script>
-    <script src="${base}/dist/vendors/layer/layer.js"></script>
-    <script src="${base}/dist/vendors/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <script src='${base}/dist/vendors/bootstrap-hover/twitter-bootstrap-hover-dropdown.js'></script>
-    <script src="${base}/dist/vendors/qiaoJs/qiao.js"></script>
 
     <script type="text/javascript">
         var _MTONS = _MTONS || {};
@@ -56,6 +51,13 @@
         <#--  未登录是否允许评论 BaseInterceptor   -->
         _MTONS.ALLOW_COMMENT_WITHOUT_LOGIN = '${siterProfile.commentAllowAnonymous}';
     </script>
+
+    <script src="${base}/dist/js/jquery.min.js"></script>
+    <script src="${base}/dist/vendors/layer/layer.js"></script>
+    <script src="${base}/dist/vendors/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src='${base}/dist/vendors/bootstrap-hover/twitter-bootstrap-hover-dropdown.js'></script>
+    <script src="${base}/dist/vendors/qiaoJs/qiao.js"></script>
 
     <script src="${base}/dist/js/sea.js"></script>
     <script src="${base}/dist/js/sea.config.js"></script>

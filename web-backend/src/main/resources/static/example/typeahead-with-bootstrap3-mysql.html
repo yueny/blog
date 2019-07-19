@@ -10,9 +10,10 @@
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">-->
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap-theme.min.css">-->
     <link href="../dist/vendors/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../dist/vendors/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
-    <!-- 0.8.0 -->
-    <link rel="stylesheet" href="../dist/vendors/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
+
+    <link rel='stylesheet' media='all' href='../dist/css/plugins.css'/>
+    <!--&lt;!&ndash; 0.8.0 &ndash;&gt;-->
+    <!--<link rel="stylesheet" href="../dist/vendors/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">-->
 
 
     <!-- jQuery -->
@@ -40,7 +41,7 @@
     end~
 
 <script type="text/javascript">
-    var citynames = new Bloodhound({
+    var bloodhound = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         limit: 100,
@@ -55,7 +56,7 @@
         }
     });
     /*data initialiseren */
-    citynames.initialize();
+    bloodhound.initialize();
 
     /**
      * Typeahead
@@ -66,7 +67,7 @@
         maxTags: 4,
         trimValue: true,
         typeaheadjs: {
-            source: citynames.ttAdapter()
+            source: bloodhound.ttAdapter()
         }
     });
 </script>

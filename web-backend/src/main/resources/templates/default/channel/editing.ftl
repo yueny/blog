@@ -1,6 +1,16 @@
 <#include "/default/inc/layout.ftl"/>
 <@layout "编辑文章">
 
+    <link rel='stylesheet' media='all' href='${base}/dist/css/plugins.css'/>
+    <#-- 0.8.0 -->
+    <link rel="stylesheet" href="${base}/dist/vendors/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
+
+    <#-- 3 不再包含 typeahead.bundle.min.js  -->
+    <script src="${base}/dist/vendors/typeahead.js/dist/typeahead.bundle.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="${base}/dist/vendors/bootstrap-tagsinput/dist/bootstrap-tagsinput.js"></script>
+
+
 <form id="submitForm" class="form" action="${base}/post/submit" method="post" enctype="multipart/form-data">
     <input type="hidden" name="status" value="${view.status!0}"/>
     <input type="hidden" name="editor" value="${editor!'tinymce'}"/>
@@ -48,7 +58,9 @@
                     <h3 class="panel-title">标签(用逗号或空格分隔)</h3>
                 </div>
                 <div class="panel-body">
-                    <input type="text" id="tags" name="tags" class="form-control" value="${view.tags}" placeholder="添加相关标签，逗号分隔 (最多4个)">
+                    <input type="text" id="tags" name="tags"
+                           class="form-control" value="${view.tags}"
+                           placeholder="添加相关标签，逗号分隔 (最多4个)">
                 </div>
             </div>
         </div>

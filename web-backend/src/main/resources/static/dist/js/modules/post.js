@@ -39,44 +39,36 @@ define(function(require, exports, module) {
         },
         
         bindTagit : function () {
-            // var citynames = new Bloodhound({
-            //     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-            //     queryTokenizer: Bloodhound.tokenizers.whitespace,
-            //     prefetch: {
-            //         url: [
-            //             "Amsterdam",
-            //             "Cairo",
-            //             "Cape Town",
-            //             "Kinshasa"
-            //         ],
-            //         filter: function(list) {
-            //             return $.map(list, function(cityname) {
-            //                 return { name: cityname }; });
-            //         }
-            //     }
-            // });
-            // citynames.initialize();
+            var bloodhound = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                limit: 100,
+                // 每次输入变更均查询
+                remote: {
+                    'cache': false,
+                    url: '/query/tags?q=%QUERY',
+                    wildcard: '%QUERY',
+                    filter: function(list) {
+                        return list;
+                    }
+                }
+            });
+            /*data initialiseren */
+            bloodhound.initialize();
 
-            // $('#tags').tagsinput({
-            //     maxTags: 4,
-            //     trimValue: true,
-            //     name: 'citynames',
-            //     displayKey: 'name',
-            //     valueKey: 'name',
-            //     typeaheadjs: {
-            //         source: [
-            //             "Amsterdam",
-            //             "Cairo",
-            //             "Cape Town",
-            //             "Kinshasa"
-            //         ]
-            //         // source: citynames.ttAdapter()
-            //         // source: function(query) {
-            //         //     return $.get('http://someservice.com');
-            //         // }
-            //     },
-            //     freeInput: true
-            // });
+            /**
+             * Typeahead, id is tags
+             */
+            var elt = $('#tags');
+            elt.tagsinput({
+                display: 'value',
+                maxTags: 4,
+                trimValue: true,
+                freeInput: true,
+                typeaheadjs: {
+                    source: bloodhound.ttAdapter()
+                }
+            });
         },
         
         bindUpload : function () {
