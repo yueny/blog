@@ -21,6 +21,9 @@
 # Future
 * [栏目管理]新增栏目编号字段, 仅新增生成, 不可被修改, 作为栏目关联的唯一标示
 * 邀请码
+* 允许文章个性化定制评论
+* 图片资源管理
+* 任务肃清
 * 默认头像管理
   + 头像默认样式 为  <a class="avt fl"..><img class="img-circle"></a>
   + 头像默认值StorageConsts.AVATAR https://static.codealy.com/images/default/default-none.jpeg，
