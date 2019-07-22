@@ -299,4 +299,4 @@ CREATE TABLE `mto_resource` (
   UNIQUE KEY `UK_MD5` (`md5`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
-- ok
+--  ok
