@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
  * 
  */
 @Component
-public class BaseInterceptor extends HandlerInterceptorAdapter {
+public class BaseContextInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	private InterceptorHookManager interceptorHookManager;
 	@Autowired

@@ -6,7 +6,7 @@
     <property name="LEVEL" value="debug"/>
     <property name="LOG_HOME" value="/data/var/logs/javalog/blog/runtime/mblog"/>
     <property name="DEFAULT_PATTERN"
-              value="%d %-5level [%X{ctxTraceId}][%X{ctxEventId}] [%thread] %logger{5} - %msg%n"/>
+              value="%d %-5level [%X{ctxTraceId}][%X{ctxLogId}] [%thread] %logger{5} - %msg%n"/>
     <property name="CHARSET" value="UTF-8"/>
 
     <!-- 控制台日志输出 -->
@@ -71,10 +71,10 @@
         </encoder>
     </appender>
 
-    <appender name="SLOWLY-DIGEST" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_HOME}/profiler-slow.log</file>
+    <appender name="PROFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/profiler.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/profiler-slow.log</fileNamePattern>
+            <fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/profiler.log</fileNamePattern>
             <maxHistory>30</maxHistory>
             <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
@@ -83,16 +83,33 @@
             <charset>${CHARSET}</charset>
         </encoder>
     </appender>
+    <appender name="SLOWLY-PROFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/profiler-slowly.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/profiler-slowly.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${DEFAULT_PATTERN}</pattern>
+            <charset>${CHARSET}</charset>
+        </encoder>
+    </appender>
+    <logger name="PROFILE-LOGGER" level="${LEVEL}" additivity="false">
+        <appender-ref ref="PROFILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger name="SLOWLY-PROFILE-LOGGER" level="${LEVEL}" additivity="false">
+        <appender-ref ref="SLOWLY-PROFILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
 
     <!-- 业务日志 -->
     <logger name="com.mtons.mblog" level="${LEVEL}" additivity="false">
         <appender-ref ref="SERVICE"/>
         <appender-ref ref="ERROR"/>
         <appender-ref ref="CONSOLE"/>
-    </logger>
-
-    <logger name="SLOWLY-DIGEST-LOGGER" level="${LEVEL}" additivity="false">
-        <appender-ref ref="SLOWLY-DIGEST"/>
     </logger>
 
     <!-- 默认日志 -->
