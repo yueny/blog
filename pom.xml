@@ -150,9 +150,9 @@
 				<version>${rapid.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.yueny.rapid.data</groupId>
+				<groupId>com.yueny.rapid</groupId>
 				<artifactId>rapid-data-log-core</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
+				<version>1.0.1-RELEASE</version>
 			</dependency>
 
 			<dependency>

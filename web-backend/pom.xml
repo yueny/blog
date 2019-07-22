@@ -48,7 +48,7 @@
             <artifactId>rapid-data-resp</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.yueny.rapid.data</groupId>
+            <groupId>com.yueny.rapid</groupId>
             <artifactId>rapid-data-log-core</artifactId>
         </dependency>
 
