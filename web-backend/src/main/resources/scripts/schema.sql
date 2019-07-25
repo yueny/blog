@@ -13,6 +13,9 @@ File Encoding         : 65001
 Date: 2019-01-18 22:17:57
 */
 
+DROP DATABASE IF EXISTS `db_mblog`;
+CREATE DATABASE IF NOT EXISTS `db_mblog`;
+
 use db_mblog;
 SET FOREIGN_KEY_CHECKS=0;
 
@@ -210,6 +213,7 @@ INSERT INTO `shiro_role_permission` VALUES ('17', '17', '1');
 INSERT INTO `shiro_role_permission` VALUES ('18', '18', '1');
 INSERT INTO `shiro_role_permission` VALUES ('19', '19', '1');
 INSERT INTO `shiro_role_permission` VALUES ('20', '20', '1');
+
 -- ----------------------------
 -- Table structure for shiro_user_role
 -- ----------------------------
@@ -242,8 +246,11 @@ CREATE TABLE `mto_favorite` (
 -- alter table `mto_favorite` add column article_blog_id varchar(64) NOT NULL DEFAULT '' COMMENT '文章扩展ID' after `post_id`;
 -- alter table `mto_favorite` add column uid varchar(256) COMMENT 'uid';
 
+-- 图片资源表
+DROP TABLE IF EXISTS `mto_resource`;
 CREATE TABLE `mto_resource` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `thumbnail_code` varchar(128) NOT NULL DEFAULT '' COMMENT '图片资源编号',
   `amount` bigint(20) NOT NULL DEFAULT '0',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `md5` varchar(100) NOT NULL DEFAULT '',
@@ -254,6 +261,7 @@ CREATE TABLE `mto_resource` (
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- 博文表
+DROP TABLE IF EXISTS `mto_post`;
 CREATE TABLE `mto_post` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `author_id` bigint(20) DEFAULT NULL,
@@ -274,6 +282,7 @@ CREATE TABLE `mto_post` (
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- 评论表
+DROP TABLE IF EXISTS `mto_comment`;
 CREATE TABLE `mto_comment` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `author_id` bigint(20) DEFAULT NULL,
@@ -286,17 +295,5 @@ CREATE TABLE `mto_comment` (
   KEY `IK_POST_ID` (`post_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- 图片资源表
-CREATE TABLE `mto_resource` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `thumbnail_code` varchar(128) NOT NULL DEFAULT '' COMMENT '图片资源编号',
-  `amount` bigint(20) NOT NULL DEFAULT '0',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `md5` varchar(100) NOT NULL DEFAULT '',
-  `path` varchar(255) NOT NULL DEFAULT '',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_MD5` (`md5`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --  ok
