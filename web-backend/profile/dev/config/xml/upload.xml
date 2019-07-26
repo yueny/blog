@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <settings>
 	<!-- blog站点的静态资源地址  -->
-	<location>/Users/yueny/temp/workspace/yueny09/github/mblog/blog/uploads</location>
+	<location>/Users/xiaobai/temp/workspace/yueny09/github/mblog/blog/uploads</location>
 	<!-- 图片服务器根服务,如 本地项目目录下 /storage/avatars/000/000/001_240.jpg-->
 	<location-uri>blog/uploads</location-uri>
 	<!-- 图片上传根文件夹-->

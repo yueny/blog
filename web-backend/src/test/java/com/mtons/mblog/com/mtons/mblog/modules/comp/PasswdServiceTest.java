@@ -2,6 +2,7 @@ package com.mtons.mblog.com.mtons.mblog.modules.comp;
 
 import com.mtons.mblog.BootApplication;
 import com.mtons.mblog.service.comp.IPasswdService;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,12 @@ public class PasswdServiceTest {
 
     @Test
     public void testEncode() {
-        String mima = passwdService.encode("123456", passwdService.getSalt());
+        String pw = "123456";
+        String salt = "";
+        String mima = passwdService.encode(pw, salt);
 
+        System.out.println(salt);
+        System.out.println(pw);
         System.out.println(mima);
     }
 }
