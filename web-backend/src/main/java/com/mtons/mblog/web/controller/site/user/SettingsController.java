@@ -103,6 +103,9 @@ public class SettingsController extends BaseController {
         return view(Views.SETTINGS_PROFILE);
     }
 
+    /**
+     *  修改邮箱
+     */
     @PostMapping(value = "/email")
     public String updateEmail(String email, String code, ModelMap model) {
         Result data;
@@ -125,6 +128,9 @@ public class SettingsController extends BaseController {
         return view(Views.SETTINGS_EMAIL);
     }
 
+    /**
+     * 修改密码
+     */
     @PostMapping(value = "/password")
     public String updatePassword(String oldPassword, String password, ModelMap model) {
         Result data;
@@ -141,6 +147,9 @@ public class SettingsController extends BaseController {
         return view(Views.SETTINGS_PASSWORD);
     }
 
+    /**
+     *  修改头像
+     */
     @PostMapping("/avatar")
     @ResponseBody
     public UploadController.UploadResult updateAvatar(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
@@ -161,8 +170,8 @@ public class SettingsController extends BaseController {
 
         // 保存图片
         try {
-            String ava100 = String.format(StorageConsts.avatarPath, String.valueOf(profile.getId()))
-                    + getAvaPath(profile.getId(), 240);
+            String ava100 = FilePathUtils.getUAvatar(profile.getUid(), 240);
+
             byte[] bytes = ImageUtils.screenshot(file, 240, 240);
             String path = storageFactory.get().writeToStore(bytes, ava100);
 //            String path = storageFactory.get().storeScale(file,
@@ -183,10 +192,5 @@ public class SettingsController extends BaseController {
             logger.error("exception:", e);
         }
         return result;
-    }
-
-    private String getAvaPath(long uid, int size) {
-        String base = FilePathUtils.getAvatar(uid);
-        return String.format("/%s_%d.jpg", base, size);
     }
 }

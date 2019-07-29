@@ -359,7 +359,9 @@ public class CallbackController extends BaseController {
                 UserVO u = userManagerService.register(wrapUser(openOauth));
 
                 // 将远程图片下载到本地
-                String ava100 = StorageConsts.avatarPath + getAvaPath(u.getId(), 100);
+                String ava100 = FilePathUtils.getUAvatar(u.getUid(), 100);
+//                String.format(StorageConsts.avatarPath, String.valueOf(u.getUid()))
+//                        + getAvaPath(u.getUid(), 100);
                 byte[] bytes = ImageUtils.download(openOauth.getAvatar());
                 storageFactory.get().writeToStore(bytes, ava100);
                 userService.updateAvatar(u.getId(), ava100);
@@ -409,11 +411,6 @@ public class CallbackController extends BaseController {
             user.setAvatar(StorageConsts.AVATAR);
         }
         return user;
-    }
-
-    public String getAvaPath(long uid, int size) {
-        String base = FilePathUtils.getAvatar(uid);
-        return String.format("/%s_%d.jpg", base, size);
     }
 
 }
