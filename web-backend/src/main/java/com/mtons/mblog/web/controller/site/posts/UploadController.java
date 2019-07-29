@@ -93,7 +93,10 @@ public class UploadController extends BaseController {
 
         // 获取用户信息
         AccountProfile profile = getProfile();
-        NailPathData nailPath = NailPathData.builder().nailType(NailType.get(nailType)).placeVal(String.valueOf(profile.getId())).build();
+        NailPathData nailPath = NailPathData.builder()
+                .nailType(NailType.get(nailType))
+                .placeVal(String.valueOf(profile.getId()))
+                .build();
 
         // 保存图片
         try {

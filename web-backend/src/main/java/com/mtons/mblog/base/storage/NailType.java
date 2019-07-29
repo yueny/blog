@@ -10,18 +10,20 @@ public enum NailType {
      * 博文中的附件
      */
     blogAttr(StorageConsts.blognailPath, ResourceType.BLOG_ATTR, true),
+
     /**
      * 栏目缩略图
      */
-    channelThumb(StorageConsts.thumbnailPath, ResourceType.THUMB_CHANNEL, false),
+    channelThumb(StorageConsts.thumbnailPathForChannel, ResourceType.THUMB_CHANNEL, false),
     /**
      * 文章缩略图
      */
-    blogThumb(StorageConsts.thumbnailPath, ResourceType.THUMB_BLOG, false),
+    blogThumb(StorageConsts.thumbnailPathForBlog, ResourceType.THUMB_BLOG, false),
     /**
      * 其他部分单独分类的缩略图
      */
-    thumb(StorageConsts.thumbnailPath, ResourceType.THUMB, true),
+    thumb(StorageConsts.thumbnailPathForDefault, ResourceType.THUMB, true),
+
     /**
      * 头像
      */

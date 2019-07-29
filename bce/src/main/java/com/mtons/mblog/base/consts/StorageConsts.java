@@ -9,9 +9,18 @@ package com.mtons.mblog.base.consts;
  */
 public interface StorageConsts {
 	/**
-	 * 文件存储-缩略图目录
+	 * 默认文件存储-缩略图目录
 	 */
-	String thumbnailPath = "/storage/thumbnails";
+	String thumbnailPathForDefault = "/storage/thumbnails";
+	/**
+	 * 渠道缩略图目录
+	 */
+	String thumbnailPathForChannel = thumbnailPathForDefault + "/channel";
+	/**
+	 * 文章缩略图目录
+	 */
+	String thumbnailPathForBlog = thumbnailPathForDefault + "/blog";
+
 	/**
 	 * 文件存储-发布文章目录. %s为用户uid
 	 */
