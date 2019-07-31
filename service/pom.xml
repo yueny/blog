@@ -41,6 +41,10 @@
         </dependency>
         <dependency>
             <groupId>com.yueny.rapid</groupId>
+            <artifactId>cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.yueny.rapid</groupId>
             <artifactId>rapid-lang-util</artifactId>
         </dependency>
         <dependency>

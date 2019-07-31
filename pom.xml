@@ -109,6 +109,11 @@
 			</dependency>
 			<dependency>
 				<groupId>com.yueny.rapid</groupId>
+				<artifactId>cache</artifactId>
+				<version>${rapid.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.yueny.rapid</groupId>
 				<artifactId>rapid-lang-thread</artifactId>
 				<version>${rapid.version}</version>
 			</dependency>
