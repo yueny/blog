@@ -1,7 +1,8 @@
 package com.mtons.mblog.service.comp.impl;
 
 import com.mtons.mblog.service.comp.IAnalyzeService;
-import com.mtons.mblog.service.comp.menu.MenuJsonUtils;
+import com.mtons.mblog.service.comp.configure.impl.ConfigureGetService;
+import com.mtons.mblog.service.comp.menu.MenuJsonService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,14 +19,14 @@ import java.util.Set;
 @Service
 public class AnalyzeServiceImpl implements IAnalyzeService {
     @Autowired
-    private MenuJsonUtils menuJsonUtils;
+    private MenuJsonService menuJsonService;
 
     @Override
     public boolean isAttackUrl(String resourcePath) {
         Set<String> menuList = new HashSet<>();
         // 添加首页
         menuList.add("/");
-        menuJsonUtils.getMenus().forEach(mm->{
+        menuJsonService.getMenus().forEach(mm->{
             if(StringUtils.isNotEmpty(mm.getUrl())){
                 if(mm.getUrl().startsWith("/")){
                     menuList.add(mm.getUrl());
@@ -41,7 +42,7 @@ public class AnalyzeServiceImpl implements IAnalyzeService {
         }
 
         // 攻击行为地址标签
-        Set<String> attackUrl = ConfiguterGetService.getSecurityAttackUrl();
+        Set<String> attackUrl = ConfigureGetService.getSecurityAttackUrl();
 
         for (String attack: attackUrl) {
             //  此处为地址包含关系

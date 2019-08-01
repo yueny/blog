@@ -6,13 +6,15 @@
         </h4>
     </div>
     <div class="panel-body">
-        <a disabled>优于别人，并不高贵，真正的高贵应该是优于过去的自己</a>
+        <a disabled>${siteTalker}</a>
     </div>
 
-<#-- 时钟 -->
-    <div>
-    	<#include "/default/inc/clock.ftl"/>
-    </div>
+    <#if siteShowLocker>
+        <#-- 时钟 -->
+        <div>
+            <#include "/default/inc/clock.ftl"/>
+        </div>
+    </#if>
 </div>
 
 <div class="panel panel-default corner-radius panel-hot-topics">

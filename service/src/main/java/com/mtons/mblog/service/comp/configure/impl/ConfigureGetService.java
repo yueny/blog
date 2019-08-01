@@ -1,8 +1,8 @@
-package com.mtons.mblog.service.comp.impl;
+package com.mtons.mblog.service.comp.configure.impl;
 
 import com.google.common.base.Splitter;
-import com.mtons.mblog.service.comp.IConfiguterGetService;
-import com.sun.imageio.plugins.common.I18N;
+import com.mtons.mblog.service.comp.configure.IConfigureConstant;
+import com.mtons.mblog.service.comp.configure.IConfigureGetService;
 import com.taobao.diamond.extend.DynamicProperties;
 import com.yueny.superclub.api.constant.Constants;
 import org.apache.commons.lang3.StringUtils;
@@ -21,7 +21,7 @@ import java.util.Set;
  * @DATE 2019/7/8 8:55
  */
 @Component
-public class ConfiguterGetService implements IConfiguterGetService {
+public class ConfigureGetService implements IConfigureGetService {
 
 	@Override
 	public String getKey(String key) {
@@ -40,6 +40,12 @@ public class ConfiguterGetService implements IConfiguterGetService {
 		return Long.parseLong(val);
 	}
 
+	@Override
+	public boolean getBoolean(String key) {
+		String val = get(key);
+		return Boolean.valueOf(val);
+	}
+
 	public static String get(String key) {
 		String val = DynamicProperties.staticProperties.getProperty(key);
 
@@ -53,7 +59,7 @@ public class ConfiguterGetService implements IConfiguterGetService {
 	 */
 	// TODO  cache
 	public static Set<String> getSecurityIpWhite() {
-		String val = get(SECURITY_IP_WHITE_KEY);
+		String val = get(IConfigureConstant.SECURITY_IP_WHITE_KEY);
 		if(StringUtils.isEmpty(val)){
 			return Collections.emptySet();
 		}
@@ -75,7 +81,7 @@ public class ConfiguterGetService implements IConfiguterGetService {
 	 */
 	// TODO  cache
 	public static Set<String> getSecurityAttackUrl() {
-		String val = get(SECURITY_ATTACK_URL_KEY);
+		String val = get(IConfigureConstant.SECURITY_ATTACK_URL_KEY);
 		if(StringUtils.isEmpty(val)){
 			return Collections.emptySet();
 		}

@@ -9,9 +9,9 @@ import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.modules.comp.MailService;
 import com.mtons.mblog.service.atom.jpa.SecurityCodeService;
 import com.mtons.mblog.service.atom.jpa.UserService;
-import com.mtons.mblog.service.comp.IConfiguterGetService;
+import com.mtons.mblog.service.comp.configure.IConfigureConstant;
+import com.mtons.mblog.service.comp.configure.IConfigureGetService;
 import com.mtons.mblog.web.controller.BaseController;
-import com.yueny.rapid.lang.util.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.Assert;
@@ -35,7 +35,7 @@ public class EmailController extends BaseController {
     @Autowired
     private ICacheService cacheService;
     @Autowired
-    private IConfiguterGetService getService;
+    private IConfigureGetService getService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -61,7 +61,7 @@ public class EmailController extends BaseController {
         // 如果键不存在则新增,存在则不改变已经有的值。 或者使用 hasKey。 默认计数值为 0
         boolean isHaving = stringRedisTemplate.opsForValue().setIfAbsent(
                 frequenceKey, "0",
-                getService.getKeyLong(IConfiguterGetService.CODE_FREQUENCE_BLOCK_SECOND_KEY), TimeUnit.SECONDS);
+                getService.getKeyLong(IConfigureConstant.CODE_FREQUENCE_BLOCK_SECOND_KEY), TimeUnit.SECONDS);
         if(!isHaving){ // 已经存在，新增失败
             int count = Integer.valueOf(stringRedisTemplate.opsForValue().get(frequenceKey));
             if(count > 3){

@@ -6,13 +6,15 @@
         </h4>
     </div>
     <div class="panel-body">
-        <a disabled>优于别人，并不高贵，真正的高贵应该是优于过去的自己</a>
+        <a disabled>${siteTalker}</a>
     </div>
 
-	<#-- 时钟 -->
-    <div>
-    	<#include "/classic/inc/clock.ftl"/>
-    </div>
+	<#if siteShowLocker>
+		<#-- 时钟 -->
+		<div>
+			<#include "/classic/inc/clock.ftl"/>
+		</div>
+	</#if>
 </div>
 
 <div class="panel panel-default widget">
@@ -28,7 +30,7 @@
 		<@sidebar method="hottest_posts">
 		<ul class="list">
 			<#list results as row>
-            <li>${row_index + 1}. <a href="${base}/article/${row.articleBlogId}.html">${row.title}</a></li>
+            	<li>${row_index + 1}. <a href="${base}/article/${row.articleBlogId}.html">${row.title}</a></li>
 			</#list>
 		</ul>
 		</@sidebar>

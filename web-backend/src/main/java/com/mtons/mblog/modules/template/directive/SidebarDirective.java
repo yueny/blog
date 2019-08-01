@@ -29,12 +29,15 @@ public class SidebarDirective extends TemplateDirective {
         int size = handler.getInteger("size", 6);
         String method = handler.getString("method", "post_latests");
         switch (method) {
+            // 最新发布
             case "latest_posts":
                 handler.put(RESULTS, postService.findLatestPosts(size));
                 break;
+            // 热门文章
             case "hottest_posts":
                 handler.put(RESULTS, postService.findHottestPosts(size));
                 break;
+            // 最新评论
             case "latest_comments":
                 handler.put(RESULTS, commentService.findLatestComments(size));
                 break;

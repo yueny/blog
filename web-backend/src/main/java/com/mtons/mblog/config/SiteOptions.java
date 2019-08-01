@@ -11,8 +11,8 @@ package com.mtons.mblog.config;
 
 import com.mtons.mblog.config.options.SiteConfigOption;
 import com.mtons.mblog.config.xml.UploadConfigUtil;
-import com.mtons.mblog.service.comp.IConfiguterGetService;
-import com.mtons.mblog.service.comp.impl.ConfiguterGetService;
+import com.mtons.mblog.service.comp.configure.IConfigureConstant;
+import com.mtons.mblog.service.comp.configure.impl.ConfigureGetService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -39,7 +39,7 @@ public class SiteOptions extends SiteConfigOption {
      */
     @Getter
     @Setter
-    @Value("${"+ IConfiguterGetService.SITE_VERSION_KEY +"}")
+    @Value("${"+ IConfigureConstant.SITE_VERSION_KEY +"}")
     private String version;
 
     /**
@@ -117,7 +117,7 @@ public class SiteOptions extends SiteConfigOption {
         private boolean register_email_validate;
 
         public boolean isRegister_email_validate() {
-            String val = ConfiguterGetService.get(IConfiguterGetService.SITE_CONTROLS_REGISTER_EMAIL_VALIDATE_KEY);
+            String val = ConfigureGetService.get(IConfigureConstant.SITE_CONTROLS_REGISTER_EMAIL_VALIDATE_KEY);
             register_email_validate =  Boolean.valueOf(val);
 
             return register_email_validate;

@@ -11,12 +11,11 @@ import com.mtons.mblog.service.AbstractService;
 import com.mtons.mblog.service.atom.jpa.AttackIpService;
 import com.mtons.mblog.service.atom.bao.ViewLogService;
 import com.mtons.mblog.service.comp.IAnalyzeService;
-import com.mtons.mblog.service.comp.impl.ConfiguterGetService;
+import com.mtons.mblog.service.comp.configure.impl.ConfigureGetService;
 import com.yueny.rapid.lang.date.DateTimeUtil;
 import com.yueny.rapid.lang.util.time.DurationTimer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.Set;
@@ -58,7 +57,7 @@ public class FindBlackIpTask extends AbstractService implements ISecurityAction 
             }
 
             if(!attackIps.isEmpty()){
-                ConfiguterGetService.getSecurityIpWhite().forEach(ip->{
+                ConfigureGetService.getSecurityIpWhite().forEach(ip->{
                     attackIps.remove(ip);
                 });
             }

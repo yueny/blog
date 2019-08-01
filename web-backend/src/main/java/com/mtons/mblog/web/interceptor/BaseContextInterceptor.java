@@ -14,6 +14,7 @@ import com.mtons.mblog.model.SiterProfile;
 import com.mtons.mblog.modules.comp.ISiteOptionsGetService;
 import com.mtons.mblog.model.SiteOptionsControlsVO;
 import com.mtons.mblog.modules.hook.interceptor.InterceptorHookManager;
+import com.mtons.mblog.service.comp.configure.ISiteConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,6 +38,8 @@ public class BaseContextInterceptor extends HandlerInterceptorAdapter {
 	private InterceptorHookManager interceptorHookManager;
 	@Autowired
 	private ISiteOptionsGetService siteOptionsGetService;
+	@Autowired
+	private ISiteConfigService siteConfigService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -60,6 +63,11 @@ public class BaseContextInterceptor extends HandlerInterceptorAdapter {
 				.userDefaultAvatar(StorageConsts.AVATAR)
 				.build();
 		request.setAttribute("siterProfile", siterProfile);
+
+		// 每日箴言
+		request.setAttribute("siteTalker", siteConfigService.getSiteTalker());
+		// 是否显示时钟
+		request.setAttribute("siteShowLocker", siteConfigService.isShowLocker());
 
 		interceptorHookManager.postHandle(request,response,handler,modelAndView);
 	}

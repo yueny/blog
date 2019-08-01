@@ -18,7 +18,7 @@ import java.util.List;
  * @create - 2018/5/18
  */
 @Component
-public class MenuJsonUtils {
+public class MenuJsonService {
     // 此处从 json文件加载，也可以改为从数据库加载
     private static String config = "/scripts/menu.json";
     private List<Menu> menus;
@@ -29,7 +29,7 @@ public class MenuJsonUtils {
      * @return
      */
     private synchronized List<Menu> loadJson() throws IOException {
-        InputStream inStream = MenuJsonUtils.class.getResourceAsStream(config);
+        InputStream inStream = MenuJsonService.class.getResourceAsStream(config);
         BufferedReader reader = new BufferedReader(new InputStreamReader(inStream, Charset.forName("UTF-8")));
 
         StringBuilder json = new StringBuilder();

@@ -1,4 +1,4 @@
-package com.mtons.mblog.service.comp;
+package com.mtons.mblog.service.comp.configure;
 
 /**
  * 配置中心配置动态获取
@@ -7,12 +7,11 @@ package com.mtons.mblog.service.comp;
  *
  * @DATE 2019/7/8 8:55
  */
-public interface IConfiguterGetService {
-	///////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////
+public interface IConfigureConstant {
 	///////////////////////////////////////////////////////
 	String SITE_VERSION_KEY = "site.version";
 
+	///////////////////////////////////////////////////////
 	/**
 	 *  controls 的一系列配置 site.controls.*
 	 */
@@ -29,6 +28,7 @@ public interface IConfiguterGetService {
 	/* 是否允许匿名评论开关, true 为允许匿名评论 */
 	String SITE_CONTROLS_COMMENT_ALLOW_ANONYMOUS_KEY = "site.controls.comment.allow.anonymous";
 
+	///////////////////////////////////////////////////////
 	/**
 	 *  default 的一系列配置 site.settings.*
 	 */
@@ -36,6 +36,7 @@ public interface IConfiguterGetService {
 	String SITE_SETTINGS_USERAVATAR_KEY = "site.settings.userAvatar";
 
 
+	///////////////////////////////////////////////////////
 	/**
 	 *  security系列配置 security.ip.*
 	 */
@@ -43,11 +44,9 @@ public interface IConfiguterGetService {
 	String SECURITY_IP_WHITE_KEY = "security.ip.white";
 	/* 攻击行为地址标签 */
 	String SECURITY_ATTACK_URL_KEY = "security.attack.url";
-	///////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////
 
 
+	///////////////////////////////////////////////////////
 	/**
 	 *  应用配置
 	 */
@@ -56,26 +55,9 @@ public interface IConfiguterGetService {
 	/* 验证码连续发送次数 */
 	String CODE_FREQUENCE_MAX_COUNT_KEY = "code.frequence.max.count";
 
-
-	/**
-	 * 获取key键的配置值
-	 *
-	 * @return
-	 */
-	String getKey(String key);
-
-	/**
-	 * 获取key键的配置值
-	 *
-	 * @return
-	 */
-	Integer getKeyInt(String key);
-
-	/**
-	 * 获取key键的配置值
-	 *
-	 * @return
-	 */
-	Long getKeyLong(String key);
-
+	///////////////////////////////////////////////////////
+	/* 每日箴言 */
+	String SITE_TALKER_KEY = "site.talker";
+	/* 是否显示时钟 */
+	String SITE_SHOW_LOCKER_KEY = "site.show.locker";
 }
