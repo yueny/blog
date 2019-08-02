@@ -4,7 +4,7 @@ import com.mtons.mblog.model.menu.Menu;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.entity.jpa.Role;
 import com.mtons.mblog.modules.template.TemplateDirective;
-import com.mtons.mblog.service.comp.menu.MenuJsonService;
+import com.mtons.mblog.service.comp.score.MenuJsonService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;

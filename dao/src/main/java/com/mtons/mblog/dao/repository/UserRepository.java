@@ -44,16 +44,16 @@ public interface UserRepository
     int changePassword(@Param("uid") String uid, @Param("newPassportForEncode") String newPassportForEncode, @Param("updated") Date updated);
 
     @Modifying
-    @Query("update User set posts = posts + :increment, updated=:updated where id = :id")
-    int updatePosts(@Param("id") long id, @Param("increment") int increment, @Param("updated") Date updated);
+    @Query("update User set posts = posts + :increment, updated=:updated where uid = :uid")
+    int updatePosts(@Param("uid") String uid, @Param("increment") int increment, @Param("updated") Date updated);
 
     @Modifying
-    @Query("update User set comments = comments + :increment, updated=:updated where id in (:ids)")
-    int updateComments(@Param("ids") Collection<Long> ids, @Param("increment") int increment, @Param("updated") Date updated);
+    @Query("update User set comments = comments + :increment, updated=:updated where uid in (:uids)")
+    int updateComments(@Param("uids") Collection<String> uids, @Param("increment") int increment, @Param("updated") Date updated);
 
     @Modifying
-    @Query("update User set status = :status, updated=:updated where id = :id")
-    int updateStatus(@Param("id") Long id, @Param("status") int status, @Param("updated") Date updated);
+    @Query("update User set status = :status, updated=:updated where uid = :uid")
+    int updateStatus(@Param("uid") String uid, @Param("status") int status, @Param("updated") Date updated);
 
     User findByDomainHack(String domainHack);
 }

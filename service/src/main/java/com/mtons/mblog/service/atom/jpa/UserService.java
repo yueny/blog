@@ -118,10 +118,10 @@ public interface UserService {
 
 	/**
 	 * 修改用户状态
-	 * @param id
+	 * @param uid
 	 * @param status
 	 */
-	boolean updateStatus(long id, int status);
+	boolean updateStatus(String uid, int status);
 
 	long count();
 

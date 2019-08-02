@@ -11,7 +11,7 @@ import com.mtons.mblog.modules.comp.ISiteOptionsGetService;
 import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.CommentVO;
 import com.mtons.mblog.bo.PostBO;
-import com.mtons.mblog.service.event.MessageEvent;
+import com.mtons.mblog.service.watcher.event.MessageEvent;
 import com.mtons.mblog.service.atom.jpa.CommentService;
 import com.mtons.mblog.service.atom.jpa.PostService;
 import com.mtons.mblog.web.controller.BaseController;
@@ -92,10 +92,6 @@ public class CommentController extends BaseController {
             c.setAuthorId(profile.getId());
             c.setUid(profile.getUid());
             c.setCommitAuthoredType(AuthoredType.AUTHORED);
-        }else{
-            c.setAuthorId(BlogConstant.DEFAULT_GUEST_AUTHOR_ID);
-            c.setUid(BlogConstant.DEFAULT_GUEST_U_ID);
-            c.setCommitAuthoredType(AuthoredType.GUEST);
         }
 
         String clientIp = IpUtil.getClientIp(request);
@@ -115,10 +111,10 @@ public class CommentController extends BaseController {
             AccountProfile profile = getProfile();
             // 回复人的ID 与 评论文章所有者ID 不同, 则评论数+1. 即自己给自己评论, 不做加1
             if (toId != profile.getId()) {
-                sendMessage(profile.getId(), toId, pid);
+                sendMessage(profile.getUid(), toId, pid);
             }
         }else{
-            sendMessage(BlogConstant.DEFAULT_GUEST_AUTHOR_ID, toId, pid);
+            sendMessage(BlogConstant.DEFAULT_GUEST_U_ID, toId, pid);
         }
 
         return Result.successMessage("发表成功");
@@ -128,7 +124,7 @@ public class CommentController extends BaseController {
     public Result delete(@RequestParam(name = "id") Long id) {
         Result data;
         try {
-            commentService.delete(id, getProfile().getId());
+            commentService.delete(id, getProfile().getUid());
             data = Result.success();
         } catch (Exception e) {
             data = Result.failure(e.getMessage());
@@ -140,12 +136,12 @@ public class CommentController extends BaseController {
     /**
      * 发送通知
      *
-     * @param userId
+     * @param uid
      * @param postId
      */
-    private void sendMessage(Long userId, long postId, long pid) {
+    private void sendMessage(String uid, long postId, long pid) {
         MessageEvent event = new MessageEvent("MessageEvent");
-        event.setFromUserId(userId);
+        event.setFromUid(uid);
 
         if (pid > 0) {
             // 有人回复了你

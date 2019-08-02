@@ -1,4 +1,4 @@
-package com.mtons.mblog.service.comp.menu;
+package com.mtons.mblog.service.comp.score;
 
 import com.alibaba.fastjson.JSONArray;
 import com.mtons.mblog.model.menu.Menu;

@@ -1,6 +1,6 @@
-package com.mtons.mblog.service.recipes.triggers;
+package com.mtons.mblog.service.watcher.recipes.triggers;
 
-import com.mtons.mblog.service.recipes.IRecipes;
+import com.mtons.mblog.service.watcher.recipes.IRecipes;
 import com.yueny.superclub.util.strategy.IStrategy;
 
 /**

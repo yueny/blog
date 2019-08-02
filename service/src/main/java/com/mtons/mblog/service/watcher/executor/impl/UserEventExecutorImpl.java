@@ -7,11 +7,11 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.service.manager.impl;
+package com.mtons.mblog.service.watcher.executor.impl;
 
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.dao.repository.UserRepository;
-import com.mtons.mblog.service.manager.UserEventService;
+import com.mtons.mblog.service.watcher.executor.UserEventExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,23 +26,23 @@ import java.util.Set;
  */
 @Service
 @Transactional
-public class UserEventServiceImpl implements UserEventService {
+public class UserEventExecutorImpl implements UserEventExecutor {
     @Autowired
     private UserRepository userMapper;
 
     @Override
-    public void identityPost(Long userId, boolean plus) {
-        userMapper.updatePosts(userId, (plus) ? Consts.IDENTITY_STEP : Consts.DECREASE_STEP, Calendar.getInstance().getTime());
+    public void identityPost(String uid, boolean plus) {
+        userMapper.updatePosts(uid, (plus) ? Consts.IDENTITY_STEP : Consts.DECREASE_STEP, Calendar.getInstance().getTime());
     }
 
     @Override
-    public void identityComment(Long userId, boolean plus) {
-        userMapper.updateComments(Collections.singleton(userId), (plus) ? Consts.IDENTITY_STEP : Consts.DECREASE_STEP, Calendar.getInstance().getTime());
+    public void identityComment(String uid, boolean plus) {
+        userMapper.updateComments(Collections.singleton(uid), (plus) ? Consts.IDENTITY_STEP : Consts.DECREASE_STEP, Calendar.getInstance().getTime());
     }
 
     @Override
-    public void identityComment(Set<Long> userIds, boolean plus) {
-        userMapper.updateComments(userIds, (plus) ? Consts.IDENTITY_STEP : Consts.DECREASE_STEP, Calendar.getInstance().getTime());
+    public void identityComment(Set<String> uids, boolean plus) {
+        userMapper.updateComments(uids, (plus) ? Consts.IDENTITY_STEP : Consts.DECREASE_STEP, Calendar.getInstance().getTime());
     }
 
 }

@@ -1,4 +1,4 @@
-package com.mtons.mblog.service.recipes.triggers;
+package com.mtons.mblog.service.watcher.recipes.triggers;
 
 import com.yueny.superclub.api.enums.core.IEnumType;
 import org.apache.commons.lang3.StringUtils;

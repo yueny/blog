@@ -19,7 +19,7 @@ import com.mtons.mblog.bo.ResourceBO;
 import com.mtons.mblog.dao.repository.PostAttributeRepository;
 import com.mtons.mblog.entity.jpa.PostAttribute;
 import com.mtons.mblog.model.PostVO;
-import com.mtons.mblog.service.event.PostUpdateEvent;
+import com.mtons.mblog.service.watcher.event.PostUpdateEvent;
 import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.service.atom.jpa.PostService;
 import com.mtons.mblog.service.atom.jpa.TagService;
@@ -28,6 +28,7 @@ import com.mtons.mblog.service.atom.jpa.ChannelService;
 import com.mtons.mblog.service.atom.bao.ResourceService;
 import com.mtons.mblog.service.exception.MtonsException;
 import com.mtons.mblog.service.util.MarkdownUtils;
+import com.mtons.mblog.service.watcher.event.enums.PostUpdateType;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,7 +119,7 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 		}
 
 		PostBO postBO = postService.get(post.getId());
-		onPushEvent(postBO, PostUpdateEvent.ACTION_PUBLISH);
+		onPushEvent(postBO, PostUpdateType.ACTION_PUBLISH);
 
 		return id;
 	}
@@ -199,7 +200,7 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 
 		postService.delete(articleBlogId, authorId);
 
-		onPushEvent(po, PostUpdateEvent.ACTION_DELETE);
+		onPushEvent(po, PostUpdateType.ACTION_DELETE);
 	}
 
 	@Override
@@ -221,7 +222,7 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 				postAttributeRepository.deleteById(id);
 
 				// 再通知
-				onPushEvent(maps.get(id), PostUpdateEvent.ACTION_DELETE);
+				onPushEvent(maps.get(id), PostUpdateType.ACTION_DELETE);
 			});
 		}
 	}
@@ -269,11 +270,6 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 			post.setThumbnail(resourceBO.getPath());
 		}
 	}
-//
-//	private void buildUsers(Collection<PostVO> posts, Set<Long> uids) {
-//		Map<Long, UserBO> userMap = userService.findMapByIds(uids);
-//		posts.forEach(p -> p.setAuthor(userMap.get(p.getAuthorId())));
-//	}
 
 	private void buildGroups(Collection<PostVO> posts, Set<Integer> groupIds) {
 		Map<Integer, ChannelVO> map = channelService.findMapByIds(groupIds);
@@ -293,10 +289,10 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 		}
 	}
 
-	private void onPushEvent(PostBO postBO, int action) {
+	private void onPushEvent(PostBO postBO, PostUpdateType action) {
 		PostUpdateEvent event = new PostUpdateEvent(System.currentTimeMillis());
 		event.setPostId(postBO.getId());
-		event.setUserId(postBO.getAuthorId());
+		event.setUid(postBO.getUid());
 		event.setAction(action);
 
 		event.setArticleBlogId(postBO.getArticleBlogId());

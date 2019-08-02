@@ -240,11 +240,11 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
     @Transactional
-    public boolean updateStatus(long id, int status) {
-        User po = userMapper.findById(id).get();
+    public boolean updateStatus(String uid, int status) {
+        User po = userMapper.findByUid(uid);
 
         po.setStatus(status);
-        return userMapper.updateStatus(id, status, Calendar.getInstance().getTime()) == 1;
+        return userMapper.updateStatus(uid, status, Calendar.getInstance().getTime()) == 1;
     }
 
     @Override

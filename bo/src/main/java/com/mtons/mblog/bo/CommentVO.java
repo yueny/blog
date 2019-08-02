@@ -10,6 +10,7 @@
 package com.mtons.mblog.bo;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.mtons.mblog.base.consts.BlogConstant;
 import com.mtons.mblog.base.enums.AuthoredType;
 import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
 import com.yueny.superclub.api.pojo.IBo;
@@ -53,15 +54,15 @@ public class CommentVO extends AbstractMaskBo implements IBo, Serializable {
 	/**
 	 * 用户ID（不是用户uid）。 当为0时则表示为匿名用户
 	 */
-	private Long authorId;
+	private Long authorId = BlogConstant.DEFAULT_GUEST_AUTHOR_ID;
 	/**
-	 * 用户uid。 匿名用户时为null
+	 * 用户uid。 匿名用户时为 guest
 	 */
-	private String uid;
+	private String uid = BlogConstant.DEFAULT_GUEST_U_ID;
 	/**
 	 * 是否为鉴权用户。 1为认证用户(默认)， 0为匿名用户
 	 */
-	private AuthoredType commitAuthoredType = AuthoredType.AUTHORED;
+	private AuthoredType commitAuthoredType = AuthoredType.GUEST;
 
 	private int status;
 	/**
@@ -86,6 +87,14 @@ public class CommentVO extends AbstractMaskBo implements IBo, Serializable {
 	 * 所评论的博文信息。允许为null
 	 */
 	private PostBO post;
+
+	/**
+	 * 是否为匿名。 true 为匿名
+	 * @return
+	 */
+	public boolean isAnonymity(){
+		return BlogConstant.DEFAULT_GUEST_AUTHOR_ID.longValue() == getAuthorId();
+	}
 
 	/**
 	 * 评论相关的用户数据

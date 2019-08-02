@@ -25,5 +25,4 @@ public interface FavoriteService {
 
     void add(String uid, String articleBlogId);
     void delete(String uid, String articleBlogId);
-    void delete(String articleBlogId);
 }

@@ -77,7 +77,6 @@ public class Comment implements IEntry {
      */
     @Column(name = "author_id")
     private long authorId;
-
     /**
      * 用户uid。 当为null时则表示为匿名用户
      */

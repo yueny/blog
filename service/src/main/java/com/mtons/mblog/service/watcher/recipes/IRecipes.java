@@ -1,4 +1,4 @@
-package com.mtons.mblog.service.recipes;
+package com.mtons.mblog.service.watcher.recipes;
 
 /**
  * @author yueny09 <deep_blue_yang@163.com>

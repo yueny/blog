@@ -126,7 +126,8 @@ public class UserController extends BaseController {
 //	@RequiresPermissions("user:open")
 	@ResponseBody
 	public Result open(Long id) {
-		userService.updateStatus(id, Consts.STATUS_NORMAL);
+		UserBO userBO = userService.get(id);
+		userService.updateStatus(userBO.getUid(), Consts.STATUS_NORMAL);
 		return Result.success();
 	}
 
@@ -137,7 +138,8 @@ public class UserController extends BaseController {
 //	@RequiresPermissions("user:close")
 	@ResponseBody
 	public Result close(Long id) {
-		userService.updateStatus(id, Consts.STATUS_CLOSED);
+		UserBO userBO = userService.get(id);
+		userService.updateStatus(userBO.getUid(), Consts.STATUS_CLOSED);
 		return Result.success();
 	}
 

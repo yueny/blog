@@ -17,7 +17,7 @@ import com.mtons.mblog.entity.jpa.Comment;
 import com.mtons.mblog.dao.repository.CommentRepository;
 import com.mtons.mblog.service.atom.jpa.CommentService;
 import com.mtons.mblog.service.atom.jpa.PostService;
-import com.mtons.mblog.service.manager.UserEventService;
+import com.mtons.mblog.service.watcher.executor.UserEventExecutor;
 import com.mtons.mblog.service.atom.jpa.UserService;
 import com.mtons.mblog.service.util.BeanMapUtils;
 import com.mtons.mblog.service.BaseService;
@@ -42,7 +42,7 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 	@Autowired
 	private UserService userService;
 	@Autowired
-	private UserEventService userEventService;
+	private UserEventExecutor userEventExecutor;
 	@Autowired
 	private PostService postService;
 	
@@ -172,8 +172,11 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 
 		commentRepository.save(po);
 
-		// 更新用户评论总数
-		userEventService.identityComment(comment.getAuthorId(), true);
+		// 更新用户个人的评论总数
+		if(!comment.isAnonymity()){
+			userEventExecutor.identityComment(comment.getUid(), true);
+		}
+
 		return po.getId();
 	}
 
@@ -183,22 +186,22 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 		List<Comment> list = commentRepository.removeByIdIn(ids);
 		if (CollectionUtils.isNotEmpty(list)) {
 			list.forEach(po -> {
-				userEventService.identityComment(po.getAuthorId(), false);
+				userEventExecutor.identityComment(po.getUid(), false);
 			});
 		}
 	}
 
 	@Override
 	@Transactional
-	public void delete(long id, long authorId) {
+	public void delete(long id, String uid) {
 		Optional<Comment> optional = commentRepository.findById(id);
 		if (optional.isPresent()) {
 			Comment po = optional.get();
 			// 判断文章是否属于当前登录用户
-			Assert.isTrue(po.getAuthorId() == authorId, "认证失败");
+			Assert.isTrue(po.getUid() == uid, "认证失败");
 			commentRepository.deleteById(id);
 
-			userEventService.identityComment(authorId, false);
+			userEventExecutor.identityComment(uid, false);
 		}
 	}
 
@@ -207,9 +210,9 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 	public void deleteByPostId(long postId) {
 		List<Comment> list = commentRepository.removeByPostId(postId);
 		if (CollectionUtils.isNotEmpty(list)) {
-			Set<Long> userIds = new HashSet<>();
-			list.forEach(n -> userIds.add(n.getAuthorId()));
-			userEventService.identityComment(userIds, false);
+			Set<String> uids = new HashSet<>();
+			list.forEach(n -> uids.add(n.getUid()));
+			userEventExecutor.identityComment(uids, false);
 		}
 	}
 

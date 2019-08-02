@@ -1,11 +1,13 @@
-package com.mtons.mblog.service.event.handler;
+package com.mtons.mblog.service.watcher.event.handler;
 
-import com.mtons.mblog.service.event.PostUpdateEvent;
+import com.mtons.mblog.service.watcher.event.PostUpdateEvent;
 import com.mtons.mblog.service.atom.jpa.CommentService;
 import com.mtons.mblog.service.atom.jpa.FavoriteService;
 import com.mtons.mblog.service.atom.jpa.MessageService;
 import com.mtons.mblog.service.atom.jpa.TagService;
-import com.mtons.mblog.service.manager.UserEventService;
+import com.mtons.mblog.service.watcher.event.enums.PostUpdateType;
+import com.mtons.mblog.service.watcher.executor.UserEventExecutor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.scheduling.annotation.Async;
@@ -22,7 +24,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class PostUpdateEventHandler implements ApplicationListener<PostUpdateEvent> {
     @Autowired
-    private UserEventService userEventService;
+    private UserEventExecutor userEventExecutor;
     @Autowired
     private FavoriteService favoriteService;
     @Autowired
@@ -39,22 +41,18 @@ public class PostUpdateEventHandler implements ApplicationListener<PostUpdateEve
             return;
         }
 
-        switch (event.getAction()) {
-            // 文章发布
-            case PostUpdateEvent.ACTION_PUBLISH:
-                userEventService.identityPost(event.getUserId(), true);
-                break;
+        // 文章删除
+        if(StringUtils.equals(event.getAction().name(), PostUpdateType.ACTION_DELETE.name())){
+            userEventExecutor.identityPost(event.getUid(), false);
 
-            // 文章删除
-            case PostUpdateEvent.ACTION_DELETE:
-                userEventService.identityPost(event.getUserId(), false);
+            favoriteService.delete(event.getUid(), event.getArticleBlogId());
 
-                favoriteService.delete(event.getArticleBlogId());
-
-                commentService.deleteByPostId(event.getPostId());
-                tagService.deteleMappingByPostId(event.getPostId());
-                messageService.deleteByPostId(event.getPostId());
-                break;
+            commentService.deleteByPostId(event.getPostId());
+            tagService.deteleMappingByPostId(event.getPostId());
+            messageService.deleteByPostId(event.getPostId());
+        }else{
+            // 文章发布 PostUpdateType.ACTION_PUBLISH.name():
+            userEventExecutor.identityPost(event.getUid(), true);
         }
     }
 }

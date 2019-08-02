@@ -1,4 +1,4 @@
-package com.mtons.mblog.service.event;
+package com.mtons.mblog.service.watcher.event;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,12 +10,26 @@ import org.springframework.context.ApplicationEvent;
 public class MessageEvent extends ApplicationEvent {
 	private static final long serialVersionUID = -4261382494171476390L;
 
+    /**
+     * 用户UID
+     */
+    @Getter
+    @Setter
+    private String fromUid;
 
-	private long fromUserId;
-    private long toUserId;
+    /**
+     * 用户UID
+     */
+    @Getter
+    @Setter
+    private String toUid;
+//	private long UserId;
+//    private long toUserId;
+
     private int event;
 
     private long postId;
+
     @Getter
     @Setter
     private String articleBlogId;
@@ -27,22 +41,6 @@ public class MessageEvent extends ApplicationEvent {
      */
     public MessageEvent(Object source) {
         super(source);
-    }
-
-    public long getFromUserId() {
-        return fromUserId;
-    }
-
-    public void setFromUserId(long fromUserId) {
-        this.fromUserId = fromUserId;
-    }
-
-    public long getToUserId() {
-        return toUserId;
-    }
-
-    public void setToUserId(long toUserId) {
-        this.toUserId = toUserId;
     }
 
     public int getEvent() {

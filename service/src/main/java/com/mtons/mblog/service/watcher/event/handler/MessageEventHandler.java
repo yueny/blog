@@ -1,9 +1,10 @@
-package com.mtons.mblog.service.event.handler;
+package com.mtons.mblog.service.watcher.event.handler;
 
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.MessageVO;
 import com.mtons.mblog.bo.PostBO;
-import com.mtons.mblog.service.event.MessageEvent;
+import com.mtons.mblog.service.atom.jpa.UserService;
+import com.mtons.mblog.service.watcher.event.MessageEvent;
 import com.mtons.mblog.service.atom.jpa.MessageService;
 import com.mtons.mblog.service.atom.jpa.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +21,16 @@ public class MessageEventHandler implements ApplicationListener<MessageEvent> {
     private MessageService messageService;
     @Autowired
     private PostService postService;
+    @Autowired
+    private UserService userService;
 
     @Async
     @Override
     public void onApplicationEvent(MessageEvent event) {
         MessageVO nt = new MessageVO();
         nt.setPostId(event.getPostId());
-        nt.setFromId(event.getFromUserId());
+
+        nt.setFromId(userService.get(event.getFromUid()).getId());
         nt.setEvent(event.getEvent());
 
         switch (event.getEvent()) {
@@ -47,7 +51,7 @@ public class MessageEventHandler implements ApplicationListener<MessageEvent> {
                 postService.identityComments(p2.getArticleBlogId());
                 break;
             default:
-                nt.setUserId(event.getToUserId());
+                nt.setUserId(userService.get(event.getToUid()).getId());
         }
 
         messageService.send(nt);
