@@ -45,7 +45,6 @@ import java.util.stream.Collectors;
  *
  */
 @Service
-@Transactional
 public class PostServiceImpl extends BaseService implements PostService {
 	@Autowired
 	private PostRepository postRepository;
@@ -141,7 +140,7 @@ public class PostServiceImpl extends BaseService implements PostService {
 			return Collections.emptyMap();
 		}
 
-		List<Post> list = postRepository.findAllById(ids);
+		Iterable<Post> list = postRepository.findAllById(ids);
 
 		HashSet<Long> uids = new HashSet<>();
 		Map<Long, PostBO> rets = new HashMap<>();
@@ -157,6 +156,7 @@ public class PostServiceImpl extends BaseService implements PostService {
 	}
 
 	@Override
+	@Transactional
 	public Long post(PostBO post) {
 		Post entry = map(post, Post.class);
 
@@ -223,6 +223,7 @@ public class PostServiceImpl extends BaseService implements PostService {
 	 * @param pp
 	 */
 	@Override
+	@Transactional
 	public void update(PostBO pp){
 		Optional<Post> optional = postRepository.findById(pp.getId());
 
@@ -277,6 +278,7 @@ public class PostServiceImpl extends BaseService implements PostService {
 	}
 
 	@Override
+	@Transactional
 	public void delete(String articleBlogId, long authorId) {
 		Post po = postRepository.findByArticleBlogId(articleBlogId);
 		// 判断文章是否属于当前登录用户
@@ -286,6 +288,7 @@ public class PostServiceImpl extends BaseService implements PostService {
 	}
 
 	@Override
+	@Transactional
 	public Set<Long> delete(Set<String> articleBlogIds) {
 		Set<Long> ids = Sets.newHashSet();
 		if (CollectionUtils.isNotEmpty(articleBlogIds)) {
@@ -400,4 +403,5 @@ public class PostServiceImpl extends BaseService implements PostService {
 		}
 		post.setThumbnail(resourceBO.getPath());
 	}
+
 }

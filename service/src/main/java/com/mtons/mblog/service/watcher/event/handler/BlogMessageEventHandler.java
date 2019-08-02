@@ -1,8 +1,10 @@
 package com.mtons.mblog.service.watcher.event.handler;
 
+import com.mtons.mblog.base.consts.BlogConstant;
 import com.mtons.mblog.base.enums.watcher.MessageActionType;
 import com.mtons.mblog.bo.MessageVO;
 import com.mtons.mblog.bo.PostBO;
+import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.service.atom.jpa.UserService;
 import com.mtons.mblog.service.watcher.event.BlogMessageEvent;
 import com.mtons.mblog.service.atom.jpa.MessageService;
@@ -30,7 +32,12 @@ public class BlogMessageEventHandler implements ApplicationListener<BlogMessageE
         MessageVO nt = new MessageVO();
         nt.setPostId(event.getPostId());
 
-        nt.setFromId(userService.get(event.getFromUid()).getId());
+        UserBO userBo = userService.get(event.getFromUid());
+        if(userBo == null){
+            nt.setFromId(BlogConstant.DEFAULT_GUEST_AUTHOR_ID);
+        }else{
+            nt.setFromId(userBo.getId());
+        }
         nt.setEvent(event.getEvent());
 
         // 有人喜欢了你的文章

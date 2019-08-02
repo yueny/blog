@@ -87,7 +87,7 @@ public class FavoriteServiceImpl extends BaseService implements FavoriteService 
     @Override
     @Transactional
     public void delete(String uid, String articleBlogId) {
-        int rows = favoriteRepository.deleteByArticleBlogIdByUid(articleBlogId, uid);
+        int rows = favoriteRepository.deleteByArticleBlogIdAndUid(articleBlogId, uid);
         log.info("favoriteRepository delete {}", rows);
 
 //        Favorite po = favoriteRepository.findByUidAndArticleBlogId(uid, articleBlogId);

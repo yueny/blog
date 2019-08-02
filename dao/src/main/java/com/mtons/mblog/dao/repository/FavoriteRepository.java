@@ -19,6 +19,6 @@ public interface FavoriteRepository extends JpaRepository<Favorite, Long>, JpaSp
     Page<Favorite> findAllByUid(Pageable pageable, String uid);
 
     @Deprecated
-    int deleteByPostIdByUid(long postId, String uid);
-    int deleteByArticleBlogIdByUid(String articleBlogId, String uid);
+    int deleteByPostIdAndUid(long postId, String uid);
+    int deleteByArticleBlogIdAndUid(String articleBlogId, String uid);
 }

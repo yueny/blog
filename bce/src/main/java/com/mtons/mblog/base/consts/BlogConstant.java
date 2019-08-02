@@ -10,9 +10,9 @@ public class BlogConstant {
     /**
      * 访客下的 author_id
      */
-    public static final Long DEFAULT_GUEST_AUTHOR_ID = 0L;
+    public static final Long DEFAULT_GUEST_AUTHOR_ID = -1L;
     /**
      * 访客下的 uid
      */
-    public static final String DEFAULT_GUEST_U_ID = "guest";
+    public static final String DEFAULT_GUEST_U_ID = "-1";
 }

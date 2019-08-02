@@ -51,7 +51,7 @@
                                     </td>
                                     <td>${row.content}</td>
                                     <td>
-                                        <#if row.uid == 'guest'>
+                                        <#if row.uid == '-1'>
                                             <span class="text-muted">匿名/${row.clientIp}/${row.clientAgent}</span>
                                         <#else>
                                             <span class="text-info">${row.author.username}/${row.author.name}</span>
