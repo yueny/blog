@@ -1,6 +1,6 @@
 package com.mtons.mblog.web.controller.site.auth;
 
-import com.mtons.mblog.service.comp.ICacheService;
+import com.mtons.mblog.service.comp.base.ICacheService;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.consts.OptionsKeysConsts;
 import com.mtons.mblog.base.lang.Result;

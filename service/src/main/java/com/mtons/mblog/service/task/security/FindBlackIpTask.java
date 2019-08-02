@@ -10,7 +10,7 @@ import com.mtons.mblog.entity.bao.ViewLogEntry;
 import com.mtons.mblog.service.AbstractService;
 import com.mtons.mblog.service.atom.jpa.AttackIpService;
 import com.mtons.mblog.service.atom.bao.ViewLogService;
-import com.mtons.mblog.service.comp.IAnalyzeService;
+import com.mtons.mblog.service.comp.base.IAnalyzeService;
 import com.mtons.mblog.service.comp.configure.impl.ConfigureGetService;
 import com.yueny.rapid.lang.date.DateTimeUtil;
 import com.yueny.rapid.lang.util.time.DurationTimer;

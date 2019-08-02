@@ -1,8 +1,7 @@
 package com.mtons.mblog.com.mtons.mblog.modules.comp;
 
 import com.mtons.mblog.BootApplication;
-import com.mtons.mblog.service.comp.IPasswdService;
-import org.junit.Assert;
+import com.mtons.mblog.service.comp.base.IPasswdService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

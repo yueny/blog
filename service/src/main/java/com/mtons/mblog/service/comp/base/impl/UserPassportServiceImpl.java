@@ -1,4 +1,4 @@
-package com.mtons.mblog.service.comp.impl;
+package com.mtons.mblog.service.comp.base.impl;
 
 import com.mtons.mblog.base.enums.ErrorType;
 import com.mtons.mblog.base.enums.NeedChangeType;
@@ -6,8 +6,8 @@ import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.bo.UserSecurityBO;
 import com.mtons.mblog.service.atom.bao.IUserSecurityService;
 import com.mtons.mblog.service.atom.jpa.UserService;
-import com.mtons.mblog.service.comp.IPasswdService;
-import com.mtons.mblog.service.comp.IUserPassportService;
+import com.mtons.mblog.service.comp.base.IPasswdService;
+import com.mtons.mblog.service.comp.base.IUserPassportService;
 import com.yueny.rapid.lang.exception.invalid.InvalidException;
 import com.yueny.rapid.lang.util.StringUtil;
 import org.apache.commons.lang.StringUtils;

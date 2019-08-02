@@ -16,10 +16,9 @@ import com.mtons.mblog.model.UserVO;
 import com.mtons.mblog.service.atom.jpa.RoleService;
 import com.mtons.mblog.service.atom.jpa.UserRoleService;
 import com.mtons.mblog.service.atom.jpa.UserService;
-import com.mtons.mblog.service.comp.IUserPassportService;
+import com.mtons.mblog.service.comp.base.IUserPassportService;
 import com.mtons.mblog.service.manager.IUserManagerService;
 import com.mtons.mblog.web.controller.BaseController;
-import com.mtons.mblog.web.controller.site.Views;
 import com.yueny.rapid.lang.exception.invalid.InvalidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,7 +26,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.Set;
 
 /**

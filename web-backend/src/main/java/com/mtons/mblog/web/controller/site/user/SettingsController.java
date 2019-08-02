@@ -2,10 +2,9 @@ package com.mtons.mblog.web.controller.site.user;
 
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.consts.Consts;
-import com.mtons.mblog.base.consts.StorageConsts;
 import com.mtons.mblog.base.utils.FileKit;
 import com.mtons.mblog.base.utils.FilePathUtils;
-import com.mtons.mblog.service.comp.IUserPassportService;
+import com.mtons.mblog.service.comp.base.IUserPassportService;
 import com.mtons.mblog.service.util.ImageUtils;
 import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.UserBO;
