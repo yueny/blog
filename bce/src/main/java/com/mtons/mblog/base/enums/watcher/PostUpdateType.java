@@ -1,4 +1,4 @@
-package com.mtons.mblog.service.watcher.event.enums;
+package com.mtons.mblog.base.enums.watcher;
 
 import com.yueny.superclub.api.enums.core.IEnumType;
 

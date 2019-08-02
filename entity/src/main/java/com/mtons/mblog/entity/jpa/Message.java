@@ -22,7 +22,7 @@ public class Message implements IEntry {
     @Column(name = "from_id")
     private long fromId;
 
-    private int event; // 事件
+    private int event; // 事件， 取自 MessageActionType
 
     @Column(name = "post_id")
     private long postId; // 关联文章ID

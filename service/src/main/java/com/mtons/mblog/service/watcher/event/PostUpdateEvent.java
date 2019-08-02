@@ -1,6 +1,6 @@
 package com.mtons.mblog.service.watcher.event;
 
-import com.mtons.mblog.service.watcher.event.enums.PostUpdateType;
+import com.mtons.mblog.base.enums.watcher.PostUpdateType;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.context.ApplicationEvent;

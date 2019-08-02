@@ -84,18 +84,6 @@ public interface Consts {
 	 */
 	int READED = 1;
 
-	int MESSAGE_EVENT_FAVOR_POST = 1; // 有人喜欢了你的文章
-
-	/**
-	 * 有人评论了你
-	 */
-	int MESSAGE_EVENT_COMMENT = 3;
-
-	/**
-	 * 有人回复了你
-	 */
-	int MESSAGE_EVENT_COMMENT_REPLY = 4;
-
 	/**
 	 * 缓存键， @CacheConfig(cacheNames = Consts.CACHE_POST_MANAGER)
 	 */

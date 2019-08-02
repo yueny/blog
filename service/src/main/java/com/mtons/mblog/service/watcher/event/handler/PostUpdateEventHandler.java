@@ -5,7 +5,7 @@ import com.mtons.mblog.service.atom.jpa.CommentService;
 import com.mtons.mblog.service.atom.jpa.FavoriteService;
 import com.mtons.mblog.service.atom.jpa.MessageService;
 import com.mtons.mblog.service.atom.jpa.TagService;
-import com.mtons.mblog.service.watcher.event.enums.PostUpdateType;
+import com.mtons.mblog.base.enums.watcher.PostUpdateType;
 import com.mtons.mblog.service.watcher.executor.UserEventExecutor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

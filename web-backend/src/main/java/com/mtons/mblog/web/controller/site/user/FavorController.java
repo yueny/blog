@@ -1,10 +1,10 @@
 package com.mtons.mblog.web.controller.site.user;
 
+import com.mtons.mblog.base.enums.watcher.MessageActionType;
 import com.mtons.mblog.base.lang.Result;
-import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.PostBO;
-import com.mtons.mblog.service.watcher.event.MessageEvent;
+import com.mtons.mblog.service.watcher.event.BlogMessageEvent;
 import com.mtons.mblog.service.atom.jpa.PostService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.apache.commons.lang3.StringUtils;
@@ -38,7 +38,7 @@ public class FavorController extends BaseController {
                 postService.favor(up.getUid(), articleBlogId);
 
                 PostBO postBO = postService.get(articleBlogId);
-                sendMessage(up.getUid(), postBO.getId(), articleBlogId);
+                publicMessage(up.getUid(), postBO.getId(), articleBlogId);
 
                 data = Result.success();
             } catch (Exception e) {
@@ -75,13 +75,13 @@ public class FavorController extends BaseController {
      * @param uid
      * @param postId
      */
-    private void sendMessage(String uid, long postId, String articleBlogId) {
-        MessageEvent event = new MessageEvent("MessageEvent" + System.currentTimeMillis());
+    private void publicMessage(String uid, long postId, String articleBlogId) {
+        BlogMessageEvent event = new BlogMessageEvent("MessageEvent" + System.currentTimeMillis());
         event.setFromUid(uid);
-        event.setEvent(Consts.MESSAGE_EVENT_FAVOR_POST);
+        event.setEvent(MessageActionType.MESSAGE_EVENT_FAVOR_POST);
+
         // 此处不知道文章作者, 让通知事件系统补全
         event.setPostId(postId);
-
         event.setArticleBlogId(articleBlogId);
 
         applicationContext.publishEvent(event);

@@ -33,7 +33,7 @@ public interface UserEventExecutor {
     void identityComment(String uid, boolean plus);
 
     /**
-     * 批量自动评论数
+     * 批量自增评论数
      * @param uids
      * @param plus
      */

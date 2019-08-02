@@ -5,15 +5,15 @@ package com.mtons.mblog.web.controller.site.comment;
 
 import com.mtons.mblog.base.consts.BlogConstant;
 import com.mtons.mblog.base.enums.AuthoredType;
-import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.modules.comp.ISiteOptionsGetService;
 import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.CommentVO;
 import com.mtons.mblog.bo.PostBO;
-import com.mtons.mblog.service.watcher.event.MessageEvent;
+import com.mtons.mblog.service.watcher.event.BlogMessageEvent;
 import com.mtons.mblog.service.atom.jpa.CommentService;
 import com.mtons.mblog.service.atom.jpa.PostService;
+import com.mtons.mblog.base.enums.watcher.MessageActionType;
 import com.mtons.mblog.web.controller.BaseController;
 import com.yueny.rapid.lang.agent.UserAgentResource;
 import com.yueny.rapid.lang.agent.handler.UserAgentUtils;
@@ -111,10 +111,11 @@ public class CommentController extends BaseController {
             AccountProfile profile = getProfile();
             // 回复人的ID 与 评论文章所有者ID 不同, 则评论数+1. 即自己给自己评论, 不做加1
             if (toId != profile.getId()) {
-                sendMessage(profile.getUid(), toId, pid);
+                publicMessage(profile.getUid(), toId, pid);
             }
         }else{
-            sendMessage(BlogConstant.DEFAULT_GUEST_U_ID, toId, pid);
+            // 匿名评论
+            publicMessage(BlogConstant.DEFAULT_GUEST_U_ID, toId, pid);
         }
 
         return Result.successMessage("发表成功");
@@ -139,17 +140,18 @@ public class CommentController extends BaseController {
      * @param uid
      * @param postId
      */
-    private void sendMessage(String uid, long postId, long pid) {
-        MessageEvent event = new MessageEvent("MessageEvent");
+    private void publicMessage(String uid, long postId, long pid) {
+        BlogMessageEvent event = new BlogMessageEvent("MessageEvent");
         event.setFromUid(uid);
 
         if (pid > 0) {
             // 有人回复了你
-            event.setEvent(Consts.MESSAGE_EVENT_COMMENT_REPLY);
+            event.setEvent(MessageActionType.MESSAGE_EVENT_COMMENT_REPLY);
         } else {
             // 有人评论了你
-            event.setEvent(Consts.MESSAGE_EVENT_COMMENT);
+            event.setEvent(MessageActionType.MESSAGE_EVENT_COMMENT);
         }
+
         // 此处不知道文章作者, 让通知事件系统补全
         event.setPostId(postId);
 

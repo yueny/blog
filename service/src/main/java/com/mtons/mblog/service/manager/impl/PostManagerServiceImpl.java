@@ -28,7 +28,7 @@ import com.mtons.mblog.service.atom.jpa.ChannelService;
 import com.mtons.mblog.service.atom.bao.ResourceService;
 import com.mtons.mblog.service.exception.MtonsException;
 import com.mtons.mblog.service.util.MarkdownUtils;
-import com.mtons.mblog.service.watcher.event.enums.PostUpdateType;
+import com.mtons.mblog.base.enums.watcher.PostUpdateType;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

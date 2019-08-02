@@ -1,5 +1,6 @@
 package com.mtons.mblog.bo;
 
+import com.mtons.mblog.base.enums.watcher.MessageActionType;
 import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +19,7 @@ public class MessageVO extends AbstractMaskBo {
 
     private long fromId;
 
-    private int event; // 事件
+    private MessageActionType event; // 事件， 取自 MessageActionType
 
     private long postId; // 关联文章ID
 

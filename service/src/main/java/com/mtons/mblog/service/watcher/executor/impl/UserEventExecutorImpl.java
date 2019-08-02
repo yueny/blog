@@ -30,16 +30,29 @@ public class UserEventExecutorImpl implements UserEventExecutor {
     @Autowired
     private UserRepository userMapper;
 
+    /**
+     * 自增发布文章数
+     * @param uid
+     */
     @Override
     public void identityPost(String uid, boolean plus) {
         userMapper.updatePosts(uid, (plus) ? Consts.IDENTITY_STEP : Consts.DECREASE_STEP, Calendar.getInstance().getTime());
     }
 
+    /**
+     * 自增评论数
+     * @param uid
+     */
     @Override
     public void identityComment(String uid, boolean plus) {
         userMapper.updateComments(Collections.singleton(uid), (plus) ? Consts.IDENTITY_STEP : Consts.DECREASE_STEP, Calendar.getInstance().getTime());
     }
 
+    /**
+     * 批量自增评论数
+     * @param uids
+     * @param plus
+     */
     @Override
     public void identityComment(Set<String> uids, boolean plus) {
         userMapper.updateComments(uids, (plus) ? Consts.IDENTITY_STEP : Consts.DECREASE_STEP, Calendar.getInstance().getTime());

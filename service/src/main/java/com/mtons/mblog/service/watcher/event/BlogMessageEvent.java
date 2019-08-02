@@ -1,5 +1,6 @@
 package com.mtons.mblog.service.watcher.event;
 
+import com.mtons.mblog.base.enums.watcher.MessageActionType;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.context.ApplicationEvent;
@@ -7,7 +8,7 @@ import org.springframework.context.ApplicationEvent;
 /**
  * @author langhsu on 2015/8/31.
  */
-public class MessageEvent extends ApplicationEvent {
+public class BlogMessageEvent extends ApplicationEvent {
 	private static final long serialVersionUID = -4261382494171476390L;
 
     /**
@@ -26,7 +27,9 @@ public class MessageEvent extends ApplicationEvent {
 //	private long UserId;
 //    private long toUserId;
 
-    private int event;
+    @Getter
+    @Setter
+    private MessageActionType event;
 
     private long postId;
 
@@ -39,16 +42,8 @@ public class MessageEvent extends ApplicationEvent {
      *
      * @param source the component that published the event (never {@code null})
      */
-    public MessageEvent(Object source) {
+    public BlogMessageEvent(Object source) {
         super(source);
-    }
-
-    public int getEvent() {
-        return event;
-    }
-
-    public void setEvent(int event) {
-        this.event = event;
     }
 
     public long getPostId() {

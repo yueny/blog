@@ -172,7 +172,7 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 
 		commentRepository.save(po);
 
-		// 更新用户个人的评论总数
+		// 如果不是匿名，则更新用户个人的评论总数
 		if(!comment.isAnonymity()){
 			userEventExecutor.identityComment(comment.getUid(), true);
 		}
@@ -184,6 +184,7 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 	@Transactional
 	public void delete(List<Long> ids) {
 		List<Comment> list = commentRepository.removeByIdIn(ids);
+
 		if (CollectionUtils.isNotEmpty(list)) {
 			list.forEach(po -> {
 				userEventExecutor.identityComment(po.getUid(), false);
@@ -212,6 +213,7 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 		if (CollectionUtils.isNotEmpty(list)) {
 			Set<String> uids = new HashSet<>();
 			list.forEach(n -> uids.add(n.getUid()));
+
 			userEventExecutor.identityComment(uids, false);
 		}
 	}
