@@ -80,6 +80,7 @@ public class CommentController extends BaseController {
         CommentVO c = new CommentVO();
         // 所属博文内容的主键ID
         c.setPostId(toId);
+        c.setArticleBlogId(postService.get(c.getPostId()).getArticleBlogId());
         c.setContent(HtmlUtils.htmlEscape(text));
 
         // 针对性回复的评论ID(父评论ID)
