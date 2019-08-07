@@ -26,6 +26,6 @@ public class MysqlMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void updateFill(MetaObject metaObject) {
         // 在插入的时候自动更新 modifyTime
-        this.setFieldValByName(MapperConst.MODIFY_TIME_FIELD, new Date(), metaObject);// 不允许手动设置更新时间
+        this.setFieldValByName(MapperConst.MODIFY_TIME_FIELD, Calendar.getInstance().getTime(), metaObject);// 不允许手动设置更新时间
     }
 }

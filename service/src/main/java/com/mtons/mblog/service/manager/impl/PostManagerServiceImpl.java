@@ -183,12 +183,18 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 		postService.update(pp);
 
 		// 保存扩展
-		// PostAttributeBo attr = postAttributeService.get(pp.getId());
-		PostAttributeBo attr = new PostAttributeBo();
-		attr.setId(pp.getId());
-		attr.setContent(pp.getContent());
-		attr.setEditor(pp.getEditor());
-		postAttributeService.updateById(attr);
+		PostAttributeBo attr = postAttributeService.get(pp.getId());
+		if(attr == null){
+			attr = new PostAttributeBo();
+			attr.setId(pp.getId());
+			attr.setContent(pp.getContent());
+			attr.setEditor(pp.getEditor());
+			postAttributeService.insert(attr);
+		}else{
+			attr.setContent(pp.getContent());
+			attr.setEditor(pp.getEditor());
+			postAttributeService.updateById(attr);
+		}
 
 		tagService.batchUpdate(pp.getTags(), pp.getId());
 

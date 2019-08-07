@@ -188,6 +188,8 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 		if (CollectionUtils.isNotEmpty(list)) {
 			list.forEach(po -> {
 				userEventExecutor.identityComment(po.getUid(), false);
+				//TODO  重新统计评论所在文章的评论总数
+				//
 			});
 		}
 	}
@@ -203,6 +205,8 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 			commentRepository.deleteById(id);
 
 			userEventExecutor.identityComment(uid, false);
+			//TODO  重新统计评论所在文章的评论总数
+			//
 		}
 	}
 
@@ -215,6 +219,8 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 			list.forEach(n -> uids.add(n.getUid()));
 
 			userEventExecutor.identityComment(uids, false);
+			//TODO  重新统计评论所在文章的评论总数
+			//
 		}
 	}
 

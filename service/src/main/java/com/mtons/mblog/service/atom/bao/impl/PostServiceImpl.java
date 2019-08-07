@@ -20,7 +20,6 @@ import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.ResourceBO;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.dao.mapper.PostMapper;
-import com.mtons.mblog.service.atom.bao.IPostAttributeService;
 import com.mtons.mblog.service.atom.bao.ResourceService;
 import com.mtons.mblog.service.atom.jpa.*;
 import com.mtons.mblog.service.atom.jpa.PostService;
@@ -28,7 +27,7 @@ import com.mtons.mblog.service.util.BeanMapUtils;
 import com.mtons.mblog.service.aspect.PostStatusFilter;
 import com.mtons.mblog.bo.ChannelVO;
 import com.mtons.mblog.bo.PostBO;
-import com.mtons.mblog.entity.jpa.Post;
+import com.mtons.mblog.entity.bao.Post;
 import com.mtons.mblog.dao.repository.PostRepository;
 import com.mtons.mblog.service.seq.SeqType;
 import com.mtons.mblog.service.seq.container.ISeqContainer;
@@ -227,22 +226,22 @@ public class PostServiceImpl extends AbstractPlusService<PostBO, Post, PostMappe
 	@Override
 	@Transactional
 	public Long post(PostBO post) {
-		Post entry = map(post, Post.class);
-
-		if(StringUtils.isEmpty(entry.getArticleBlogId())){
-			String articleBlogId = seqContainer.getStrategy(SeqType.ARTICLE_BLOG_ID).get(entry.getTitle());
+		if(StringUtils.isEmpty(post.getArticleBlogId())){
+			String articleBlogId = seqContainer.getStrategy(SeqType.ARTICLE_BLOG_ID).get(post.getTitle());
 
 			// 判断该编号是否存在，存在则随机生成
 			while(getByArticleBlogId(articleBlogId) != null){
 				articleBlogId = seqContainer.getStrategy(SeqType.ARTICLE_BLOG_ID).get("");
 			}
 
-			entry.setArticleBlogId(articleBlogId);
+			post.setArticleBlogId(articleBlogId);
 		}
 
-		entry.setStatus(post.getStatus());
-		entry.setSummary(post.getSummary());
+		post.setStatus(post.getStatus());
+		post.setSummary(post.getSummary());
 
+		//super.insert(post);
+		Post entry = map(post, Post.class);
 		baseMapper.insert(entry);
 
 		post.setId(entry.getId());
@@ -257,31 +256,32 @@ public class PostServiceImpl extends AbstractPlusService<PostBO, Post, PostMappe
 	@Transactional
 	@Deprecated
 	public void update(PostBO pp){
-		Optional<Post> optional = postRepository.findById(pp.getId());
+		PostBO postBo = get(pp.getId());
+//		Optional<Post> optional = postRepository.findById(pp.getId());
 
-		if (optional.isPresent()) {
-			Post po = optional.get();
-			po.setTitle(pp.getTitle());//标题
-			po.setChannelId(pp.getChannelId());
-			po.setThumbnailCode(pp.getThumbnailCode());
-			po.setStatus(pp.getStatus());
+//		if (optional.isPresent()) {
+//			Post po = optional.get();
+		postBo.setTitle(pp.getTitle());//标题
+		postBo.setChannelId(pp.getChannelId());
+		postBo.setThumbnailCode(pp.getThumbnailCode());
+		postBo.setStatus(pp.getStatus());
 
-			if(StringUtils.isEmpty(po.getArticleBlogId())){
-				String articleBlogId = seqContainer.getStrategy(SeqType.ARTICLE_BLOG_ID).get(po.getTitle());
+		if(StringUtils.isEmpty(postBo.getArticleBlogId())){
+			String articleBlogId = seqContainer.getStrategy(SeqType.ARTICLE_BLOG_ID).get(postBo.getTitle());
 
-				// 判断该编号是否存在，存在则随机生成
-				while(getByArticleBlogId(articleBlogId) != null){
-					articleBlogId = seqContainer.getStrategy(SeqType.ARTICLE_BLOG_ID).get("");
-				}
-
-				po.setArticleBlogId(articleBlogId);
+			// 判断该编号是否存在，存在则随机生成
+			while(getByArticleBlogId(articleBlogId) != null){
+				articleBlogId = seqContainer.getStrategy(SeqType.ARTICLE_BLOG_ID).get("");
 			}
 
-			po.setSummary(pp.getSummary());
-			po.setTags(pp.getTags());//标签
-
-			baseMapper.updateById(po);
+			postBo.setArticleBlogId(articleBlogId);
 		}
+
+		postBo.setSummary(pp.getSummary());
+		postBo.setTags(pp.getTags());//标签
+
+		super.updateById(postBo);
+//		}
 	}
 
 	@Override

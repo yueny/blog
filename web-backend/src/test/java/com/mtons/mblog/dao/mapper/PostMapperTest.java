@@ -4,9 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mtons.mblog.BootApplication;
 import com.mtons.mblog.base.enums.BlogFeaturedType;
-import com.mtons.mblog.entity.bao.DemoEntry;
-import com.mtons.mblog.entity.bao.Resource;
-import com.mtons.mblog.entity.jpa.Post;
+import com.mtons.mblog.entity.bao.Post;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,9 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.UUID;
 
 /**

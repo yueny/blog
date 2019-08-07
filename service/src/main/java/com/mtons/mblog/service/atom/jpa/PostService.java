@@ -12,7 +12,7 @@ package com.mtons.mblog.service.atom.jpa;
 import com.mtons.mblog.base.enums.BlogFeaturedType;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.PostBO;
-import com.mtons.mblog.entity.jpa.Post;
+import com.mtons.mblog.entity.bao.Post;
 import com.mtons.mblog.service.api.bao.IPlusBizService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;

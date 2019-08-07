@@ -5,7 +5,7 @@ import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.service.BaseService;
 import com.mtons.mblog.service.aspect.PostStatusFilter;
 import com.mtons.mblog.bo.UserBO;
-import com.mtons.mblog.entity.jpa.Post;
+import com.mtons.mblog.entity.bao.Post;
 import com.mtons.mblog.modules.service.PostSearchService;
 import com.mtons.mblog.service.atom.jpa.UserService;
 import lombok.extern.slf4j.Slf4j;

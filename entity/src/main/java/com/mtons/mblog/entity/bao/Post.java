@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.entity.jpa;
+package com.mtons.mblog.entity.bao;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.mtons.mblog.entity.api.IEntry;
@@ -45,21 +45,21 @@ import java.util.Date;
 @Analyzer(impl = SmartChineseAnalyzer.class)
 @Getter
 @Setter
-public class Post // extends AbstractPlusEntry
+public class Post  extends AbstractPlusEntry
 		implements IEntry, Serializable {
 	private static final long serialVersionUID = 7144425803920583495L;
 
-	/** 文章主键 */
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@SortableField
-	@NumericField
-	@TableId(type = IdType.AUTO)
-	private Long id;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@TableField(fill = FieldFill.INSERT)
-	private Date created;
+//	/** 文章主键 */
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@SortableField
+//	@NumericField
+//	@TableId(type = IdType.AUTO)
+//	private Long id;
+//
+//	@Temporal(TemporalType.TIMESTAMP)
+//	@TableField(fill = FieldFill.INSERT)
+//	private Date created;
 
 	/**
 	 * 文章编号扩展ID

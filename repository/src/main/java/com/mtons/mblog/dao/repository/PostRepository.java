@@ -9,15 +9,9 @@
 */
 package com.mtons.mblog.dao.repository;
 
-import com.mtons.mblog.entity.jpa.Post;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.mtons.mblog.entity.bao.Post;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Set;

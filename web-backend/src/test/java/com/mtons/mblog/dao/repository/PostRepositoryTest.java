@@ -2,7 +2,7 @@ package com.mtons.mblog.dao.repository;
 
 import com.mtons.mblog.base.enums.BlogFeaturedType;
 import com.mtons.mblog.dao.BaseDaoTest;
-import com.mtons.mblog.entity.jpa.Post;
+import com.mtons.mblog.entity.bao.Post;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
