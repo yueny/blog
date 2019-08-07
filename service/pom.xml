@@ -19,7 +19,7 @@
         </dependency>
         <dependency>
             <groupId>com.mtons.mblog</groupId>
-            <artifactId>mblog-dao</artifactId>
+            <artifactId>mblog-repository</artifactId>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>

@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.service.atom.bao;
 
-import com.mtons.mblog.bo.DemoVO;
+import com.mtons.mblog.bo.DemoBo;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public interface DemoService {
 	/**
 	 * 根据订单号查询， 执行于 xml文件中
 	 */
-	DemoVO selectByOrderId(String orderId);
+	DemoBo selectByOrderId(String orderId);
 
 	/**
 	 * 担保方式查询
@@ -32,5 +32,5 @@ public interface DemoService {
 	 * @param  guaranteeMode 担保方式，1信用担保，2保证担保， 3抵押担保， 4质押担保
 	 *
 	 */
-	List<DemoVO> selectListByGuaranteeMode(Integer guaranteeMode);
+	List<DemoBo> selectListByGuaranteeMode(Integer guaranteeMode);
 }

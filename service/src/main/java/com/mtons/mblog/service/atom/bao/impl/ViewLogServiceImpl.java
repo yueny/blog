@@ -25,7 +25,7 @@ import java.util.List;
  *
  */
 @Service
-public class ViewLogServiceImpl extends BaseBaoService<ViewLogMapper, ViewLogEntry>
+public class ViewLogServiceImpl extends AbstractPlusService<ViewLogVO, ViewLogEntry, ViewLogMapper>
         implements ViewLogService {
     @Override
     public List<ViewLogVO> findListByIp(String ip) {

@@ -27,27 +27,26 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class UserSecurityEntry implements IEntry {
-    /** 自然主键 */
-    /* 该配置自动创建表 START */
-    @Id // 会创建自然主键和索引
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    /* 该配置自动创建表 END */
-    @TableId(type = IdType.AUTO)
-    private Long id;
-
-    /** 表创建时间 */
-    /* 该配置自动创建表 START */
-    @TableField(fill = FieldFill.INSERT)
-    /* 该配置自动创建表 END */
-    private Date created;
-
-    /** 表修改时间 */
-    @Column(name = "updated", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    @Generated(GenerationTime.ALWAYS)
-    @Temporal(value = TemporalType.TIMESTAMP)
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date updated;
+public class UserSecurityEntry extends AbstractUpdatePlusEntry implements IEntry {
+//    /** 自然主键 */
+//    /* 该配置自动创建表 START */
+//    @Id // 会创建自然主键和索引
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    /* 该配置自动创建表 END */
+//    @TableId(type = IdType.AUTO)
+//    private Long id;
+//
+//    /** 表创建时间 */
+//    @Temporal(TemporalType.TIMESTAMP)
+//    @TableField(fill = FieldFill.INSERT)
+//    private Date created;
+//
+//    /** 表修改时间 */
+//    @Column(name = "updated", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+//    @Generated(GenerationTime.ALWAYS)
+//    @Temporal(value = TemporalType.TIMESTAMP)
+//    @TableField(fill = FieldFill.INSERT_UPDATE)
+//    private Date updated;
 
     /**
      * 用户唯一标示

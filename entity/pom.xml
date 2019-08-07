@@ -23,11 +23,13 @@
             <artifactId>mblog-bce</artifactId>
         </dependency>
 
+        <!-- 后续移除 -->
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
             <version>2.1.4.RELEASE</version>
         </dependency>
+
 
         <!--hibernate search orm-->
         <dependency>

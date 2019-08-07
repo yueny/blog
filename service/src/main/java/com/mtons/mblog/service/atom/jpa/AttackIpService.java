@@ -11,14 +11,14 @@ package com.mtons.mblog.service.atom.jpa;
 
 import com.mtons.mblog.bo.AttackIpBo;
 import com.mtons.mblog.entity.jpa.AttackIpEntry;
+import com.mtons.mblog.service.api.jpa.IJpaBizService;
 
-import java.util.List;
 import java.util.Set;
 
 /**
  *
  */
-public interface AttackIpService extends IBizService<AttackIpBo, AttackIpEntry>{
+public interface AttackIpService extends IJpaBizService<AttackIpBo, AttackIpEntry> {
     /**
      * 插入一条记录， 如果数据存在则忽略
      *

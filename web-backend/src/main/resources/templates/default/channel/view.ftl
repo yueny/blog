@@ -119,17 +119,34 @@
     </div>
 </div>
 
-<script type="text/plain" id="chat_template">
+<#--
+回复、删除均在此处。目前评论不允许删除。
+0   data.author.domainHack
+1   data.author.avatar
+2   data.author.name
+3   data.created
+4   content
+5   data.id, is pid
+6   quoto
+7   是否使用默认头像
+ -->
+    <script type="text/plain" id="chat_template">
     <li id="chat{5}">
         <a class="avt fl" target="_blank" href="${base}/users/{0}">
             <img src="{1}">
         </a>
         <div class="chat_body">
             <h5>
-                <div class="fl"><a class="chat_name" href="${base}/users/{0}">{2}</a><span>{3}</span></div>
+                <div class="fl">
+                    <a class="chat_name" href="${base}/users/{0}">{2}</a>
+                    <span class="date">{3}</span>
+                    <!-- 楼层
+                    <span class="floor-num"> # {7}楼 </span>
+                    -->
+                </div>
                 <div class="fr reply_this">
                     <a href="javascript:void(0);" onclick="goto('{5}', '{2}')">
-                        [回复]
+                        <i class="icon icon-action-redo"></i>
                     </a>
                 </div>
                 <div class="clear"></div>
@@ -144,17 +161,23 @@
 </script>
 
 <#-- 默认头像的值取自  StorageConsts.AVATAR， 图片格式为 img-circle  -->
-<script type="text/plain" id="guest_template">
+    <script type="text/plain" id="guest_template">
     <li id="chat{5}">
         <a class="avt fl" disabled="true" readonly="true" href="javascript:void(0);">
             <img class="img-circle" src="{1}">
         </a>
         <div class="chat_body">
             <h5>
-                <div class="fl"><label class="small">匿名</label><a class="chat_name"  href="javascript:void(0);">{2}</a><span>{3}</span></div>
+                <div class="fl">
+                    <label class="small">匿名</label><a class="chat_name"  href="javascript:void(0);">{2}</a>
+                    <span class="date">{3}</span>
+                    <!-- 楼层
+                    <span class="floor-num"> # {7}楼 </span>
+                    -->
+                </div>
                 <div class="fr reply_this">
                     <a href="javascript:void(0);" onclick="goto('{5}', '{2}')">
-                        [回复]
+                        <i class="icon icon-action-redo"></i>
                     </a>
                 </div>
                 <div class="clear"></div>
@@ -168,57 +191,60 @@
     </li>
 </script>
 
-<script type="text/javascript">
-    function goto(pid, user) {
-        document.getElementById('chat_text').scrollIntoView();
-        $('#chat_text').focus();
-        $('#chat_text').val('');
-        $('#chat_to').text(user);
-        $('#chat_pid').val(pid);
+    <script type="text/javascript">
+        function goto(pid, user) {
+            document.getElementById('chat_text').scrollIntoView();
+            $('#chat_text').focus();
+            $('#chat_text').val('');
+            $('#chat_to').text(user);
+            $('#chat_pid').val(pid);
 
-        $('#chat_reply').show();
-    }
-    var container = $("#chat_container");
-    var authoredTemplate = $('#chat_template')[0].text;
-    var guestTemplate = $('#guest_template')[0].text;
+            $('#chat_reply').show();
+        }
+        var container = $("#chat_container");
+        var authoredTemplate = $('#chat_template')[0].text;
+        var guestTemplate = $('#guest_template')[0].text;
 
-    seajs.use(['comment', 'view'], function (comment) {
-        comment.init({
-            load: '${site.controls.comment}',
-            // view.id 为 博文post.id
-            load_url: '${base}/comment/list/${view.id}?articleBlogId=${view.articleBlogId}',
-            post_url: '${base}/comment/submit',
-            toId: '${view.id}',
-            onLoad: function (i, data) {
-                var comment = data;
+        seajs.use(['comment', 'view'], function (comment) {
+            comment.init({
+                load: '${site.controls.comment}',
+                // view.id 为 博文post.id
+                load_url: '${base}/comment/list/${view.id}?articleBlogId=${view.articleBlogId}',
+                post_url: '${base}/comment/submit',
+                toId: '${view.id}',
+                onLoad: function (i, data) {
+                    // 此处是 commentVo 对象
+                    var comment = data;
 
-                // 留言内容  comment.clientAgent
-                var content = comment.content;
-                var quoto = '';
-                if (comment.pid > 0 && !(comment.parent === null)) {
-                    var pat = comment.parent;
-                    var pcontent = pat.content;
+                    // 留言内容  comment.clientAgent
+                    var content = comment.content;
+                    var quoto = '';
+                    if (comment.pid > 0 && !(comment.parent === null)) {
+                        var pat = comment.parent;
+                        var pcontent = pat.content;
 
-                    /* 回复的超链接和图标样式 */
-                    if(pat.author.commitAuthoredType == 'AUTHORED'){
-                        quoto = '<div class="quote"><a href="${base}/users/' + pat.author.domainHack + '">@' + pat.author.name + '</a>: ' + pcontent + '</div>';
-                    }else{
-                        quoto = '<div class="quote"><a href="javascript:void(0);"' + pat.author.domainHack + '>@' + pat.author.name + '</a>: ' + pcontent + '</div>';
+                        /* 回复的超链接和图标样式 */
+                        if(pat.author.commitAuthoredType == 'AUTHORED'){
+                            quoto = '<div class="quote"><a href="${base}/users/' + pat.author.domainHack + '">@' + pat.author.name + '</a>: ' + pcontent + '</div>';
+                        }else{
+                            quoto = '<div class="quote"><a href="javascript:void(0);"' + pat.author.domainHack + '>@' + pat.author.name + '</a>: ' + pcontent + '</div>';
+                        }
                     }
-                }
 
-                if(data.commitAuthoredType == 'AUTHORED'){
-                    item = jQuery.format(authoredTemplate,
+                    var item;
+
+                    if(data.commitAuthoredType == 'AUTHORED'){
+                        item = jQuery.format(authoredTemplate,
                             data.author.domainHack, // 0
                             data.author.avatar,     // 1
                             data.author.name,       // 2
                             data.created,           // 3
                             content,                // 4
                             data.id,                // 5, pid
-                            quoto                   // 6
-                    );
-                }else{
-                    item = jQuery.format(guestTemplate,
+                            quoto                  // 6
+                        );
+                    }else{
+                        item = jQuery.format(guestTemplate,
                             '',
                             '${siterProfile.userDefaultAvatar}',
                             data.author.name,
@@ -226,13 +252,13 @@
                             content,
                             data.id,
                             quoto
-                    );
+                        );
+                    }
+
+                    return item;
                 }
-
-                return item;
-            }
+            });
         });
-    });
 
-</script>
+    </script>
 </@layout>

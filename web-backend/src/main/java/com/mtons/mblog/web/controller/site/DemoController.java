@@ -3,7 +3,7 @@ package com.mtons.mblog.web.controller.site;
 import com.mtons.mblog.model.PostVO;
 import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.service.util.MarkdownUtils;
-import com.mtons.mblog.bo.DemoVO;
+import com.mtons.mblog.bo.DemoBo;
 import com.mtons.mblog.service.atom.bao.DemoService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class DemoController extends BaseController {
 	 *            文章扩展ID
 	 */
 	@RequestMapping(value = "/demo", method = { RequestMethod.GET })
-	public DemoVO demo(String articleBlogId) {
+	public DemoBo demo(String articleBlogId) {
 		PostVO view = postManagerService.get(articleBlogId);
 
 		Assert.notNull(view, "该文章已被删除");
@@ -43,7 +43,7 @@ public class DemoController extends BaseController {
 			view.setContent(MarkdownUtils.renderMarkdown(view.getContent()));
 		}
 
-		DemoVO demoVO = demoService.selectByOrderId(articleBlogId);
+		DemoBo demoVO = demoService.selectByOrderId(articleBlogId);
 		if(demoVO == null){
 			return null;
 		}

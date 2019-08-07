@@ -30,25 +30,25 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class DemoEntry implements IEntry {
-    /** 自然主键 */
-    /* 该配置自动创建表 START */
-    @Id // 会创建自然主键和索引
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    /* 该配置自动创建表 END */
-    @TableId(type = IdType.AUTO)
-    private Long id;
-
-    /** 表创建时间 */
-    /* 该配置自动创建表 START */
-    @TableField(fill = FieldFill.INSERT)
-    /* 该配置自动创建表 END */
-    private Date created;
-
-    @Column(name = "updated", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    @Generated(GenerationTime.ALWAYS)
-    @Temporal(value = TemporalType.TIMESTAMP)
-    private Date updated;
+public class DemoEntry extends AbstractUpdatePlusEntry implements IEntry {
+//    /** 自然主键 */
+//    /* 该配置自动创建表 START */
+//    @Id // 会创建自然主键和索引
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    /* 该配置自动创建表 END */
+//    @TableId(type = IdType.AUTO)
+//    private Long id;
+//
+//    /** 表创建时间 */
+//    @Temporal(TemporalType.TIMESTAMP)
+//    @TableField(fill = FieldFill.INSERT)
+//    private Date created;
+//
+//    @Column(name = "updated", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+//    @Generated(GenerationTime.ALWAYS)
+//    @Temporal(value = TemporalType.TIMESTAMP)
+//    @TableField(fill = FieldFill.INSERT_UPDATE)
+//    private Date updated;
 
     /**
      * 资产编号

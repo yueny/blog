@@ -1,17 +1,14 @@
 package com.mtons.mblog.entity.bao;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.mtons.mblog.base.enums.ResourceType;
 import com.mtons.mblog.entity.api.IEntry;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 图片资源表
@@ -24,22 +21,24 @@ import java.util.Date;
         uniqueConstraints = {@UniqueConstraint(name = "UK_MD5", columnNames = {"md5"})}
 )
 @TableName("mto_resource")
-public class Resource implements IEntry, Serializable {
+public class Resource extends AbstractUpdatePlusEntry implements IEntry, Serializable {
     private static final long serialVersionUID = -2263990565349962964L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "created", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP")
-    @Generated(GenerationTime.INSERT)
-    @Temporal(value = TemporalType.TIMESTAMP)
-    private Date created;
-
-    @Column(name = "updated", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    @Generated(GenerationTime.ALWAYS)
-    @Temporal(value = TemporalType.TIMESTAMP)
-    private Date updated;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @TableId(type = IdType.AUTO)
+//    private Long id;
+//
+//    @Column(name = "created", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP")
+//    @Temporal(TemporalType.TIMESTAMP)
+//    @TableField(fill = FieldFill.INSERT)
+//    private Date created;
+//
+//    @Column(name = "updated", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+//    @Generated(GenerationTime.ALWAYS)
+//    @Temporal(value = TemporalType.TIMESTAMP)
+//    @TableField(fill = FieldFill.INSERT_UPDATE)
+//    private Date updated;
 
 
 

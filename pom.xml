@@ -45,6 +45,7 @@
 		<module>entity</module>
 		<module>bo</module>
 		<module>dao</module>
+		<module>repository</module>
 
 		<module>service</module>
 
@@ -72,6 +73,11 @@
 			<dependency>
 				<groupId>com.mtons.mblog</groupId>
 				<artifactId>mblog-dao</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.mtons.mblog</groupId>
+				<artifactId>mblog-repository</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>

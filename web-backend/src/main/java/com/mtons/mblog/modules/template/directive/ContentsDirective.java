@@ -73,7 +73,7 @@ public class ContentsDirective extends TemplateDirective {
         }
 
         Pageable pageable = wrapPageable(handler, Sort.by(Sort.Direction.DESC, BeanMapUtils.postOrder(order)));
-        Page<PostBO> result = postService.paging(pageable, channelIds, excludeChannelIds);
+        Page<PostBO> result = postService.pagingForAuthor(pageable, channelIds, excludeChannelIds);
         handler.put(RESULTS, result).render();
     }
 }

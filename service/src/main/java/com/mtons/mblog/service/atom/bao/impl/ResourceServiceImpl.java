@@ -27,7 +27,7 @@ import java.util.List;
  */
 @Service
 @Transactional(readOnly = true)
-public class ResourceServiceImpl extends BaseBaoService<ResourceMapper, Resource>
+public class ResourceServiceImpl extends AbstractPlusService<ResourceBO, Resource, ResourceMapper>
         implements ResourceService {
     @Override
     public ResourceBO findByMd5(String md5) {

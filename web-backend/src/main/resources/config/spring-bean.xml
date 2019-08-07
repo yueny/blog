@@ -11,10 +11,5 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
        default-lazy-init="true">
 
-<!--    <mvc:message-converters register-defaults="true">-->
-<!--        <bean class="org.springframework.http.converter.StringHttpMessageConverter">-->
-<!--            <constructor-arg value="UTF-8" />-->
-<!--        </bean>-->
-<!--    </mvc:message-converters>-->
 
 </beans>

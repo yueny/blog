@@ -4,7 +4,6 @@ import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.PostTagVO;
 import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.bo.TagBO;
-import com.mtons.mblog.entity.jpa.AttackIpEntry;
 import com.mtons.mblog.entity.jpa.PostTag;
 import com.mtons.mblog.entity.jpa.Tag;
 import com.mtons.mblog.dao.repository.PostTagRepository;
@@ -12,8 +11,6 @@ import com.mtons.mblog.dao.repository.TagRepository;
 import com.mtons.mblog.service.atom.jpa.TagService;
 import com.mtons.mblog.service.atom.jpa.PostService;
 import com.mtons.mblog.service.util.BeanMapUtils;
-import com.mtons.mblog.service.BaseService;
-import com.yueny.superclub.api.pojo.IBo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -29,7 +26,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @Transactional
-public class TagServiceImpl extends BaseBizService<TagBO, Tag, TagRepository>
+public class TagServiceImpl extends AbstractJpaService<TagBO, Tag, TagRepository>
         implements TagService {
     @Autowired
     private TagRepository tagRepository;
@@ -44,7 +41,7 @@ public class TagServiceImpl extends BaseBizService<TagBO, Tag, TagRepository>
 
         page.getContent().forEach(n -> {
             // 根据 postid 查询post信息
-            n.setPost(postService.get(n.getLatestPostId()));
+            n.setPost(postService.getForAuthor(n.getLatestPostId()));
         });
         return page;
     }

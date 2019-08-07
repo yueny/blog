@@ -9,6 +9,7 @@
 */
 package com.mtons.mblog.entity.jpa;
 
+import com.baomidou.mybatisplus.annotation.*;
 import com.mtons.mblog.entity.api.IEntry;
 import com.mtons.mblog.base.enums.BlogFeaturedType;
 import lombok.Getter;
@@ -35,6 +36,8 @@ import java.util.Date;
 		@Index(name = "IK_CHANNEL_ID", columnList = "channel_id"),
 		@Index(name = "IK_ARTICLE_BLOG_ID", columnList = "article_blog_id")
 })
+@TableName("mto_post")
+
 @FilterDefs({
 		@FilterDef(name = "POST_STATUS_FILTER", defaultCondition = "status = 0" )})
 @Filters({ @Filter(name = "POST_STATUS_FILTER") })
@@ -42,7 +45,8 @@ import java.util.Date;
 @Analyzer(impl = SmartChineseAnalyzer.class)
 @Getter
 @Setter
-public class Post implements IEntry, Serializable {
+public class Post // extends AbstractPlusEntry
+		implements IEntry, Serializable {
 	private static final long serialVersionUID = 7144425803920583495L;
 
 	/** 文章主键 */
@@ -50,7 +54,12 @@ public class Post implements IEntry, Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@SortableField
 	@NumericField
-	private long id;
+	@TableId(type = IdType.AUTO)
+	private Long id;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@TableField(fill = FieldFill.INSERT)
+	private Date created;
 
 	/**
 	 * 文章编号扩展ID
@@ -95,12 +104,10 @@ public class Post implements IEntry, Serializable {
 	@NumericField
 	@Column(name = "author_id")
 	private long authorId; // 作者
+
 	@Field
 	@Column(name = "uid")
 	private String uid;
-
-	@Temporal(value = TemporalType.TIMESTAMP)
-	private Date created;
 
 	/**
 	 * 收藏数

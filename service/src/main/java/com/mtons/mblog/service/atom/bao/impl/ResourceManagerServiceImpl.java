@@ -25,7 +25,7 @@ import java.util.Collection;
  */
 @Service
 @Transactional
-public class ResourceManagerServiceImpl extends BaseBaoService<ResourceMapper, Resource>
+public class ResourceManagerServiceImpl extends AbstractPlusService<ResourceBO, Resource, ResourceMapper>
         implements ResourceManagerService {
     @Override
     public int updateAmount(Collection<String> md5s, long increment) {

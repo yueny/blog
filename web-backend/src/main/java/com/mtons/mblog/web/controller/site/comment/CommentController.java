@@ -80,7 +80,7 @@ public class CommentController extends BaseController {
         CommentVO c = new CommentVO();
         // 所属博文内容的主键ID
         c.setPostId(toId);
-        c.setArticleBlogId(postService.get(c.getPostId()).getArticleBlogId());
+        c.setArticleBlogId(postService.getForAuthor(c.getPostId()).getArticleBlogId());
         c.setContent(HtmlUtils.htmlEscape(text));
 
         // 针对性回复的评论ID(父评论ID)
@@ -155,7 +155,7 @@ public class CommentController extends BaseController {
         // 此处不知道文章作者, 让通知事件系统补全
         event.setPostId(postId);
 
-        PostBO postBO = postService.get(postId);
+        PostBO postBO = postService.getForAuthor(postId);
         event.setArticleBlogId(postBO.getArticleBlogId());
 
         applicationContext.publishEvent(event);

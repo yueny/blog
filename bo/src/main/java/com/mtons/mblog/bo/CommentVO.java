@@ -25,8 +25,8 @@ import java.util.Date;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class CommentVO extends AbstractMaskBo implements IBo, Serializable {
 
 	private long id;

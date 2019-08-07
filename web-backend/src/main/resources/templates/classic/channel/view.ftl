@@ -144,7 +144,13 @@
         </a>
         <div class="chat_body">
             <h5>
-                <div class="fl"><a class="chat_name" href="${base}/users/{0}">{2}</a><span>{3}</span></div>
+                <div class="fl">
+                    <a class="chat_name" href="${base}/users/{0}">{2}</a>
+                    <span class="date">{3}</span>
+                    <#-- 楼层
+                    <span class="floor-num"> # {7}楼 </span>
+                    -->
+                </div>
                 <div class="fr reply_this">
                     <a href="javascript:void(0);" onclick="goto('{5}', '{2}')">
                         <i class="icon icon-action-redo"></i>
@@ -169,7 +175,13 @@
         </a>
         <div class="chat_body">
             <h5>
-                <div class="fl"><label class="small">匿名</label><a class="chat_name"  href="javascript:void(0);">{2}</a><span>{3}</span></div>
+                <div class="fl">
+                    <label class="small">匿名</label><a class="chat_name"  href="javascript:void(0);">{2}</a>
+                    <span class="date">{3}</span>
+                    <#-- 楼层
+                    <span class="floor-num"> # {7}楼 </span>
+                    -->
+                </div>
                 <div class="fr reply_this">
                     <a href="javascript:void(0);" onclick="goto('{5}', '{2}')">
                         <i class="icon icon-action-redo"></i>
@@ -208,6 +220,7 @@
             post_url: '${base}/comment/submit',
             toId: '${view.id}',
             onLoad: function (i, data) {
+                // 此处是 commentVo 对象
                 var comment = data;
 
                 // 留言内容  comment.clientAgent
@@ -235,7 +248,7 @@
                             data.created,           // 3
                             content,                // 4
                             data.id,                // 5, pid
-                            quoto                   // 6
+                            quoto                  // 6
                     );
                 }else{
                     item = jQuery.format(guestTemplate,

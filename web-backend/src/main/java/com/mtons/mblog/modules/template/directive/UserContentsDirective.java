@@ -5,9 +5,9 @@ package com.mtons.mblog.modules.template.directive;
 
 import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.service.atom.jpa.PostService;
-import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.template.TemplateDirective;
+import com.mtons.mblog.service.manager.PostManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,7 +36,7 @@ public class UserContentsDirective extends TemplateDirective {
         long userId = handler.getInteger("userId", 0);
         Pageable pageable = wrapPageable(handler);
 
-        Page<PostBO> result = postService.pagingByAuthorId(pageable, userId);
+        Page<PostBO> result = postService.findAllByAuthorId(pageable, userId);
         handler.put(RESULTS, result).render();
     }
 

@@ -166,7 +166,7 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 	@Transactional
 	public long post(CommentVO comment) {
 		Comment po = map(comment, Comment.class);
-		po.setCreated(new Date());
+//		po.setCreated(new Date());
 		// 0默认为有效
 		po.setStatus(0);
 
@@ -264,7 +264,7 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 				if (c.getPid() > 0) {
 					c.setParent(pm.get(c.getPid()));
 				}else{
-					c.setParent(CommentVO.builder().build());
+					//c.setParent(CommentVO.builder().build());
 				}
 			});
 		}

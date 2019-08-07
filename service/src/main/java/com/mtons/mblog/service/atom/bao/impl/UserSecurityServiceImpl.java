@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
  *
  */
 @Service
-public class UserSecurityServiceImpl extends BaseBaoService<UserSecurityMapper, UserSecurityEntry>
+public class UserSecurityServiceImpl extends AbstractPlusService<UserSecurityBO, UserSecurityEntry, UserSecurityMapper>
 		implements IUserSecurityService {
 	@Override
 	public boolean save(UserSecurityBO bo) {

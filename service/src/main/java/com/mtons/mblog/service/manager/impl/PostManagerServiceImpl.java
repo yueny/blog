@@ -12,15 +12,15 @@ package com.mtons.mblog.service.manager.impl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mtons.mblog.base.consts.Consts;
+import com.mtons.mblog.bo.PostAttributeBo;
+import com.mtons.mblog.service.atom.bao.IPostAttributeService;
+import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.service.util.PreviewTextUtils;
 import com.mtons.mblog.bo.ChannelVO;
 import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.bo.ResourceBO;
-import com.mtons.mblog.dao.repository.PostAttributeRepository;
-import com.mtons.mblog.entity.jpa.PostAttribute;
 import com.mtons.mblog.model.PostVO;
 import com.mtons.mblog.service.watcher.event.PostUpdateEvent;
-import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.service.atom.jpa.PostService;
 import com.mtons.mblog.service.atom.jpa.TagService;
 import com.mtons.mblog.service.BaseService;
@@ -39,7 +39,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 /**
- * @author langhsu
  *
  */
 @Service
@@ -48,7 +47,7 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 	@Autowired
 	private PostService postService;
 	@Autowired
-	private PostAttributeRepository postAttributeRepository;
+	private IPostAttributeService postAttributeService;
 	@Autowired
 	private ChannelService channelService;
 	@Autowired
@@ -60,23 +59,23 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 
 	@Override
 	public Page<PostVO> paging(Pageable pageable, Set<Integer> channelIds, Set<Integer> excludeChannelIds) {
-		Page<PostBO> page = postService.paging(pageable, channelIds, excludeChannelIds);
+		Page<PostBO> page = postService.pagingForAuthor(pageable, channelIds, excludeChannelIds);
 
 		return new PageImpl<>(toPosts(page.getContent()), pageable, page.getTotalElements());
 	}
 
 	@Override
 	public Page<PostVO> paging4Admin(Pageable pageable, int channelId, String title) {
-		Page<PostBO> page = postService.paging4Admin(pageable, channelId, title);
+		Page<PostBO> page = postService.paging4AdminForAuthor(pageable, channelId, title);
 
 		return new PageImpl<>(toPosts(page.getContent()), pageable, page.getTotalElements());
 	}
 
-	@Override
-	public Page<PostVO> pagingByAuthorId(Pageable pageable, long userId) {
-		Page<PostBO> page = postService.pagingByAuthorId(pageable, userId);
-		return new PageImpl<>(toPosts(page.getContent()), pageable, page.getTotalElements());
-	}
+//	@Override
+//	public Page<PostVO> pagingByAuthorId(Pageable pageable, long userId) {
+//		Page<PostBO> page = postService.findAllByAuthorId(pageable, userId);
+//		return new PageImpl<>(toPosts(page.getContent()), pageable, page.getTotalElements());
+//	}
 
 	@Override
 	public Map<Long, PostVO> findMapByIds(Set<Long> ids) {
@@ -109,16 +108,16 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 		try{
 			tagService.batchUpdate(post.getTags(), id);
 
-			PostAttribute attr = new PostAttribute();
+			PostAttributeBo attr = new PostAttributeBo();
 			attr.setContent(post.getContent());
 			attr.setEditor(post.getEditor());
 			attr.setId(id);
-			postAttributeRepository.save(attr);
+			postAttributeService.insert(attr);
 		} catch(Exception ex){
 			throw new MtonsException("数据操作异常：" + ex.getMessage());
 		}
 
-		PostBO postBO = postService.get(post.getId());
+		PostBO postBO = postService.getForAuthor(post.getId());
 		onPushEvent(postBO, PostUpdateType.ACTION_PUBLISH);
 
 		return id;
@@ -126,7 +125,7 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 
 	@Override
 	public PostVO get(long id) {
-		PostBO po = postService.get(id);
+		PostBO po = postService.getForAuthor(id);
 		if(po == null){
 			return null;
 		}
@@ -137,16 +136,18 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 		buildResource(vo);
 
 		// 博文内容
-		PostAttribute attr = postAttributeRepository.findById(vo.getId()).get();
-		vo.setContent(attr.getContent());
-		vo.setEditor(attr.getEditor());
+		PostAttributeBo attr = postAttributeService.get(vo.getId());
+		if(attr != null && StringUtils.isNotEmpty(attr.getContent())){
+			vo.setContent(attr.getContent());
+			vo.setEditor(attr.getEditor());
+		}
 
 		return vo;
 	}
 
 	@Override
 	public PostVO get(String articleBlogId) {
-		PostBO po = postService.get(articleBlogId);
+		PostBO po = postService.getForAuthor(articleBlogId);
 		if(po == null){
 			return null;
 		}
@@ -158,9 +159,11 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 		buildResource(vo);
 
 		// 博文内容
-		PostAttribute attr = postAttributeRepository.findById(vo.getId()).get();
-		vo.setContent(attr.getContent());
-		vo.setEditor(attr.getEditor());
+		PostAttributeBo attr = postAttributeService.get(vo.getId());
+		if(attr != null && StringUtils.isNotEmpty(attr.getContent())){
+			vo.setContent(attr.getContent());
+			vo.setEditor(attr.getEditor());
+		}
 
 		return vo;
 	}
@@ -180,11 +183,12 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 		postService.update(pp);
 
 		// 保存扩展
-		PostAttribute attr = new PostAttribute();
+		// PostAttributeBo attr = postAttributeService.get(pp.getId());
+		PostAttributeBo attr = new PostAttributeBo();
+		attr.setId(pp.getId());
 		attr.setContent(pp.getContent());
 		attr.setEditor(pp.getEditor());
-		attr.setId(pp.getId());
-		postAttributeRepository.save(attr);
+		postAttributeService.updateById(attr);
 
 		tagService.batchUpdate(pp.getTags(), pp.getId());
 
@@ -194,9 +198,9 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 	@Override
 	@Transactional
 	public void delete(String articleBlogId, long authorId) {
-		PostBO po = postService.get(articleBlogId);
+		PostBO po = postService.getForAuthor(articleBlogId);
 
-		postAttributeRepository.deleteById(po.getId());
+		postAttributeService.delete(po.getId());
 
 		postService.delete(articleBlogId, authorId);
 
@@ -210,7 +214,7 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 		Map<Long, PostBO> maps = new HashMap<>();
 		if (CollectionUtils.isNotEmpty(articleBlogIds)) {
 			articleBlogIds.forEach(id -> {
-				PostBO postBO = postService.get(id);
+				PostBO postBO = postService.getForAuthor(id);
 				maps.put(postBO.getId(), postBO);
 			});
 		}
@@ -219,7 +223,7 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 		Set<Long> ids = postService.delete(articleBlogIds);
 		if (CollectionUtils.isNotEmpty(ids)) {
 			ids.forEach(id -> {
-				postAttributeRepository.deleteById(id);
+				postAttributeService.delete(id);
 
 				// 再通知
 				onPushEvent(maps.get(id), PostUpdateType.ACTION_DELETE);

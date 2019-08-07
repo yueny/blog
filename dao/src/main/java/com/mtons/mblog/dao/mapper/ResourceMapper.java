@@ -22,15 +22,15 @@ import java.util.List;
  *
  */
 public interface ResourceMapper extends BaseMapper<Resource> {
-    @Select(value = "SELECT * FROM mto_resource WHERE amount <= 0 AND update_time < :time ")
+    @Select(value = "SELECT * FROM mto_resource WHERE amount <= 0 AND update_time < #{time} ")
     List<Resource> find0Before(@Param("time") String time);
 
 //    @Modifying
-    @Update("update Resource set amount = amount + :increment where md5 in (:md5s)")
+    @Update("update Resource set amount = amount + #{increment} where md5 in (#{md5s})")
     int updateAmount(@Param("md5s") Collection<String> md5s, @Param("increment") long increment);
 
 //    @Modifying
-    @Update("update Resource set amount = amount + :increment where id in (:ids)")
+    @Update("update Resource set amount = amount + #{increment} where id in (#{ids})")
     int updateAmountByIds(@Param("ids") Collection<Long> md5s, @Param("increment") long increment);
 
 //    Resource findByMd5(String md5);

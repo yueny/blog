@@ -8,9 +8,9 @@ import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.PostBO;
 import com.mtons.mblog.model.PostVO;
-import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.service.atom.jpa.ChannelService;
 import com.mtons.mblog.service.atom.jpa.PostService;
+import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.web.controller.site.Views;
 import org.apache.commons.lang3.StringUtils;
@@ -83,7 +83,7 @@ public class PostController extends BaseController {
 
 		// 修改时, 验证归属
 		if (post.getId() > 0 && StringUtils.isNotEmpty(post.getArticleBlogId())) {
-			PostBO exist = postService.get(post.getId());
+			PostBO exist = postService.getForAuthor(post.getId());
 			Assert.notNull(exist, "文章不存在");
 			Assert.isTrue(exist.getAuthorId() == profile.getId(), "该文章不属于你");
 

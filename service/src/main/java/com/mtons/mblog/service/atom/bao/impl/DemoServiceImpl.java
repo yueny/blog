@@ -9,13 +9,17 @@
 */
 package com.mtons.mblog.service.atom.bao.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mtons.mblog.dao.mapper.DemoMapper;
 import com.mtons.mblog.entity.bao.DemoEntry;
-import com.mtons.mblog.bo.DemoVO;
+import com.mtons.mblog.bo.DemoBo;
 import com.mtons.mblog.service.atom.bao.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -28,31 +32,27 @@ import java.util.*;
  *
  */
 @Service
-public class DemoServiceImpl extends BaseBaoService<DemoMapper, DemoEntry> implements DemoService {
-	@Autowired
-	private DemoMapper demoMapper;
-
+public class DemoServiceImpl extends AbstractPlusService<DemoBo, DemoEntry, DemoMapper> implements DemoService {
 	@Override
-	public DemoVO selectByOrderId(String orderId) {
+	public DemoBo selectByOrderId(String orderId) {
 		LambdaQueryWrapper<DemoEntry> queryWrapper = new QueryWrapper<DemoEntry>().lambda();
 		queryWrapper.eq(DemoEntry::getAssetCode,orderId);
 
-		DemoEntry entry = demoMapper.selectOne(queryWrapper);
+		DemoEntry entry = baseMapper.selectOne(queryWrapper);
 
 		if(entry == null){
 			return null;
 		}
 
-		return map(entry, DemoVO.class);
+		return map(entry, DemoBo.class);
 	}
 
 	@Override
-	public List<DemoVO> selectListByGuaranteeMode(Integer guaranteeMode) {
+	public List<DemoBo> selectListByGuaranteeMode(Integer guaranteeMode) {
 		LambdaQueryWrapper<DemoEntry> queryWrapper = new QueryWrapper<DemoEntry>().lambda();
 		queryWrapper.eq(DemoEntry::getGuaranteeMode, guaranteeMode);
 
-		List<DemoEntry> entrys = demoMapper.selectList(queryWrapper);
-
-		return map(entrys, DemoVO.class);
+		return findAll(queryWrapper);
 	}
+
 }

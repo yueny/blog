@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * 攻击者IP信息
  */
 @Service
-public class AttackIpServiceImpl extends BaseBizService<AttackIpBo, AttackIpEntry, AttackIpRepository>
+public class AttackIpServiceImpl extends AbstractJpaService<AttackIpBo, AttackIpEntry, AttackIpRepository>
 		implements AttackIpService {
 	@Override
 	public boolean saveIfAbsent(AttackIpBo attackIpBo) {
@@ -29,7 +29,7 @@ public class AttackIpServiceImpl extends BaseBizService<AttackIpBo, AttackIpEntr
 			return false;
 		}
 
-		return save(attackIpBo);
+		return insert(attackIpBo);
 	}
 
 	// TODO   cache

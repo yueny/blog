@@ -71,7 +71,7 @@ public class FavoriteServiceImpl extends BaseService implements FavoriteService 
 
         Assert.isNull(po, "您已经收藏过此文章");
 
-        PostBO articleBlog = postService.get(articleBlogId);
+        PostBO articleBlog = postService.getForAuthor(articleBlogId);
 
         // 如果没有喜欢过, 则添加记录
         po = new Favorite();

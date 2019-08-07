@@ -1,6 +1,5 @@
 package com.mtons.mblog.entity.jpa;
 
-import com.mtons.mblog.base.enums.AttackDenyTimeUnitType;
 import com.mtons.mblog.entity.api.IEntry;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,7 +28,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class AttackIpEntry //extends BaseEntry
+public class AttackIpEntry
         implements IEntry {
 
     /** 自然主键 */
@@ -41,7 +40,7 @@ public class AttackIpEntry //extends BaseEntry
      * 访问时间
      */
     @CreatedDate
-//    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date created;
 
     /**

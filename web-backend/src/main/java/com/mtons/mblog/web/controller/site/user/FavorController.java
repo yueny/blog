@@ -37,7 +37,7 @@ public class FavorController extends BaseController {
                 AccountProfile up = getProfile();
                 postService.favor(up.getUid(), articleBlogId);
 
-                PostBO postBO = postService.get(articleBlogId);
+                PostBO postBO = postService.getForAuthor(articleBlogId);
                 publicMessage(up.getUid(), postBO.getId(), articleBlogId);
 
                 data = Result.success();

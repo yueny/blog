@@ -9,6 +9,7 @@
 */
 package com.mtons.mblog.bo;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.mtons.mblog.base.enums.BlogFeaturedType;
 import com.mtons.mblog.base.consts.Consts;
 import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
@@ -57,6 +58,7 @@ public class PostBO extends AbstractMaskBo implements IBo, Serializable {
 
 	private String uid;
 
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	private Date created;
 
 	/**
