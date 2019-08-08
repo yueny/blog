@@ -1,7 +1,6 @@
 package com.mtons.mblog.util;
 
 import com.yueny.superclub.api.pojo.IBo;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Field;
@@ -15,7 +14,6 @@ import java.util.Map;
  * @Author yueny09 <deep_blue_yang@126.com>
  * @Date 2019-08-08 10:50
  */
-@Slf4j
 public class IdFieldSetterUtil {
     private static final Map<Class<? extends IBo>, Field> PK_FIELDS = new HashMap<>();
     /**
