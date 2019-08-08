@@ -1,6 +1,5 @@
 package com.mtons.mblog.service.api;
 
-import com.mtons.mblog.entity.api.IEntry;
 import com.yueny.superclub.api.pojo.IBo;
 
 import java.util.Collection;
@@ -11,7 +10,7 @@ import java.util.Set;
  * @Author yueny09 <deep_blue_yang@163.com>
  * @Date 2019-07-08 17:35
  */
-public interface IBizService<T extends IBo, S extends IEntry> {
+public interface IBizService<T extends IBo, S> {
     /**
      * 查询所有
      * @return 列表
@@ -43,9 +42,9 @@ public interface IBizService<T extends IBo, S extends IEntry> {
     /**
      * 删除（根据ID 批量删除）
      *
-     * @param idList 主键ID列表
+     * @param ids 主键ID列表
      */
-    boolean deleteByIds(Collection<Long> idList);
+    boolean deleteByIds(Set<Long> ids);
 
     /**
      * 插入一条记录

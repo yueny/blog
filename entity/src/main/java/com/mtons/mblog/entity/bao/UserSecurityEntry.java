@@ -2,15 +2,11 @@ package com.mtons.mblog.entity.bao;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.mtons.mblog.base.enums.NeedChangeType;
-import com.mtons.mblog.entity.api.IEntry;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * 用户安全配置表
@@ -27,7 +23,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class UserSecurityEntry extends AbstractUpdatePlusEntry implements IEntry {
+public class UserSecurityEntry extends AbstractUpdatePlusEntry {
 //    /** 自然主键 */
 //    /* 该配置自动创建表 START */
 //    @Id // 会创建自然主键和索引

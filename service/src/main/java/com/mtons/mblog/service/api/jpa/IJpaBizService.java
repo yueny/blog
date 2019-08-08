@@ -9,7 +9,6 @@
 */
 package com.mtons.mblog.service.api.jpa;
 
-import com.mtons.mblog.entity.api.IEntry;
 import com.mtons.mblog.service.api.IBizService;
 import com.mtons.mblog.service.api.IColService;
 import com.yueny.superclub.api.pojo.IBo;
@@ -23,7 +22,7 @@ import java.util.List;
 /**
  *
  */
-public interface IJpaBizService<T extends IBo, S extends IEntry>
+public interface IJpaBizService<T extends IBo, S>
 		extends IColService<T>, IBizService<T, S> {
 	/**
 	 * 查询条件查询列表信息
@@ -43,7 +42,7 @@ public interface IJpaBizService<T extends IBo, S extends IEntry>
 	 */
 	Page<T> findAll(Pageable pageable);
 
-	List<T> findAll(Example<S> example, Sort sort);
+//	List<T> findAll(Example<S> example, Sort sort);
 
 	Page<T> findAll(Example<S> example, Pageable pageable);
 

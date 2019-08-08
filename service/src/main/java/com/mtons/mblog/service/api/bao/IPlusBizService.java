@@ -10,11 +10,9 @@
 package com.mtons.mblog.service.api.bao;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.mtons.mblog.entity.api.IEntry;
 import com.mtons.mblog.service.api.IBizService;
 import com.mtons.mblog.service.api.IColService;
 import com.yueny.superclub.api.pojo.IBo;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -24,15 +22,20 @@ import java.util.List;
 /**
  *
  */
-public interface IPlusBizService<T extends IBo, S extends IEntry>
+public interface IPlusBizService<T extends IBo, S>
 		extends IBizService<T, S>, IColService<T> {
-	/**
-	 * 查询条件查询列表信息
-	 *
-	 * @param example 查询条件
-	 * @return
-	 */
-	List<T> findAll(Wrapper<S> example);
+  /**
+   * 查询条件查询列表信息
+   *
+   * @param queryWrapper 查询条件。 如：
+   *    <pre>
+   *     LambdaQueryWrapper<S> queryWrapper = new QueryWrapper<S>().lambda();
+   *     queryWrapper.eq(Post::getAuthorId, authorId);
+   *    </pre>
+   *
+   * @return
+   */
+  List<T> findAll(Wrapper<S> queryWrapper);
 
 	/**
 	 * 分页查询
@@ -44,14 +47,14 @@ public interface IPlusBizService<T extends IBo, S extends IEntry>
 	 */
 	Page<T> findAll(Pageable pageable);
 
-	List<T> findAll(Wrapper<S> example, Sort sort);
+//	List<T> findAll(Wrapper<S> queryWrapper, Sort sort);
 
-	Page<T> findAll(Wrapper<S> example, Pageable pageable);
+	Page<T> findAll(Pageable pageable, Wrapper<S> queryWrapper);
 
 	/**
 	 * 根据 entity 条件，删除记录
 	 */
-	boolean remove(Wrapper<S> queryWrapper);
+	boolean delete(Wrapper<S> queryWrapper);
 
 //	/**
 //	 * 根据 whereEntity 条件，更新记录

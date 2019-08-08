@@ -1,7 +1,7 @@
 package com.mtons.mblog.service.watcher.event.handler;
 
 import com.mtons.mblog.service.watcher.event.PostUpdateEvent;
-import com.mtons.mblog.service.atom.jpa.CommentService;
+import com.mtons.mblog.service.atom.bao.CommentService;
 import com.mtons.mblog.service.atom.jpa.FavoriteService;
 import com.mtons.mblog.service.atom.jpa.MessageService;
 import com.mtons.mblog.service.atom.jpa.TagService;

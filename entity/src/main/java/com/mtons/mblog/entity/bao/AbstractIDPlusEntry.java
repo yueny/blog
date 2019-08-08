@@ -2,7 +2,8 @@ package com.mtons.mblog.entity.bao;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.mtons.mblog.entity.api.IEntry;
+import com.yueny.kapo.api.annnotation.EntryPk;
+import com.yueny.kapo.api.pojo.instance.Entity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,7 +19,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
-abstract class AbstractIDPlusEntry implements IEntry {
+abstract class AbstractIDPlusEntry extends Entity {
     /** 自然主键 */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +27,7 @@ abstract class AbstractIDPlusEntry implements IEntry {
 
     @SortableField
     @NumericField
+    @EntryPk
     private Long id;
 
 }

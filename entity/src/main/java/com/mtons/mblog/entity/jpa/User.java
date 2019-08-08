@@ -9,7 +9,6 @@
 */
 package com.mtons.mblog.entity.jpa;
 
-import com.mtons.mblog.entity.api.IEntry;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Generated;
@@ -31,7 +30,7 @@ import java.util.Date;
 @Table(name = "mto_user")
 @Getter
 @Setter
-public class User implements IEntry, Serializable {
+public class User extends com.yueny.kapo.api.pojo.instance.Entity implements Serializable {
 	private static final long serialVersionUID = -3629784071225214858L;
 
 	@Id

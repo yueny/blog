@@ -46,6 +46,12 @@ public class ConfigureGetService implements IConfigureGetService {
 		return Boolean.valueOf(val);
 	}
 
+	/**
+	 * 动态获取配置值
+	 *
+	 * @param key 配置键
+	 * @return 配置值
+	 */
 	public static String get(String key) {
 		String val = DynamicProperties.staticProperties.getProperty(key);
 

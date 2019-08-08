@@ -1,6 +1,5 @@
 package com.mtons.mblog.entity.jpa;
 
-import com.mtons.mblog.entity.api.IEntry;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +12,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "shiro_role_permission")
-public class RolePermission implements IEntry, Serializable {
+public class RolePermission extends com.yueny.kapo.api.pojo.instance.Entity implements Serializable {
     private static final long serialVersionUID = -5979636077649378677L;
 
     @Id

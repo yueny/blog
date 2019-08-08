@@ -1,6 +1,5 @@
 package com.mtons.mblog.entity.jpa;
 
-import com.mtons.mblog.entity.api.IEntry;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +16,7 @@ import java.util.Date;
 })
 @Getter
 @Setter
-public class Favorite implements IEntry {
+public class Favorite  extends com.yueny.kapo.api.pojo.instance.Entity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

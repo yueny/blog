@@ -1,6 +1,5 @@
 package com.mtons.mblog.entity.jpa;
 
-import com.mtons.mblog.entity.api.IEntry;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,7 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "mto_message")
-public class Message implements IEntry {
+public class Message extends com.yueny.kapo.api.pojo.instance.Entity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

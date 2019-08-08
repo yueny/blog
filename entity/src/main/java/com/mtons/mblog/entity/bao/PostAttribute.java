@@ -1,7 +1,6 @@
 package com.mtons.mblog.entity.bao;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.mtons.mblog.entity.api.IEntry;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
@@ -17,7 +16,7 @@ import java.io.Serializable;
 @TableName("mto_post_attribute")
 @Getter
 @Setter
-public class PostAttribute implements IEntry, Serializable {
+public class PostAttribute extends com.yueny.kapo.api.pojo.instance.Entity implements Serializable {
 	private static final long serialVersionUID = 7829351358884064647L;
 
     /** 自然主键， 非自增， 来自 博文的 postId， 故不继承 AbstractIDPlusEntry */

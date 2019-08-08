@@ -23,6 +23,11 @@
             <artifactId>mblog-bce</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.yueny.kapo</groupId>
+            <artifactId>kapo-api</artifactId>
+        </dependency>
+
         <!-- 后续移除 -->
         <dependency>
             <groupId>org.springframework.data</groupId>

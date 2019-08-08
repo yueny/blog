@@ -27,7 +27,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommentVO extends AbstractMaskBo implements IBo, Serializable {
+public class CommentBo extends AbstractMaskBo implements IBo, Serializable {
 
 	private long id;
 
@@ -81,7 +81,7 @@ public class CommentVO extends AbstractMaskBo implements IBo, Serializable {
 	// extend parameter
 	private UserCommentModel author;
 	// 回复的评论内容
-	private CommentVO parent;
+	private CommentBo parent;
 
 	/**
 	 * 所评论的博文信息。允许为null

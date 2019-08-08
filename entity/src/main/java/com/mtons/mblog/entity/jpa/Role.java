@@ -1,6 +1,5 @@
 package com.mtons.mblog.entity.jpa;
 
-import com.mtons.mblog.entity.api.IEntry;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,7 +11,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "shiro_role")
-public class Role implements IEntry, Serializable {
+public class Role extends com.yueny.kapo.api.pojo.instance.Entity implements Serializable {
     private static final long serialVersionUID = -1153854616385727165L;
 
     public static int STATUS_NORMAL = 0;

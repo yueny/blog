@@ -1,6 +1,5 @@
 package com.mtons.mblog.entity.jpa;
 
-import com.mtons.mblog.entity.api.IEntry;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,7 +15,7 @@ import java.io.Serializable;
 @Table(name = "mto_post_resource", indexes = {
         @Index(name = "IK_POST_ID", columnList = "post_id")
 })
-public class PostResource implements IEntry, Serializable {
+public class PostResource extends com.yueny.kapo.api.pojo.instance.Entity implements Serializable {
     private static final long serialVersionUID = -2343406058301647253L;
 
     @Id

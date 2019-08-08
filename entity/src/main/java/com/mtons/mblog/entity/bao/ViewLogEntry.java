@@ -1,7 +1,6 @@
 package com.mtons.mblog.entity.bao;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.mtons.mblog.entity.api.IEntry;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -24,7 +23,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
-public class ViewLogEntry extends AbstractUpdatePlusEntry implements IEntry {
+public class ViewLogEntry extends AbstractUpdatePlusEntry {
     /**
      * 客户端ip
      */

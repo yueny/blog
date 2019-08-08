@@ -1,7 +1,5 @@
 package com.mtons.mblog.entity.jpa;
 
-import com.mtons.mblog.entity.api.IEntry;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -11,7 +9,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "shiro_permission")
-public class Permission implements IEntry, Serializable {
+public class Permission extends com.yueny.kapo.api.pojo.instance.Entity implements Serializable {
     private static final long serialVersionUID = -5979636077639378677L;
 
     @Id

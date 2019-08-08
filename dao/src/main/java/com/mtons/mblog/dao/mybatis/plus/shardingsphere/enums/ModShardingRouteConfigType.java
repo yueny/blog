@@ -1,7 +1,7 @@
 package com.mtons.mblog.dao.mybatis.plus.shardingsphere.enums;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.mtons.mblog.entity.api.IEntry;
+import com.yueny.kapo.api.pojo.IEntry;
 import com.yueny.superclub.api.enums.core.IEnumType;
 import lombok.Getter;
 import org.apache.commons.digester.annotations.utils.AnnotationUtils;

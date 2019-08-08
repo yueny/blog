@@ -1,6 +1,5 @@
 package com.mtons.mblog.service;
 
-import com.mtons.mblog.entity.api.IEntry;
 import com.yueny.superclub.api.pojo.IBo;
 import lombok.Getter;
 import org.apache.commons.collections4.CollectionUtils;
@@ -39,7 +38,7 @@ public abstract class BaseService extends AbstractService {
 	 *            目标数据类型信息
 	 * @return 映射后的目标数据列表
 	 */
-	protected <T extends IBo, S extends IEntry> List<T> map(final List<S> sourceList, final Class<T> targetInfo) {
+	protected <T extends IBo, S> List<T> map(final List<S> sourceList, final Class<T> targetInfo) {
 		if (CollectionUtils.isEmpty(sourceList)) {
 			logger.warn("使用空数据源进行映射!");
 			return Collections.<T>emptyList();
@@ -66,7 +65,7 @@ public abstract class BaseService extends AbstractService {
 	 *            目标数据类型信息
 	 * @return 映射后的目标数据列表
 	 */
-	protected <T extends IBo, S extends IEntry> List<S> map(final Set<T> sourceList, final Class<S> targetInfo) {
+	protected <T extends IBo, S> List<S> map(final Set<T> sourceList, final Class<S> targetInfo) {
 		if (CollectionUtils.isEmpty(sourceList)) {
 			logger.warn("使用空数据源进行映射!");
 			return Collections.<S>emptyList();
@@ -118,7 +117,7 @@ public abstract class BaseService extends AbstractService {
 	 *            业务对象类
 	 * @return 映射后的业务对象
 	 */
-	protected <T extends IBo, S extends IEntry> T map(final S sourceEntry, final Class<T> targetBOClass) {
+	protected <T extends IBo, S> T map(final S sourceEntry, final Class<T> targetBOClass) {
 		Assert.notNull(sourceEntry, "映射的实体对象不可为空");
 		return mapper.map(sourceEntry, targetBOClass);
 	}
@@ -136,7 +135,7 @@ public abstract class BaseService extends AbstractService {
 	 *            实体对象类
 	 * @return 映射后的实体对象
 	 */
-	protected <T extends IBo, S extends IEntry> S map(final T sourceBO, final Class<S> targetEntryClass) {
+	protected <T extends IBo, S> S map(final T sourceBO, final Class<S> targetEntryClass) {
 		Assert.notNull(sourceBO, "映射的业务对象不可为空");
 		return mapper.map(sourceBO, targetEntryClass);
 	}

@@ -1,6 +1,6 @@
 package com.mtons.mblog.entity.jpa;
 
-import com.mtons.mblog.entity.api.IEntry;
+import com.yueny.kapo.api.pojo.instance.Entity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -22,7 +22,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
-abstract class AbstractIDJpaEntry implements IEntry {
+abstract class AbstractIDJpaEntry extends Entity {
     /** 自然主键 */
     @Id // 会创建自然主键和索引
     @GeneratedValue(strategy = GenerationType.IDENTITY)

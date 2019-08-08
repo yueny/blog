@@ -1,8 +1,9 @@
 package com.mtons.mblog.service.atom.jpa.impl;
 
-import com.mtons.mblog.entity.api.IEntry;
 import com.mtons.mblog.service.BaseService;
 import com.mtons.mblog.service.api.jpa.IJpaBizService;
+import com.mtons.mblog.util.IdFieldSetterUtil;
+import com.yueny.kapo.api.pojo.IEntry;
 import com.yueny.rapid.lang.util.collect.CollectionUtil;
 import com.yueny.superclub.api.pojo.IBo;
 import org.springframework.beans.factory.InitializingBean;
@@ -104,8 +105,8 @@ abstract class AbstractJpaService<T extends IBo, S extends IEntry, M extends Jpa
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean deleteByIds(Collection<Long> idList) {
-        for (Long id: idList) {
+    public boolean deleteByIds(Set<Long> ids) {
+        for (Long id: ids) {
             baseRepository.deleteById(id);
         }
 
@@ -117,7 +118,10 @@ abstract class AbstractJpaService<T extends IBo, S extends IEntry, M extends Jpa
     public boolean insert(T t) {
         S entry = map(t, entryClazz);
 
-        Object obj = baseRepository.save(entry);
+        baseRepository.save(entry);
+
+        // 主键ID赋值, t.setID
+        IdFieldSetterUtil.setPrimaryKey(t.getClass(), entry.getPrimaryKey());
 
         return true;
     }
@@ -182,16 +186,16 @@ abstract class AbstractJpaService<T extends IBo, S extends IEntry, M extends Jpa
                 pageEntrys.getPageable(), pageEntrys.getTotalElements());
     }
 
-    @Override
-    public List<T> findAll(Example<S> example, Sort sort) {
-        List<S> entrys = baseRepository.findAll(example, sort);
-
-        if(CollectionUtil.isEmpty(entrys)){
-            return Collections.emptyList();
-        }
-
-        return map(entrys, boClazz);
-    }
+//    @Override
+//    public List<T> findAll(Example<S> example, Sort sort) {
+//        List<S> entrys = baseRepository.findAll(example, sort);
+//
+//        if(CollectionUtil.isEmpty(entrys)){
+//            return Collections.emptyList();
+//        }
+//
+//        return map(entrys, boClazz);
+//    }
 
     @Override
     public Page<T> findAll(Example<S> example, Pageable pageable) {

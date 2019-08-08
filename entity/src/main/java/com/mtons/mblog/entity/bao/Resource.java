@@ -2,7 +2,6 @@ package com.mtons.mblog.entity.bao;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.mtons.mblog.base.enums.ResourceType;
-import com.mtons.mblog.entity.api.IEntry;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +20,7 @@ import java.io.Serializable;
         uniqueConstraints = {@UniqueConstraint(name = "UK_MD5", columnNames = {"md5"})}
 )
 @TableName("mto_resource")
-public class Resource extends AbstractUpdatePlusEntry implements IEntry, Serializable {
+public class Resource extends AbstractUpdatePlusEntry implements Serializable {
     private static final long serialVersionUID = -2263990565349962964L;
 
 //    @Id

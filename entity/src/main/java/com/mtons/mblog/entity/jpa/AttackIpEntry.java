@@ -1,6 +1,6 @@
 package com.mtons.mblog.entity.jpa;
 
-import com.mtons.mblog.entity.api.IEntry;
+import com.yueny.kapo.api.pojo.IEntry;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -28,8 +28,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class AttackIpEntry
-        implements IEntry {
+public class AttackIpEntry extends com.yueny.kapo.api.pojo.instance.Entity {
 
     /** 自然主键 */
     @Id // 会创建自然主键和索引

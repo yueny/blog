@@ -7,10 +7,9 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.entity.jpa;
+package com.mtons.mblog.entity.bao;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.mtons.mblog.entity.api.IEntry;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.search.annotations.Field;
@@ -29,7 +28,7 @@ import javax.persistence.*;
 @TableName("mto_comment")
 @Getter
 @Setter
-public class Comment extends AbstractJpaEntry implements IEntry {
+public class Comment extends AbstractPlusEntry {
 
     /**
      * 针对性回复的评论ID(父评论ID)

@@ -20,7 +20,8 @@ import org.springframework.stereotype.Service;
  *
  */
 @Service
-public class PostAttributeServiceImpl extends AbstractPlusService<PostAttributeBo, PostAttribute, PostAttributeMapper>
+public class PostAttributeServiceImpl
+        extends AbstractPlusService<PostAttributeBo, PostAttribute, PostAttributeMapper>
         implements IPostAttributeService {
    //.
 

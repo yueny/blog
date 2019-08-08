@@ -9,7 +9,6 @@
 */
 package com.mtons.mblog.entity.jpa;
 
-import com.mtons.mblog.entity.api.IEntry;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,7 +22,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "mto_channel")
-public class Channel implements IEntry, Serializable {
+public class Channel extends com.yueny.kapo.api.pojo.instance.Entity implements Serializable {
 	private static final long serialVersionUID = 2436696690653745208L;
 
 	@Id

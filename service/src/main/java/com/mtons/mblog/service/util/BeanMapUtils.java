@@ -12,6 +12,7 @@ package com.mtons.mblog.service.util;
 import com.mtons.mblog.base.enums.AuthoredType;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.*;
+import com.mtons.mblog.entity.bao.Comment;
 import com.mtons.mblog.entity.bao.Post;
 import com.mtons.mblog.entity.jpa.*;
 import com.mtons.mblog.model.AccountProfile;
@@ -45,8 +46,8 @@ public class BeanMapUtils {
         return passport;
     }
 
-    public static CommentVO copy(Comment entry) {
-        CommentVO ret = new CommentVO();
+    public static CommentBo copy(Comment entry) {
+        CommentBo ret = new CommentBo();
         BeanUtils.copyProperties(entry, ret);
 
         ret.setCommitAuthoredType(AuthoredType.getBy(entry.getCommitAuthoredType()));

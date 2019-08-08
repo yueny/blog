@@ -9,7 +9,6 @@
 */
 package com.mtons.mblog.entity.jpa;
 
-import com.mtons.mblog.entity.api.IEntry;
 
 import javax.persistence.*;
 
@@ -20,7 +19,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "mto_options")
-public class Options implements IEntry {
+public class Options extends com.yueny.kapo.api.pojo.instance.Entity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;

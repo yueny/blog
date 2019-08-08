@@ -10,7 +10,6 @@
 package com.mtons.mblog.entity.bao;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.mtons.mblog.entity.api.IEntry;
 import com.mtons.mblog.base.enums.BlogFeaturedType;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,7 +23,6 @@ import org.hibernate.search.annotations.*;
 import javax.persistence.Index;
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 内容表
@@ -46,7 +44,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class Post  extends AbstractPlusEntry
-		implements IEntry, Serializable {
+		implements Serializable {
 	private static final long serialVersionUID = 7144425803920583495L;
 
 //	/** 文章主键 */
