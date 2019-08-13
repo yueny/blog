@@ -9,8 +9,8 @@
 */
 package com.mtons.mblog.web.controller.admin;
 
+import com.mtons.mblog.service.atom.bao.CommentService;
 import com.mtons.mblog.service.atom.jpa.ChannelService;
-import com.mtons.mblog.service.atom.jpa.CommentService;
 import com.mtons.mblog.service.atom.jpa.PostService;
 import com.mtons.mblog.service.atom.jpa.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

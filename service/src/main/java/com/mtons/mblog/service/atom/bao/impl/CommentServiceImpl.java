@@ -13,13 +13,12 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mtons.mblog.service.util.DefaultMojoFactory;
 import com.mtons.mblog.bo.CommentBo;
-import com.mtons.mblog.bo.PostBO;
+import com.mtons.mblog.bo.PostBo;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.bao.Comment;
 import com.mtons.mblog.dao.mapper.CommentMapper;
 import com.mtons.mblog.service.atom.bao.CommentService;
 import com.mtons.mblog.service.atom.jpa.PostService;
-import com.mtons.mblog.service.watcher.executor.UserEventExecutor;
 import com.mtons.mblog.service.atom.jpa.UserService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +39,6 @@ public class CommentServiceImpl extends AbstractPlusService<CommentBo, Comment, 
 		implements CommentService {
 	@Autowired
 	private UserService userService;
-	@Autowired
-	private UserEventExecutor userEventExecutor;
 	@Autowired
 	private PostService postService;
 	
@@ -188,38 +185,23 @@ public class CommentServiceImpl extends AbstractPlusService<CommentBo, Comment, 
 		comment.setStatus(0);
 		boolean rs = insert(comment);
 
-		// 如果不是匿名，则更新用户个人的评论总数
-		if(!comment.isAnonymity()){
-			userEventExecutor.identityComment(comment.getUid(), true);
-		}
-
 		return comment.getId();
 	}
 
 	@Override
 	public void delete(long id, String uid) {
 		CommentBo bo = get(id);
-
 		// 判断文章是否属于当前登录用户
 		Assert.isTrue(bo.getUid() == uid, "认证失败");
-		delete(id);
 
-		userEventExecutor.identityComment(uid, false);
-		//TODO  重新统计评论所在文章的评论总数
-		//
+		delete(id);
 	}
 
 	@Override
 	public void deleteByPostId(long postId) {
-		List<CommentBo> list = findByPostId(postId);
-		if (CollectionUtils.isNotEmpty(list)) {
-			Set<String> uids = new HashSet<>();
-			list.forEach(n -> uids.add(n.getUid()));
-
-			userEventExecutor.identityComment(uids, false);
-			//TODO  重新统计评论所在文章的评论总数
-			//
-		}
+		LambdaQueryWrapper<Comment> wrapper = new QueryWrapper<Comment>().lambda();
+		wrapper.eq(Comment::getPostId, postId);
+		delete(wrapper);
 	}
 
 	@Override
@@ -253,9 +235,9 @@ public class CommentServiceImpl extends AbstractPlusService<CommentBo, Comment, 
 	}
 
 	private void buildPosts(Collection<CommentBo> comments, Set<Long> postIds) {
-		Map<Long, PostBO> postMap = postService.findMapByIds(postIds);
+		Map<Long, PostBo> postMap = postService.findMapByIds(postIds);
 		comments.forEach(p -> {
-			PostBO postBO = postMap.get(p.getPostId());
+			PostBo postBO = postMap.get(p.getPostId());
 			p.setPost(postBO);
 		});
 	}

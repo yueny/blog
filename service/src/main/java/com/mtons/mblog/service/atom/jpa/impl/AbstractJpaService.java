@@ -121,7 +121,7 @@ abstract class AbstractJpaService<T extends IBo, S extends IEntry, M extends Jpa
         baseRepository.save(entry);
 
         // 主键ID赋值, t.setID
-        IdFieldSetterUtil.setPrimaryKey(t.getClass(), entry.getPrimaryKey());
+        IdFieldSetterUtil.setPrimaryKey(t, t.getClass(), entry.getPrimaryKey());
 
         return true;
     }

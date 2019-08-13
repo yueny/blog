@@ -1,6 +1,5 @@
 package com.mtons.mblog.bo;
 
-import com.mtons.mblog.bo.PostBO;
 import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -26,5 +25,5 @@ public class PostTagVO extends AbstractMaskBo implements Serializable {
     private long weight;
 
     // 扩展
-    private PostBO post;
+    private PostBo post;
 }

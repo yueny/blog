@@ -197,7 +197,7 @@
     </profiles>
 
     <build>
-        <finalName>mblog-${version}</finalName>
+        <finalName>mblog-${project.version}</finalName>
         <defaultGoal>compile</defaultGoal>
         <resources>
             <resource>

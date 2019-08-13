@@ -2,7 +2,7 @@ package com.mtons.mblog.service.atom.jpa.impl;
 
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.PostTagVO;
-import com.mtons.mblog.bo.PostBO;
+import com.mtons.mblog.bo.PostBo;
 import com.mtons.mblog.bo.TagBO;
 import com.mtons.mblog.entity.jpa.PostTag;
 import com.mtons.mblog.entity.jpa.Tag;
@@ -77,7 +77,7 @@ public class TagServiceImpl extends AbstractJpaService<TagBO, Tag, TagRepository
             return BeanMapUtils.copy(po);
         }).collect(Collectors.toList());
 
-        Map<Long, PostBO> posts = postService.findMapByIds(postIds);
+        Map<Long, PostBo> posts = postService.findMapByIds(postIds);
         rets.forEach(n -> n.setPost(posts.get(n.getPostId())));
         return new PageImpl<>(rets, pageable, page.getTotalElements());
     }

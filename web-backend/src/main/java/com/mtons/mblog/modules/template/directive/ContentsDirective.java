@@ -7,7 +7,7 @@ import com.google.common.collect.Sets;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.service.util.BeanMapUtils;
 import com.mtons.mblog.bo.ChannelVO;
-import com.mtons.mblog.bo.PostBO;
+import com.mtons.mblog.bo.PostBo;
 import com.mtons.mblog.service.atom.jpa.PostService;
 import com.mtons.mblog.service.atom.jpa.ChannelService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
@@ -73,7 +73,7 @@ public class ContentsDirective extends TemplateDirective {
         }
 
         Pageable pageable = wrapPageable(handler, Sort.by(Sort.Direction.DESC, BeanMapUtils.postOrder(order)));
-        Page<PostBO> result = postService.pagingForAuthor(pageable, channelIds, excludeChannelIds);
+        Page<PostBo> result = postService.pagingForAuthor(pageable, channelIds, excludeChannelIds);
         handler.put(RESULTS, result).render();
     }
 }

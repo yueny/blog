@@ -3,7 +3,7 @@ package com.mtons.mblog.service.watcher.event.handler;
 import com.mtons.mblog.base.consts.BlogConstant;
 import com.mtons.mblog.base.enums.watcher.MessageActionType;
 import com.mtons.mblog.bo.MessageVO;
-import com.mtons.mblog.bo.PostBO;
+import com.mtons.mblog.bo.PostBo;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.service.atom.jpa.UserService;
 import com.mtons.mblog.service.watcher.event.BlogMessageEvent;
@@ -42,13 +42,13 @@ public class BlogMessageEventHandler implements ApplicationListener<BlogMessageE
 
         // 有人喜欢了你的文章
         if(event.getEvent().getVal() == MessageActionType.MESSAGE_EVENT_FAVOR_POST.getVal()){
-            PostBO p = postService.getForAuthor(event.getPostId());
+            PostBo p = postService.getForAuthor(event.getPostId());
             nt.setUserId(p.getAuthorId());
         }else if(event.getEvent().getVal() == MessageActionType.MESSAGE_EVENT_COMMENT.getVal()
             || event.getEvent().getVal() == MessageActionType.MESSAGE_EVENT_COMMENT_REPLY.getVal()){
             //有人评论了你
             // 有人回复了你
-            PostBO p2 = postService.getForAuthor(event.getPostId());
+            PostBo p2 = postService.getForAuthor(event.getPostId());
             nt.setUserId(p2.getAuthorId());
 
             // 自增评论数

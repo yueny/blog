@@ -11,7 +11,7 @@ package com.mtons.mblog.service.atom.jpa;
 
 import com.mtons.mblog.base.enums.BlogFeaturedType;
 import com.mtons.mblog.base.consts.Consts;
-import com.mtons.mblog.bo.PostBO;
+import com.mtons.mblog.bo.PostBo;
 import com.mtons.mblog.entity.bao.Post;
 import com.mtons.mblog.service.api.bao.IPlusBizService;
 import org.springframework.cache.annotation.CacheConfig;
@@ -30,7 +30,7 @@ import java.util.Set;
  *
  */
 @CacheConfig(cacheNames = Consts.CACHE_POST)
-public interface PostService extends IPlusBizService<PostBO, Post> {
+public interface PostService extends IPlusBizService<PostBo, Post> {
 	/**
 	 * 根据 博文编号 articleBlogId 查询c
 	 *
@@ -39,7 +39,7 @@ public interface PostService extends IPlusBizService<PostBO, Post> {
 	 * @param articleBlogId  博文编号
 	 * @return  博文编号
 	 */
-	PostBO getByArticleBlogId(String articleBlogId);
+	PostBo getByArticleBlogId(String articleBlogId);
 
 	/**
 	 * 分页查询所有文章
@@ -48,9 +48,9 @@ public interface PostService extends IPlusBizService<PostBO, Post> {
 	 * @param channelIds 分组Id
 	 */
 	@Cacheable
-	Page<PostBO> pagingForAuthor(Pageable pageable, Set<Integer> channelIds, Set<Integer> excludeChannelIds);
+	Page<PostBo> pagingForAuthor(Pageable pageable, Set<Integer> channelIds, Set<Integer> excludeChannelIds);
 
-	Page<PostBO> paging4AdminForAuthor(Pageable pageable, int channelId, String title);
+	Page<PostBo> paging4AdminForAuthor(Pageable pageable, int channelId, String title);
 
 //	/**
 //	 * 查询个人发布文章
@@ -67,7 +67,7 @@ public interface PostService extends IPlusBizService<PostBO, Post> {
 	 */
 	@Cacheable
 	@Deprecated
-	List<PostBO> findLatestPosts(int maxResults);
+	List<PostBo> findLatestPosts(int maxResults);
 
 	/**
 	 * 查询热门文章 - 按浏览次数排序
@@ -76,7 +76,7 @@ public interface PostService extends IPlusBizService<PostBO, Post> {
 	 */
 	@Cacheable(key = "'hottest_' + #maxResults")
 	@Deprecated
-	List<PostBO> findHottestPosts(int maxResults);
+	List<PostBo> findHottestPosts(int maxResults);
 
 	/**
 	 * 根据Ids查询
@@ -84,14 +84,14 @@ public interface PostService extends IPlusBizService<PostBO, Post> {
 	 * @return <id, 文章对象>
 	 */
 	@Deprecated
-	Map<Long, PostBO> findMapByIds(Set<Long> ids);
+	Map<Long, PostBo> findMapByIds(Set<Long> ids);
 
 	/**
 	 * 查询个人发布文章
 	 * @param pageable
 	 * @param authorId  用户主键ID
 	 */
-	Page<PostBO> findAllByAuthorId(Pageable pageable, long authorId);
+	Page<PostBo> findAllByAuthorId(Pageable pageable, long authorId);
 
 	/**
 	 * 文章详情
@@ -99,7 +99,7 @@ public interface PostService extends IPlusBizService<PostBO, Post> {
 	 * @return
 	 */
 	@Cacheable(key = "'post_' + #id")
-    PostBO getForAuthor(long id);
+	PostBo getForAuthor(long id);
 
 	/**
 	 * 文章详情
@@ -107,14 +107,14 @@ public interface PostService extends IPlusBizService<PostBO, Post> {
 	 * @return
 	 */
 	@Cacheable(key = "'post_' + #articleBlogId")
-    PostBO getForAuthor(String articleBlogId);
+	PostBo getForAuthor(String articleBlogId);
 
 	/**
 	 * 发布文章
 	 * @param post
 	 */
 	@CacheEvict(allEntries = true)
-	Long post(PostBO post);
+	Long post(PostBo post);
 
 	/**
 	 * 更新文章方法
@@ -122,7 +122,7 @@ public interface PostService extends IPlusBizService<PostBO, Post> {
 	 */
 	@CacheEvict(allEntries = true)
 	@Deprecated
-	void update(PostBO p);
+	void update(PostBo p);
 
 	/**
 	 * 推荐/消荐

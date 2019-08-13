@@ -26,7 +26,7 @@ import com.mtons.mblog.service.atom.jpa.PostService;
 import com.mtons.mblog.service.util.BeanMapUtils;
 import com.mtons.mblog.service.aspect.PostStatusFilter;
 import com.mtons.mblog.bo.ChannelVO;
-import com.mtons.mblog.bo.PostBO;
+import com.mtons.mblog.bo.PostBo;
 import com.mtons.mblog.entity.bao.Post;
 import com.mtons.mblog.dao.repository.PostRepository;
 import com.mtons.mblog.service.seq.SeqType;
@@ -48,7 +48,7 @@ import java.util.stream.Collectors;
  *
  */
 @Service
-public class PostServiceImpl extends AbstractPlusService<PostBO, Post, PostMapper> implements PostService {
+public class PostServiceImpl extends AbstractPlusService<PostBo, Post, PostMapper> implements PostService {
 	@Autowired
 	private PostRepository postRepository;
 	@Autowired
@@ -63,7 +63,7 @@ public class PostServiceImpl extends AbstractPlusService<PostBO, Post, PostMappe
 	private ResourceService resourceService;
 
 	@Override
-	public PostBO getByArticleBlogId(String articleBlogId) {
+	public PostBo getByArticleBlogId(String articleBlogId) {
 		LambdaQueryWrapper<Post> queryWrapper = new QueryWrapper<Post>().lambda();
 		queryWrapper.eq(Post::getArticleBlogId, articleBlogId);
 
@@ -72,13 +72,13 @@ public class PostServiceImpl extends AbstractPlusService<PostBO, Post, PostMappe
 			return  null;
 		}
 
-		return map(po, PostBO.class);
+		return map(po, PostBo.class);
 	}
 
 	@Override
 	@PostStatusFilter
 	@Deprecated
-	public Page<PostBO> pagingForAuthor(Pageable pageable, Set<Integer> channelIds, Set<Integer> excludeChannelIds) {
+	public Page<PostBo> pagingForAuthor(Pageable pageable, Set<Integer> channelIds, Set<Integer> excludeChannelIds) {
 		Page<Post> page = postRepository.findAll((root, query, builder) -> {
 			Predicate predicate = builder.conjunction();
 
@@ -111,7 +111,7 @@ public class PostServiceImpl extends AbstractPlusService<PostBO, Post, PostMappe
 
 	@Override
 	@Deprecated
-	public Page<PostBO> paging4AdminForAuthor(Pageable pageable, int channelId, String title) {
+	public Page<PostBo> paging4AdminForAuthor(Pageable pageable, int channelId, String title) {
 		Page<Post> page = postRepository.findAll((root, query, builder) -> {
             Predicate predicate = builder.conjunction();
 			if (channelId > Consts.ZERO) {
@@ -135,19 +135,19 @@ public class PostServiceImpl extends AbstractPlusService<PostBO, Post, PostMappe
 
 	@Override
 	@PostStatusFilter
-	public List<PostBO> findLatestPosts(int maxResults) {
+	public List<PostBo> findLatestPosts(int maxResults) {
 		return find("created", maxResults).stream().map(BeanMapUtils::copy).collect(Collectors.toList());
 	}
 	
 	@Override
 	@PostStatusFilter
-	public List<PostBO> findHottestPosts(int maxResults) {
+	public List<PostBo> findHottestPosts(int maxResults) {
 		return find("views", maxResults).stream().map(BeanMapUtils::copy).collect(Collectors.toList());
 	}
 	
 	@Override
 	@PostStatusFilter
-	public Map<Long, PostBO> findMapByIds(Set<Long> ids) {
+	public Map<Long, PostBo> findMapByIds(Set<Long> ids) {
 		if (ids == null || ids.isEmpty()) {
 			return Collections.emptyMap();
 		}
@@ -155,10 +155,10 @@ public class PostServiceImpl extends AbstractPlusService<PostBO, Post, PostMappe
 		Iterable<Post> list = postRepository.findAllById(ids);
 
 		HashSet<Long> uids = new HashSet<>();
-		Map<Long, PostBO> rets = new HashMap<>();
+		Map<Long, PostBo> rets = new HashMap<>();
 		list.forEach(po -> {
 			uids.add(po.getAuthorId());
-			rets.put(po.getId(), map(po, PostBO.class));
+			rets.put(po.getId(), map(po, PostBo.class));
 		});
 
 		// 加载用户信息
@@ -169,7 +169,7 @@ public class PostServiceImpl extends AbstractPlusService<PostBO, Post, PostMappe
 
 	@Override
 	@PostStatusFilter
-	public Page<PostBO> findAllByAuthorId(Pageable pageable, long authorId) {
+	public Page<PostBo> findAllByAuthorId(Pageable pageable, long authorId) {
 		LambdaQueryWrapper<Post> queryWrapper = new QueryWrapper<Post>().lambda();
 		queryWrapper.eq(Post::getAuthorId, authorId);
 
@@ -187,21 +187,21 @@ public class PostServiceImpl extends AbstractPlusService<PostBO, Post, PostMappe
 	 * @param pagePlusList mybatisplus 查询到的分页结果对象
 	 * @return org.springframework.data.domain.Page
 	 */
-	private Page<PostBO> convertPage(Pageable pageableData, IPage<Post> pagePlusList) {
+	private Page<PostBo> convertPage(Pageable pageableData, IPage<Post> pagePlusList) {
 		if(CollectionUtils.isEmpty(pagePlusList.getRecords())){
 			return new PageImpl(Collections.emptyList(), pageableData, pagePlusList.getTotal());
 		}
 
 //		List<PostBO> list = map(pagePlusList.getRecords(), PostBO.class);
-		List<PostBO> list = toPosts(pagePlusList.getRecords());
+		List<PostBo> list = toPosts(pagePlusList.getRecords());
 		return new PageImpl(list, pageableData, pagePlusList.getTotal());
 	}
 
 	@Override
-	public PostBO getForAuthor(long id) {
+	public PostBo getForAuthor(long id) {
 //		Post po = baseMapper.selectById(id);
 //		PostBO d = BeanMapUtils.copy(po);
-		PostBO d = get(id);
+		PostBo d = get(id);
 
 		// 加载用户信息s
 		buildUsers(Lists.newArrayList(d), Sets.newHashSet(d.getAuthorId()));
@@ -212,8 +212,8 @@ public class PostServiceImpl extends AbstractPlusService<PostBO, Post, PostMappe
 	}
 
 	@Override
-	public PostBO getForAuthor(String articleBlogId) {
-		PostBO d = getByArticleBlogId(articleBlogId);
+	public PostBo getForAuthor(String articleBlogId) {
+		PostBo d = getByArticleBlogId(articleBlogId);
 
 		// 加载用户信息
 		buildUsers(Lists.newArrayList(d), Sets.newHashSet(d.getAuthorId()));
@@ -225,7 +225,7 @@ public class PostServiceImpl extends AbstractPlusService<PostBO, Post, PostMappe
 
 	@Override
 	@Transactional
-	public Long post(PostBO post) {
+	public Long post(PostBo post) {
 		if(StringUtils.isEmpty(post.getArticleBlogId())){
 			String articleBlogId = seqContainer.getStrategy(SeqType.ARTICLE_BLOG_ID).get(post.getTitle());
 
@@ -240,12 +240,11 @@ public class PostServiceImpl extends AbstractPlusService<PostBO, Post, PostMappe
 		post.setStatus(post.getStatus());
 		post.setSummary(post.getSummary());
 
-		//super.insert(post);
-		Post entry = map(post, Post.class);
-		baseMapper.insert(entry);
+		super.insert(post);
+//		Post entry = map(post, Post.class);
+//		baseMapper.insert(entry);
 
-		post.setId(entry.getId());
-		return entry.getId();
+		return post.getId();
 	}
 
 	/**
@@ -255,8 +254,8 @@ public class PostServiceImpl extends AbstractPlusService<PostBO, Post, PostMappe
 	@Override
 	@Transactional
 	@Deprecated
-	public void update(PostBO pp){
-		PostBO postBo = get(pp.getId());
+	public void update(PostBo pp){
+		PostBo postBo = get(pp.getId());
 //		Optional<Post> optional = postRepository.findById(pp.getId());
 
 //		if (optional.isPresent()) {
@@ -397,11 +396,11 @@ public class PostServiceImpl extends AbstractPlusService<PostBO, Post, PostMappe
 		return page.getContent();
 	}
 
-	private List<PostBO> toPosts(List<Post> posts) {
-		List<PostBO> list = new ArrayList<>();
+	private List<PostBo> toPosts(List<Post> posts) {
+		List<PostBo> list = new ArrayList<>();
 
 		posts.forEach(po -> {
-			PostBO postBO = BeanMapUtils.copy(po);
+			PostBo postBO = BeanMapUtils.copy(po);
 
 			buildUsers(postBO, postBO.getUid());
 			// 加载资源信息
@@ -412,7 +411,7 @@ public class PostServiceImpl extends AbstractPlusService<PostBO, Post, PostMappe
 		return list;
 	}
 
-	private void buildUsers(PostBO post, String uid) {
+	private void buildUsers(PostBo post, String uid) {
 		UserBO userBo = userService.get(uid);
 		if(userBo != null){
 			userBo.setPassword("");
@@ -420,18 +419,18 @@ public class PostServiceImpl extends AbstractPlusService<PostBO, Post, PostMappe
 		}
 	}
 
-	private void buildUsers(Collection<PostBO> posts, Set<Long> uids) {
+	private void buildUsers(Collection<PostBo> posts, Set<Long> uids) {
 		Map<Long, UserBO> userMap = userService.findMapByIds(uids);
 		posts.forEach(p -> p.setAuthor(userMap.get(p.getAuthorId())));
 	}
 
-	private void buildResource(Collection<PostBO> posts) {
+	private void buildResource(Collection<PostBo> posts) {
 		posts.forEach(post -> {
 			buildResource(post);
 		});
 	}
 
-	private void buildResource(PostBO post) {
+	private void buildResource(PostBo post) {
 		if(StringUtils.isEmpty(post.getThumbnailCode())){
 			return;
 		}

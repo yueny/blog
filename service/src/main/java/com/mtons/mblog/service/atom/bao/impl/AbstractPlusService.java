@@ -258,7 +258,8 @@ import java.util.*;
 		int pk = baseMapper.insert(entry);
 
 		// 主键ID赋值, t.setID
-		IdFieldSetterUtil.setPrimaryKey(t.getClass(), entry.getPrimaryKey());
+		Long id = entry.getPrimaryKey();
+		IdFieldSetterUtil.setPrimaryKey(t, t.getClass(), id);
 
 		return pk == 1;
 	}
@@ -279,7 +280,7 @@ import java.util.*;
 			int rs = baseMapper.insert(entry);
 
 			// 主键ID赋值, t.setID
-			IdFieldSetterUtil.setPrimaryKey(t.getClass(), entry.getPrimaryKey());
+			IdFieldSetterUtil.setPrimaryKey(t, t.getClass(), entry.getPrimaryKey());
 		}
 
 		return true;
@@ -386,8 +387,8 @@ import java.util.*;
 	}
 
 	@Override
-	public boolean delete(Wrapper<S> queryWrapper) {
-		return remove(queryWrapper);
+	public boolean delete(Wrapper<S> wrapper) {
+		return remove(wrapper);
 	}
 
 }

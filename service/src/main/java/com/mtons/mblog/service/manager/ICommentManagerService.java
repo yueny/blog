@@ -9,6 +9,8 @@
 */
 package com.mtons.mblog.service.manager;
 
+import com.mtons.mblog.bo.CommentBo;
+
 import java.util.Set;
 
 /**
@@ -27,4 +29,12 @@ public interface ICommentManagerService {
 	 * 根据postId删除所有评论，仅当博文被删除时才操作
 	 */
 	void deleteByPostId(long postId);
+
+	/**
+	 * 发表博文
+	 *
+	 * @param comment 博文内容
+	 * @return 博文主键
+	 */
+	Long post(CommentBo comment);
 }

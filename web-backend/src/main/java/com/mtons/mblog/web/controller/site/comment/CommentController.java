@@ -6,12 +6,13 @@ package com.mtons.mblog.web.controller.site.comment;
 import com.mtons.mblog.base.consts.BlogConstant;
 import com.mtons.mblog.base.enums.AuthoredType;
 import com.mtons.mblog.base.lang.Result;
+import com.mtons.mblog.bo.CommentBo;
 import com.mtons.mblog.modules.comp.ISiteOptionsGetService;
 import com.mtons.mblog.model.AccountProfile;
-import com.mtons.mblog.bo.CommentVO;
-import com.mtons.mblog.bo.PostBO;
+import com.mtons.mblog.bo.PostBo;
+import com.mtons.mblog.service.atom.bao.CommentService;
+import com.mtons.mblog.service.manager.ICommentManagerService;
 import com.mtons.mblog.service.watcher.event.BlogMessageEvent;
-import com.mtons.mblog.service.atom.jpa.CommentService;
 import com.mtons.mblog.service.atom.jpa.PostService;
 import com.mtons.mblog.base.enums.watcher.MessageActionType;
 import com.mtons.mblog.web.controller.BaseController;
@@ -44,6 +45,8 @@ public class CommentController extends BaseController {
     @Autowired
     private CommentService commentService;
     @Autowired
+    private ICommentManagerService commentManagerService;
+    @Autowired
     private ApplicationContext applicationContext;
     @Autowired
     private ISiteOptionsGetService controlsService;
@@ -51,10 +54,10 @@ public class CommentController extends BaseController {
     private PostService postService;
 
     @RequestMapping("/list/{toId}")
-    public Page<CommentVO> view(@PathVariable Long toId, String articleBlogId) {
+    public Page<CommentBo> view(@PathVariable Long toId, String articleBlogId) {
         Pageable pageable = wrapPageable(Sort.by(Sort.Direction.DESC, "id"));
 
-        Page<CommentVO> pager =  commentService.pagingByPostId(pageable, toId);
+        Page<CommentBo> pager =  commentService.pagingByPostId(pageable, toId);
 
         return pager;
     }
@@ -77,7 +80,7 @@ public class CommentController extends BaseController {
             return Result.failure("操作失败");
         }
 
-        CommentVO c = new CommentVO();
+        CommentBo c = new CommentBo();
         // 所属博文内容的主键ID
         c.setPostId(toId);
         c.setArticleBlogId(postService.getForAuthor(c.getPostId()).getArticleBlogId());
@@ -105,7 +108,7 @@ public class CommentController extends BaseController {
             c.setClientAgent(clentAgent);
         }
 
-        commentService.post(c);
+        commentManagerService.post(c);
 
         if (isAuthenticated()) {
             AccountProfile profile = getProfile();
@@ -125,7 +128,7 @@ public class CommentController extends BaseController {
     public Result delete(@RequestParam(name = "id") Long id) {
         Result data;
         try {
-            commentService.delete(id, getProfile().getUid());
+            commentManagerService.delete(id, getProfile().getUid());
             data = Result.success();
         } catch (Exception e) {
             data = Result.failure(e.getMessage());
@@ -155,7 +158,7 @@ public class CommentController extends BaseController {
         // 此处不知道文章作者, 让通知事件系统补全
         event.setPostId(postId);
 
-        PostBO postBO = postService.getForAuthor(postId);
+        PostBo postBO = postService.getForAuthor(postId);
         event.setArticleBlogId(postBO.getArticleBlogId());
 
         applicationContext.publishEvent(event);

@@ -54,8 +54,8 @@ public class BeanMapUtils {
         return ret;
     }
 
-    public static PostBO copy(Post entry) {
-        PostBO d = new PostBO();
+    public static PostBo copy(Post entry) {
+        PostBo d = new PostBo();
         BeanUtils.copyProperties(entry, d);
         return d;
     }

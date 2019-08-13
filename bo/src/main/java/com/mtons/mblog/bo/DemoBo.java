@@ -49,6 +49,6 @@ public class DemoBo extends BaseBo {
 	 */
 	private Integer guaranteeMode;
 
-	private PostBO post;
+	private PostBo post;
 
 }

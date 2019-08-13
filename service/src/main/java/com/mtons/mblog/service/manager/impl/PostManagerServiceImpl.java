@@ -17,7 +17,7 @@ import com.mtons.mblog.service.atom.bao.IPostAttributeService;
 import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.service.util.PreviewTextUtils;
 import com.mtons.mblog.bo.ChannelVO;
-import com.mtons.mblog.bo.PostBO;
+import com.mtons.mblog.bo.PostBo;
 import com.mtons.mblog.bo.ResourceBO;
 import com.mtons.mblog.model.PostVO;
 import com.mtons.mblog.service.watcher.event.PostUpdateEvent;
@@ -59,14 +59,14 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 
 	@Override
 	public Page<PostVO> paging(Pageable pageable, Set<Integer> channelIds, Set<Integer> excludeChannelIds) {
-		Page<PostBO> page = postService.pagingForAuthor(pageable, channelIds, excludeChannelIds);
+		Page<PostBo> page = postService.pagingForAuthor(pageable, channelIds, excludeChannelIds);
 
 		return new PageImpl<>(toPosts(page.getContent()), pageable, page.getTotalElements());
 	}
 
 	@Override
 	public Page<PostVO> paging4Admin(Pageable pageable, int channelId, String title) {
-		Page<PostBO> page = postService.paging4AdminForAuthor(pageable, channelId, title);
+		Page<PostBo> page = postService.paging4AdminForAuthor(pageable, channelId, title);
 
 		return new PageImpl<>(toPosts(page.getContent()), pageable, page.getTotalElements());
 	}
@@ -83,10 +83,10 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 			return Collections.emptyMap();
 		}
 
-		Map<Long, PostBO> rets = postService.findMapByIds(ids);
+		Map<Long, PostBo> rets = postService.findMapByIds(ids);
 
 		Map<Long, PostVO> list = new HashMap<>();
-		for (Map.Entry<Long, PostBO> entry : rets.entrySet()) {
+		for (Map.Entry<Long, PostBo> entry : rets.entrySet()) {
 			PostVO postVO = mapAny(entry.getValue(), PostVO.class);
 
 			list.put(entry.getKey(), postVO);
@@ -117,7 +117,7 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 			throw new MtonsException("数据操作异常：" + ex.getMessage());
 		}
 
-		PostBO postBO = postService.getForAuthor(post.getId());
+		PostBo postBO = postService.getForAuthor(post.getId());
 		onPushEvent(postBO, PostUpdateType.ACTION_PUBLISH);
 
 		return id;
@@ -125,7 +125,7 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 
 	@Override
 	public PostVO get(long id) {
-		PostBO po = postService.getForAuthor(id);
+		PostBo po = postService.getForAuthor(id);
 		if(po == null){
 			return null;
 		}
@@ -147,7 +147,7 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 
 	@Override
 	public PostVO get(String articleBlogId) {
-		PostBO po = postService.getForAuthor(articleBlogId);
+		PostBo po = postService.getForAuthor(articleBlogId);
 		if(po == null){
 			return null;
 		}
@@ -204,7 +204,7 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 	@Override
 	@Transactional
 	public void delete(String articleBlogId, long authorId) {
-		PostBO po = postService.getForAuthor(articleBlogId);
+		PostBo po = postService.getForAuthor(articleBlogId);
 
 		postAttributeService.delete(po.getId());
 
@@ -217,10 +217,10 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 	@Transactional
 	public void delete(Set<String> articleBlogIds) {
 		// 先备份
-		Map<Long, PostBO> maps = new HashMap<>();
+		Map<Long, PostBo> maps = new HashMap<>();
 		if (CollectionUtils.isNotEmpty(articleBlogIds)) {
 			articleBlogIds.forEach(id -> {
-				PostBO postBO = postService.getForAuthor(id);
+				PostBo postBO = postService.getForAuthor(id);
 				maps.put(postBO.getId(), postBO);
 			});
 		}
@@ -238,7 +238,7 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 	}
 
 
-	private List<PostVO> toPosts(List<PostBO> posts) {
+	private List<PostVO> toPosts(List<PostBo> posts) {
 		List<PostVO> rets = new ArrayList<>();
 
 		HashSet<Long> uids = new HashSet<>();
@@ -299,7 +299,7 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 		}
 	}
 
-	private void onPushEvent(PostBO postBO, PostUpdateType action) {
+	private void onPushEvent(PostBo postBO, PostUpdateType action) {
 		PostUpdateEvent event = new PostUpdateEvent(System.currentTimeMillis());
 		event.setPostId(postBO.getId());
 		event.setUid(postBO.getUid());

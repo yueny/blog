@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -45,23 +46,41 @@ public class CommentManagerServiceImpl extends BaseService implements ICommentMa
     }
 
     @Override
+    @Transactional
     public void delete(long id, String uid) {
-//
-//        Optional<Comment> optional = commentRepository.findById(id);
-//        if (optional.isPresent()) {
-//            Comment po = optional.get();
-//            // 判断文章是否属于当前登录用户
-//            Assert.isTrue(po.getUid() == uid, "认证失败");
-//            commentRepository.deleteById(id);
-//
-//            userEventExecutor.identityComment(uid, false);
-//            //TODO  重新统计评论所在文章的评论总数
-//            //
-//        }
+        commentService.delete(id, uid);
+
+        // 重新统计评论相关数据
+        userEventExecutor.identityComment(uid, false);
+        //TODO  重新统计评论所在文章的评论总数
+        //
     }
 
     @Override
+    @Transactional
     public void deleteByPostId(long postId) {
+        List<CommentBo> list = commentService.findByPostId(postId);
+        if (CollectionUtils.isNotEmpty(list)) {
+            Set<String> uids = new HashSet<>();
+            list.forEach(n -> uids.add(n.getUid()));
 
+            userEventExecutor.identityComment(uids, false);
+            //TODO  重新统计评论所在文章的评论总数
+            //
+        }
+
+        commentService.deleteByPostId(postId);
+    }
+
+    @Override
+    public Long post(CommentBo comment) {
+        Long pk = commentService.post(comment);
+
+        // 如果不是匿名，则更新用户个人的评论总数
+        if(!comment.isAnonymity()){
+            userEventExecutor.identityComment(comment.getUid(), true);
+        }
+
+        return pk;
     }
 }

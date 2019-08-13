@@ -21,7 +21,7 @@ public class PostAttribute extends com.yueny.kapo.api.pojo.instance.Entity imple
 
     /** 自然主键， 非自增， 来自 博文的 postId， 故不继承 AbstractIDPlusEntry */
 	@Id
-    private long id;
+    private Long id;
 
 	@Column(length = 16, columnDefinition = "varchar(16) default 'tinymce'")
 	private String editor;

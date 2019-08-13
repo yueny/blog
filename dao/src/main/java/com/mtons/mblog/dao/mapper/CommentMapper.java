@@ -11,11 +11,17 @@ package com.mtons.mblog.dao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.mtons.mblog.entity.bao.Comment;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  *
  */
 public interface CommentMapper extends BaseMapper<Comment> {
+//    @Select(value = "SELECT * FROM mto_comment WHERE amount <= 0 AND update_time < #{time} ")
+//    List<Comment> find0Before(@Param("time") String time);
 //	@Select(value = "SELECT * FROM Comment WHERE amount <= 0 AND update_time < #{time} ")
 //	List<Comment> find0Before(@Param("time") String time);
 

@@ -3,7 +3,7 @@ package com.mtons.mblog.web.controller.site.user;
 import com.mtons.mblog.base.enums.watcher.MessageActionType;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.model.AccountProfile;
-import com.mtons.mblog.bo.PostBO;
+import com.mtons.mblog.bo.PostBo;
 import com.mtons.mblog.service.watcher.event.BlogMessageEvent;
 import com.mtons.mblog.service.atom.jpa.PostService;
 import com.mtons.mblog.web.controller.BaseController;
@@ -37,7 +37,7 @@ public class FavorController extends BaseController {
                 AccountProfile up = getProfile();
                 postService.favor(up.getUid(), articleBlogId);
 
-                PostBO postBO = postService.getForAuthor(articleBlogId);
+                PostBo postBO = postService.getForAuthor(articleBlogId);
                 publicMessage(up.getUid(), postBO.getId(), articleBlogId);
 
                 data = Result.success();

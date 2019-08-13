@@ -24,7 +24,6 @@ abstract class AbstractIDPlusEntry extends Entity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @TableId(type = IdType.AUTO)
-
     @SortableField
     @NumericField
     @EntryPk

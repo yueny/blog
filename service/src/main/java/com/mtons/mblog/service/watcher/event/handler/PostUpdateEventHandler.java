@@ -1,5 +1,6 @@
 package com.mtons.mblog.service.watcher.event.handler;
 
+import com.mtons.mblog.service.manager.ICommentManagerService;
 import com.mtons.mblog.service.watcher.event.PostUpdateEvent;
 import com.mtons.mblog.service.atom.bao.CommentService;
 import com.mtons.mblog.service.atom.jpa.FavoriteService;
@@ -30,6 +31,8 @@ public class PostUpdateEventHandler implements ApplicationListener<PostUpdateEve
     @Autowired
     private CommentService commentService;
     @Autowired
+    private ICommentManagerService commentManagerService;
+    @Autowired
     private TagService tagService;
     @Autowired
     private MessageService messageService;
@@ -47,7 +50,7 @@ public class PostUpdateEventHandler implements ApplicationListener<PostUpdateEve
 
             favoriteService.delete(event.getUid(), event.getArticleBlogId());
 
-            commentService.deleteByPostId(event.getPostId());
+            commentManagerService.deleteByPostId(event.getPostId());
             tagService.deteleMappingByPostId(event.getPostId());
             messageService.deleteByPostId(event.getPostId());
         }else{

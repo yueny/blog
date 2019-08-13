@@ -4,7 +4,9 @@ import com.yueny.superclub.api.pojo.IBo;
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /** bo业务实体主键赋值工具
@@ -24,10 +26,14 @@ public class IdFieldSetterUtil {
     /**
      * 设置主键
      *
+     * @param clazzInstance
+     *            clazz 的new实例
+     * @param clazz
+     *            clazz = clazzInstance.getClass()
      * @param primaryKey
-     *            主键
+     *            主键的值
      */
-    public static void setPrimaryKey(final Class<? extends IBo> clazz, final long primaryKey) {
+    public static void setPrimaryKey(Object clazzInstance, final Class<? extends IBo> clazz, final long primaryKey) {
         final Field primaryKeyField = extractPrimaryKeyField(clazz);
         if(primaryKeyField == null){
             return;
@@ -36,7 +42,7 @@ public class IdFieldSetterUtil {
         final boolean isAccessible = primaryKeyField.isAccessible();
         primaryKeyField.setAccessible(true);
         try {
-            primaryKeyField.set(clazz, primaryKey);
+            primaryKeyField.set(clazzInstance, primaryKey);
         } catch (final IllegalAccessException e) {
             System.err.println("无法获取实体" + clazz.getName() + "主键");
         } finally {
@@ -55,8 +61,9 @@ public class IdFieldSetterUtil {
             return PK_FIELDS.get(clazz);
         }
 
+        List<Field> fieldList = get(clazz);
         // 取默认值
-        for (final Field field : clazz.getDeclaredFields()) {
+        for (final Field field : fieldList) {
             if (StringUtils.equals(field.getName(), DEFAULT_PK_FIELD_NAME)) {
                 PK_FIELDS.put(clazz, field);
                 return field;
@@ -65,6 +72,31 @@ public class IdFieldSetterUtil {
 
         // 都取不到则报错
         return null;
+    }
+
+    /**
+     * 获取类的所有Field
+     * @param entryClass
+     * @return
+     */
+    private static List<Field> get(Class<? extends IBo> entryClass){
+        List<Field> fieldList = new ArrayList<>();
+
+        Class clazz = entryClass;
+        do {
+            Field[] fields = clazz.getDeclaredFields();
+
+            for(int i = 0; i < fields.length; ++i) {
+                Field field = fields[i];
+                //if (this.type != this.object ^ Modifier.isStatic(field.getModifiers())) {
+                fieldList.add(field);
+            }
+
+            clazz = clazz.getSuperclass();
+//		} while(clazz != null);
+        } while(clazz != null);
+
+        return fieldList;
     }
 
 }

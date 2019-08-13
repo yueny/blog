@@ -63,7 +63,6 @@ public interface CommentService extends IPlusBizService<CommentBo, Comment> {
 	 * @param comment
 	 * @return
 	 */
-	@Deprecated
 	long post(CommentBo comment);
 
 	/**

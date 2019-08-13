@@ -54,7 +54,7 @@ public interface IPlusBizService<T extends IBo, S>
 	/**
 	 * 根据 entity 条件，删除记录
 	 */
-	boolean delete(Wrapper<S> queryWrapper);
+	boolean delete(Wrapper<S> wrapper);
 
 //	/**
 //	 * 根据 whereEntity 条件，更新记录

@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.web.controller.site;
 
-import com.mtons.mblog.bo.PostBO;
+import com.mtons.mblog.bo.PostBo;
 import com.mtons.mblog.modules.service.PostSearchService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.apache.commons.lang3.StringUtils;
@@ -35,7 +35,7 @@ public class SearchController extends BaseController {
 		Pageable pageable = wrapPageable();
 		try {
 			if (StringUtils.isNotEmpty(kw)) {
-				Page<PostBO> page = postSearchService.search(pageable, kw);
+				Page<PostBo> page = postSearchService.search(pageable, kw);
 				model.put("results", page);
 			}
 		} catch (Exception e) {

@@ -10,9 +10,8 @@
 package com.mtons.mblog.model;
 
 import com.mtons.mblog.bo.ChannelVO;
-import com.mtons.mblog.bo.PostBO;
+import com.mtons.mblog.bo.PostBo;
 import com.mtons.mblog.bo.ResourceBO;
-import com.mtons.mblog.bo.UserBO;
 import com.yueny.superclub.api.pojo.IBo;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,7 +22,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class PostVO extends PostBO implements IBo {
+public class PostVO extends PostBo implements IBo {
 	// 扩展
 	private ResourceBO resource;
 

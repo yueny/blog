@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ *
  * @author langhsu
  */
 @Getter
@@ -86,7 +87,7 @@ public class CommentBo extends AbstractMaskBo implements IBo, Serializable {
 	/**
 	 * 所评论的博文信息。允许为null
 	 */
-	private PostBO post;
+	private PostBo post;
 
 	/**
 	 * 是否为匿名。 true 为匿名

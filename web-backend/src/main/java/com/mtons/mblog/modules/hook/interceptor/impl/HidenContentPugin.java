@@ -3,7 +3,7 @@ package com.mtons.mblog.modules.hook.interceptor.impl;
 import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.model.PostVO;
 import com.mtons.mblog.modules.hook.interceptor.InterceptorHookSupport;
-import com.mtons.mblog.service.atom.jpa.CommentService;
+import com.mtons.mblog.service.atom.bao.CommentService;
 import com.mtons.mblog.web.controller.site.ChannelController;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;

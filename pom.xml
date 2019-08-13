@@ -146,11 +146,6 @@
 			</dependency>
 			<dependency>
 				<groupId>com.yueny.rapid</groupId>
-				<artifactId>rapid-lang-dozer</artifactId>
-				<version>${rapid.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.yueny.rapid</groupId>
 				<artifactId>rapid-lang-date</artifactId>
 				<version>${rapid.version}</version>
 			</dependency>

@@ -29,7 +29,7 @@ public class MessageVO extends AbstractMaskBo {
 
     // extend
     private UserBO from;
-    private PostBO post;
+    private PostBo post;
 
     public UserBO getFrom() {
         return from;
@@ -39,11 +39,11 @@ public class MessageVO extends AbstractMaskBo {
         this.from = from;
     }
 
-    public PostBO getPost() {
+    public PostBo getPost() {
         return post;
     }
 
-    public void setPost(PostBO post) {
+    public void setPost(PostBo post) {
         this.post = post;
     }
 }

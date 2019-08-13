@@ -80,5 +80,5 @@ public class TagBO extends AbstractMaskBo implements IBo, Serializable {
      */
     @Getter
     @Setter
-    private PostBO post;
+    private PostBo post;
 }

@@ -3,7 +3,7 @@
  */
 package com.mtons.mblog.modules.template.directive;
 
-import com.mtons.mblog.bo.PostBO;
+import com.mtons.mblog.bo.PostBo;
 import com.mtons.mblog.service.atom.jpa.PostService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.template.TemplateDirective;
@@ -36,7 +36,7 @@ public class UserContentsDirective extends TemplateDirective {
         long userId = handler.getInteger("userId", 0);
         Pageable pageable = wrapPageable(handler);
 
-        Page<PostBO> result = postService.findAllByAuthorId(pageable, userId);
+        Page<PostBo> result = postService.findAllByAuthorId(pageable, userId);
         handler.put(RESULTS, result).render();
     }
 

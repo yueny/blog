@@ -26,7 +26,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class PostBO extends AbstractMaskBo implements IBo, Serializable {
+public class PostBo extends AbstractMaskBo implements IBo, Serializable {
 	private long id;
 
 	/**

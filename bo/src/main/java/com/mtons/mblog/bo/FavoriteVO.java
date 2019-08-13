@@ -38,5 +38,5 @@ public class FavoriteVO extends AbstractMaskBo implements IBo, Serializable {
 
 
     // extend
-    private PostBO post;
+    private PostBo post;
 }
