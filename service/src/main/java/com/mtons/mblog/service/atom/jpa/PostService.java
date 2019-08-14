@@ -162,7 +162,8 @@ public interface PostService extends IPlusBizService<PostBo, Post> {
 	Set<Long>  delete(Set<String> articleBlogIds);
 	
 	/**
-	 * 自增浏览数
+	 * 自增浏览数， 浏览数只会增加不会减少
+	 *
 	 * @param articleBlogId
 	 */
 	@CacheEvict(key = "'view_' + #articleBlogId")
@@ -170,10 +171,19 @@ public interface PostService extends IPlusBizService<PostBo, Post> {
 	
 	/**
 	 * 自增评论数
-	 * @param articleBlogId
+	 * @param articleBlogId  博文id
 	 */
 	@CacheEvict(key = "'view_' + #articleBlogId")
 	void identityComments(String articleBlogId);
+
+	/**
+	* 自增评论数， 评论数既会增加也会减少
+	*
+	* @param articleBlogId 博文id
+	* @param plus 是否为自增步进。 true为自增步进。
+	*     自增步进（IDENTITY_STEP=1）还是递减（DECREASE_STEP=-1）
+	*/
+	void identityComments(String articleBlogId, boolean plus);
 
 	/**
 	 * 喜欢文章

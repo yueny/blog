@@ -301,10 +301,10 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 
 	private void onPushEvent(PostBo postBO, PostUpdateType action) {
 		PostUpdateEvent event = new PostUpdateEvent(System.currentTimeMillis());
-		event.setPostId(postBO.getId());
 		event.setUid(postBO.getUid());
 		event.setAction(action);
 
+		event.setPostId(postBO.getId());
 		event.setArticleBlogId(postBO.getArticleBlogId());
 
 		applicationContext.publishEvent(event);

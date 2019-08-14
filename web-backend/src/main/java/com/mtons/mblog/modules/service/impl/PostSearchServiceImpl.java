@@ -7,7 +7,7 @@ import com.mtons.mblog.service.aspect.PostStatusFilter;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.bao.Post;
 import com.mtons.mblog.modules.service.PostSearchService;
-import com.mtons.mblog.service.atom.jpa.UserService;
+import com.mtons.mblog.service.atom.jpa.UserJpaService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
@@ -45,7 +45,7 @@ public class PostSearchServiceImpl extends BaseService implements PostSearchServ
     private EntityManager entityManager;
 
     @Autowired
-    private UserService userService;
+    private UserJpaService userService;
 
     @Override
     @PostStatusFilter

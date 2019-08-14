@@ -19,8 +19,9 @@ import com.mtons.mblog.entity.bao.Comment;
 import com.mtons.mblog.dao.mapper.CommentMapper;
 import com.mtons.mblog.service.atom.bao.CommentService;
 import com.mtons.mblog.service.atom.jpa.PostService;
-import com.mtons.mblog.service.atom.jpa.UserService;
+import com.mtons.mblog.service.atom.jpa.UserJpaService;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ import java.util.*;
 public class CommentServiceImpl extends AbstractPlusService<CommentBo, Comment, CommentMapper>
 		implements CommentService {
 	@Autowired
-	private UserService userService;
+	private UserJpaService userService;
 	@Autowired
 	private PostService postService;
 	
@@ -151,6 +152,20 @@ public class CommentServiceImpl extends AbstractPlusService<CommentBo, Comment, 
 	}
 
 	@Override
+	public List<CommentBo> findByPostId(String articleBlogId) {
+		LambdaQueryWrapper<Comment> queryWrapper = new QueryWrapper<Comment>().lambda();
+		queryWrapper.eq(Comment::getArticleBlogId, articleBlogId);
+
+		List<Comment> entryList = list(queryWrapper);
+		if(CollectionUtils.isEmpty(entryList)){
+			return Collections.emptyList();
+		}
+
+		return map(entryList, CommentBo.class);
+	}
+
+	@Override
+	@Deprecated
 	public List<CommentBo> findByPostId(Long postId) {
 		LambdaQueryWrapper<Comment> queryWrapper = new QueryWrapper<Comment>().lambda();
 		queryWrapper.eq(Comment::getPostId, postId);
@@ -193,15 +208,16 @@ public class CommentServiceImpl extends AbstractPlusService<CommentBo, Comment, 
 	public void delete(long id, String uid) {
 		CommentBo bo = get(id);
 		// 判断文章是否属于当前登录用户
-		Assert.isTrue(bo.getUid() == uid, "认证失败");
+		Assert.isTrue(StringUtils.equals(bo.getUid(), uid), "认证失败");
 
 		delete(id);
 	}
 
 	@Override
-	public void deleteByPostId(long postId) {
+	public void deleteByPostId(String articleBlogId) {
 		LambdaQueryWrapper<Comment> wrapper = new QueryWrapper<Comment>().lambda();
-		wrapper.eq(Comment::getPostId, postId);
+		wrapper.eq(Comment::getArticleBlogId, articleBlogId);
+
 		delete(wrapper);
 	}
 
@@ -249,6 +265,7 @@ public class CommentServiceImpl extends AbstractPlusService<CommentBo, Comment, 
 
 			comments.forEach(c -> {
 				if (c.getPid() > 0) {
+					// 如果存在评论删除情况，则此处pm.get 为null， 赋值为null, 会被当成未被评论处理
 					c.setParent(pm.get(c.getPid()));
 				}else{
 					//c.setParent(CommentVO.builder().build());

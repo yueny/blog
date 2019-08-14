@@ -27,7 +27,8 @@
                                style="word-break:break-all; word-wrap:break-all;">
                             <thead>
                             <tr>
-                                <th width="50"><input type="checkbox" class="checkall"></th>
+                                <th title="序号">#</th>
+                                <th><input type="checkbox" class="checkall"></th>
                                 <th width="80">博文名</th>
                                 <th>评论内容</th>
                                 <th>评论作者</th>
@@ -39,6 +40,9 @@
                             <tbody>
                                 <#list page.content as row>
                                 <tr>
+                                    <td>
+                                        ${row_index + 1}
+                                    </td>
                                     <td>
                                         <input type="checkbox" name="id" value="${row.id}">
                                     </td>

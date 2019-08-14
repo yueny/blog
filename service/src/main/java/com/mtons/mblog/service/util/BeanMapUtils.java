@@ -14,6 +14,7 @@ import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.*;
 import com.mtons.mblog.entity.bao.Comment;
 import com.mtons.mblog.entity.bao.Post;
+import com.mtons.mblog.entity.bao.User;
 import com.mtons.mblog.entity.jpa.*;
 import com.mtons.mblog.model.AccountProfile;
 import org.springframework.beans.BeanUtils;

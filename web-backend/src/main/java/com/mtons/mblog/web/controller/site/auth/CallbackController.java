@@ -2,6 +2,7 @@ package com.mtons.mblog.web.controller.site.auth;
 
 import com.mtons.mblog.base.consts.OptionsKeysConsts;
 import com.mtons.mblog.model.UserVO;
+import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.exception.MtonsException;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.consts.StorageConsts;
@@ -15,7 +16,6 @@ import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.OpenOauthVO;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.modules.service.OpenOauthService;
-import com.mtons.mblog.service.atom.jpa.UserService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.web.controller.site.Views;
 import lombok.extern.slf4j.Slf4j;
@@ -354,7 +354,7 @@ public class CallbackController extends BaseController {
         if (thirdToken != null) {
             username = userService.get(thirdToken.getUserId()).getUsername();
         } else { // 不存在：注册新用户，并绑定此token，登录
-            UserBO user = userService.getByUsername(username);
+            UserBO user = userService.findByUsername(username);
             if (user == null) {
                 UserVO u = userManagerService.register(wrapUser(openOauth));
 

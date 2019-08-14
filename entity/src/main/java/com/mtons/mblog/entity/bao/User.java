@@ -7,14 +7,12 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.entity.jpa;
+package com.mtons.mblog.entity.bao;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.search.annotations.NumericField;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -28,25 +26,26 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "mto_user")
+@TableName("mto_user")
 @Getter
 @Setter
-public class User extends com.yueny.kapo.api.pojo.instance.Entity implements Serializable {
+public class User extends AbstractUpdatePlusEntry implements Serializable {
 	private static final long serialVersionUID = -3629784071225214858L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
-	/** 表创建时间 */
-	@CreatedDate
-	private Date created;
-
-	/** 表修改时间 */
-	@Column(name = "updated", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-	@Generated(GenerationTime.ALWAYS)
-	@Temporal(value = TemporalType.TIMESTAMP)
-	@LastModifiedDate
-	private Date updated;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private Long id;
+//
+//	/** 表创建时间 */
+//	@CreatedDate
+//	private Date created;
+//
+//	/** 表修改时间 */
+//	@Column(name = "updated", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+//	@Generated(GenerationTime.ALWAYS)
+//	@Temporal(value = TemporalType.TIMESTAMP)
+//	@LastModifiedDate
+//	private Date updated;
 
 	/**
 	 * 用户唯一标示
@@ -84,8 +83,10 @@ public class User extends com.yueny.kapo.api.pojo.instance.Entity implements Ser
 	@Column(name = "email", unique = true, length = 64)
 	private String email;  // 邮箱
 
+	@NumericField
 	private Integer posts; // 文章数
 
+	@NumericField
 	private Integer comments; // 发布评论数
 
 	@Column(name = "last_login")
@@ -100,7 +101,7 @@ public class User extends com.yueny.kapo.api.pojo.instance.Entity implements Ser
 	}
 
 	public User(long id) {
-		this.id = id;
+		setId(id);
 	}
 
 }

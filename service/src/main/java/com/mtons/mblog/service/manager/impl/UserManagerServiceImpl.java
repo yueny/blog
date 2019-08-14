@@ -22,8 +22,9 @@ import com.mtons.mblog.model.UserVO;
 import com.mtons.mblog.service.BaseService;
 import com.mtons.mblog.service.atom.bao.IUserSecurityService;
 import com.mtons.mblog.service.atom.bao.ResourceService;
+import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.atom.jpa.UserRoleService;
-import com.mtons.mblog.service.atom.jpa.UserService;
+import com.mtons.mblog.service.atom.jpa.UserJpaService;
 import com.mtons.mblog.service.comp.base.IPasswdService;
 import com.mtons.mblog.service.manager.IUserManagerService;
 import com.mtons.mblog.service.seq.SeqType;
@@ -51,6 +52,8 @@ import java.util.*;
 public class UserManagerServiceImpl extends BaseService implements IUserManagerService {
 	@Autowired
     private IUserSecurityService userSecurityService;
+    @Autowired
+    private UserJpaService userJpaService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -94,7 +97,7 @@ public class UserManagerServiceImpl extends BaseService implements IUserManagerS
 
     @Override
     public Page<UserVO> paging(Pageable pageable, String name) {
-        Page<UserBO> page = userService.paging(pageable, name);
+        Page<UserBO> page = userJpaService.paging(pageable, name);
 
         List<Long> userIds = new ArrayList<>();
         page.getContent().forEach(item -> {
@@ -133,7 +136,7 @@ public class UserManagerServiceImpl extends BaseService implements IUserManagerS
         Assert.notNull(userBo, "Parameter user can not be null!");
         Assert.hasLength(userBo.getUsername(), "用户名不能为空!");
         Assert.hasLength(userBo.getPassword(), "密码不能为空!");
-        Assert.isNull(userService.getByUsername(userBo.getUsername()), "用户名已经存在!");
+        Assert.isNull(userService.findByUsername(userBo.getUsername()), "用户名已经存在!");
 
         // 拷贝一份新对象，不破坏请求数据
         UserBO user = mapAny(userBo, UserBO.class);
@@ -170,7 +173,7 @@ public class UserManagerServiceImpl extends BaseService implements IUserManagerS
             return "";
         }
 
-        UserBO userBO = userService.getByUsername(username);
+        UserBO userBO = userService.findByUsername(username);
         if(userBO == null){
             return "";
         }

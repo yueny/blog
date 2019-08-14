@@ -16,7 +16,7 @@ import com.mtons.mblog.service.comp.base.IPasswdService;
 import com.mtons.mblog.bo.OpenOauthVO;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.jpa.UserOauth;
-import com.mtons.mblog.entity.jpa.User;
+import com.mtons.mblog.entity.bao.User;
 import com.mtons.mblog.modules.service.OpenOauthService;
 import com.mtons.mblog.service.util.BeanMapUtils;
 import com.mtons.mblog.dao.repository.UserOauthRepository;

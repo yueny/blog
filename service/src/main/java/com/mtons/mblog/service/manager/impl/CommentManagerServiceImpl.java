@@ -3,7 +3,9 @@ package com.mtons.mblog.service.manager.impl;
 import com.mtons.mblog.bo.CommentBo;
 import com.mtons.mblog.service.BaseService;
 import com.mtons.mblog.service.atom.bao.CommentService;
+import com.mtons.mblog.service.atom.jpa.PostService;
 import com.mtons.mblog.service.manager.ICommentManagerService;
+import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.service.watcher.executor.UserEventExecutor;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,54 +24,66 @@ import java.util.Set;
 @Service
 public class CommentManagerServiceImpl extends BaseService implements ICommentManagerService {
     @Autowired
+    private PostManagerService postManagerService;
+    @Autowired
+    private PostService postService;
+    @Autowired
     private CommentService commentService;
     @Autowired
     private UserEventExecutor userEventExecutor;
 
     @Override
     @Transactional
-    public void delete(Set<Long> ids) {
+    public void delete(Set<Long> cids) {
         // 获取评论的信息
-        List<CommentBo> list =  commentService.findAllById(ids);
+        List<CommentBo> list =  commentService.findAllById(cids);
 
         // 重新统计评论相关数据
         if (CollectionUtils.isNotEmpty(list)) {
             list.forEach(bo -> {
+                // 评论删除后， 重置该用户的博文评论总数
                 userEventExecutor.identityComment(bo.getUid(), false);
-                //TODO  重新统计评论所在文章的评论总数
-                //
+                // 博文删除后， 重新统计评论所在文章的评论总数
+                postService.identityComments(bo.getArticleBlogId(), false);
             });
         }
 
         // 批量删除评论
-        commentService.deleteByIds(ids);
+        commentService.deleteByIds(cids);
     }
 
     @Override
     @Transactional
     public void delete(long id, String uid) {
-        commentService.delete(id, uid);
+        CommentBo commentBo = commentService.get(id);
 
-        // 重新统计评论相关数据
+        // 评论删除后， 重置该用户的博文评论总数
         userEventExecutor.identityComment(uid, false);
-        //TODO  重新统计评论所在文章的评论总数
-        //
+        // 博文删除后， 重新统计评论所在文章的评论总数
+        postService.identityComments(commentBo.getArticleBlogId(), false);
+
+        commentService.delete(id, uid);
     }
 
     @Override
     @Transactional
-    public void deleteByPostId(long postId) {
-        List<CommentBo> list = commentService.findByPostId(postId);
+    public void deleteByPostId(String articleBlogId) {
+        List<CommentBo> list = commentService.findByPostId(articleBlogId);
+
         if (CollectionUtils.isNotEmpty(list)) {
             Set<String> uids = new HashSet<>();
-            list.forEach(n -> uids.add(n.getUid()));
+            list.forEach(commentBo -> {
+                uids.add(commentBo.getUid());
 
+                // 博文删除后， 重新统计评论所在文章的评论总数
+                postService.identityComments(commentBo.getArticleBlogId(), false);
+            });
+
+            // 评论删除后， 重置该用户的博文评论总数
             userEventExecutor.identityComment(uids, false);
-            //TODO  重新统计评论所在文章的评论总数
-            //
         }
 
-        commentService.deleteByPostId(postId);
+        commentService.deleteByPostId(articleBlogId);
     }
 
     @Override

@@ -5,7 +5,8 @@ import com.mtons.mblog.base.enums.watcher.MessageActionType;
 import com.mtons.mblog.bo.MessageVO;
 import com.mtons.mblog.bo.PostBo;
 import com.mtons.mblog.bo.UserBO;
-import com.mtons.mblog.service.atom.jpa.UserService;
+import com.mtons.mblog.service.AbstractService;
+import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.watcher.event.BlogMessageEvent;
 import com.mtons.mblog.service.atom.jpa.MessageService;
 import com.mtons.mblog.service.atom.jpa.PostService;
@@ -18,7 +19,8 @@ import org.springframework.stereotype.Component;
  * @author langhsu on 2015/8/31.
  */
 @Component
-public class BlogMessageEventHandler implements ApplicationListener<BlogMessageEvent> {
+public class BlogMessageEventHandler extends AbstractService
+        implements ApplicationListener<BlogMessageEvent> {
     @Autowired
     private MessageService messageService;
     @Autowired

@@ -40,20 +40,23 @@
                                style="word-break:break-all; word-wrap:break-all;">
                             <thead>
                             <tr>
+                                <th title="序号">#</th>
                                 <th width="30"><input type="checkbox" class="checkall"></th>
                                 <th width="80">#预览图</th>
                                 <th>文章标题</th>
-                                <th width="120">作者</th>
+                                <th width="60">作者</th>
                                 <th width="100">发表日期</th>
                                 <th width="60">访问数</th>
+                                <th width="60">评论数</th>
                                 <th width="80">状态</th>
-                                <th width="80">发布</th>
+                                <th width="60">发布</th>
                                 <th width="180">操作</th>
                             </tr>
                             </thead>
                             <tbody>
                                 <#list page.content as article>
                                 <tr>
+                                    <td>${article_index + 1}</td>
                                     <td>
                                         <input type="hidden" name="id" value="${article.id}">
                                         <input type="checkbox" name="articleBlogId" value="${article.articleBlogId}">
@@ -67,6 +70,7 @@
                                     <td>${article.author.username}</td>
                                     <td>${article.created?string('yyyy-MM-dd')}</td>
                                     <td><span class="label label-default">${article.views}</span></td>
+                                    <td><span class="label label-default">${article.comments}</span></td>
                                     <td>
                                         <#if (article.featured.value = 1)>
                                             <span class="label label-danger">推荐</span>

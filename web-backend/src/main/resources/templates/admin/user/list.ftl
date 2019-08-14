@@ -30,7 +30,7 @@
                         <table id="dataGrid" class="table table-striped table-bordered">
                             <thead>
                             <tr>
-                                <th width="80">#</th>
+                                <th title="序号">#</th>
                                 <th>用户名</th>
                                 <th>昵称</th>
                                 <th>邮箱</th>
@@ -42,14 +42,14 @@
                             <tbody>
                                 <#list page.content as row>
                                 <tr>
-                                    <td class="text-center">${row.id}</td>
+                                    <td class="text-center">${row_index + 1}</td>
                                     <td>${row.username}</td>
                                     <td>${row.name}</td>
                                     <td>${row.email}</td>
                                     <td>
                                         <#list row.roles as role>
-                                ${role.name}
-                                </#list>
+                                            ${role.name}
+                                        </#list>
                                     </td>
                                     <td>
                                         <#if (row.status == 0)>

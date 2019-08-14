@@ -9,11 +9,12 @@
 */
 package com.mtons.mblog.web.controller.site.user;
 
+import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.exception.MtonsException;
 import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.service.atom.jpa.MessageService;
-import com.mtons.mblog.service.atom.jpa.UserService;
+import com.mtons.mblog.service.atom.jpa.UserJpaService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.web.controller.site.Views;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/users")
 public class UsersController extends BaseController {
+    @Autowired
+    private UserJpaService userJpaService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -64,7 +67,7 @@ public class UsersController extends BaseController {
                          ModelMap model, HttpServletRequest request) {
         model.put("pageNo", ServletRequestUtils.getIntParameter(request, "pageNo", 1));
 
-        UserBO userBO = userService.getByDomainHack(domainHack);
+        UserBO userBO = userService.findByDomainHack(domainHack);
         if(userBO == null){
             throw new MtonsException("无效或已失效的地址");
         }
@@ -93,7 +96,7 @@ public class UsersController extends BaseController {
         AccountProfile profile = getProfile();
         if (null != profile && profile.getId() == userId) {
             owner = true;
-            putProfile(userService.findProfile(profile.getId()));
+            putProfile(userJpaService.findProfile(profile.getId()));
         }
         model.put("owner", owner);
     }

@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Set;
 
 /**
- * 安全拦截器
+ * 请求地址的安全拦截器
  */
 @Component
 @Slf4j

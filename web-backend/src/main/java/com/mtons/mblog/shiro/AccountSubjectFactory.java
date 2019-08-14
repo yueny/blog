@@ -1,7 +1,7 @@
 package com.mtons.mblog.shiro;
 
 import com.mtons.mblog.model.AccountProfile;
-import com.mtons.mblog.service.atom.jpa.UserService;
+import com.mtons.mblog.service.atom.jpa.UserJpaService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.mgt.DefaultSubjectFactory;
 import org.apache.shiro.mgt.SecurityManager;
@@ -22,7 +22,7 @@ import javax.servlet.ServletResponse;
 @Slf4j
 public class AccountSubjectFactory extends DefaultSubjectFactory {
     @Autowired
-    private UserService userService;
+    private UserJpaService userService;
 
     @Override
     public Subject createSubject(SubjectContext context) {

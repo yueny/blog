@@ -1,5 +1,6 @@
 package com.mtons.mblog.service.watcher.event.handler;
 
+import com.mtons.mblog.service.AbstractService;
 import com.mtons.mblog.service.manager.ICommentManagerService;
 import com.mtons.mblog.service.watcher.event.PostUpdateEvent;
 import com.mtons.mblog.service.atom.bao.CommentService;
@@ -23,7 +24,8 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-public class PostUpdateEventHandler implements ApplicationListener<PostUpdateEvent> {
+public class PostUpdateEventHandler extends AbstractService
+        implements ApplicationListener<PostUpdateEvent> {
     @Autowired
     private UserEventExecutor userEventExecutor;
     @Autowired
@@ -44,18 +46,23 @@ public class PostUpdateEventHandler implements ApplicationListener<PostUpdateEve
             return;
         }
 
-        // 文章删除
-        if(StringUtils.equals(event.getAction().name(), PostUpdateType.ACTION_DELETE.name())){
-            userEventExecutor.identityPost(event.getUid(), false);
+        try{
+            // 文章删除
+            if(StringUtils.equals(event.getAction().name(), PostUpdateType.ACTION_DELETE.name())){
+                userEventExecutor.identityPost(event.getUid(), false);
 
-            favoriteService.delete(event.getUid(), event.getArticleBlogId());
+                favoriteService.delete(event.getUid(), event.getArticleBlogId());
 
-            commentManagerService.deleteByPostId(event.getPostId());
-            tagService.deteleMappingByPostId(event.getPostId());
-            messageService.deleteByPostId(event.getPostId());
-        }else{
-            // 文章发布 PostUpdateType.ACTION_PUBLISH.name():
-            userEventExecutor.identityPost(event.getUid(), true);
+                commentManagerService.deleteByPostId(event.getArticleBlogId());
+
+                tagService.deteleMappingByPostId(event.getPostId());
+                messageService.deleteByPostId(event.getPostId());
+            }else{
+                // 文章发布 PostUpdateType.ACTION_PUBLISH.name():
+                userEventExecutor.identityPost(event.getUid(), true);
+            }
+        } catch (Exception e){
+            logger.error("异步处理失败：", e);
         }
     }
 }

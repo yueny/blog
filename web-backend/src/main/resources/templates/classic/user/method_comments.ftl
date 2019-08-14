@@ -19,12 +19,12 @@
                                     <a href="javascript:;" class="remove-padding-left">文章已删除</a>
                                 </#if>
                                 <span class="meta">
-                                    <span class="timeago" title="${row.created}">${timeAgo(row.created)}</span>
+                                    <span class="timeago" title="${datetimeMinute(row.created)}">${timeAgo(row.created)}</span>
                                 </span>
 
                                 <div class="pull-right hidden-xs">
                                     <#if owner>
-                                        <a class="act" href="javascript:void(0);" data-evt="trash" data-id="${row.articleBlogId}" data-toggle="tooltip" title="删除评论">
+                                        <a class="act" href="javascript:void(0);" data-evt="trash" data-id="${row.id}" data-toggle="tooltip" title="删除评论">
                                             <i class="icon icon-close"></i>
                                         </a>
                                     </#if>
@@ -63,7 +63,7 @@ $(function() {
             btn: ['确定','取消'], //按钮
             shade: false //不显示遮罩
         }, function(){
-			jQuery.getJSON('${base}/comment/delete', {'articleBlogId':id }, function (ret) {
+			jQuery.getJSON('${base}/comment/delete', {'id':id }, function (ret) {
 				layer.msg(ret.message, {icon: 1});
 				if (ret.code >=0) {
 					var el = $('li[el=loop-' + id + ']');

@@ -296,6 +296,17 @@ import java.util.*;
 	///////////////////////////////////////////////////
 
 	@Override
+	public T get(Wrapper<S> queryWrapper) {
+		S entry = baseMapper.selectOne(queryWrapper);
+
+		if(entry == null){
+			return null;
+		}
+
+		return map(entry, boClazz);
+	}
+
+	@Override
 	public List<T> findAll(Wrapper<S> queryWrapper) {
 		List<S> entryList = baseMapper.selectList(queryWrapper);
 

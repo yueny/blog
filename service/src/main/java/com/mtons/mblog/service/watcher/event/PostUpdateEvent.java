@@ -15,9 +15,19 @@ import org.springframework.context.ApplicationEvent;
  * created by langhsu at 2018/05/30
  */
 public class PostUpdateEvent extends ApplicationEvent {
+    /**
+     * 所属博文的ID
+     */
+//    @Deprecated
     @Getter
     @Setter
     private long postId;
+    /**
+     * 文章扩展ID
+     */
+    @Getter
+    @Setter
+    private String articleBlogId;
 
     /**
      * 用户UID
@@ -26,13 +36,12 @@ public class PostUpdateEvent extends ApplicationEvent {
     @Setter
     private String uid;
 
+    /**
+     * 更新类型
+     */
     @Getter
     @Setter
     private PostUpdateType action = PostUpdateType.ACTION_PUBLISH;
-
-    @Getter
-    @Setter
-    private String articleBlogId;
 
     public PostUpdateEvent(Object source) {
         super(source);

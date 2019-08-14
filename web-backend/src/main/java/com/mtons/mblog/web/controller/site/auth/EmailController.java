@@ -1,5 +1,6 @@
 package com.mtons.mblog.web.controller.site.auth;
 
+import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.comp.base.ICacheService;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.consts.OptionsKeysConsts;
@@ -8,7 +9,7 @@ import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.modules.comp.MailService;
 import com.mtons.mblog.service.atom.jpa.SecurityCodeService;
-import com.mtons.mblog.service.atom.jpa.UserService;
+import com.mtons.mblog.service.atom.jpa.UserJpaService;
 import com.mtons.mblog.service.comp.configure.IConfigureConstant;
 import com.mtons.mblog.service.comp.configure.IConfigureGetService;
 import com.mtons.mblog.web.controller.BaseController;
@@ -36,6 +37,8 @@ public class EmailController extends BaseController {
     private ICacheService cacheService;
     @Autowired
     private IConfigureGetService getService;
+    @Autowired
+    private UserJpaService userJpaService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -83,7 +86,7 @@ public class EmailController extends BaseController {
                 break;
             // 找回密码
             case Consts.CODE_FORGOT:
-                UserBO user = userService.getByEmail(email);
+                UserBO user = userService.findByEmail(email);
                 Assert.notNull(user, "账户不存在");
                 key = String.valueOf(user.getId());
                 break;

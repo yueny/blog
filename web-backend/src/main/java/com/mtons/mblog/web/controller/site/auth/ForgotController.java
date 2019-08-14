@@ -3,8 +3,8 @@ package com.mtons.mblog.web.controller.site.auth;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.bo.UserBO;
+import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.atom.jpa.SecurityCodeService;
-import com.mtons.mblog.service.atom.jpa.UserService;
 import com.mtons.mblog.service.comp.base.IUserPassportService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.web.controller.site.Views;
@@ -38,7 +38,7 @@ public class ForgotController extends BaseController {
         try {
             Assert.hasLength(email, "请输入邮箱地址");
             Assert.hasLength(code, "请输入验证码");
-            UserBO user = userService.getByEmail(email);
+            UserBO user = userService.findByEmail(email);
             Assert.notNull(user, "账户不存在");
 
             securityCodeService.verify(String.valueOf(user.getId()), Consts.CODE_FORGOT, code);

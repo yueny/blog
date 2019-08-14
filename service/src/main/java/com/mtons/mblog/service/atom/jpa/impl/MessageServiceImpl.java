@@ -8,7 +8,7 @@ import com.mtons.mblog.service.atom.jpa.PostService;
 import com.mtons.mblog.dao.repository.MessageRepository;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.service.atom.jpa.MessageService;
-import com.mtons.mblog.service.atom.jpa.UserService;
+import com.mtons.mblog.service.atom.jpa.UserJpaService;
 import com.mtons.mblog.service.util.BeanMapUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class MessageServiceImpl implements MessageService {
     @Autowired
     private MessageRepository messageRepository;
     @Autowired
-    private UserService userService;
+    private UserJpaService userService;
     @Autowired
     private PostService postService;
 

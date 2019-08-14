@@ -30,7 +30,7 @@
                         <table id="dataGrid" class="table table-striped table-bordered text-small">
                             <thead>
                             <tr>
-                                <th width="80" style="text-align: center">#</th>
+                                <th style="text-align: center" title="序号">#</th>
                                 <th>用户名</th>
                                 <th width="300" style="text-align: center">操作</th>
                             </tr>
@@ -38,7 +38,7 @@
                             <tbody>
                                 <#list page.content as row>
                                 <tr>
-                                    <td class="text-center">${row.id}</td>
+                                    <td class="text-center">${row_index + 1}</td>
                                     <td>${row.name}</td>
                                     <td class="text-center">
                                         <#if row.id != 1>

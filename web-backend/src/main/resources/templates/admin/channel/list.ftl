@@ -37,7 +37,7 @@
                         <table id="dataGrid" class="table table-striped table-bordered">
                             <thead>
                             <tr>
-                                <th width="80">#</th>
+                                <th title="序号">#</th>
                                 <th width="80">预览图</th>
                                 <th width="80">名称</th>
                                 <th width="80">上级分类</th>
@@ -51,7 +51,10 @@
                             <tbody>
                                 <#list list as row>
                                 <tr>
-                                    <td>${row.id}</td>
+                                    <td>
+                                        ${row_index + 1}
+                                        <input type="hidden" name="id" value="${row.id}">
+                                    </td>
                                     <td>
                                         <#if (row.thumbnail == '#') ||  (row.thumbnail == null) ||  (row.thumbnail == '')>
 

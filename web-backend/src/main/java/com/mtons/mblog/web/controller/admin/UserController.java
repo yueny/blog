@@ -13,9 +13,9 @@ import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.model.UserVO;
+import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.atom.jpa.RoleService;
 import com.mtons.mblog.service.atom.jpa.UserRoleService;
-import com.mtons.mblog.service.atom.jpa.UserService;
 import com.mtons.mblog.service.comp.base.IUserPassportService;
 import com.mtons.mblog.service.manager.IUserManagerService;
 import com.mtons.mblog.web.controller.BaseController;
@@ -37,7 +37,6 @@ import java.util.Set;
 public class UserController extends BaseController {
 	@Autowired
 	private IUserPassportService userPassportService;
-
 	@Autowired
 	private UserService userService;
 	@Autowired

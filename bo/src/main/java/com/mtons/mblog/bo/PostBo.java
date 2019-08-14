@@ -77,7 +77,7 @@ public class PostBo extends AbstractMaskBo implements IBo, Serializable {
 	private int views;
 
 	/**
-	 * 文章状态
+	 * 文章状态， 0位有效，1为无效
 	 */
 	private int status;
 

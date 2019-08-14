@@ -21,6 +21,7 @@ import com.mtons.mblog.bo.ResourceBO;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.dao.mapper.PostMapper;
 import com.mtons.mblog.service.atom.bao.ResourceService;
+import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.atom.jpa.*;
 import com.mtons.mblog.service.atom.jpa.PostService;
 import com.mtons.mblog.service.util.BeanMapUtils;
@@ -48,9 +49,12 @@ import java.util.stream.Collectors;
  *
  */
 @Service
-public class PostServiceImpl extends AbstractPlusService<PostBo, Post, PostMapper> implements PostService {
+public class PostServiceImpl extends AbstractPlusService<PostBo, Post, PostMapper>
+		implements PostService {
 	@Autowired
 	private PostRepository postRepository;
+	@Autowired
+	private UserJpaService userJpaService;
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -312,7 +316,6 @@ public class PostServiceImpl extends AbstractPlusService<PostBo, Post, PostMappe
 
 	@Override
 	@Transactional
-	@Deprecated
 	public void delete(String articleBlogId, long authorId) {
 		Post po = postRepository.findByArticleBlogId(articleBlogId);
 		// 判断文章是否属于当前登录用户
@@ -323,7 +326,6 @@ public class PostServiceImpl extends AbstractPlusService<PostBo, Post, PostMappe
 
 	@Override
 	@Transactional
-	@Deprecated
 	public Set<Long> delete(Set<String> articleBlogIds) {
 		Set<Long> ids = Sets.newHashSet();
 		if (CollectionUtils.isNotEmpty(articleBlogIds)) {
@@ -348,7 +350,17 @@ public class PostServiceImpl extends AbstractPlusService<PostBo, Post, PostMappe
 	@Override
 	@Transactional
 	public void identityComments(String articleBlogId) {
-		baseMapper.updateComments(articleBlogId, Consts.IDENTITY_STEP);
+		identityComments(articleBlogId, true);
+	}
+
+	@Override
+	public void identityComments(String articleBlogId, boolean plus) {
+		if(plus){
+			baseMapper.updateComments(articleBlogId, Consts.IDENTITY_STEP);
+		}else{
+			// 减
+			baseMapper.updateComments(articleBlogId, Consts.DECREASE_STEP);
+		}
 	}
 
 	@Override
@@ -420,7 +432,7 @@ public class PostServiceImpl extends AbstractPlusService<PostBo, Post, PostMappe
 	}
 
 	private void buildUsers(Collection<PostBo> posts, Set<Long> uids) {
-		Map<Long, UserBO> userMap = userService.findMapByIds(uids);
+		Map<Long, UserBO> userMap = userJpaService.findMapByIds(uids);
 		posts.forEach(p -> p.setAuthor(userMap.get(p.getAuthorId())));
 	}
 

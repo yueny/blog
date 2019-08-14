@@ -24,18 +24,25 @@ import java.util.List;
  */
 public interface IPlusBizService<T extends IBo, S>
 		extends IBizService<T, S>, IColService<T> {
-  /**
-   * 查询条件查询列表信息
-   *
-   * @param queryWrapper 查询条件。 如：
-   *    <pre>
-   *     LambdaQueryWrapper<S> queryWrapper = new QueryWrapper<S>().lambda();
-   *     queryWrapper.eq(Post::getAuthorId, authorId);
-   *    </pre>
-   *
-   * @return
-   */
-  List<T> findAll(Wrapper<S> queryWrapper);
+	/**
+	 * 根据查询条件获得信息
+	 * @param queryWrapper 查询条件
+	 * @return 不存在则返回为null
+	 */
+	T get(Wrapper<S> queryWrapper);
+
+	/**
+	* 查询条件查询列表信息
+	*
+	* @param queryWrapper 查询条件。 如：
+	*    <pre>
+	*     LambdaQueryWrapper<S> queryWrapper = new QueryWrapper<S>().lambda();
+	*     queryWrapper.eq(Post::getAuthorId, authorId);
+	*    </pre>
+	*
+	* @return
+	*/
+	List<T> findAll(Wrapper<S> queryWrapper);
 
 	/**
 	 * 分页查询

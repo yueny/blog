@@ -9,14 +9,12 @@
 */
 package com.mtons.mblog.service.watcher.executor.impl;
 
-import com.mtons.mblog.base.consts.Consts;
-import com.mtons.mblog.dao.repository.UserRepository;
+import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.watcher.executor.UserEventExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Set;
 
@@ -28,7 +26,7 @@ import java.util.Set;
 @Transactional
 public class UserEventExecutorImpl implements UserEventExecutor {
     @Autowired
-    private UserRepository userMapper;
+    private UserService userService;
 
     /**
      * 自增发布文章数
@@ -36,7 +34,7 @@ public class UserEventExecutorImpl implements UserEventExecutor {
      */
     @Override
     public void identityPost(String uid, boolean plus) {
-        userMapper.updatePosts(uid, (plus) ? Consts.IDENTITY_STEP : Consts.DECREASE_STEP, Calendar.getInstance().getTime());
+        userService.identityPost(uid, plus);
     }
 
     /**
@@ -45,7 +43,7 @@ public class UserEventExecutorImpl implements UserEventExecutor {
      */
     @Override
     public void identityComment(String uid, boolean plus) {
-        userMapper.updateComments(Collections.singleton(uid), (plus) ? Consts.IDENTITY_STEP : Consts.DECREASE_STEP, Calendar.getInstance().getTime());
+        identityComment(Collections.singleton(uid), plus);
     }
 
     /**
@@ -55,7 +53,7 @@ public class UserEventExecutorImpl implements UserEventExecutor {
      */
     @Override
     public void identityComment(Set<String> uids, boolean plus) {
-        userMapper.updateComments(uids, (plus) ? Consts.IDENTITY_STEP : Consts.DECREASE_STEP, Calendar.getInstance().getTime());
+        userService.identityComment(uids, plus);
     }
 
 }

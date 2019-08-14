@@ -26,9 +26,9 @@ public interface ICommentManagerService {
 	 */
 	void delete(long id, String uid);
 	/**
-	 * 根据postId删除所有评论，仅当博文被删除时才操作
+	 * 根据 articleBlogId 删除所有评论，仅当博文被删除时才操作
 	 */
-	void deleteByPostId(long postId);
+	void deleteByPostId(String articleBlogId);
 
 	/**
 	 * 发表博文
