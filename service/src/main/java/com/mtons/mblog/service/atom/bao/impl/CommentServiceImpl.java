@@ -64,7 +64,7 @@ public class CommentServiceImpl extends AbstractPlusService<CommentBo, Comment, 
 		buildParent(commentList, parentCommentIds);
 		buildPosts(commentList, postIds);
 
-		return new PageImpl<>(commentList, pageable, page.getTotalElements());
+		return page;
 	}
 
 	@Override
@@ -97,7 +97,8 @@ public class CommentServiceImpl extends AbstractPlusService<CommentBo, Comment, 
 		buildUsers(rets, authorIds);
 		buildPosts(rets, postIds);
 
-		return new PageImpl<>(rets, pageable, page.getTotalElements());
+		return page;
+//		return new PageImpl<>(rets, pageable, page.getTotalElements());
 	}
 
 	@Override
@@ -126,7 +127,7 @@ public class CommentServiceImpl extends AbstractPlusService<CommentBo, Comment, 
 
 		buildUsers(commentList, authorIds);
 
-		return new PageImpl<>(commentList, pageable, page.getTotalElements());
+		return page;
 	}
 
 	@Override

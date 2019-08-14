@@ -115,6 +115,8 @@ public class BaseController {
         if (null == sort) {
             sort = Sort.unsorted();
         }
+
+        // springframework PageRequest的页数从0开始， 但传入参数和默认分页均为1， 需要-1
         return PageRequest.of(pageNo - 1, pageSize, sort);
     }
 

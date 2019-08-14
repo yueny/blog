@@ -32,7 +32,7 @@ define(function(require, exports, module) {
         	load_url : null,
         	post_url : null,
         	toId : 0,
-			pageSize :6,
+			pageSize :6, // 评论查询的默认条数
             // callback
             onLoad : function (i, data) {}
         },
