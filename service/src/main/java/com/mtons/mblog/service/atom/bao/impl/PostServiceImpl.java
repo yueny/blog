@@ -177,28 +177,7 @@ public class PostServiceImpl extends AbstractPlusService<PostBo, Post, PostMappe
 		LambdaQueryWrapper<Post> queryWrapper = new QueryWrapper<Post>().lambda();
 		queryWrapper.eq(Post::getAuthorId, authorId);
 
-		IPage<Post> pageablePlus = new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(pageable.getPageNumber(), pageable.getPageSize());
-		IPage<Post> pageList = baseMapper.selectPage(pageablePlus, queryWrapper);
-		return convertPage(pageable, pageList);
-	}
-
-	/**
-	 * 分页对象的转换
-	 *
-	 * com.baomidou.mybatisplus.core.metadata.IPage 转为 org.springframework.data.domain.Page
-	 *
-	 * @param pageableData springframework 分页查询条件
-	 * @param pagePlusList mybatisplus 查询到的分页结果对象
-	 * @return org.springframework.data.domain.Page
-	 */
-	private Page<PostBo> convertPage(Pageable pageableData, IPage<Post> pagePlusList) {
-		if(CollectionUtils.isEmpty(pagePlusList.getRecords())){
-			return new PageImpl(Collections.emptyList(), pageableData, pagePlusList.getTotal());
-		}
-
-//		List<PostBO> list = map(pagePlusList.getRecords(), PostBO.class);
-		List<PostBo> list = toPosts(pagePlusList.getRecords());
-		return new PageImpl(list, pageableData, pagePlusList.getTotal());
+		return findAll(pageable, queryWrapper);
 	}
 
 	@Override
