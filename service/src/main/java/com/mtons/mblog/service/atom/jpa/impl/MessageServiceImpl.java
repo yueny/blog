@@ -4,7 +4,7 @@ import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.MessageVO;
 import com.mtons.mblog.bo.PostBo;
 import com.mtons.mblog.entity.jpa.Message;
-import com.mtons.mblog.service.atom.jpa.PostService;
+import com.mtons.mblog.service.atom.bao.PostService;
 import com.mtons.mblog.dao.repository.MessageRepository;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.service.atom.jpa.MessageService;

@@ -9,7 +9,7 @@ import com.mtons.mblog.service.AbstractService;
 import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.watcher.event.BlogMessageEvent;
 import com.mtons.mblog.service.atom.jpa.MessageService;
-import com.mtons.mblog.service.atom.jpa.PostService;
+import com.mtons.mblog.service.atom.bao.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.scheduling.annotation.Async;

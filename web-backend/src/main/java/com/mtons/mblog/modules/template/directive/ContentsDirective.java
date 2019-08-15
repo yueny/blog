@@ -8,7 +8,7 @@ import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.service.util.BeanMapUtils;
 import com.mtons.mblog.bo.ChannelVO;
 import com.mtons.mblog.bo.PostBo;
-import com.mtons.mblog.service.atom.jpa.PostService;
+import com.mtons.mblog.service.atom.bao.PostService;
 import com.mtons.mblog.service.atom.jpa.ChannelService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.template.TemplateDirective;

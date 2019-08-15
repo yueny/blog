@@ -13,7 +13,7 @@ import com.mtons.mblog.bo.PostBo;
 import com.mtons.mblog.service.atom.bao.CommentService;
 import com.mtons.mblog.service.manager.ICommentManagerService;
 import com.mtons.mblog.service.watcher.event.BlogMessageEvent;
-import com.mtons.mblog.service.atom.jpa.PostService;
+import com.mtons.mblog.service.atom.bao.PostService;
 import com.mtons.mblog.base.enums.watcher.MessageActionType;
 import com.mtons.mblog.web.controller.BaseController;
 import com.yueny.rapid.lang.agent.UserAgentResource;

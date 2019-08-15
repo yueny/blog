@@ -3,7 +3,7 @@ package com.mtons.mblog.service.manager.impl;
 import com.mtons.mblog.bo.CommentBo;
 import com.mtons.mblog.service.BaseService;
 import com.mtons.mblog.service.atom.bao.CommentService;
-import com.mtons.mblog.service.atom.jpa.PostService;
+import com.mtons.mblog.service.atom.bao.PostService;
 import com.mtons.mblog.service.manager.ICommentManagerService;
 import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.service.watcher.executor.UserEventExecutor;

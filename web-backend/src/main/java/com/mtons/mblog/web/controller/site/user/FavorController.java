@@ -5,7 +5,7 @@ import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.PostBo;
 import com.mtons.mblog.service.watcher.event.BlogMessageEvent;
-import com.mtons.mblog.service.atom.jpa.PostService;
+import com.mtons.mblog.service.atom.bao.PostService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

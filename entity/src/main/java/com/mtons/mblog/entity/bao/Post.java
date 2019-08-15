@@ -11,6 +11,7 @@ package com.mtons.mblog.entity.bao;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.mtons.mblog.base.enums.BlogFeaturedType;
+import com.yueny.kapo.api.annnotation.EntryPk;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
@@ -23,6 +24,7 @@ import org.hibernate.search.annotations.*;
 import javax.persistence.Index;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 内容表
@@ -43,21 +45,24 @@ import java.io.Serializable;
 @Analyzer(impl = SmartChineseAnalyzer.class)
 @Getter
 @Setter
-public class Post  extends AbstractPlusEntry
+public class Post extends com.yueny.kapo.api.pojo.instance.Entity //extends AbstractPlusEntry
 		implements Serializable {
 	private static final long serialVersionUID = 7144425803920583495L;
 
-//	/** 文章主键 */
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	@SortableField
-//	@NumericField
-//	@TableId(type = IdType.AUTO)
-//	private Long id;
-//
-//	@Temporal(TemporalType.TIMESTAMP)
-//	@TableField(fill = FieldFill.INSERT)
-//	private Date created;
+	/** 文章主键 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SortableField
+	@NumericField
+	@TableId(type = IdType.AUTO)
+	@EntryPk
+	private Long id;
+
+	/** 表创建时间 */
+	@Column(name = "created", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP")
+	@Temporal(TemporalType.TIMESTAMP)
+	@TableField(fill = FieldFill.INSERT)
+	private Date created;
 
 	/**
 	 * 文章编号扩展ID

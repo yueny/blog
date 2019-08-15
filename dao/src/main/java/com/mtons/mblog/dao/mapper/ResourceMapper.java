@@ -25,10 +25,22 @@ public interface ResourceMapper extends BaseMapper<Resource> {
     @Select(value = "SELECT * FROM mto_resource WHERE amount <= 0 AND update_time < #{time} ")
     List<Resource> find0Before(@Param("time") String time);
 
-    @Update("update Resource set amount = amount + #{increment} where md5 in (#{md5s})")
+    @Update({"<script>" +
+            "update mto_resource set amount = amount + #{increment} " +
+            "where md5 in " +
+            "<foreach collection=\"md5s\" index=\"index\" item=\"item\" separator=\",\" open=\"(\" close=\")\">" +
+                "#{item}" +
+            "</foreach>" +
+            "</script>"})
     int updateAmount(@Param("md5s") Collection<String> md5s, @Param("increment") long increment);
 
-    @Update("update Resource set amount = amount + #{increment} where id in (#{ids})")
+    @Update({"<script>" +
+            "update mto_resource set amount = amount + #{increment} " +
+            "where id in " +
+            "<foreach collection=\"ids\" index=\"index\" item=\"item\" separator=\",\" open=\"(\" close=\")\">" +
+                "#{item}" +
+            "</foreach>" +
+            "</script>"})
     int updateAmountByIds(@Param("ids") Collection<Long> md5s, @Param("increment") long increment);
 
 //    Resource findByMd5(String md5);

@@ -21,7 +21,7 @@ import com.mtons.mblog.bo.PostBo;
 import com.mtons.mblog.bo.ResourceBO;
 import com.mtons.mblog.model.PostVO;
 import com.mtons.mblog.service.watcher.event.PostUpdateEvent;
-import com.mtons.mblog.service.atom.jpa.PostService;
+import com.mtons.mblog.service.atom.bao.PostService;
 import com.mtons.mblog.service.atom.jpa.TagService;
 import com.mtons.mblog.service.BaseService;
 import com.mtons.mblog.service.atom.jpa.ChannelService;

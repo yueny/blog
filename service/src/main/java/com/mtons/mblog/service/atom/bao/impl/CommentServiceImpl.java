@@ -18,7 +18,7 @@ import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.bao.Comment;
 import com.mtons.mblog.dao.mapper.CommentMapper;
 import com.mtons.mblog.service.atom.bao.CommentService;
-import com.mtons.mblog.service.atom.jpa.PostService;
+import com.mtons.mblog.service.atom.bao.PostService;
 import com.mtons.mblog.service.atom.jpa.UserJpaService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;

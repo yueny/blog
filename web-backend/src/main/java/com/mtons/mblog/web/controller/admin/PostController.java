@@ -16,7 +16,7 @@ import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.model.PostVO;
 import com.mtons.mblog.service.atom.jpa.ChannelService;
-import com.mtons.mblog.service.atom.jpa.PostService;
+import com.mtons.mblog.service.atom.bao.PostService;
 import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.apache.commons.collections4.CollectionUtils;

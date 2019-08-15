@@ -45,13 +45,14 @@ public class PostSearchServiceImpl extends BaseService implements PostSearchServ
     private EntityManager entityManager;
 
     @Autowired
-    private UserJpaService userService;
+    private UserJpaService userJpaService;
 
     @Override
     @PostStatusFilter
     public Page<PostBo> search(Pageable pageable, String term) throws Exception {
         FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
-        QueryBuilder builder = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Post.class).get();
+        QueryBuilder builder = fullTextEntityManager.getSearchFactory()
+                .buildQueryBuilder().forEntity(Post.class).get();
 
         Query luceneQuery = builder
                 .keyword()
@@ -110,7 +111,7 @@ public class PostSearchServiceImpl extends BaseService implements PostSearchServ
 
         HashSet<Long> uids = new HashSet<>();
         list.forEach(n -> uids.add(n.getAuthorId()));
-        Map<Long, UserBO> userMap = userService.findMapByIds(uids);
+        Map<Long, UserBO> userMap = userJpaService.findMapByIds(uids);
 
         list.forEach(p -> p.setAuthor(userMap.get(p.getAuthorId())));
     }

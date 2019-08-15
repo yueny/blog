@@ -12,7 +12,7 @@ package com.mtons.mblog.web.controller.admin;
 import com.mtons.mblog.service.atom.bao.CommentService;
 import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.atom.jpa.ChannelService;
-import com.mtons.mblog.service.atom.jpa.PostService;
+import com.mtons.mblog.service.atom.bao.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

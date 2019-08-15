@@ -9,11 +9,13 @@
 */
 package com.mtons.mblog.service.atom.bao;
 
+import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.bao.User;
 import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.service.api.bao.IPlusBizService;
 import com.yueny.rapid.lang.exception.invalid.InvalidException;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 
@@ -26,6 +28,7 @@ import java.util.Set;
  * @DATE 2019/8/14 20:05
  *
  */
+@CacheConfig(cacheNames = Consts.CACHE_USER)
 public interface UserService extends IPlusBizService<UserBO, User> {
 //	/**
 //	 * 登录
@@ -63,6 +66,14 @@ public interface UserService extends IPlusBizService<UserBO, User> {
 	 */
 	@CacheEvict(key = "#id")
 	AccountProfile updateEmail(long id, String email);
+
+	//	/**
+//	 * 查询单个用户
+//	 * @param userId
+//	 * @return
+//	 */
+//	@Cacheable(key = "#userId")
+//    UserBO get(long userId);
 
 	/**
 	 * 查询单个用户

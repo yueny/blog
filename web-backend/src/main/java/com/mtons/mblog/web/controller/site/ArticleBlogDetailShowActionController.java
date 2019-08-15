@@ -6,7 +6,7 @@ import com.mtons.mblog.service.util.MarkdownUtils;
 import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.FavoriteVO;
 import com.mtons.mblog.service.atom.jpa.FavoriteService;
-import com.mtons.mblog.service.atom.jpa.PostService;
+import com.mtons.mblog.service.atom.bao.PostService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

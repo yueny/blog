@@ -19,7 +19,7 @@ public interface PostSearchService {
     Page<PostBo> search(Pageable pageable, String term) throws Exception;
 
     /**
-     * 重建
+     * 重建索引
      */
     void resetIndexes();
 }

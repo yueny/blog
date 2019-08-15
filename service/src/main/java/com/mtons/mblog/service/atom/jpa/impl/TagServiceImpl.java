@@ -9,7 +9,7 @@ import com.mtons.mblog.entity.jpa.Tag;
 import com.mtons.mblog.dao.repository.PostTagRepository;
 import com.mtons.mblog.dao.repository.TagRepository;
 import com.mtons.mblog.service.atom.jpa.TagService;
-import com.mtons.mblog.service.atom.jpa.PostService;
+import com.mtons.mblog.service.atom.bao.PostService;
 import com.mtons.mblog.service.util.BeanMapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

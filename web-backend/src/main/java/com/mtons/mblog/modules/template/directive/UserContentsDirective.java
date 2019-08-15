@@ -4,7 +4,7 @@
 package com.mtons.mblog.modules.template.directive;
 
 import com.mtons.mblog.bo.PostBo;
-import com.mtons.mblog.service.atom.jpa.PostService;
+import com.mtons.mblog.service.atom.bao.PostService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.template.TemplateDirective;
 import com.mtons.mblog.service.manager.PostManagerService;

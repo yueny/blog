@@ -23,7 +23,7 @@ import com.mtons.mblog.dao.mapper.PostMapper;
 import com.mtons.mblog.service.atom.bao.ResourceService;
 import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.atom.jpa.*;
-import com.mtons.mblog.service.atom.jpa.PostService;
+import com.mtons.mblog.service.atom.bao.PostService;
 import com.mtons.mblog.service.util.BeanMapUtils;
 import com.mtons.mblog.service.aspect.PostStatusFilter;
 import com.mtons.mblog.bo.ChannelVO;

@@ -20,14 +20,6 @@ import java.util.Date;
 /**
  */
 public interface UserMapper extends BaseMapper<User> {
-    //    User findByUsername(String username);
-//
-//    User findByUid(String uid);
-//
-//    User findByEmail(String email);
-//
-//    User findByDomainHack(String domainHack);
-
     /**
      * 修改密码
      *
@@ -42,8 +34,15 @@ public interface UserMapper extends BaseMapper<User> {
     @Update("update mto_user set posts = posts + #{increment}, updated=#{updated} where uid = #{uid}")
     int updatePosts(@Param("uid") String uid, @Param("increment") int increment, @Param("updated") Date updated);
 
-    @Update("update mto_user set comments = comments + #{increment}, updated=#{updated} where uid in (#{uids})") // and comments>0
-    int updateComments(@Param("uids") Collection<String> uids, @Param("increment") int increment, @Param("updated") Date updated);
+    @Update({"<script>" +
+            "update mto_user set comments = comments + #{increment}, updated=#{updated} " +
+            "where uid in " +
+            "<foreach collection=\"uids\" index=\"index\" item=\"item\" separator=\",\" open=\"(\" close=\")\">" +
+                "#{item}" +
+            "</foreach>" +
+            "</script>"}) // and comments>0
+    int updateComments(@Param("uids") Collection<String> uids, @Param("increment") int increment,
+                       @Param("updated") Date updated);
 
     @Update("update mto_user set status = #{status}, updated=#{updated} where uid = #{uid}")
     int updateStatus(@Param("uid") String uid, @Param("status") int status, @Param("updated") Date updated);

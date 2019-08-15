@@ -6,7 +6,7 @@ import com.mtons.mblog.dao.repository.FavoriteRepository;
 import com.mtons.mblog.service.util.BeanMapUtils;
 import com.mtons.mblog.entity.jpa.Favorite;
 import com.mtons.mblog.service.atom.jpa.FavoriteService;
-import com.mtons.mblog.service.atom.jpa.PostService;
+import com.mtons.mblog.service.atom.bao.PostService;
 import com.mtons.mblog.service.BaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
