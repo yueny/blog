@@ -69,8 +69,18 @@
                                     </td>
                                     <td>${article.author.username}</td>
                                     <td>${article.created?string('yyyy-MM-dd')}</td>
-                                    <td><span class="label label-default">${article.views}</span></td>
-                                    <td><span class="label label-default">${article.comments}</span></td>
+                                    <td>
+                                        <span class="label label-default
+                                            <#if (article.views > 0)>bg-green</#if>">
+                                            ${article.views}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="label label-default
+                                            <#if (article.comments > 0)>bg-green</#if>">
+                                            ${article.comments}
+                                        </span>
+                                    </td>
                                     <td>
                                         <#if (article.featured.value = 1)>
                                             <span class="label label-danger">推荐</span>

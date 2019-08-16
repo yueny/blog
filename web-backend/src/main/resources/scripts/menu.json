@@ -50,7 +50,7 @@
       {
         "icon": "fa fa-fw fa-twitter",
         "name": "访问记录",
-        "url": "admin/viewer/list",
+        "url": "admin/viewer/list.html",
         "permission": "func:viewer:list"
       }
     ]

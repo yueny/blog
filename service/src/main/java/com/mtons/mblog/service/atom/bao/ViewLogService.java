@@ -10,14 +10,20 @@
 package com.mtons.mblog.service.atom.bao;
 
 import com.mtons.mblog.bo.ViewLogVO;
+import com.mtons.mblog.condition.ViewerQueryCondition;
 import com.mtons.mblog.entity.bao.ViewLogEntry;
 import com.mtons.mblog.service.api.bao.IPlusBizService;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * 图片资源管理
  */
 public interface ViewLogService extends IPlusBizService<ViewLogVO, ViewLogEntry> {
-	List<ViewLogVO> findListByIp(String ip);
+	/**
+	 * 条件查询
+	 * @param condition 查询条件
+	 * @return
+	 */
+	Page<ViewLogVO> findAllByCondition(Pageable pageable, ViewerQueryCondition condition);
 }
