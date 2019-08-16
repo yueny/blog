@@ -14,7 +14,7 @@ import com.mtons.mblog.bo.ChannelVO;
 import com.mtons.mblog.model.PostVO;
 import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.service.atom.jpa.ChannelService;
-import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseBizController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -31,7 +31,7 @@ import java.util.List;
  *
  */
 @Controller
-public class ChannelController extends BaseController {
+public class ChannelController extends BaseBizController {
 	@Autowired
 	private ChannelService channelService;
 	@Autowired

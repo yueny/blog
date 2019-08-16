@@ -15,7 +15,7 @@ import com.mtons.mblog.service.manager.ICommentManagerService;
 import com.mtons.mblog.service.watcher.event.BlogMessageEvent;
 import com.mtons.mblog.service.atom.bao.PostService;
 import com.mtons.mblog.base.enums.watcher.MessageActionType;
-import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseBizController;
 import com.yueny.rapid.lang.agent.UserAgentResource;
 import com.yueny.rapid.lang.agent.handler.UserAgentUtils;
 import com.yueny.rapid.lang.util.IpUtil;
@@ -41,7 +41,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/comment")
 @ConditionalOnProperty(name = "site.controls.comment", havingValue = "true", matchIfMissing = true)
-public class CommentController extends BaseController {
+public class CommentController extends BaseBizController {
     @Autowired
     private CommentService commentService;
     @Autowired

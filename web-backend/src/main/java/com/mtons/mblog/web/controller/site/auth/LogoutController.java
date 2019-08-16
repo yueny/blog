@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.web.controller.site.auth;
 
-import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseBizController;
 import com.mtons.mblog.web.controller.site.Views;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author langhsu
  */
 @Controller
-public class LogoutController extends BaseController {
+public class LogoutController extends BaseBizController {
 
     /**
      * 退出登录

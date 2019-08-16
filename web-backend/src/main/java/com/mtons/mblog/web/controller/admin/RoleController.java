@@ -9,7 +9,7 @@ import com.mtons.mblog.bo.RoleBO;
 import com.mtons.mblog.entity.jpa.Role;
 import com.mtons.mblog.service.atom.jpa.PermissionService;
 import com.mtons.mblog.service.atom.jpa.RoleService;
-import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseBizController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +28,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/admin/role")
-public class RoleController extends BaseController {
+public class RoleController extends BaseBizController {
 	@Autowired
     private RoleService roleService;
 	@Autowired

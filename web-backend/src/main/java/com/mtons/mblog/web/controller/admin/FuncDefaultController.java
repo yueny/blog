@@ -12,7 +12,7 @@ package com.mtons.mblog.web.controller.admin;
 import com.mtons.mblog.config.ContextStartup;
 import com.mtons.mblog.bo.FuncDefaultVO;
 import com.mtons.mblog.modules.service.OptionsService;
-import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseBizController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -30,7 +30,7 @@ import java.util.Arrays;
  */
 @Controller
 @RequestMapping("/admin/func/default")
-public class FuncDefaultController extends BaseController {
+public class FuncDefaultController extends BaseBizController {
 	@Autowired
 	private OptionsService optionsService;
 	@Autowired

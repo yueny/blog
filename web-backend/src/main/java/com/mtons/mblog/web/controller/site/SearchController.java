@@ -11,7 +11,7 @@ package com.mtons.mblog.web.controller.site;
 
 import com.mtons.mblog.bo.PostBo;
 import com.mtons.mblog.modules.service.PostSearchService;
-import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseBizController;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-public class SearchController extends BaseController {
+public class SearchController extends BaseBizController {
 	@Autowired
 	private PostSearchService postSearchService;
 

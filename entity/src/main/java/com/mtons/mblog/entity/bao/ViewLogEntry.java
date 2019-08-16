@@ -36,6 +36,18 @@ public class ViewLogEntry extends AbstractUpdatePlusEntry {
     private String clientAgent;
 
     /**
+     * 请求方式(get/post)
+     */
+    @Column(name = "method")
+    private String method;
+
+    /**
+     * 请求参数， json串
+     */
+    @Column(name = "parameter_json")
+    private String parameterJson;
+
+    /**
      * 访问资源地址
      */
     @Column(name = "resource_path")

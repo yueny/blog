@@ -11,7 +11,7 @@ package com.mtons.mblog.web.controller.site.auth;
 
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.model.AccountProfile;
-import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseBizController;
 import com.mtons.mblog.web.controller.site.Views;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author langhsu
  */
 @Controller
-public class LoginController extends BaseController {
+public class LoginController extends BaseBizController {
 
     /**
      * 跳转登录页

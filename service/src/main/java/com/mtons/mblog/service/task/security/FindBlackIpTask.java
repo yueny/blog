@@ -2,10 +2,9 @@ package com.mtons.mblog.service.task.security;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Sets;
 import com.mtons.mblog.bo.AttackIpBo;
+import com.mtons.mblog.bo.ViewLogVO;
 import com.mtons.mblog.entity.bao.ViewLogEntry;
 import com.mtons.mblog.service.AbstractService;
 import com.mtons.mblog.service.atom.jpa.AttackIpService;
@@ -15,6 +14,9 @@ import com.mtons.mblog.service.comp.configure.impl.ConfigureGetService;
 import com.yueny.rapid.lang.date.DateTimeUtil;
 import com.yueny.rapid.lang.util.time.DurationTimer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import java.util.Date;
@@ -45,12 +47,13 @@ public class FindBlackIpTask extends AbstractService implements ISecurityAction 
         DurationTimer timer = new DurationTimer();
 
         try{
-            IPage<ViewLogEntry> page = new Page<>(0, 50);
+//            IPage<ViewLogEntry> page = new Page<>(0, 50);
+            Pageable pageable = PageRequest.of(0, 50);
             LambdaQueryWrapper<ViewLogEntry> queryWrapper = assemblyQueryCondition();
-            IPage<ViewLogEntry> pageResult = viewLogService.page(page, queryWrapper);
+            Page<ViewLogVO> pageResult = viewLogService.findAll(pageable, queryWrapper);
 
             Set<String> attackIps = Sets.newHashSet();
-            if(pageResult.getRecords().isEmpty()){
+            if(pageResult.getContent().isEmpty()){
                 logger.info("一小时内未发现攻击行为.");
             }else{
                 attackIps.addAll(computer(pageResult, queryWrapper));
@@ -83,21 +86,22 @@ public class FindBlackIpTask extends AbstractService implements ISecurityAction 
      * @param pageResult
      * @return
      */
-    private Set<String> computer(IPage<ViewLogEntry> pageResult, LambdaQueryWrapper<ViewLogEntry> queryWrapper){
+    private Set<String> computer(Page<ViewLogVO> pageResult, LambdaQueryWrapper<ViewLogEntry> queryWrapper){
         Set<String> attackIps = Sets.newHashSet();
 
         computer(pageResult, attackIps);
         while(((Page) pageResult).hasNext()){
-            IPage<ViewLogEntry> page = new Page<>(pageResult.getCurrent()+1, pageResult.getSize());
-            pageResult = viewLogService.page(page, queryWrapper);
+            Pageable pageable = PageRequest.of(pageResult.getNumber()+1, pageResult.getSize());
+//            IPage<ViewLogEntry> page = new Page<>(pageResult.getCurrent()+1, pageResult.getSize());
+            pageResult = viewLogService.findAll(pageable, queryWrapper);
             computer(pageResult, attackIps);
         }
 
         return attackIps;
     }
 
-    private void computer(IPage<ViewLogEntry> pageResult, Set<String> attackIps){
-        for (ViewLogEntry entry: pageResult.getRecords()) {
+    private void computer(Page<ViewLogVO> pageResult, Set<String> attackIps){
+        for (ViewLogVO entry: pageResult.getContent()) {
             if(analyzeService.isAttackUrl(entry.getResourcePath())){
                 attackIps.add(entry.getClientIp());
             }

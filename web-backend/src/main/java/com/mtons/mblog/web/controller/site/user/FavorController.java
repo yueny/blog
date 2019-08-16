@@ -6,7 +6,7 @@ import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.PostBo;
 import com.mtons.mblog.service.watcher.event.BlogMessageEvent;
 import com.mtons.mblog.service.atom.bao.PostService;
-import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseBizController;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/user")
-public class FavorController extends BaseController {
+public class FavorController extends BaseBizController {
     @Autowired
     private PostService postService;
     @Autowired

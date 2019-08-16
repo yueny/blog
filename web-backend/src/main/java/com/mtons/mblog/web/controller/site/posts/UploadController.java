@@ -14,7 +14,7 @@ import com.mtons.mblog.base.storage.NailPathData;
 import com.mtons.mblog.base.storage.NailType;
 import com.mtons.mblog.base.utils.FileKit;
 import com.mtons.mblog.model.AccountProfile;
-import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseBizController;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
@@ -38,7 +38,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/post")
-public class UploadController extends BaseController {
+public class UploadController extends BaseBizController {
     public static HashMap<String, String> errorInfo = new HashMap<>();
 
     static {

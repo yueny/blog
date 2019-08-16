@@ -18,7 +18,7 @@ import com.mtons.mblog.model.PostVO;
 import com.mtons.mblog.service.atom.jpa.ChannelService;
 import com.mtons.mblog.service.atom.bao.PostService;
 import com.mtons.mblog.service.manager.PostManagerService;
-import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseBizController;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,7 @@ import java.util.Set;
  */
 @Controller("adminPostController")
 @RequestMapping("/admin/post")
-public class PostController extends BaseController {
+public class PostController extends BaseBizController {
 	@Autowired
 	private PostService postService;
 	@Autowired

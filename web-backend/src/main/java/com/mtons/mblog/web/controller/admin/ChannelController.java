@@ -18,7 +18,7 @@ import com.mtons.mblog.config.ContextStartup;
 import com.mtons.mblog.bo.ChannelVO;
 import com.mtons.mblog.model.ChannelTreeVO;
 import com.mtons.mblog.service.atom.jpa.ChannelService;
-import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseBizController;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ import java.util.List;
  */
 @Controller("adminChannelController")
 @RequestMapping("/admin/channel")
-public class ChannelController extends BaseController {
+public class ChannelController extends BaseBizController {
 	@Autowired
 	private ChannelService channelService;
 	@Autowired

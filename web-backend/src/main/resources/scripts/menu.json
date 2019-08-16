@@ -43,29 +43,23 @@
   },
   {
     "icon": "fa fa-fw fa-plus",
-    "name": "功能配置类",
+    "name": "追踪管理",
     "url": "/none",
-    "permission": "func:index",
+    "permission": "viewer:index",
     "children": [
       {
         "icon": "fa fa-fw fa-twitter",
-        "name": "默认值管理",
-        "url": "admin/func/default/index",
-        "permission": "func:default:index"
-      },
-      {
-        "icon": "fa fa-fw fa-dropbox",
-        "name": "权限值管理xxxxx",
-        "url": "admin/func/permission/index",
-        "permission": "func:permission:index"
+        "name": "访问记录",
+        "url": "admin/viewer/list",
+        "permission": "func:viewer:list"
       }
     ]
   },
   {
     "icon": "fa fa-fw fa-plus",
-    "name": "访问记录类",
+    "name": "功能配置类",
     "url": "/none",
-    "permission": "guest:index",
+    "permission": "func:index",
     "children": [
       {
         "icon": "fa fa-fw fa-twitter",

@@ -10,7 +10,7 @@ import com.mtons.mblog.service.util.ImageUtils;
 import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.service.atom.jpa.SecurityCodeService;
-import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseBizController;
 import com.mtons.mblog.web.controller.site.Views;
 import com.mtons.mblog.web.controller.site.posts.UploadController;
 import org.apache.commons.lang3.StringUtils;
@@ -29,7 +29,7 @@ import java.io.IOException;
  */
 @Controller
 @RequestMapping("/settings")
-public class SettingsController extends BaseController {
+public class SettingsController extends BaseBizController {
     @Autowired
     private UserService userService;
     @Autowired

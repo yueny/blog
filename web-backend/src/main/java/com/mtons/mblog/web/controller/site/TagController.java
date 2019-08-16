@@ -6,7 +6,7 @@ package com.mtons.mblog.web.controller.site;
 import com.mtons.mblog.bo.PostTagVO;
 import com.mtons.mblog.bo.TagBO;
 import com.mtons.mblog.service.atom.jpa.TagService;
-import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseBizController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,7 +28,7 @@ import java.util.Set;
  *
  */
 @Controller
-public class TagController extends BaseController {
+public class TagController extends BaseBizController {
     @Autowired
     private TagService tagService;
 

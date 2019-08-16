@@ -5,7 +5,7 @@ import com.mtons.mblog.base.utils.BlogUtils;
 import com.mtons.mblog.base.utils.FileKit;
 import com.mtons.mblog.config.ContextStartup;
 import com.mtons.mblog.modules.service.OptionsService;
-import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseBizController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,7 +24,7 @@ import java.util.Objects;
  */
 @Controller
 @RequestMapping("/admin/theme")
-public class ThemeController extends BaseController {
+public class ThemeController extends BaseBizController {
     @Autowired
     private OptionsService optionsService;
     @Autowired

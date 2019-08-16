@@ -16,7 +16,7 @@ import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.OpenOauthVO;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.modules.service.OpenOauthService;
-import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseBizController;
 import com.mtons.mblog.web.controller.site.Views;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -41,7 +41,7 @@ import java.io.UnsupportedEncodingException;
 @Controller
 @RequestMapping("/oauth/callback")
 @ConditionalOnProperty(name = "site.controls.register", havingValue = "true", matchIfMissing = true)
-public class CallbackController extends BaseController {
+public class CallbackController extends BaseBizController {
     private static final String SESSION_STATE = "_SESSION_STATE_";
 
     @Autowired

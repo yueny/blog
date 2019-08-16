@@ -20,6 +20,8 @@ import java.util.Date;
 /**
  * 访问记录
  */
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,49 +29,45 @@ public class ViewLogVO extends AbstractBo implements IBo {
 	/**
 	 * 数据库主键
 	 */
-	@Getter
-	@Setter
 	private Long id;
 
 	/**
 	 * 客户端ip
 	 */
-	@Getter
-	@Setter
 	private String clientIp;
 	/**
 	 * 客户端 agent
 	 */
-	@Getter
-	@Setter
 	private String clientAgent;
+
+	/**
+	 * 请求方式(get/post)
+	 */
+	private String method;
+
+	/**
+	 * 请求参数， json串
+	 */
+	private String parameterJson;
 
 	/**
 	 * 访问资源路径
 	 */
-	@Getter
-	@Setter
 	private String resourcePath;
 	/**
 	 * 访问资源路径描述
 	 */
-	@Getter
-	@Setter
 	private String resourcePathDesc;
 
 	/**
 	 * 访问时间
 	 */
-	@Getter
-	@Setter
 	@JSONField(format="yyyy-MM-dd HH:MM:ss")
 	private Date created;
 
 	/**
 	 * 修改时间
 	 */
-	@Getter
-	@Setter
 	@JSONField(format="yyyy-MM-dd HH:MM:ss")
 	private Date updated;
 

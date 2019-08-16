@@ -7,7 +7,7 @@ import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.FavoriteVO;
 import com.mtons.mblog.service.atom.jpa.FavoriteService;
 import com.mtons.mblog.service.atom.bao.PostService;
-import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseBizController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  */
 @Controller
-public class ArticleBlogDetailShowActionController extends BaseController {
+public class ArticleBlogDetailShowActionController extends BaseBizController {
 
 	@Autowired
 	private PostManagerService postManagerService;

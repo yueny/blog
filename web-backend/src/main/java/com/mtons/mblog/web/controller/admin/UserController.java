@@ -18,7 +18,7 @@ import com.mtons.mblog.service.atom.jpa.RoleService;
 import com.mtons.mblog.service.atom.jpa.UserRoleService;
 import com.mtons.mblog.service.comp.base.IUserPassportService;
 import com.mtons.mblog.service.manager.IUserManagerService;
-import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseBizController;
 import com.yueny.rapid.lang.exception.invalid.InvalidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,7 +34,7 @@ import java.util.Set;
  */
 @Controller("adminUserController")
 @RequestMapping("/admin/user")
-public class UserController extends BaseController {
+public class UserController extends BaseBizController {
 	@Autowired
 	private IUserPassportService userPassportService;
 	@Autowired

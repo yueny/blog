@@ -12,7 +12,7 @@ import com.mtons.mblog.service.atom.jpa.SecurityCodeService;
 import com.mtons.mblog.service.atom.jpa.UserJpaService;
 import com.mtons.mblog.service.comp.configure.IConfigureConstant;
 import com.mtons.mblog.service.comp.configure.IConfigureGetService;
-import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseBizController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.Assert;
@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit;
  */
 @RestController
 @RequestMapping("/email")
-public class EmailController extends BaseController {
+public class EmailController extends BaseBizController {
     @Autowired
     private ICacheService cacheService;
     @Autowired

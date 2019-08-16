@@ -25,6 +25,8 @@ import org.springframework.util.Assert;
 import java.util.Date;
 
 /**
+ * 基于数据库的验证码保存实现
+ *
  * @author langhsu on 2015/8/14.
  */
 @Service

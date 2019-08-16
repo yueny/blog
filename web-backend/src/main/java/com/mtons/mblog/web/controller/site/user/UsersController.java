@@ -15,7 +15,7 @@ import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.service.atom.jpa.MessageService;
 import com.mtons.mblog.service.atom.jpa.UserJpaService;
-import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseBizController;
 import com.mtons.mblog.web.controller.site.Views;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @RequestMapping("/users")
-public class UsersController extends BaseController {
+public class UsersController extends BaseBizController {
     @Autowired
     private UserJpaService userJpaService;
     @Autowired

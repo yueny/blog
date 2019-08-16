@@ -14,7 +14,7 @@ import com.mtons.mblog.base.utils.BlogUtils;
 import com.mtons.mblog.config.ContextStartup;
 import com.mtons.mblog.modules.service.OptionsService;
 import com.mtons.mblog.modules.service.PostSearchService;
-import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseBizController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -33,7 +33,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/admin/options")
-public class OptionsController extends BaseController {
+public class OptionsController extends BaseBizController {
 	@Autowired
 	private OptionsService optionsService;
 	@Autowired

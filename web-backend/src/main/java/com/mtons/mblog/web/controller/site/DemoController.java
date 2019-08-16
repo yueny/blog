@@ -5,7 +5,7 @@ import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.service.util.MarkdownUtils;
 import com.mtons.mblog.bo.DemoBo;
 import com.mtons.mblog.service.atom.bao.DemoService;
-import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseBizController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *
  */
 //@RestController
-public class DemoController extends BaseController {
+public class DemoController extends BaseBizController {
 
 	@Autowired
 	private PostManagerService postManagerService;

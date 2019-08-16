@@ -15,7 +15,7 @@ import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.service.util.BeanMapUtils;
 import com.mtons.mblog.model.PostVO;
 import com.mtons.mblog.service.manager.PostManagerService;
-import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseBizController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("/api")
-public class ApiController extends BaseController {
+public class ApiController extends BaseBizController {
     @Autowired
     private PostManagerService postManagerService;
 

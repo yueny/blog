@@ -16,7 +16,7 @@ import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.bo.CommentBo;
 import com.mtons.mblog.service.atom.bao.CommentService;
 import com.mtons.mblog.service.manager.ICommentManagerService;
-import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseBizController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller("adminCommentController")
 @RequestMapping("/admin/comment")
-public class CommentController extends BaseController {
+public class CommentController extends BaseBizController {
 	@Autowired
 	private ICommentManagerService commentManagerService;
 	@Autowired

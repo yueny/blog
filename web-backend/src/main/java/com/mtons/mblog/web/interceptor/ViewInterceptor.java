@@ -11,11 +11,13 @@ package com.mtons.mblog.web.interceptor;
 
 import com.mtons.mblog.bo.ViewLogVO;
 import com.mtons.mblog.modules.hook.interceptor.InterceptorHookManager;
-import com.mtons.mblog.service.manager.IViewLogManagerService;
+import com.mtons.mblog.service.atom.bao.ViewLogService;
 import com.yueny.rapid.lang.agent.UserAgentResource;
 import com.yueny.rapid.lang.agent.handler.UserAgentUtils;
 import com.yueny.rapid.lang.json.JsonUtil;
+import com.yueny.rapid.lang.mask.decorator.MaskfulDecorator;
 import com.yueny.rapid.lang.util.IpUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,6 +25,8 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 浏览拦截器
@@ -32,7 +36,7 @@ public class ViewInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	private InterceptorHookManager interceptorHookManager;
 	@Autowired
-	private IViewLogManagerService viewLogService;
+	private ViewLogService viewLogService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -51,13 +55,19 @@ public class ViewInterceptor extends HandlerInterceptorAdapter {
 			}
 
 			String method = request.getMethod();
-			String parameterMap = JsonUtil.toJson(request.getParameterMap());
+			MaskfulDecorator maskfulDecorator = new MaskfulDecorator(getRequestParameter(request));
+			String parameterJson = JsonUtil.toJson(maskfulDecorator.mask());
 			ViewLogVO viewLogVO = ViewLogVO.builder()
 					.clientIp(IpUtil.getClientIp(request))
 					.clientAgent(clentAgent.toString())
+					.method(method)
+					.parameterJson(parameterJson)
 					.resourcePath(request.getRequestURI())
+//					.resourcePathDesc()
 					.build();
-			viewLogService.record(viewLogVO);
+
+			// TODO  此处应异步化实现
+			viewLogService.insert(viewLogVO);
 		} catch(Exception e){
 			e.printStackTrace();
 		}
@@ -89,4 +99,25 @@ public class ViewInterceptor extends HandlerInterceptorAdapter {
 		interceptorHookManager.afterConcurrentHandlingStarted(request, response, handler);
 	}
 
+	/**
+	 * 参数转换,key为空spring会自动过滤掉
+	 *
+	 * @param request
+	 *            HttpServletRequest
+	 * @return 转换后的参数
+	 */
+	private Map<String, String> getRequestParameter(
+			final HttpServletRequest request) {
+		final Map<String, String> requestParam = new HashMap<String, String>();
+		for (final Map.Entry<String, String[]> entry : request.getParameterMap()
+				.entrySet()) {
+			final String key = entry.getKey();
+			if (entry.getValue() == null
+					|| StringUtils.isBlank(entry.getValue()[0])) {
+				requestParam.put(key, StringUtils.EMPTY);
+			}
+			requestParam.put(key, entry.getValue()[0]);
+		}
+		return requestParam;
+	}
 }

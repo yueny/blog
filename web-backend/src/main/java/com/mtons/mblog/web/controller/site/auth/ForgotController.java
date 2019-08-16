@@ -6,7 +6,7 @@ import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.atom.jpa.SecurityCodeService;
 import com.mtons.mblog.service.comp.base.IUserPassportService;
-import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseBizController;
 import com.mtons.mblog.web.controller.site.Views;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  * @author langhsu on 2015/8/14.
  */
 @Controller
-public class ForgotController extends BaseController {
+public class ForgotController extends BaseBizController {
     @Autowired
     private UserService userService;
     @Autowired
@@ -38,6 +38,7 @@ public class ForgotController extends BaseController {
         try {
             Assert.hasLength(email, "请输入邮箱地址");
             Assert.hasLength(code, "请输入验证码");
+
             UserBO user = userService.findByEmail(email);
             Assert.notNull(user, "账户不存在");
 

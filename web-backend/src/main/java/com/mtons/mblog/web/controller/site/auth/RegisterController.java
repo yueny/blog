@@ -10,7 +10,7 @@ import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.service.atom.jpa.SecurityCodeService;
 import com.mtons.mblog.service.manager.IUserManagerService;
-import com.mtons.mblog.web.controller.BaseController;
+import com.mtons.mblog.web.controller.BaseBizController;
 import com.mtons.mblog.web.controller.site.Views;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @ConditionalOnProperty(name = "site.controls.register", havingValue = "true", matchIfMissing = true)
-public class RegisterController extends BaseController {
+public class RegisterController extends BaseBizController {
 	@Autowired
 	private SecurityCodeService securityCodeService;
 	@Autowired
