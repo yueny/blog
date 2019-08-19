@@ -14,6 +14,7 @@ import com.mtons.mblog.base.storage.StorageFactory;
 import com.mtons.mblog.config.SiteOptions;
 import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.service.manager.IUserManagerService;
+import com.mtons.mblog.service.util.PageHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -69,15 +70,12 @@ public class BaseBizController extends BaseController {
      */
     protected <T> PageRequest wrapPageable(Sort sort) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        // 分页查询的每页查询条数
         int pageSize = ServletRequestUtils.getIntParameter(request, "pageSize", 10);
+        // 当前分页
         int pageNo = ServletRequestUtils.getIntParameter(request, "pageNo", 1);
 
-        if (null == sort) {
-            sort = Sort.unsorted();
-        }
-
-        // springframework PageRequest的页数从0开始， 但传入参数和默认分页均为1， 需要-1
-        return PageRequest.of(pageNo - 1, pageSize, sort);
+        return PageHelper.wrapPageableForSpring(pageNo, pageSize, sort);
     }
 
     /**
@@ -88,13 +86,7 @@ public class BaseBizController extends BaseController {
      * @return
      */
     protected PageRequest wrapPageable(Integer pn, Integer pageSize) {
-        if (pn == null || pn == 0) {
-            pn = 1;
-        }
-        if (pageSize == null || pageSize == 0) {
-            pageSize = 10;
-        }
-        return PageRequest.of(pn - 1, pageSize);
+        return PageHelper.wrapPageableForSpring(pn, pageSize);
     }
 
     protected String view(String view) {

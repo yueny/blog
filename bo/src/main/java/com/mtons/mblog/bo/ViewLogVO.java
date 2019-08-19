@@ -10,6 +10,7 @@
 package com.mtons.mblog.bo;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mtons.mblog.base.enums.ChannelNodeType;
 import com.yueny.superclub.api.pojo.IBo;
 import com.yueny.superclub.api.pojo.instance.AbstractBo;
@@ -63,12 +64,13 @@ public class ViewLogVO extends AbstractBo implements IBo {
 	 * 访问时间
 	 */
 	@JSONField(format="yyyy-MM-dd HH:MM:ss")
+//	@JsonFormat(pattern = "yyyy-MM-dd HH:MM:ss")
 	private Date created;
 
 	/**
 	 * 修改时间
 	 */
-	@JSONField(format="yyyy-MM-dd HH:MM:ss")
+//	@JsonFormat(pattern = "yyyy-MM-dd HH:MM:ss")
 	private Date updated;
 
 }

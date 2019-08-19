@@ -13,6 +13,15 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ViewerQueryCondition extends AbstractMaskBo {
+//    /**
+//     * 页码， 非必传,默认1
+//     */
+//    private Integer pageNo = 1;
+//    /**
+//     * 页面大小，非 必传,默认10
+//     */
+//    private Integer pageSize = 10;
+
     /**
      * 客户端ip
      */

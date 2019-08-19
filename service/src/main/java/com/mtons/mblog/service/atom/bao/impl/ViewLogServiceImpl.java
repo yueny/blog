@@ -48,8 +48,10 @@ public class ViewLogServiceImpl extends AbstractPlusService<ViewLogVO, ViewLogEn
             queryWrapper.like(ViewLogEntry::getResourcePath, condition.getResourcePath());
         }
 
+        // 时间格式化查询
         if(StringUtils.isNotEmpty(condition.getCreateDate())){
-            queryWrapper.ge(ViewLogEntry::getCreated, condition.getCreateDate());
+            queryWrapper.apply("date_format(created, '%Y-%m-%d') = '"
+                    + condition.getCreateDate() + "'");
         }
 //        if(StringUtils.isNotEmpty(condition.getEclientIps())){
 //            queryWrapper.ge(ViewLogEntry::getCreated, condition.getCreateDate());

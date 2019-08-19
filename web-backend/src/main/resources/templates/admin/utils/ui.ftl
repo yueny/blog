@@ -7,26 +7,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title> - ${options['site_name']}</title>
 
-    <!-- Favicons -->
+    <#-- 0、Base -->
     <link rel="apple-touch-icon-precomposed" href="https://static.codealy.com/favicon.ico"/>
     <link rel="shortcut icon" href="https://static.codealy.com/favicon.ico"/>
 
-    <!-- Bootstrap -->
+    <#-- Font Awesome -->
+    <link href="${base}/dist/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <#-- 1、jQuery -->
+    <#-- 2、Bootstrap -->
     <link href="${base}/dist/vendors/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="${base}/dist/vendors/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
-
-    <!-- Font Awesome -->
-    <link href="${base}/dist/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- Latest compiled and minified CSS -->
+    <link href="${base}/dist/vendors/bootstrap3-dialog/dist/css/bootstrap-dialog.min.css" type="text/css" rel="stylesheet">
+    <link href="${base}/dist/vendors/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet">
     <link rel="stylesheet" href="${base}/dist/vendors/bootstrap-select/1.13.7/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="${base}/dist/vendors/bootstrap-switch/css/bootstrap3/bootstrap-switch.css">
+
+    <#-- 3、bootstrap-table -->
+    <link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.css" type="text/css" rel="stylesheet">
+
+    <#-- 4、etc -->
     <link rel="stylesheet" href="${base}/dist/css/checkbox.css">
 
-    <!-- Theme Style -->
+    <#-- Theme Style -->
     <link href="${base}/theme/admin/dist/css/site.css" rel="stylesheet">
     <link href="${base}/theme/admin/dist/css/site.addons.css" rel="stylesheet">
     <link href="${base}/theme/admin/dist/css/skins/skin-blue.css" rel="stylesheet">
 
+    <#-- 0、Base -->
     <script type="text/javascript">
         var _MTONS = _MTONS || {};
         _MTONS.BASE_PATH = '${base}';
@@ -36,18 +44,25 @@
         _MTONS.ALLOW_COMMENT_WITHOUT_LOGIN = '${siterProfile.commentAllowAnonymous}';
     </script>
 
-    <!-- jQuery -->
+    <#-- 1、jQuery -->
     <script src="${base}/dist/js/jquery.min.js"></script>
+    <script src="${ctx}/dist/vendors/jquery/jquery-ui.min.js" type="text/javascript"></script>
 
-    <!-- Bootstrap -->
+    <#-- 2、Bootstrap -->
     <script src="${base}/dist/vendors/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <!-- Latest compiled and minified JavaScript -->
     <script src="${base}/dist/vendors/bootstrap-select/1.13.7/js/bootstrap-select.min.js"></script>
-    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
     <script src="${base}/dist/vendors/bootstrap-select/1.13.7/js/i18n/defaults-zh_CN.js"></script>
     <script src="${base}/dist/vendors/bootstrap-switch/js/bootstrap-switch.js"></script>
+    <script type="text/javascript" src="${base}/dist/vendors/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js"></script>
+    <script type="text/javascript" src="${base}/dist/vendors/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="${base}/dist/vendors/bootstrap-datepicker/dist/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 
+    <#-- 3、bootstrap-table -->
+    <script type="text/javascript" src="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+    <#-- 国际化，表格汉化  -->
+    <script type="text/javascript" src="https://cdn.bootcss.com/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
+
+    <#-- 4、etc -->
     <script src='${base}/dist/vendors/bootstrap-hover/twitter-bootstrap-hover-dropdown.js'></script>
 
     <script src="${base}/dist/vendors/qiaoJs/qiao.js"></script>
@@ -59,13 +74,14 @@
     <script src='${base}/dist/vendors/jquery-validation/additional-methods.js'></script>
     <script src='${base}/dist/vendors/jquery-validation/localization/messages_zh.min.js'></script>
     <script src="${base}/dist/vendors/layer/layer.js"></script>
+
     <script src="${base}/theme/admin/dist/js/site.js"></script>
     <script src="${base}/theme/admin/dist/js/site.base.js"></script>
 
     <script src="${base}/dist/js/sea.js"></script>
     <script src="${base}/dist/js/sea.config.js"></script>
-
 </head>
+
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
     <!-- Main Header -->
@@ -192,6 +208,7 @@
         <strong>Copyright &copy; 2019 <a href="#">codealy</a>.</strong> All rights reserved.
     </footer>
 
+    <#-- 脚本区 -->
     <script type="text/javascript">
         $(function () {
             /* */
@@ -211,14 +228,18 @@
 </html>
 </#macro>
 
+<#-- 构造分页插件 -->
 <#macro pager url p spans>
     <#local span = (spans - 3)/2 />
     <#local pageNo = p.number + 1 />
+
+    <#-- 构造查询条件 -->
     <#if (url?index_of("?") != -1)>
         <#local cURL = (url + "&pageNo=") />
     <#else>
         <#local cURL = (url + "?pageNo=") />
     </#if>
+
 
     总计: ${p.totalElements} 条
 
@@ -247,6 +268,7 @@
             <#else>
                 <@pagelink pageNo, 1, cURL />
                 <@pagelink 0 0 "#" />
+
                 <#local num = pageNo - span />
                 <#local num2 = pageNo + span />
                 <#list num..num2 as i>

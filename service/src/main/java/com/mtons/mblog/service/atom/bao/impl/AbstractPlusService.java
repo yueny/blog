@@ -2,10 +2,10 @@ package com.mtons.mblog.service.atom.bao.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mtons.mblog.service.api.bao.IPlusBizService;
+import com.mtons.mblog.service.util.PageHelper;
 import com.mtons.mblog.util.IdFieldSetterUtil;
 import com.yueny.kapo.api.pojo.IEntry;
 import com.yueny.superclub.api.pojo.IBo;
@@ -352,63 +352,14 @@ import java.util.*;
 
 	@Override
 	public Page<T> findAll(Pageable pageable, Wrapper<S> queryWrapper) {
-		com.baomidou.mybatisplus.extension.plugins.pagination.Page<S> pageablePlus = convertToPlusPage(pageable);
+		com.baomidou.mybatisplus.extension.plugins.pagination.Page<S> pageablePlus = PageHelper.fromSpringToPlusPage(pageable);
 
-		IPage<S> pageList = page(pageablePlus, queryWrapper);
+		com.baomidou.mybatisplus.core.metadata.IPage<S> pageList = page(pageablePlus, queryWrapper);
 
-		return findAllConvertToSpringPage(pageable, pageList);
-	}
+		Page<S> entryPageList = PageHelper.fromPlusToSpringPage(pageList);
 
-	/**
-	 * 分页对象的转换
-	 * org.springframework.data.domain.Page 转为 com.baomidou.mybatisplus.core.metadata.IPage
-	 *
-	 * @param pageableData springframework分页查询条件
-	 *
-	 * @return mybatisplus 分页结果对象
-	 */
-	private com.baomidou.mybatisplus.extension.plugins.pagination.Page<S> convertToPlusPage(Pageable pageableData) {
-		// 因为 springframework PageRequest的页数从0开始，但mybatisplus中从1开始，因为需要+1
-		com.baomidou.mybatisplus.extension.plugins.pagination.Page<S> pageablePlus = new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(
-				pageableData.getPageNumber()+1, pageableData.getPageSize());
-
-		if(pageableData.getSort() != null){
-			Set<String> ascs = new HashSet<>();
-			Set<String> descss = new HashSet<>();
-			pageableData.getSort().get().forEach(order->{
-				if(order.isAscending()){
-					ascs.add(order.getProperty());
-				}else{
-					descss.add(order.getProperty());
-				}
-			});
-			if(!ascs.isEmpty()){
-//			    String[] arrays = ascs.stream().toArray(String[]::new);
-				pageablePlus.setAsc(ascs.stream().toArray(String[]::new));
-			}
-			if(!descss.isEmpty()){
-				pageablePlus.setDesc(descss.stream().toArray(String[]::new));
-			}
-		}
-
-		return pageablePlus;
-	}
-
-	/**
-	 * 查询分页对象结果的转换
-	 * com.baomidou.mybatisplus.core.metadata.IPage 转为 org.springframework.data.domain.Page
-	 *
-	 * @param pageableData springframework 分页查询条件
-	 * @param pagePlusList mybatisplus 查询到的分页结果对象
-	 * @return org.springframework.data.domain.Page
-	 */
-	private Page<T> findAllConvertToSpringPage(Pageable pageableData, IPage<S> pagePlusList) {
-		if(CollectionUtils.isEmpty(pagePlusList.getRecords())){
-			return new PageImpl(Collections.emptyList(), pageableData, pagePlusList.getTotal());
-		}
-
-		List<T> list = map(pagePlusList.getRecords(), boClazz);
-		return new PageImpl<>(list, pageableData, pagePlusList.getTotal());
+		List<T> list = map(entryPageList.getContent(), boClazz);
+		return new PageImpl<>(list, entryPageList.getPageable(), entryPageList.getTotalElements());
 	}
 
 	@Override
