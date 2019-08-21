@@ -30,6 +30,12 @@
     "permission": "role:list"
   },
   {
+    "icon": "fa fa fa-registered icon-xlarge",
+    "name": "权限管理",
+    "url": "admin/permission/index.html",
+    "permission": "permission:index"
+  },
+  {
     "icon": "fa fa-circle-o icon-xlarge",
     "name": "主题管理",
     "url": "admin/theme/index",
@@ -50,28 +56,14 @@
       {
         "icon": "fa fa-fw fa-twitter",
         "name": "访问记录",
-        "url": "admin/viewer/list.html",
-        "permission": "func:viewer:list"
-      }
-    ]
-  },
-  {
-    "icon": "fa fa-fw fa-plus",
-    "name": "功能配置类",
-    "url": "/none",
-    "permission": "func:index",
-    "children": [
-      {
-        "icon": "fa fa-fw fa-twitter",
-        "name": "默认值管理",
-        "url": "admin/func/default/index",
-        "permission": "func:default:index"
+        "url": "admin/viewer/index.html",
+        "permission": "viewer:index"
       },
       {
         "icon": "fa fa-fw fa-dropbox",
-        "name": "权限值管理xxxxx",
-        "url": "admin/func/permission/index",
-        "permission": "func:permission:index"
+        "name": "访问行为分析",
+        "url": "admin/viewer/analyze/index.html",
+        "permission": "viewer:analyze:index"
       }
     ]
   }

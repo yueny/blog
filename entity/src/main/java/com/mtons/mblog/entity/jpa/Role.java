@@ -1,6 +1,8 @@
 package com.mtons.mblog.entity.jpa;
 
 
+import com.mtons.mblog.entity.bao.Permission;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;

@@ -7,7 +7,7 @@ import com.mtons.mblog.bo.RoleBO;
 import com.mtons.mblog.entity.jpa.Role;
 import com.mtons.mblog.entity.jpa.RolePermission;
 import com.mtons.mblog.entity.jpa.UserRole;
-import com.mtons.mblog.dao.repository.PermissionRepository;
+import com.mtons.mblog.dao.mapper.PermissionMapper;
 import com.mtons.mblog.dao.repository.RoleRepository;
 import com.mtons.mblog.dao.repository.UserRoleRepository;
 import com.mtons.mblog.service.atom.jpa.RoleService;
@@ -34,7 +34,7 @@ public class RoleServiceImpl extends BaseService implements RoleService {
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
-    private PermissionRepository permissionRepository;
+    private PermissionMapper permissionRepository;
     @Autowired
     private RolePermissionService rolePermissionService;
     @Autowired

@@ -1,6 +1,7 @@
 package com.mtons.mblog.web.controller.admin;
 
 import com.google.common.collect.Sets;
+import com.mtons.mblog.base.enums.ErrorType;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.bo.ViewLogVO;
 import com.mtons.mblog.condition.ViewerQueryCondition;
@@ -40,7 +41,7 @@ public class ViewerController extends BaseBizController {
     /**
      * 访问记录列表
      */
-    @RequestMapping("/list.html")
+    @RequestMapping("/index.html")
     public String list(ModelMap model, HttpServletRequest request) {
         // 当前日期
         model.put("nowDate", DateTimeUtil.today());
@@ -54,12 +55,20 @@ public class ViewerController extends BaseBizController {
     @RequestMapping("/get/list.json")
     @ResponseBody
     public PageListResponse<ViewLogVO> getListData(ViewerQueryCondition condition) {
-        // 查询分页结果
-        Page<ViewLogVO> page = viewLogService.findAllByCondition(wrapPageable(Sort.by(Sort.Direction.DESC,
-                "created")), condition);
-
         PageListResponse<ViewLogVO> resp = new PageListResponse<>();
-        resp.setList(PageHelper.fromSpringToYuenyPage(page));
+
+        try{
+            // 查询分页结果
+            Page<ViewLogVO> page = viewLogService.findAllByCondition(wrapPageable(Sort.by(Sort.Direction.DESC,
+                    "created")), condition);
+
+            resp.setList(PageHelper.fromSpringToYuenyPage(page));
+        }catch (Exception e){
+            resp.setCode(ErrorType.INVALID_ERROR.getCode());
+
+            String msg = String.format(ErrorType.INVALID_ERROR.getMessage(), e.getMessage());
+            resp.setMessage(msg);
+        }
 
         return resp;
     }

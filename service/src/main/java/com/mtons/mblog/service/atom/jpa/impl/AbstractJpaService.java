@@ -136,8 +136,8 @@ abstract class AbstractJpaService<T extends IBo, S extends IEntry, M extends Jpa
 
     @Override
     @Transactional
-    public boolean insertBatchs(Collection<T> entityList) {
-        return baseRepository.saveAll(entityList).size() > 0;
+    public boolean insertBatchs(Collection<T> boList) {
+        return baseRepository.saveAll(boList).size() > 0;
     }
 
     @Override

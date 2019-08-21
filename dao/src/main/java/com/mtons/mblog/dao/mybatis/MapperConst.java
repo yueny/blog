@@ -7,6 +7,7 @@ package com.mtons.mblog.dao.mybatis;
 public class MapperConst {
     public static final String CREATE_TIME_FIELD = "created";
     public static final String MODIFY_TIME_FIELD = "updated";
+    public static final String VERSION_FIELD = "version";
 
     /**
      * 枚举目录

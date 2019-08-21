@@ -60,7 +60,7 @@ public class ShiroConfiguration {
         shiroFilter.setFilters(filters);
 
         /**
-         * 配置shiro拦截器链
+         * 配置shiro拦截器链。 后续应该从数据库读取 TODO
          *
          * anon  不需要认证
          * authc 需要认证
@@ -108,6 +108,14 @@ public class ShiroConfiguration {
         hashMap.put("/admin/role/delete", "authc,perms[role:delete]");
 
         hashMap.put("/admin/theme/*", "authc,perms[theme:index]");
+
+        // 追踪管理
+//        hashMap.put("/admin/viewer/index.html", "authc,perms[viewer:index]");
+//        hashMap.put("/admin/viewer/get/list.json", "authc,perms[viewer:list]");
+//        hashMap.put("/admin/viewer/get.json", "authc,perms[viewer:list]");
+//        hashMap.put("/admin/viewer/delete.json", "authc,perms[viewer:delete]");
+        hashMap.put("/admin/viewer/analyze/index.html", "authc,perms[viewer:analyze:index]");
+        hashMap.put("/admin/viewer/analyze/get/list.json", "authc,perms[viewer:analyze:list]");
 
         hashMap.put("/admin", "authc,perms[admin]");
         hashMap.put("/admin/*", "authc,perms[admin]");

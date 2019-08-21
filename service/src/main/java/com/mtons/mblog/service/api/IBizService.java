@@ -54,16 +54,16 @@ public interface IBizService<T extends IBo, S> {
     /**
 	 * 根据 ID 选择修改
 	 *
-	 * @param entity 实体对象
+	 * @param t 实体对象
 	 */
-	boolean updateById(T entity);
+	boolean updateById(T t);
 
     /**
      * 插入（批量）
      *
-     * @param entityList 实体对象集合
+     * @param boList 实体对象集合
      */
-    boolean insertBatchs(Collection<T> entityList);
+    boolean insertBatchs(Collection<T> boList);
 
 
 }

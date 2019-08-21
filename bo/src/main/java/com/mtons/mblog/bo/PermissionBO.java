@@ -18,6 +18,7 @@ import lombok.Setter;
 import java.io.Serializable;
 
 /**
+ * 菜单权限
  *
  * @author yueny09 <deep_blue_yang@163.com>
  *

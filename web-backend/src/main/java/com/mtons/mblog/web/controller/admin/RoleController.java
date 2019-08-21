@@ -7,7 +7,7 @@ import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.bo.PermissionBO;
 import com.mtons.mblog.bo.RoleBO;
 import com.mtons.mblog.entity.jpa.Role;
-import com.mtons.mblog.service.atom.jpa.PermissionService;
+import com.mtons.mblog.service.atom.bao.PermissionService;
 import com.mtons.mblog.service.atom.jpa.RoleService;
 import com.mtons.mblog.web.controller.BaseBizController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +24,8 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
+ * 权限、角色管理
+ *
  * @author - langhsu on 2018/2/11
  */
 @Controller
@@ -34,6 +36,13 @@ public class RoleController extends BaseBizController {
 	@Autowired
 	private PermissionService permissionService;
 
+	/**
+	 * 管理表 shiro_role
+	 *
+	 * @param name
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/list")
 	public String paging(String name, ModelMap model) {
 		Pageable pageable = wrapPageable();
@@ -45,12 +54,18 @@ public class RoleController extends BaseBizController {
 
 	@RequestMapping("/view")
 	public String view(Long id, ModelMap model) {
-		if (id != null && id > 0) {
-			RoleBO role = roleService.get(id);
-			model.put("view", role);
+		try{
+			if (id != null && id > 0) {
+				RoleBO role = roleService.get(id);
+				model.put("view", role);
+			}
+
+			// 菜单列表
+			model.put("permissions", permissionService.findAllForTree());
+		}catch (Exception e){
+			e.printStackTrace();
 		}
 
-        model.put("permissions", permissionService.tree());
         return "/admin/role/view";
 	}
 	

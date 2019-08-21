@@ -1,6 +1,9 @@
 package com.mtons.mblog.web.exceptions;
 
+import com.mtons.mblog.base.enums.ErrorType;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,7 +22,17 @@ import java.io.PrintWriter;
  */
 @ControllerAdvice
 public class GlobalDefaultExceptionHandler {
-    // ModelAndView
+    private static final String logExceptionFormat = "Capture Exception By GlobalDefaultExceptionHandler: Code: %s Detail: %s";
+    private static Logger log = LoggerFactory.getLogger(GlobalDefaultExceptionHandler.class);
+
+    //运行时异常
+    @ExceptionHandler(RuntimeException.class)
+    public String runtimeExceptionHandler(HttpServletRequest req,
+                  final HttpServletResponse response, RuntimeException ex) throws Exception {
+        return resultFormat(req, response, ErrorType.SYSTEM_ERROR.getCode(), ex);
+    }
+
+    //其他错误
     @ExceptionHandler(value = Exception.class)
     public String defaultErrorHandler(final HttpServletRequest req, final HttpServletResponse response,
                                       final Exception e) throws Exception {
@@ -31,15 +44,21 @@ public class GlobalDefaultExceptionHandler {
             throw e;
         }
 
+        return resultFormat(req, response, ErrorType.SYSTEM_ERROR.getCode(), e);
+    }
+
+    private <T extends Throwable> String resultFormat(HttpServletRequest req,
+                  final HttpServletResponse response, String code, T e) throws Exception {
         // 添加自己的异常处理逻辑，如日志记录等
-        // .
+        e.printStackTrace();
 
         // 如果是json格式的ajax请求
         if (req.getHeader("accept").indexOf("application/json") > -1 || (req.getHeader("X-Requested-With") != null
                 && req.getHeader("X-Requested-With").indexOf("XMLHttpRequest") > -1)) {
             response.setStatus(500);
             rendJson(response, "code", e.getMessage());
-            return null;
+
+            return "";
         }
 
         // 如果是普通请求

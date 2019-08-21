@@ -15,7 +15,7 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">访问记录列表</h3>
                     <div class="box-tools">
-                        <a class="btn btn-default btn-sm" href="javascrit:;" data-action="batch_del">批量删除</a>
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" data-action="batch_del">批量删除</a>
                     </div>
                 </div>
                 <div class="box-body">
@@ -51,7 +51,7 @@
                                      <span class="glyphicon glyphicon-th"></span>
                                  </span>
                                 <input type="text" class="form-control datepicker"
-                                       id="createDate" name="createDate"
+                                       id="createDate" name="createDate" value="${nowDate}"
                                        placeholder='日期' title='日期'>
                             </div>
                         </div>
@@ -77,7 +77,8 @@
                     </form>
 
                     <#-- table -->
-                    <table id="table" data-toolbar="#toolbar"></table>
+                    <table id="table" data-toolbar="#toolbar"
+                           style="word-break:break-all; word-wrap:break-all;"></table>
                 </div>
 
             </div>
@@ -118,19 +119,22 @@
             $table = $("#table").bootstrapTable({ // 对应table标签的id
                 method: "get",
                 url: '${ctx}/admin/viewer/get/list.json', // 获取慢服务表格数据的url
+
                 toolbar: '#toolbar',    //工具按钮用哪个容器
                 cache: false, // 设置为 false 禁用 AJAX 数据缓存， 默认为true
                 striped: true,  //表格显示条纹，默认为false
-                //sortName: 'pushTime', // 要排序的字段(建议为数据库字段)
-                //showRefresh: false,     //是否显示刷新按钮
+                showRefresh: true,     //是否显示刷新按钮
                 pagination: true, // 在表格底部显示分页组件，默认false
                 pageList: [10, 25, 50], // 设置页面可以显示的数据条数
                 pageNumber: 1,      //初始化加载第一页，默认第一页
                 pageSize: 10,      //每页的记录行数（*）
-                sidePagination: 'server', // 设置为服务器端分页
+                sidePagination: 'server', // 分页方式：设置为服务器端分页
+
+                //sortName: 'pushTime', // 要排序的字段(建议为数据库字段)
+                sortable: true,        // 是否启用排序
+                sortOrder: "desc",      // 排序方式
                 search: false,                      //是否显示表格搜索
                 strictSearch: true,
-                showRefresh: true,                  //是否显示刷新按钮
                 clickToSelect: true,                //是否启用点击选中行
                 uniqueId: "id",                     //每一行的唯一标识，一般为主键列
                 showToggle: true,                   //是否显示详细视图和列表视图的切换按钮
@@ -149,11 +153,6 @@
                     return temp;
                 },
                 columns: [
-                    <#--    <th title="序号">#</th>-->
-
-                    <#--<#list page.content as viewLog>-->
-                    <#--<tr>-->
-                    <#--<td>${viewLog_index + 1}</td>-->
                     {
                         checkbox: true,
                         visible: true                  //是否显示复选框
@@ -162,7 +161,8 @@
                         field: 'clientIp',
                         title: 'IP',
                         align: 'left',
-                        valign: 'middle'
+                        valign: 'middle',
+                        width: 130
                     },
                     {
                         field: 'resourcePath',
@@ -172,7 +172,7 @@
                     },
                     {
                         field: 'method',
-                        title: '请求方式',
+                        title: '类型',
                         align: 'center',
                         valign: 'middle'
                     },
@@ -182,23 +182,21 @@
                         align: 'center',
                         valign: 'middle'
                     },
-                    {
-                        field: 'clientAgent',
-                        title: 'agent',
-                        align: 'center',
-                        valign: 'middle',
-                        formatter: function (value, row, index){
-                            return "<span class='text-muted'>" + value + "</span>";
-                        }
-                    },
+                    // {
+                    //     field: 'clientAgent',
+                    //     title: 'agent',
+                    //     align: 'center',
+                    //     valign: 'middle',
+                    //     formatter: function (value, row, index){
+                    //         return "<span class='text-muted'>" + value + "</span>";
+                    //     }
+                    // },
                     {
                         field: 'created',
                         title: '访问时间',
                         align: 'center',
-                        valign: 'middle'
-                        // formatter: function (value, row, index) {
-                        //     return dateFormat(value)
-                        // }
+                        valign: 'middle',
+                        width: 100
                     }
                 ],
                 onLoadSuccess: function(data){  //加载成功时执行
@@ -251,7 +249,7 @@
 
                     $textAndPic.append('<span>');
                     $textAndPic.append('客户端: ');
-                    $textAndPic.append('<span class="text-success">' + row.clientAgent + ' </span>');
+                    $textAndPic.append('<span class="text-muted">' + row.clientAgent + ' </span>');
                     $textAndPic.append('</span><br/>');
 
                     $textAndPic.append('<span>');
@@ -264,29 +262,12 @@
                     $textAndPic.append('<span class="text-danger">' + row.created + ' </span>');
                     $textAndPic.append('</span><br/>');
 
-                    <#--$textAndPic.append('<span>');-->
-                    <#--$textAndPic.append('系统环境: ' + row.appProfileEnv);-->
-                    <#--$textAndPic.append('</span><br/>');-->
-
-                    <#--$textAndPic.append('<span>');-->
-                    <#--$textAndPic.append('上报服务器: ' + row.networkAddress);-->
-                    <#--$textAndPic.append('</span><br/>');-->
-
-                    <#--$textAndPic.append('<span title="系统上报时间">');-->
-                    <#--$textAndPic.append('上报时间: ' + operateTimeFormatter(row.pushTime));-->
-                    <#--$textAndPic.append('</span><br/>');-->
-
-                    <#--$textAndPic.append('<span>');-->
-                    <#--$textAndPic.append('入库时间: ' + operateTimeFormatter(row.createDate));-->
-                    <#--$textAndPic.append('</span><br/>');-->
-
-
                     BootstrapDialog.show({
-                        title: row.resourcePath + " 访问明细",
+                        title: row.id + "/" + row.resourcePath + " 访问明细",
                         message: $textAndPic,
                         size: BootstrapDialog.SIZE_WIDE,
                         draggable: true, // Default value is false，可拖拽
-                        // closable : false, // Default value is false，点击对话框以外的页面内容可关闭
+                        closable : true, // Default value is false，点击对话框以外的页面内容可关闭
                         buttons: [
                             // {
                             //     label: '标记',
@@ -336,7 +317,7 @@
     </script>
 
     <script>
-        /* 超链接跳转 */
+        /* 超链接格式化 */
         function operateLinkFormatter(value, row, url){
             return '<a target="_blank" href="' + url + '">' + value + '</a>';
         }
@@ -355,21 +336,6 @@
             else { color = 'Yellow'; }
 
             return '<div  style="color: ' + color + '">' + value + '</div>';
-        }
-        function dateFormat(value) {
-            var dateVal = value + "";
-
-            if (value != null) {
-                var date = new Date(parseInt(dateVal.replace("/Date(", "").replace(")/", ""), 10));
-                var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-                var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-
-                var hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-                var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-                var seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-
-                return date.getFullYear() + "-" + month + "-" + currentDate + " " + hours + ":" + minutes + ":" + seconds;
-            }
         }
 
         // 重置
@@ -404,62 +370,39 @@
         }
     </script>
 
-<script type="text/javascript">
-    function doDelete(ids) {
-        J.getJSON('${base}/admin/viewer/delete.json', J.param({'id': ids}, true), ajaxReload);
-    }
+    <script type="text/javascript">
+        var J = jQuery;
 
-    $(function() {
-        // 批量删除
-        $('a[data-action="batch_del"]').click(function () {
-            var rows = $table.bootstrapTable('getSelections');
+        function doDelete(ids) {
+            J.getJSON('${base}/admin/viewer/delete.json',
+                J.param({'id': ids}, true),
+                refresh);
+        }
 
-            var ids = [];
-            for (var i = 0; i < rows.length; i++) {
-                ids.push(rows[i].id);
-            }
+        $(function() {
+            // 批量删除
+            $('a[data-action="batch_del"]').click(function () {
+                var rows = $table.bootstrapTable('getSelections');
 
-            if (ids.length == 0) {
-                layer.msg("请至少选择一项", {icon: 2});
-                return false;
-            }
+                var ids = [];
+                for (var i = 0; i < rows.length; i++) {
+                    ids.push(rows[i].id);
+                }
 
-            layer.confirm('确定删除此项吗?', {
-                btn: ['确定','取消'], //按钮
-                shade: false //不显示遮罩
-            }, function(){
-                doDelete(ids);
-            }, function(){
+                if (ids.length == 0) {
+                    layer.msg("请至少选择一项", {icon: 2});
+                    return false;
+                }
+
+                layer.confirm('确定删除这' + ids.length + '条数据吗?', {
+                    btn: ['确定','取消'], //按钮
+                    shade: false //不显示遮罩
+                }, function(){
+                    doDelete(ids);
+                }, function(){
+                    //.
+                });
             });
-        });
-
-        <#--// 查看-->
-        <#--$('a[data-action="viewLink"]').click(function () {-->
-        <#--    var that = $(this);-->
-
-        <#--    jQuery.ajax({-->
-        <#--        url: '${base}/admin/viewer/get.json',-->
-        <#--        data: {'id': that.attr('data-id')},-->
-        <#--        dataType: "json",-->
-        <#--        type :  "POST",-->
-        <#--        cache : false,-->
-        <#--        async: false,-->
-        <#--        error : function(i, g, h) {-->
-        <#--            layer.msg('发送错误', {icon: 2});-->
-        <#--        },-->
-        <#--        success: function(resp){-->
-        <#--            // 返回对象为 NormalResponse-->
-        <#--            if(resp){-->
-        <#--                if (resp.code== '00000000') {-->
-        <#--                    popup(resp.data);-->
-        <#--                } else {-->
-        <#--                    layer.msg(resp.message, {icon: 5});-->
-        <#--                }-->
-        <#--            }-->
-        <#--        }-->
-        <#--    });-->
-        <#--});-->
-    })
-
-</script>
+        })
+    </script>
 </@layout>

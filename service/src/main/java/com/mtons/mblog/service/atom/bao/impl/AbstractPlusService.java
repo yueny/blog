@@ -273,8 +273,8 @@ import java.util.*;
 
 	@Override
 	@Transactional
-	public boolean insertBatchs(Collection<T> entityList) {
-		for (T t : entityList) {
+	public boolean insertBatchs(Collection<T> boList) {
+		for (T t : boList) {
 			S entry = map(t, entryClazz);
 
 			int rs = baseMapper.insert(entry);

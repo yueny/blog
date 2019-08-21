@@ -23,7 +23,11 @@ public enum ErrorType implements IResultCodeType {
     /**
      * 入参不合法
      */
-    INVALID_ERROR("1101" , "入参不合法:%s"),
+    INVALID_ERROR("1103" , "入参不合法:%s"),
+    /**
+     * 系统异常
+     */
+    SYSTEM_ERROR("2001" , "系统异常:%s"),
     ;
 
     @EnumValue

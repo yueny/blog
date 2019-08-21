@@ -100,7 +100,8 @@
 $(function() {
     $('#upload_btn').change(function(){
         $(this).upload('${base}/post/upload?crop=thumbnail_post_size&nailType=blogThumb', function(data){
-            if (data.status == 200) {
+            if (tools.success200(data.status)) {
+            // if (data.status == 200) {
                 var path = data.path;
                 $("#thumbnail_image").css("background", "url(" + path + ") no-repeat scroll center 0 rgba(0, 0, 0, 0)");
                 $("#thumbnail").val(path);

@@ -6,9 +6,7 @@ import com.yueny.superclub.api.page.core.PageCond;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.data.domain.*;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 分液转换帮助类
@@ -52,7 +50,7 @@ public class PageHelper {
     }
 
     /**
-     * 分页对象的转换
+     * 分页对象的转换， 含分组条件
      * org.springframework.data.domain.Page 转为 com.baomidou.mybatisplus.core.metadata.IPage.<br>
      *
      * springframework分页从0开始，mybatisplus中从1开始
@@ -88,7 +86,7 @@ public class PageHelper {
     }
 
     /**
-     * 查询分页对象结果的转换
+     * 查询分页对象结果的转换， 含分组条件
      * com.baomidou.mybatisplus.core.metadata.IPage 转为 org.springframework.data.domain.Page.<br>
      *
      * springframework分页从0开始，mybatisplus中从1开始
@@ -97,8 +95,34 @@ public class PageHelper {
      * @return org.springframework.data.domain.Page springframework 分页查询条件
      */
     public static <S> Page<S> fromPlusToSpringPage(IPage<S> pagePlus) {
+        /**
+         * SQL 排序 ASC 数组
+         */
+        String[] ascs = pagePlus.ascs();
+        /**
+         * SQL 排序 DESC 数组
+         */
+        String[] descs = pagePlus.descs();
+        List<Sort.Order> orders = new ArrayList<>();
+        if(descs != null){
+            for(int i =0; i<descs.length; i++){
+                orders.add(new Sort.Order(Sort.Direction.DESC, descs[i]));
+            }
+        }
+        if(ascs != null){
+            for(int i =0; i<ascs.length; i++){
+                orders.add(new Sort.Order(Sort.Direction.ASC, ascs[i]));
+            }
+        }
+
+        Pageable pageableData = null;
         int size = new Long(pagePlus.getSize()).intValue();
-        Pageable pageableData = PageRequest.of(new Long(pagePlus.getCurrent() - 1).intValue(), size);
+        if(CollectionUtils.isNotEmpty(orders)){
+            Sort sort = Sort.by(orders);
+            pageableData = PageRequest.of(new Long(pagePlus.getCurrent() - 1).intValue(), size, sort);
+        }else{
+            pageableData = PageRequest.of(new Long(pagePlus.getCurrent() - 1).intValue(), size);
+        }
 
         if(CollectionUtils.isEmpty(pagePlus.getRecords())){
             return new PageImpl(Collections.emptyList(), pageableData, pagePlus.getTotal());
@@ -108,7 +132,7 @@ public class PageHelper {
     }
 
     /**
-     * 分页对象的转换
+     * 分页对象的转换，不含分组条件
      * org.springframework.data.domain.Page 转为 com.yueny.superclub.api.page.PageList.<br>
      *
      * springframework分页从0开始，yueny.superclub.api 的 currentPage 中从1开始

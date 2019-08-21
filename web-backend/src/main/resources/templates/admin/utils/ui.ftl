@@ -24,7 +24,8 @@
     <link rel="stylesheet" href="${base}/dist/vendors/bootstrap-switch/css/bootstrap3/bootstrap-switch.css">
 
     <#-- 3、bootstrap-table -->
-    <link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.css" type="text/css" rel="stylesheet">
+<#--    <link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.css" type="text/css" rel="stylesheet">-->
+    <link href="https://unpkg.com/bootstrap-table@1.15.4/dist/bootstrap-table.min.css" rel="stylesheet">
 
     <#-- 4、etc -->
     <link rel="stylesheet" href="${base}/dist/css/checkbox.css">
@@ -45,7 +46,8 @@
     </script>
 
     <#-- 1、jQuery -->
-    <script src="${base}/dist/js/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<#--    <script src="${base}/dist/js/jquery.min.js"></script>-->
     <script src="${ctx}/dist/vendors/jquery/jquery-ui.min.js" type="text/javascript"></script>
 
     <#-- 2、Bootstrap -->
@@ -58,28 +60,12 @@
     <script type="text/javascript" src="${base}/dist/vendors/bootstrap-datepicker/dist/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 
     <#-- 3、bootstrap-table -->
-    <script type="text/javascript" src="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
-    <#-- 国际化，表格汉化  -->
-    <script type="text/javascript" src="https://cdn.bootcss.com/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.15.4/dist/bootstrap-table.min.js"></script>
+<#--    <script type="text/javascript" src="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>-->
+<#--    <script type="text/javascript" src="https://cdn.bootcss.com/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>-->
 
     <#-- 4、etc -->
     <script src='${base}/dist/vendors/bootstrap-hover/twitter-bootstrap-hover-dropdown.js'></script>
-
-    <script src="${base}/dist/vendors/qiaoJs/qiao.js"></script>
-    <script src="${base}/dist/vendors/qiaoJs/qiao.config.js"></script>
-
-    <script src="${base}/dist/js/plugins.js"></script>
-
-    <script src='${base}/dist/vendors/jquery-validation/jquery.validate.min.js'></script>
-    <script src='${base}/dist/vendors/jquery-validation/additional-methods.js'></script>
-    <script src='${base}/dist/vendors/jquery-validation/localization/messages_zh.min.js'></script>
-    <script src="${base}/dist/vendors/layer/layer.js"></script>
-
-    <script src="${base}/theme/admin/dist/js/site.js"></script>
-    <script src="${base}/theme/admin/dist/js/site.base.js"></script>
-
-    <script src="${base}/dist/js/sea.js"></script>
-    <script src="${base}/dist/js/sea.config.js"></script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -206,7 +192,29 @@
         <div class="pull-right hidden-xs">${site.version}</div>
         <!-- Default to the left -->
         <strong>Copyright &copy; 2019 <a href="#">codealy</a>.</strong> All rights reserved.
+        <a onclick="reciprocate()" class="text-primary"><i class="icon-qrcode"></i>捐赠</a>
     </footer>
+
+    <script src="${base}/dist/vendors/qiaoJs/qiao.js"></script>
+    <script src="${base}/dist/vendors/qiaoJs/qiao.config.js"></script>
+
+    <script src="${base}/dist/js/plugins.js"></script>
+    <script src="${base}/dist/js/crypto/js-base64.js"></script>
+    <script src="${base}/dist/js/crypto/js-cryptoJS.js"></script>
+    <script src="${base}/dist/js/public.js"></script>
+    <script src="${base}/dist/js/tools.js"></script>
+    <script src="${base}/dist/js/bootstrap-dialog-tools.js"></script>
+
+    <script src='${base}/dist/vendors/jquery-validation/jquery.validate.min.js'></script>
+    <script src='${base}/dist/vendors/jquery-validation/additional-methods.js'></script>
+    <script src='${base}/dist/vendors/jquery-validation/localization/messages_zh.min.js'></script>
+    <script src="${base}/dist/vendors/layer/layer.js"></script>
+
+    <script src="${base}/theme/admin/dist/js/site.js"></script>
+    <script src="${base}/theme/admin/dist/js/site.base.js"></script>
+
+    <script src="${base}/dist/js/sea.js"></script>
+    <script src="${base}/dist/js/sea.config.js"></script>
 
     <#-- 脚本区 -->
     <script type="text/javascript">

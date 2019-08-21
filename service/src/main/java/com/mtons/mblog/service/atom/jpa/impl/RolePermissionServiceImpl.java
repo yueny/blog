@@ -2,10 +2,9 @@ package com.mtons.mblog.service.atom.jpa.impl;
 
 import com.mtons.mblog.bo.PermissionBO;
 import com.mtons.mblog.bo.RolePermissionVO;
-import com.mtons.mblog.dao.repository.PermissionRepository;
 import com.mtons.mblog.dao.repository.RolePermissionRepository;
-import com.mtons.mblog.entity.jpa.Permission;
 import com.mtons.mblog.entity.jpa.RolePermission;
+import com.mtons.mblog.service.atom.bao.PermissionService;
 import com.mtons.mblog.service.atom.jpa.RolePermissionService;
 import com.mtons.mblog.service.BaseService;
 import org.apache.commons.collections4.CollectionUtils;
@@ -25,7 +24,7 @@ import java.util.Set;
 @Service
 public class RolePermissionServiceImpl extends BaseService implements RolePermissionService {
     @Autowired
-    private PermissionRepository permissionRepository;
+    private PermissionService permissionService;
     @Autowired
     private RolePermissionRepository rolePermissionRepository;
 
@@ -40,9 +39,7 @@ public class RolePermissionServiceImpl extends BaseService implements RolePermis
 
         Set<Long> pids = new HashSet<>();
         rps.forEach(rp -> pids.add(rp.getPermissionId()));
-        List<Permission> entryList = permissionRepository.findAllById(pids);
-
-        return map(entryList, PermissionBO.class);
+        return permissionService.findAllById(pids);
     }
 
     @Override

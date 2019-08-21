@@ -16,7 +16,7 @@
                     <h3 class="box-title">文章列表</h3>
                     <div class="box-tools">
                         <a class="btn btn-default btn-sm" href="${base}/admin/post/view">新建</a>
-                        <a class="btn btn-default btn-sm" href="javascrit:;" data-action="batch_del">批量删除</a>
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" data-action="batch_del">批量删除</a>
                     </div>
                 </div>
                 <div class="box-body">
