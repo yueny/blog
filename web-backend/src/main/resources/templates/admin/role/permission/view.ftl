@@ -6,9 +6,10 @@
                     </#if>
 
                     <div class="row form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">权限配置值</span>
-                            <input type="text" class="form-control" name="name" value="${permission.name}">
+                        <label class="control-label col-sm-1">权限配置值</label>
+                        <div class="col-lg-5 col-md-2">
+                            <input type="text" class="form-control" name="name"
+                                   value="${permission.name}">
                         </div>
                     </div>
 

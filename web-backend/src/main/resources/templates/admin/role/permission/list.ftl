@@ -20,6 +20,18 @@
                     <h3 class="box-title">权限管理</h3>
                 </div>
                 <div class="box-body">
+                    <div id="toolbar" class="btn-group" >
+                        <button id="playSound" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-play" aria-hidden="true"></span>进入录音库
+                        </button>
+                        <button id="downloadSound" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span>下载录音
+                        </button>
+                        <button id="searchLog" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>查看会议日志
+                        </button>
+                    </div>
+
                     <#-- table -->
                     <table id="table"></table>
                 </div>
@@ -37,6 +49,7 @@
             $table.bootstrapTable({
                 method: "get",
                 url: '${ctx}/admin/permission/list.json',
+                toolbar : "#toolbar" , //工具按钮用哪个容器
                 cache: false, // 设置为 false 禁用 AJAX 数据缓存， 默认为true
                 striped: true,  //表格显示条纹，默认为false
                 showRefresh: true,     //是否显示刷新按钮
@@ -45,6 +58,10 @@
                 showToggle: true,                   //是否显示详细视图和列表视图的切换按钮
                 cardView: false,                    //是否显示详细视图
                 showColumns: true,
+                search: true,           //是否显示表格搜索，此搜索是客户端搜索，不会进服务端
+                searchOnEnterKey: true, // 回车触发搜索
+                searchAlign: 'left',
+                buttonsAlign: 'right', // 按钮位置
                 columns: [
                     // {
                     //     field: 'no',
@@ -148,7 +165,12 @@
 
         window.operateEvents={
             "click #tableEditor":function (e,value,row,index){
-                $.showDialog("${base}/admin/permission/view?id="+row.id, "GET", row.description + "「" + row.name + "明细");
+                $.showDialog("${base}/admin/permission/view?id="+row.id, "GET",
+                    row.description + "「" + row.name + "明细",
+                    function(){
+                        //刷新Table，Bootstrap Table 会自动执行重新查询
+                        $table.bootstrapTable('refresh');
+                    });
             },
             // "click #tableDelete":function (e,value,row,index){
             //     //.

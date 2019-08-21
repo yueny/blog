@@ -61,8 +61,18 @@ public class PermissionController extends BaseBizController {
      */
     @RequestMapping(value="/view", method = {RequestMethod.GET})
     public String get(Long id, ModelMap model) {
-        PermissionBO permissionBO = permissionService.get(id);
-        model.put("permission", permissionBO);
+        // 1为修改模式. 0为新增模式, 2为预览模式
+        Integer modelType = 0;
+
+        if (id != null && id > 0) {
+            PermissionBO permissionBO = permissionService.get(id);
+            if(permissionBO != null){
+                model.put("permission", permissionBO);
+                modelType = 1;
+            }
+        }
+
+        model.put("modelType", modelType);
 
         return "/admin/role/permission/view";
     }
