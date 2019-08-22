@@ -41,6 +41,7 @@
                                     <td class="text-center">${row_index + 1}</td>
                                     <td>${row.name}</td>
                                     <td class="text-center">
+                                        <#-- 管理员数据不可被修改，其他的均可被修改 -->
                                         <#if row.id != 1>
                                             <a href="${base}/admin/authority/role/view?id=${row.id}" class="btn btn-xs btn-success">
                                                 <i class="fa fa-check-square-o"></i> 修改

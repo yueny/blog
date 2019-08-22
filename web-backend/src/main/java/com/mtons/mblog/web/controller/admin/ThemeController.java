@@ -44,6 +44,11 @@ public class ThemeController extends BaseBizController {
         return Result.success();
     }
 
+    /**
+     * 上传主题 ， zip包
+     * @param file
+     * @return
+     */
     @PostMapping("/upload")
     @ResponseBody
     public Result upload(@RequestParam("file") MultipartFile file) {

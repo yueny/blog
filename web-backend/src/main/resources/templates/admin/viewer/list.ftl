@@ -118,7 +118,7 @@
         $(function() {
             $table = $("#table").bootstrapTable({ // 对应table标签的id
                 method: "get",
-                url: '${ctx}/admin/viewer/get/list.json', // 获取慢服务表格数据的url
+                url: '${ctx}/admin/trace/viewer/get/list.json', // 获取慢服务表格数据的url
 
                 toolbar: '#toolbar',    //工具按钮用哪个容器
                 cache: false, // 设置为 false 禁用 AJAX 数据缓存， 默认为true
@@ -374,7 +374,7 @@
         var J = jQuery;
 
         function doDelete(ids) {
-            J.getJSON('${base}/admin/viewer/delete.json',
+            J.getJSON('${base}/admin/trace/viewer/delete.json',
                 J.param({'id': ids}, true),
                 refresh);
         }

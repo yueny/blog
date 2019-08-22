@@ -37,6 +37,8 @@ public class PermissionController extends BaseBizController {
      */
     @RequestMapping("/index.html")
     public String index(ModelMap model, HttpServletRequest request) {
+        model.put("title", "资源权限管理");
+
         return "/admin/authority/permission/list";
     }
 

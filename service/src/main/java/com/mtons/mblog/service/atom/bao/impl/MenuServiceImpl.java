@@ -84,6 +84,7 @@ public class MenuServiceImpl extends AbstractPlusService<MenuBo, Menu, MenuMappe
     @Override
     public List<MenuVo> findAllForPermission() {
         QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("weight");
         queryWrapper.orderByAsc("id");
 
         List<MenuBo> menuBos = super.findAll(queryWrapper);

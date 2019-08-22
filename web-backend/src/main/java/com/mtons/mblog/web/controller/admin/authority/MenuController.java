@@ -46,7 +46,7 @@ public class MenuController extends BaseBizController {
      * 列表首页
      */
     @RequestMapping("/index.html")
-    @RequiresPermissions("channel:list")
+//    @RequiresPermissions("authority:menu:index")
     public String index(ModelMap model, HttpServletRequest request) {
         model.put("title", "菜单管理");
 

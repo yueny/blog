@@ -49,6 +49,12 @@ public class BlogUtils {
         return themes;
     }
 
+    /**
+     * 主题上传
+     * @param file
+     * @return
+     * @throws IOException
+     */
     public static Result<String> uploadTheme(MultipartFile file) throws IOException {
         String location = System.getProperty("site.location");
         if (StringUtils.isBlank(location)) {

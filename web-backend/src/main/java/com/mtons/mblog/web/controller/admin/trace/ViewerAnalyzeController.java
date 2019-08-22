@@ -1,4 +1,4 @@
-package com.mtons.mblog.web.controller.admin;
+package com.mtons.mblog.web.controller.admin.trace;
 
 import com.mtons.mblog.web.controller.BaseBizController;
 import com.yueny.rapid.lang.date.DateTimeUtil;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Date 2019-08-20 18:16
  */
 @Controller
-@RequestMapping("/admin/viewer/analyze")
+@RequestMapping("/admin/trace/analyze")
 public class ViewerAnalyzeController extends BaseBizController {
     /**
      * 首页

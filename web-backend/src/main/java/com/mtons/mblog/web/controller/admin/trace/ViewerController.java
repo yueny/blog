@@ -1,4 +1,4 @@
-package com.mtons.mblog.web.controller.admin;
+package com.mtons.mblog.web.controller.admin.trace;
 
 import com.google.common.collect.Sets;
 import com.mtons.mblog.base.enums.ErrorType;
@@ -33,7 +33,7 @@ import java.util.Set;
  * @Date 2019-08-16 13:42
  */
 @Controller
-@RequestMapping("/admin/viewer")
+@RequestMapping("/admin/trace/viewer")
 public class ViewerController extends BaseBizController {
     @Autowired
     private ViewLogService viewLogService;
