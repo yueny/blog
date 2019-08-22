@@ -73,6 +73,10 @@
                         title: '链接地址'
                     },
                     {
+                        field: 'weight',
+                        title: '权重'
+                    },
+                    {
                         field: 'icon',
                         title: '图标',
                         formatter:'iconFormatter'

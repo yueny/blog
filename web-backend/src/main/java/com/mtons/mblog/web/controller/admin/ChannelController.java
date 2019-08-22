@@ -21,6 +21,7 @@ import com.mtons.mblog.service.atom.jpa.ChannelService;
 import com.mtons.mblog.web.controller.BaseBizController;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -32,6 +33,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 栏目管理
+ *
  * @author langhsu
  *
  */
@@ -49,7 +52,6 @@ public class ChannelController extends BaseBizController {
 	 * @param queryAll 是否查询全部。 1是查询全部。0是否
 	 */
 	@RequestMapping("/list.html")
-//	@RequiresPermissions("channel:list")
 	public String list(@RequestParam(name = "queryAll", defaultValue = "0") Integer queryAll, ModelMap model) {
 		if(queryAll == 1){
 			model.put("list", channelService.findAll(Consts.IGNORE));
@@ -135,20 +137,6 @@ public class ChannelController extends BaseBizController {
 		// 请求
 		return "redirect:/admin/channel/list.html";
 	}
-//	/**
-//	 * 在树上保存子栏目
-//	 * @param view view
-//	 * @param type 添加类型，如 channel「栏目」
-//	 */
-//	@RequestMapping("/readerUpdateSave")
-//	public String saveByTree(ChannelVO view, @RequestParam(name = "type") String type) {
-//		if (view != null) {
-//			channelService.update(view);
-//
-//			contextStartup.resetChannels();
-//		}
-//		return "redirect:/admin/channel/list";
-//	}
 
 	/**
 	 * 权重修改

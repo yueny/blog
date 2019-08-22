@@ -15,6 +15,7 @@ import com.yueny.rapid.data.resp.pojo.response.BaseResponse;
 import com.yueny.rapid.data.resp.pojo.response.ListResponse;
 import com.yueny.rapid.data.resp.pojo.response.NormalResponse;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -45,6 +46,7 @@ public class MenuController extends BaseBizController {
      * 列表首页
      */
     @RequestMapping("/index.html")
+    @RequiresPermissions("channel:list")
     public String index(ModelMap model, HttpServletRequest request) {
         model.put("title", "菜单管理");
 
@@ -107,6 +109,7 @@ public class MenuController extends BaseBizController {
 
                 menuBo.setName(condition.getName());
                 menuBo.setIcon(condition.getIcon());
+                menuBo.setWeight(condition.getWeight());
                 menuBo.setUrl(condition.getUrl());
                 menuBo.setPermissionId(condition.getPermissionId());
                 menuBo.setParentId(condition.getParentId());
@@ -116,6 +119,7 @@ public class MenuController extends BaseBizController {
                 MenuBo menuBo = new MenuBo();
                 menuBo.setName(condition.getName());
                 menuBo.setIcon(condition.getIcon());
+                menuBo.setWeight(condition.getWeight());
                 menuBo.setUrl(condition.getUrl());
                 menuBo.setPermissionId(condition.getPermissionId());
                 menuBo.setParentId(condition.getParentId());

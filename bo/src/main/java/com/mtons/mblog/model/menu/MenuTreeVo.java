@@ -10,13 +10,13 @@ import java.util.List;
  * @author - langhsu
  * @create - 2018/5/18
  */
+@Getter
+@Setter
 public class MenuTreeVo {
 
     /**
      * 父菜单主键
      */
-    @Getter
-    @Setter
     private Long parentId;
 
     /**
@@ -32,6 +32,11 @@ public class MenuTreeVo {
      * 菜单链接地址
      */
     private String url;
+
+    /**
+     * 权限主键
+     */
+    private Long permissionId;
     /**
      * 菜单权限值
      */
@@ -49,37 +54,5 @@ public class MenuTreeVo {
             this.children = new LinkedList<>();
         }
         this.children.add(item);
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getPermission() {
-        return permission;
-    }
-
-    public void setPermission(String permission) {
-        this.permission = permission;
     }
 }

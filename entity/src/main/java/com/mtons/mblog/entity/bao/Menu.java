@@ -34,6 +34,12 @@ public class Menu extends AbstractUpdatePlusEntry {
     private String icon;
 
     /**
+     * 权重
+     */
+    @Column
+    private int weight;
+
+    /**
      * 菜单链接地址
      */
     private String url;

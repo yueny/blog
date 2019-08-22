@@ -3,6 +3,7 @@ package com.mtons.mblog.service.atom.bao.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mtons.mblog.bo.MenuBo;
+import com.mtons.mblog.bo.PermissionBO;
 import com.mtons.mblog.dao.mapper.MenuMapper;
 import com.mtons.mblog.entity.bao.Menu;
 import com.mtons.mblog.model.MenuVo;
@@ -58,6 +59,9 @@ public class MenuServiceImpl extends AbstractPlusService<MenuBo, Menu, MenuMappe
         }
 
         for (MenuTreeVo m : map.values()) {
+            PermissionBO permissionBO = permissionService.get(m.getPermissionId());
+            m.setPermission(permissionBO.getName());
+
             if (m.getParentId() == 0) {
                 results.add(m);
             } else {

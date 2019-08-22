@@ -20,6 +20,8 @@ import java.util.List;
  */
 @Builder
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class QTree extends AbstractBo implements IBo {
 	/**
      * id

@@ -70,6 +70,7 @@ public class ShiroConfiguration {
          *
          */
         Map<String, String> hashMap = new LinkedHashMap<>();
+        // 静态资源
         hashMap.put("/dist/**", "anon");
         hashMap.put("/theme/**", "anon");
         hashMap.put("/storage/**", "anon");
@@ -83,14 +84,23 @@ public class ShiroConfiguration {
         hashMap.put("/post/delete/*", "authc");
         hashMap.put("/post/upload", "authc");
 
+        /** 页面权限 */
+        // 首页 AdminController
+
+        // 栏目管理 ChannelController
         hashMap.put("/admin/channel/list.html", "authc,perms[channel:list]");
+        hashMap.put("/admin/channel/view*", "authc,perms[channel:list]");
+        hashMap.put("/admin/channel/tree/add*", "authc,perms[channel:update]");
+        hashMap.put("/admin/channel/tree/query.json", "authc,perms[channel:list]");
         hashMap.put("/admin/channel/update.json", "authc,perms[channel:update]");
+        hashMap.put("/admin/channel/weight.json", "authc,perms[channel:update]");
         hashMap.put("/admin/channel/delete.json", "authc,perms[channel:delete]");
 
         hashMap.put("/admin/post/list", "authc,perms[post:list]");
         hashMap.put("/admin/post/update", "authc,perms[post:update]");
         hashMap.put("/admin/post/delete", "authc,perms[post:delete]");
 
+        // 留言 CommentController
         hashMap.put("/admin/comment/list", "authc,perms[comment:list]");
         hashMap.put("/admin/comment/delete", "authc,perms[comment:delete]");
 
@@ -107,6 +117,9 @@ public class ShiroConfiguration {
         hashMap.put("/admin/authority/role/update", "authc,perms[authority:role:update]");
         hashMap.put("/admin/authority/role/delete", "authc,perms[authority:role:delete]");
 
+        // 权限管理 PermissionController
+
+        //
         hashMap.put("/admin/theme/*", "authc,perms[theme:index]");
 
         // 追踪管理

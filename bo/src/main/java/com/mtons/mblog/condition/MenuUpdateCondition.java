@@ -34,4 +34,9 @@ public class MenuUpdateCondition extends AbstractMaskBo {
      * 所分配的权限主键
      */
     private Long permissionId;
+
+    /**
+     * 权重
+     */
+    private int weight;
 }

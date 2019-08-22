@@ -35,6 +35,7 @@
 
         <#-- 4、etc -->
         <link rel="stylesheet" href="${base}/dist/css/checkbox.css">
+        <link rel="stylesheet" href="${base}/dist/js/comp/number-spinner.css">
 
         <#-- Theme Style -->
         <link href="${base}/theme/admin/dist/css/site.css" rel="stylesheet">
@@ -82,6 +83,7 @@
         <#-- 4、etc -->
         <script src='${base}/dist/vendors/bootstrap-hover/twitter-bootstrap-hover-dropdown.js'></script>
 
+        <script src="${base}/dist/js/comp/number-spinner.js"></script>
         <script src="${base}/dist/vendors/qiaoJs/qiao.js"></script>
         <script src="${base}/dist/vendors/qiaoJs/qiao.config.js"></script>
 

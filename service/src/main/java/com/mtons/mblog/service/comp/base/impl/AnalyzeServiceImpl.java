@@ -2,7 +2,7 @@ package com.mtons.mblog.service.comp.base.impl;
 
 import com.mtons.mblog.service.comp.base.IAnalyzeService;
 import com.mtons.mblog.service.comp.configure.impl.ConfigureGetService;
-import com.mtons.mblog.service.comp.score.MenuJsonService;
+import com.mtons.mblog.service.manager.impl.MenuJsonService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

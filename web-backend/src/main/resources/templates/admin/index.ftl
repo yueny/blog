@@ -116,6 +116,9 @@
                     <button type="button" class="btn btn-info" data-action="reset_indexes">
                         重建索引
                     </button>
+                    <button type="button" class="btn btn-link" data-action="reload_menu">
+                        刷新菜单
+                    </button>
                 </div>
             </div>
         </div>
@@ -158,6 +161,7 @@
     function ajaxReload(json){
         layer.alert(json.message);
     }
+
 	$(function () {
         // 刷新系统变量
         $('button[data-action="reload_options"]').bind('click', function(){
@@ -174,7 +178,16 @@
             }
             return false;
         });
-        
+
+        // 刷新菜单
+        $('button[data-action="reload_menu"]').bind('click', function(){
+            if(confirm('确定要刷新菜单吗？')){
+                J.post('${base}/admin/options/reload_menu',
+                    ajaxReload, "json");
+            }
+            return false;
+        });
+
         J.getJSON('${base}/api/latest_comments', function (result) {
             if (result.length > 0) {
                 var template = $('#chat')[0].text;

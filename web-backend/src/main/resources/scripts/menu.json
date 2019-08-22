@@ -1,7 +1,7 @@
 [
   {
     "icon": "fa fa-tags icon-xlarge",
-    "name": "栏目管理",
+    "name": "栏目管理-history",
     "url": "admin/channel/list.html",
     "permission": "channel:list"
   },

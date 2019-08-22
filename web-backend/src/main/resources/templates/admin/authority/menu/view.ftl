@@ -57,6 +57,15 @@
                         </select>
                     </div>
 
+                    <div class="row form-group">
+                        <label class="control-label col-sm-1" for="name">权重</label>
+                        <div class="col-lg-2 col-md-3">
+                            <input type="number" class="form-control" min="0" max="128"
+                                   name="weight" value="${menuBo.weight}">
+                        </div>
+                    </div>
+
+
                     <#if (menuBo)??>
                         <div class="row form-group">
                             <label class="control-label col-sm-2">创建时间</label>

@@ -42,18 +42,26 @@
                     </div>
 
                     <div class="row form-group">
-                        <label class="control-label col-sm-1">权重</label>
-                        <div class="col-lg-5 col-md-2">
-                            <input type="text" class="form-control" name="weight" value="${permission.weight}">
+                        <label class="control-label col-sm-1" for="name">权重</label>
+                        <div class="input-group spinner">
+                            <input type="number" class="form-control" min="0" max="128"
+                                   name="weight" value="${permission.weight}">
+                            <div class="input-group-btn-vertical">
+                                <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                            </div>
                         </div>
                     </div>
+
             </form>
     </div>
 
 
+    <link rel="stylesheet" href="${base}/dist/js/comp/number-spinner.css">
     <link rel="stylesheet" href="${base}/static/dist/vendors/bootstrap-select/1.13.7/css/bootstrap-select.css">
     <script src="${base}/static/dist/vendors/bootstrap-select/1.13.7/js/bootstrap-select.js"></script>
     <script src="${base}/static/dist/vendors/bootstrap-select/1.13.7/js/i18n/defaults-zh_CN.js"></script>
+    <script src="${base}/dist/js/comp/number-spinner.js"></script>
 
     <script type="text/javascript">
         $(function () {

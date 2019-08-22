@@ -1,8 +1,14 @@
-package com.mtons.mblog.service.comp.score;
+package com.mtons.mblog.service.manager.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.mtons.mblog.model.menu.MenuTreeVo;
+import com.mtons.mblog.service.BaseService;
+import com.mtons.mblog.service.atom.bao.MenuService;
+import com.mtons.mblog.service.manager.IMenuJsonService;
+import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,8 +23,11 @@ import java.util.List;
  * @author - langhsu
  * @create - 2018/5/18
  */
-@Component
-public class MenuJsonService {
+@Service
+public class MenuJsonService extends BaseService implements IMenuJsonService {
+    @Autowired
+    private MenuService menuService;
+
     // 此处从 json文件加载，也可以改为从数据库加载
     private static String config = "/scripts/menu.json";
     private List<MenuTreeVo> menus;
@@ -49,14 +58,32 @@ public class MenuJsonService {
         return menus;
     }
 
+    @Override
     public List<MenuTreeVo> getMenus() {
         if (null == menus) {
-            try {
-                menus = loadJson();
-            } catch (IOException e) {
-                e.printStackTrace();
+            synchronized (this){
+                if (null == menus) {
+                    reload();
+                }
             }
         }
         return menus;
+    }
+
+    @Override
+    public boolean reload() {
+        try {
+            List<MenuTreeVo> menuTreeVos = menuService.findAllForTree();
+
+            if(CollectionUtils.isEmpty(menuTreeVos)){
+                menuTreeVos = loadJson();
+            }
+
+            menus = menuTreeVos;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return true;
     }
 }

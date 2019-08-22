@@ -37,6 +37,11 @@ public class MenuBo  extends BaseBo implements IBo {
     private String url;
 
     /**
+     * 权重
+     */
+    private int weight;
+
+    /**
      * 权限主键
      */
     private Long permissionId;
