@@ -20,6 +20,8 @@ public interface Consts {
 
 	String ROLE_ADMIN = "admin";
 
+	long ADMIN_ID = 1;
+
 	int PAGE_DEFAULT_SIZE = 10;
 
 	int IDENTITY_STEP = 1; // 自增步进
@@ -33,19 +35,14 @@ public interface Consts {
 
 	int ZERO = 0;
 
-	// 禁用状态
-	int STATUS_CLOSED = 1;
-
-	/* 状态-初始 */
+	/*  */
 	int STATUS_NORMAL = 0;
 
-	/* 状态-推荐 */
-	int STATUS_FEATURED = 1;
 
-	/* 状态-锁定 */
-	int STATUS_LOCKED = 1;
-
-	int STATUS_HIDDEN = 1;
+//	/* 状态-锁定 */
+//	int STATUS_LOCKED = 1;
+//
+//	int STATUS_HIDDEN = 1;
 
 	/**
 	 * 排序

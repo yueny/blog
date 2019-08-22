@@ -17,6 +17,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mtons.mblog.base.enums.BlogFeaturedType;
 import com.mtons.mblog.base.consts.Consts;
+import com.mtons.mblog.base.enums.StatusType;
 import com.mtons.mblog.bo.ResourceBO;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.dao.mapper.PostMapper;
@@ -371,7 +372,7 @@ public class PostServiceImpl extends AbstractPlusService<PostBo, Post, PostMappe
 
 		Set<Integer> excludeChannelIds = new HashSet<>();
 
-		List<ChannelVO> channels = channelService.findRootAll(Consts.STATUS_CLOSED);
+    List<ChannelVO> channels = channelService.findRootAll(StatusType.CLOSED.getValue());
 		if (channels != null) {
 			channels.forEach((c) -> excludeChannelIds.add(c.getId()));
 		}

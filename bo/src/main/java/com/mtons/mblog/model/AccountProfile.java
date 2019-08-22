@@ -45,6 +45,8 @@ public class AccountProfile implements IBo, Serializable {
     private String email;
 
     private Date lastLogin;
+
+    // StatusType.CLOSED.getValue()
     private int status;
 
     private String domainHack;

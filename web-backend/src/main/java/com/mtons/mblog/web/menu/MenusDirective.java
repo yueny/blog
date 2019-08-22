@@ -1,8 +1,8 @@
 package com.mtons.mblog.web.menu;
 
+import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.model.menu.MenuTreeVo;
 import com.mtons.mblog.modules.template.DirectiveHandler;
-import com.mtons.mblog.entity.jpa.Role;
 import com.mtons.mblog.modules.template.TemplateDirective;
 import com.mtons.mblog.service.manager.impl.MenuJsonService;
 import org.apache.commons.lang3.StringUtils;
@@ -40,7 +40,7 @@ public class MenusDirective extends TemplateDirective {
 
     private List<MenuTreeVo> filterMenu(Subject subject) {
         List<MenuTreeVo> menus = menuJsonService.getMenus();
-        if (!subject.hasRole(Role.ROLE_ADMIN)) {
+        if (!subject.hasRole(Consts.ROLE_ADMIN)) {
             menus = check(subject, menus);
         }
         return menus;

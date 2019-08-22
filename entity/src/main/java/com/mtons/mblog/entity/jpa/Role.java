@@ -1,7 +1,10 @@
 package com.mtons.mblog.entity.jpa;
 
 
+import com.mtons.mblog.base.enums.StatusType;
 import com.mtons.mblog.entity.bao.Permission;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,66 +19,33 @@ import java.util.List;
 public class Role extends com.yueny.kapo.api.pojo.instance.Entity implements Serializable {
     private static final long serialVersionUID = -1153854616385727165L;
 
-    public static int STATUS_NORMAL = 0;
-    public static int STATUS_CLOSED = 1;
-
-    public static String ROLE_ADMIN = "admin";
-
-    public static long ADMIN_ID = 1;
+    public static int STATUS_NORMAL = StatusType.NORMAL.getValue();
+    public static int STATUS_CLOSED = StatusType.CLOSED.getValue();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
+    @Setter
     private long id;
 
     @Column(nullable = false, updatable = false, length = 32)
+    @Getter
+    @Setter
     private String name;
 
     @Column(length = 140)
+    @Getter
+    @Setter
     private String description;
 
+    // StatusType
+    @Getter
+    @Setter
     private int status;
 
     @Transient
+    @Getter
+    @Setter
     private List<Permission> permissions;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public List<Permission> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(List<Permission> permissions) {
-        this.permissions = permissions;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
 
 }

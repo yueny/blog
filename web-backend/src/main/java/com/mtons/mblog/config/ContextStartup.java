@@ -1,6 +1,7 @@
 package com.mtons.mblog.config;
 
 import com.mtons.mblog.base.consts.Consts;
+import com.mtons.mblog.base.enums.StatusType;
 import com.mtons.mblog.entity.jpa.Options;
 import com.mtons.mblog.service.atom.jpa.ChannelService;
 import com.mtons.mblog.modules.comp.MailService;
@@ -96,7 +97,7 @@ public class ContextStartup implements ApplicationRunner, ServletContextAware {
     }
 
     public void resetChannels() {
-        servletContext.setAttribute("channels", channelService.findRootAllForTree(Consts.STATUS_NORMAL));
+        servletContext.setAttribute("channels", channelService.findRootAllForTree(StatusType.NORMAL.getValue()));
     }
 
 }

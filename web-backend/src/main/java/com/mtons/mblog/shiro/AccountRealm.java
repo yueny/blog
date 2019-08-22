@@ -1,6 +1,7 @@
 package com.mtons.mblog.shiro;
 
 import com.mtons.mblog.base.consts.Consts;
+import com.mtons.mblog.base.enums.StatusType;
 import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.RoleBO;
 import com.mtons.mblog.bo.UserBO;
@@ -58,7 +59,7 @@ public class AccountRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         AccountProfile profile = getAccount(userJpaService, token);
 
-        if (profile.getStatus() == Consts.STATUS_CLOSED) {
+        if (profile.getStatus() == StatusType.CLOSED.getValue()) {
             throw new LockedAccountException(profile.getName());
         }
 

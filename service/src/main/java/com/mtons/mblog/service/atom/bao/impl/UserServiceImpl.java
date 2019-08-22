@@ -3,6 +3,7 @@ package com.mtons.mblog.service.atom.bao.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mtons.mblog.base.consts.Consts;
+import com.mtons.mblog.base.enums.StatusType;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.dao.mapper.UserMapper;
 import com.mtons.mblog.entity.bao.User;
@@ -134,8 +135,8 @@ public class UserServiceImpl extends AbstractPlusService<UserBO, User, UserMappe
     }
 
     @Override
-    public boolean updateStatus(String uid, int status) {
-        return baseMapper.updateStatus(uid, status, Calendar.getInstance().getTime()) == 1;
+    public boolean updateStatus(String uid, StatusType status) {
+        return baseMapper.updateStatus(uid, status.getValue(), Calendar.getInstance().getTime()) == 1;
     }
 
     /**

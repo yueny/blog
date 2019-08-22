@@ -10,6 +10,7 @@
 package com.mtons.mblog.service.atom.bao;
 
 import com.mtons.mblog.base.consts.Consts;
+import com.mtons.mblog.base.enums.StatusType;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.bao.User;
 import com.mtons.mblog.model.AccountProfile;
@@ -113,7 +114,7 @@ public interface UserService extends IPlusBizService<UserBO, User> {
 	 * @param uid
 	 * @param status
 	 */
-	boolean updateStatus(String uid, int status);
+	boolean updateStatus(String uid, StatusType status);
 
 	/**
 	 * 自增发布文章数

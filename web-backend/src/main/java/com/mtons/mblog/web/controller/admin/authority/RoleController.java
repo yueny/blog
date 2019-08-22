@@ -3,6 +3,7 @@
  */
 package com.mtons.mblog.web.controller.admin.authority;
 
+import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.bo.PermissionBO;
 import com.mtons.mblog.bo.RoleBO;
@@ -82,13 +83,14 @@ public class RoleController extends BaseBizController {
 				permissions.add(p);
             }
         }
-        
-        if (Role.ADMIN_ID == role.getId()) {
-			data = Result.failure("管理员角色不可编辑");
-        } else {
+
+		// TODO 管理员编辑
+//        if (Consts.ADMIN_ID == role.getId()) {
+//			data = Result.failure("管理员角色不可编辑");
+//        } else {
             roleService.update(role, permissions);
             data = Result.success();
-        }
+//        }
         model.put("data", data);
         return "redirect:/admin/authority/role/list";
 	}
@@ -97,7 +99,7 @@ public class RoleController extends BaseBizController {
 	@ResponseBody
 	public Result activate(Long id, Boolean active) {
 		Result ret = Result.failure("操作失败");
-		if (id != null && id != Role.ADMIN_ID) {
+		if (id != null && id != Consts.ADMIN_ID) {
 			roleService.activate(id, active);
 			ret = Result.success();
 		}
@@ -108,7 +110,7 @@ public class RoleController extends BaseBizController {
 	@ResponseBody
 	public Result delete(@RequestParam("id") Long id) {
 		Result ret;
-		if (Role.ADMIN_ID == id) {
+		if (Consts.ADMIN_ID == id) {
 			ret = Result.failure("管理员不能操作");
         }else if(roleService.delete(id)){
         	ret = Result.success();

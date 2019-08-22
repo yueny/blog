@@ -42,7 +42,7 @@
                                     <td>${row.name}</td>
                                     <td class="text-center">
                                         <#-- 管理员数据不可被修改，其他的均可被修改 -->
-                                        <#if row.id != 1>
+<#--                                        <#if row.id != 1>-->
                                             <a href="${base}/admin/authority/role/view?id=${row.id}" class="btn btn-xs btn-success">
                                                 <i class="fa fa-check-square-o"></i> 修改
                                             </a>
@@ -50,9 +50,9 @@
                                                data-action="delete">
                                                 <i class="fa fa-bitbucket"></i> 删除
                                             </a>
-                                        <#else>
-                                            <a href="javascript:void(0);" class="btn btn-xs disabled"><i class="fa fa-check-square-o"></i> 不可编辑</a>
-                                        </#if>
+<#--                                        <#else>-->
+<#--                                            <a href="javascript:void(0);" class="btn btn-xs disabled"><i class="fa fa-check-square-o"></i> 不可编辑</a>-->
+<#--                                        </#if>-->
                                     </td>
                                 </tr>
                                 </#list>

@@ -9,8 +9,8 @@
 */
 package com.mtons.mblog.web.controller.admin;
 
+import com.mtons.mblog.base.enums.StatusType;
 import com.mtons.mblog.base.lang.Result;
-import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.model.UserVO;
 import com.mtons.mblog.service.atom.bao.UserService;
@@ -124,7 +124,7 @@ public class UserController extends BaseBizController {
 	@ResponseBody
 	public Result open(Long id) {
 		UserBO userBO = userService.get(id);
-		userService.updateStatus(userBO.getUid(), Consts.STATUS_NORMAL);
+		userService.updateStatus(userBO.getUid(), StatusType.NORMAL);
 		return Result.success();
 	}
 
@@ -136,7 +136,7 @@ public class UserController extends BaseBizController {
 	@ResponseBody
 	public Result close(Long id) {
 		UserBO userBO = userService.get(id);
-		userService.updateStatus(userBO.getUid(), Consts.STATUS_CLOSED);
+		userService.updateStatus(userBO.getUid(), StatusType.CLOSED);
 		return Result.success();
 	}
 
