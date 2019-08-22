@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mtons.mblog.web.controller.admin;
+package com.mtons.mblog.web.controller.admin.authority;
 
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.bo.PermissionBO;
@@ -29,7 +29,7 @@ import java.util.List;
  * @author - langhsu on 2018/2/11
  */
 @Controller
-@RequestMapping("/admin/role")
+@RequestMapping("/admin/authority/role")
 public class RoleController extends BaseBizController {
 	@Autowired
     private RoleService roleService;
@@ -49,7 +49,7 @@ public class RoleController extends BaseBizController {
 		Page<RoleBO> page = roleService.paging(pageable, name);
 		model.put("name", name);
 		model.put("page", page);
-		return "/admin/role/list";
+		return "/admin/authority/role/list";
 	}
 
 	@RequestMapping("/view")
@@ -66,7 +66,7 @@ public class RoleController extends BaseBizController {
 			e.printStackTrace();
 		}
 
-        return "/admin/role/view";
+        return "/admin/authority/role/view";
 	}
 	
 	@RequestMapping("/update")
@@ -90,7 +90,7 @@ public class RoleController extends BaseBizController {
             data = Result.success();
         }
         model.put("data", data);
-        return "redirect:/admin/role/list";
+        return "redirect:/admin/authority/role/list";
 	}
 	
 	@RequestMapping("/activate")

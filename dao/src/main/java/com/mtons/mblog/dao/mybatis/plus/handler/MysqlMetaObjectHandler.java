@@ -23,7 +23,9 @@ public class MysqlMetaObjectHandler implements MetaObjectHandler {
         // 在插入的时候自动填充 createDate
         this.setFieldValByName(MapperConst.CREATE_TIME_FIELD, now, metaObject);
         this.setFieldValByName(MapperConst.MODIFY_TIME_FIELD, now, metaObject);
-        this.setFieldValByName(MapperConst.VERSION_FIELD, 0L, metaObject);
+
+        // 如果字段不存在， 也无影响
+        this.setFieldValByName(MapperConst.VERSION_FIELD, 1, metaObject);
     }
 
     @Override

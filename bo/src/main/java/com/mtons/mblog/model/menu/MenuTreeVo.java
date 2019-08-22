@@ -3,13 +3,22 @@ package com.mtons.mblog.model.menu;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * @author - langhsu
  * @create - 2018/5/18
  */
-public class Menu {
+public class MenuTreeVo {
+
+    /**
+     * 父菜单主键
+     */
+    @Getter
+    @Setter
+    private Long parentId;
+
     /**
      * 图标
      */
@@ -18,6 +27,7 @@ public class Menu {
      * 菜单名
      */
     private String name;
+
     /**
      * 菜单链接地址
      */
@@ -32,7 +42,14 @@ public class Menu {
      */
     @Getter
     @Setter
-    private List<Menu> children;
+    private List<MenuTreeVo> children;
+
+    public void addChildren(MenuTreeVo item){
+        if(this.children == null){
+            this.children = new LinkedList<>();
+        }
+        this.children.add(item);
+    }
 
     public String getIcon() {
         return icon;

@@ -13,15 +13,25 @@ tools.success = function (val) {
     return val == "00000000";
 };
 
+/* 请求是否为成功，200 */
+tools.success200 = function (val) {
+    return val == 200;
+};
+
+/* 获取响应码 */
+tools.resp_code = function (resp) {
+    return resp.code;
+};
+/* 获取响应信息 */
+tools.resp_text = function (resp) {
+    return resp.message;
+};
+
 /* 获取上传结果码 */
 tools.upload_success = function (resp){
 	return tools.success(resp.code);
 };
 
-/* 请求是否为成功，200 */
-tools.success200 = function (val) {
-    return val == 200;
-};
 
 /* 获取上传结果文本 */
 tools.upload_msg_text = function (resp){

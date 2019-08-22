@@ -1,10 +1,16 @@
 package com.mtons.mblog.web.exceptions;
 
 import com.mtons.mblog.base.enums.ErrorType;
+import com.mtons.mblog.service.exception.MtonsException;
+import com.mtons.mblog.service.util.formatter.JsonUtils;
+import com.yueny.rapid.data.resp.pojo.response.BaseResponse;
+import com.yueny.rapid.lang.json.JsonUtil;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -26,10 +32,17 @@ public class GlobalDefaultExceptionHandler {
     private static Logger log = LoggerFactory.getLogger(GlobalDefaultExceptionHandler.class);
 
     //运行时异常
+    @ExceptionHandler(MtonsException.class)
+    public String mtonsExceptionHandler(HttpServletRequest req,
+                                          final HttpServletResponse response, MtonsException ex) throws Exception {
+        return resultFormat(req, response, ex.getCode(), ex.getErrorMessage(), ex);
+    }
+
+    //运行时异常
     @ExceptionHandler(RuntimeException.class)
     public String runtimeExceptionHandler(HttpServletRequest req,
                   final HttpServletResponse response, RuntimeException ex) throws Exception {
-        return resultFormat(req, response, ErrorType.SYSTEM_ERROR.getCode(), ex);
+        return resultFormat(req, response, ErrorType.SYSTEM_ERROR.getCode(), ex.getMessage(), ex);
     }
 
     //其他错误
@@ -44,41 +57,46 @@ public class GlobalDefaultExceptionHandler {
             throw e;
         }
 
-        return resultFormat(req, response, ErrorType.SYSTEM_ERROR.getCode(), e);
+        return resultFormat(req, response, ErrorType.SYSTEM_ERROR.getCode(), e.getMessage(), e);
     }
 
     private <T extends Throwable> String resultFormat(HttpServletRequest req,
-                  final HttpServletResponse response, String code, T e) throws Exception {
+                  final HttpServletResponse response, String code, String errorMessage, T e) throws Exception {
         // 添加自己的异常处理逻辑，如日志记录等
         e.printStackTrace();
 
         // 如果是json格式的ajax请求
         if (req.getHeader("accept").indexOf("application/json") > -1 || (req.getHeader("X-Requested-With") != null
                 && req.getHeader("X-Requested-With").indexOf("XMLHttpRequest") > -1)) {
-            response.setStatus(500);
-            rendJson(response, "code", e.getMessage());
+//            response.setStatus(500);
+            response.setStatus(HttpStatus.OK.value()); //设置状态码
+            rendJson(response, code, errorMessage);
 
             return "";
         }
 
         // 如果是普通请求
         // Otherwise setup and send the user to a default error-view.
-        req.setAttribute("message", e);
+        req.setAttribute("code", code);
+        req.setAttribute("message", errorMessage);
         req.setAttribute("url", req.getRequestURL());
         return "redirect:/error";
     }
 
-    private void rendJson(final HttpServletResponse response, final String code, final String message)
+    private void rendJson(final HttpServletResponse response, final String code, final String errorMessage)
             throws IOException {
-        final JSONObject json = new JSONObject();
-        json.put("code", code);
-        json.put("message", message);
-        rendText(response, json.toString());
+        BaseResponse resp = new BaseResponse();
+        resp.setCode(code);
+        resp.setMessage(errorMessage);
+//        final JSONObject json = new JSONObject();
+//        json.put("code", code);
+//        json.put("message", errorMessage);
+        rendText(response, JsonUtil.toJson(resp));
     }
 
     private void rendText(final HttpServletResponse response, final String content) throws IOException {
-        response.setContentType("application/json;charset=utf-8");
-        // response.setCharacterEncoding("UTF-8");
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setCharacterEncoding("UTF-8"); //避免乱码
 
         try {
             final PrintWriter writer = response.getWriter();

@@ -6,9 +6,13 @@ import com.mtons.mblog.bo.PermissionBO;
 import com.mtons.mblog.model.PermissionTreeVo;
 import com.mtons.mblog.entity.bao.Permission;
 import com.mtons.mblog.dao.mapper.PermissionMapper;
+import com.mtons.mblog.service.atom.bao.MenuService;
 import com.mtons.mblog.service.atom.bao.PermissionService;
+import com.mtons.mblog.service.exception.MtonsException;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,9 +24,11 @@ import java.util.*;
  * @author - langhsu on 2018/2/11
  */
 @Service
-@Transactional(readOnly = true)
 public class PermissionServiceImpl extends AbstractPlusService<PermissionBO, Permission, PermissionMapper>
         implements PermissionService {
+    @Autowired
+    private MenuService menuService;
+
     @Override
     public Page<PermissionBO> findAll(Pageable pageable, String name) {
         LambdaQueryWrapper<Permission> queryWrapper = new QueryWrapper<Permission>().lambda();
@@ -46,6 +52,19 @@ public class PermissionServiceImpl extends AbstractPlusService<PermissionBO, Per
 //            return predicate;
 //        }, pageable);
 //        return page;
+    }
+
+    @Override
+    public List<PermissionBO> findAllByParentId() {
+        return findAllByParentId(0L);
+    }
+
+    @Override
+    public List<PermissionBO> findAllByParentId(Long parentId) {
+        LambdaQueryWrapper<Permission> queryWrapper = new QueryWrapper<Permission>().lambda();
+        queryWrapper.eq(Permission::getParentId, parentId);
+
+        return findAll(queryWrapper);
     }
 
     @Override
@@ -79,6 +98,14 @@ public class PermissionServiceImpl extends AbstractPlusService<PermissionBO, Per
         return results;
     }
 
+    @Override
+    public PermissionBO findByName(String name) {
+        LambdaQueryWrapper<Permission> queryWrapper = new QueryWrapper<Permission>().lambda();
+        queryWrapper.eq(Permission::getName, name);
+
+        return get(queryWrapper);
+    }
+
 //    @Override
 //    public List<PermissionTreeVo> tree(int parentId) {
 //        LambdaQueryWrapper<Permission> queryWrapper = new QueryWrapper<Permission>().lambda();
@@ -109,11 +136,68 @@ public class PermissionServiceImpl extends AbstractPlusService<PermissionBO, Per
 ////        return results;
 ////    }
 
+    /**
+     * 因存在默认排序的服务重写
+     *
+     * @return
+     */
     @Override
     public List<PermissionBO> findAll() {
         QueryWrapper<Permission> queryWrapper = new QueryWrapper<Permission>();
         queryWrapper.orderByAsc("id");
 
         return super.findAll(queryWrapper);
+    }
+
+    /**
+     * 因存在删除前置条件的服务重写
+     *
+     * @param ids 主键ID列表
+     * @return
+     */
+    @Override
+    public boolean deleteByIds(Set<Long> ids) {
+        for (Long id : ids) {
+            // 判断该菜单 id 是否存在子菜单
+            if(CollectionUtils.isNotEmpty(findAllByParentId(id))){
+                PermissionBO pb = get(id);
+                if(pb !=null){
+                    throw new MtonsException("菜单项:「" + pb.getName() + "」 存在子菜单，不可以被删除。");
+                }
+                throw new MtonsException("菜单项:" + id + "存在子菜单，不可以被删除。");
+            }
+
+            if(CollectionUtils.isNotEmpty(menuService.findByPermissionId(id))){
+                throw new MtonsException("菜单项:" + id + "正在被菜单使用，不可以被删除。");
+            }
+        }
+
+        return super.deleteByIds(ids);
+    }
+
+    /**
+     * 因存在权限值不允许重复的前置条件的服务重写
+     */
+    @Override
+    public boolean updateById(PermissionBO t) {
+        PermissionBO pb = findByName(t.getName());
+        if(pb != null && pb.getId() != t.getId()){
+            throw new MtonsException("权限值已存在，不可以被更新。");
+        }
+
+        return super.updateById(t);
+    }
+
+    /**
+     * 因存在权限值不允许重复的前置条件的服务重写
+     */
+    @Override
+    public boolean insert(PermissionBO t) {
+        PermissionBO pb = findByName(t.getName());
+        if(pb != null){
+            throw new MtonsException("权限值已存在，不可以被新增。");
+        }
+
+        return super.insert(t);
     }
 }

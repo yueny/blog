@@ -94,9 +94,9 @@ $.showSuccessTimeout = function(str, func) {
  * @param url 请求地址
  * @param method 请求方法类型
  * @param title 标题
- * @param funcSubmit 对话框提交后的执行方法
+ * @param funcSubmitSuccess 对话框提交后的执行方法
  */
-$.showDialog = function(url, method, title, funcSubmit) {
+$.showDialog = function(url, method, title, funcSubmitSuccess) {
     BootstrapDialog.show({
         size: BootstrapDialog.SIZE_WIDE,
         draggable: true, // Default value is false，可拖拽
@@ -144,21 +144,21 @@ $.showDialog = function(url, method, title, funcSubmit) {
                             //$(form).holdSubmit(false);
                             $button.enable();
 
-                            if(tools.success(data.code)){
-                                layer.msg('提交成功：' + data.message, {time: 500});
+                            if(tools.success(tools.resp_code(data))){
+                                layer.msg('提交成功：' + tools.resp_text(data), {time: 500});
                                 dialogRef.close();
 
-                                if(funcSubmit){
-                                    funcSubmit.call();
+                                if(funcSubmitSuccess){
+                                    funcSubmitSuccess.call();
                                 }
                             }else{
                                 dialogRef.close();
-                                layer.msg('提交失败:' + data.message, {icon: 5});
+                                layer.msg('提交失败:' + tools.resp_text(data), {icon: 5});
                             }
                         },
                         error:function(error){
                             $button.enable();
-                            layer.msg('提交失败', {icon: 5});
+                            layer.msg('提交失败了:' + error, {icon: 5});
                         }
                     });
                 }
@@ -172,31 +172,12 @@ $.showDialog = function(url, method, title, funcSubmit) {
                 }
             }]
     });
-    // $.ajax({
-    //     type: method,
-    //     url: url,
-    //     cache: false,
-    //     success: function (response) {
-    //         // 此处 response 返回的是页面
-    //          BootstrapDialog.show({
-    //             size: BootstrapDialog.SIZE_WIDE,
-    //             draggable: true, // Default value is false，可拖拽
-    //             closable : true, // Default value is false，点击对话框以外的页面内容可关闭
-    //             message: function (dialog) {
-    //                 var $message = $('<div></div>');
-    //                 $message.load(response);// 把传回来的页面作为message返回
-    //
-    //                 return $message;
-    //             },
-    //             title: title
-    //         });
-    //     }
-    // });
 };
 
 /**
  * ajax加载远程页面弹出框
  */
+// TODO 暂时无效， 未调试
 $.fn.extend({
     ajaxTodialog : function() {
         // 为超链接绑定 click 事件

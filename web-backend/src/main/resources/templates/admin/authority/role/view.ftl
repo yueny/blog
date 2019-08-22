@@ -1,9 +1,9 @@
 <#include "/admin/utils/ui.ftl"/>
 <@layout>
 
-<link href="${base}/dist/vendors/treetable/css/jquery.treetable.css" rel="stylesheet" type="text/css"/>
-<link href="${base}/dist/vendors/treetable/css/jquery.treetable.theme.default.css" rel="stylesheet" type="text/css"/>
-<script src="${base}/dist/vendors/treetable/jquery.treetable.js"></script>
+<link href="${base}/static/dist/vendors/treetable/css/jquery.treetable.css" rel="stylesheet" type="text/css"/>
+<link href="${base}/static/dist/vendors/treetable/css/jquery.treetable.theme.default.css" rel="stylesheet" type="text/css"/>
+<script src="${base}/static/dist/vendors/treetable/jquery.treetable.js"></script>
 
 <#macro treeIterator nodes>
 <#-- 循环节点-->

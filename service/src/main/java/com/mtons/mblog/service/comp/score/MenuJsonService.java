@@ -1,7 +1,7 @@
 package com.mtons.mblog.service.comp.score;
 
 import com.alibaba.fastjson.JSONArray;
-import com.mtons.mblog.model.menu.Menu;
+import com.mtons.mblog.model.menu.MenuTreeVo;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
@@ -21,14 +21,14 @@ import java.util.List;
 public class MenuJsonService {
     // 此处从 json文件加载，也可以改为从数据库加载
     private static String config = "/scripts/menu.json";
-    private List<Menu> menus;
+    private List<MenuTreeVo> menus;
 
     /**
      * 将配置文件转换成 List 对象
      *
      * @return
      */
-    private synchronized List<Menu> loadJson() throws IOException {
+    private synchronized List<MenuTreeVo> loadJson() throws IOException {
         InputStream inStream = MenuJsonService.class.getResourceAsStream(config);
         BufferedReader reader = new BufferedReader(new InputStreamReader(inStream, Charset.forName("UTF-8")));
 
@@ -45,11 +45,11 @@ public class MenuJsonService {
             inStream.close();
         }
 
-        List<Menu> menus = JSONArray.parseArray(json.toString(), Menu.class);
+        List<MenuTreeVo> menus = JSONArray.parseArray(json.toString(), MenuTreeVo.class);
         return menus;
     }
 
-    public List<Menu> getMenus() {
+    public List<MenuTreeVo> getMenus() {
         if (null == menus) {
             try {
                 menus = loadJson();

@@ -9,25 +9,37 @@
 */
 package com.mtons.mblog.service.exception;
 
+import com.mtons.mblog.base.enums.ErrorType;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
- * 
+ * 运行时业务异常
+ *
  * @author langhsu
  *
  */
 public class MtonsException extends RuntimeException {
 	private static final long serialVersionUID = -7443213283905815106L;
-	private int code;
+
+	@Getter
+	@Setter
+	private String code;
+	@Getter
+	@Setter
+	private String errorMessage;
 
 	public MtonsException() {
 	}
-	
+
 	/**
 	 * MtonsException
-	 * @param code 错误代码
+	 * @param errorType 错误代码
 	 */
-	public MtonsException(int code) {
-		super("code=" + code);
-		this.code = code;
+	public MtonsException(ErrorType errorType) {
+		super("code=" + errorType.getCode());
+		this.code = errorType.getCode();
+		errorMessage = errorType.getMessage();
 	}
 
 	/**
@@ -36,6 +48,8 @@ public class MtonsException extends RuntimeException {
 	 */
 	public MtonsException(String message) {
 		super(message);
+		this.code = ErrorType.INVALID_ERROR.getCode();
+		errorMessage = message;
 	}
 
 	/**
@@ -44,6 +58,8 @@ public class MtonsException extends RuntimeException {
 	 */
 	public MtonsException(Throwable cause) {
 		super(cause);
+		this.code = ErrorType.INVALID_ERROR.getCode();
+		errorMessage = cause.getMessage();
 	}
 
 	/**
@@ -53,6 +69,8 @@ public class MtonsException extends RuntimeException {
 	 */
 	public MtonsException(String message, Throwable cause) {
 		super(message, cause);
+		this.code = ErrorType.INVALID_ERROR.getCode();
+		errorMessage = message;
 	}
 	
 	/**
@@ -60,16 +78,10 @@ public class MtonsException extends RuntimeException {
 	 * @param code 错误代码
 	 * @param message 错误消息
 	 */
-	public MtonsException(int code, String message) {
+	public MtonsException(String code, String message) {
 		super(message);
 		this.code = code;
+		errorMessage = message;
 	}
 
-	public int getCode() {
-		return code;
-	}
-
-	public void setCode(int code) {
-		this.code = code;
-	}
 }

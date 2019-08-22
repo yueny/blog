@@ -103,9 +103,9 @@ public class ShiroConfiguration {
         hashMap.put("/admin/options/index", "authc,perms[options:index]");
         hashMap.put("/admin/options/update", "authc,perms[options:update]");
 
-        hashMap.put("/admin/role/list", "authc,perms[role:list]");
-        hashMap.put("/admin/role/update", "authc,perms[role:update]");
-        hashMap.put("/admin/role/delete", "authc,perms[role:delete]");
+        hashMap.put("/admin/authority/role/list", "authc,perms[authority:role:list]");
+        hashMap.put("/admin/authority/role/update", "authc,perms[authority:role:update]");
+        hashMap.put("/admin/authority/role/delete", "authc,perms[authority:role:delete]");
 
         hashMap.put("/admin/theme/*", "authc,perms[theme:index]");
 

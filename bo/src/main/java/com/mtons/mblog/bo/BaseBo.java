@@ -9,6 +9,7 @@
 */
 package com.mtons.mblog.bo;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
 import com.yueny.superclub.api.pojo.IBo;
 import lombok.Getter;
@@ -30,10 +31,7 @@ public abstract class BaseBo extends AbstractMaskBo implements IBo, Serializable
 
 	private Long id;
 
+	@JSONField(name="created", serialize = true, format = "yyyy-MM-dd HH:mm:ss")
 	private Date created;
-
-//    /** 表修改时间 */
-//    @TableField(fill = FieldFill.INSERT_UPDATE)
-//    private Date modifyTime;
 
 }

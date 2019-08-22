@@ -1,6 +1,6 @@
 package com.mtons.mblog.web.menu;
 
-import com.mtons.mblog.model.menu.Menu;
+import com.mtons.mblog.model.menu.MenuTreeVo;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.entity.jpa.Role;
 import com.mtons.mblog.modules.template.TemplateDirective;
@@ -34,21 +34,21 @@ public class MenusDirective extends TemplateDirective {
 
     @Override
     public void execute(DirectiveHandler handler) throws Exception {
-        List<Menu> menus = filterMenu(SecurityUtils.getSubject());
+        List<MenuTreeVo> menus = filterMenu(SecurityUtils.getSubject());
         handler.put(RESULTS, menus).render();
     }
 
-    private List<Menu> filterMenu(Subject subject) {
-        List<Menu> menus = menuJsonService.getMenus();
+    private List<MenuTreeVo> filterMenu(Subject subject) {
+        List<MenuTreeVo> menus = menuJsonService.getMenus();
         if (!subject.hasRole(Role.ROLE_ADMIN)) {
             menus = check(subject, menus);
         }
         return menus;
     }
 
-    private List<Menu> check(Subject subject, List<Menu> menus) {
-        List<Menu> results = new LinkedList<>();
-        for (Menu menu : menus) {
+    private List<MenuTreeVo> check(Subject subject, List<MenuTreeVo> menus) {
+        List<MenuTreeVo> results = new LinkedList<>();
+        for (MenuTreeVo menu : menus) {
             if (check(subject, menu)) {
                 results.add(menu);
             }
@@ -57,7 +57,7 @@ public class MenusDirective extends TemplateDirective {
         return results;
     }
 
-    private boolean check(Subject subject, Menu menu) {
+    private boolean check(Subject subject, MenuTreeVo menu) {
         boolean authorized = false;
         // 菜单项没有加permission， 则允许任何人访问
         if (StringUtils.isBlank(menu.getPermission())) {

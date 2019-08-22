@@ -1,17 +1,16 @@
-package com.mtons.mblog.web.controller.admin;
+package com.mtons.mblog.web.controller.admin.authority;
 
+import com.google.common.collect.Sets;
 import com.mtons.mblog.base.enums.ErrorType;
 import com.mtons.mblog.bo.PermissionBO;
-import com.mtons.mblog.bo.ViewLogVO;
 import com.mtons.mblog.condition.PermissionUpdateCondition;
-import com.mtons.mblog.model.PermissionTreeVo;
 import com.mtons.mblog.service.atom.bao.PermissionService;
+import com.mtons.mblog.service.exception.MtonsException;
 import com.mtons.mblog.web.controller.BaseBizController;
 import com.yueny.rapid.data.resp.pojo.response.BaseResponse;
-import com.yueny.rapid.data.resp.pojo.response.JsonListResponse;
 import com.yueny.rapid.data.resp.pojo.response.ListResponse;
 import com.yueny.rapid.data.resp.pojo.response.NormalResponse;
-import com.yueny.rapid.lang.date.DateTimeUtil;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 菜单、权限管理
@@ -27,7 +27,7 @@ import java.util.List;
  * @create - 2018/5/18
  */
 @Controller
-@RequestMapping("/admin/permission")
+@RequestMapping("/admin/authority/permission")
 public class PermissionController extends BaseBizController {
     @Autowired
     private PermissionService permissionService;
@@ -37,11 +37,11 @@ public class PermissionController extends BaseBizController {
      */
     @RequestMapping("/index.html")
     public String index(ModelMap model, HttpServletRequest request) {
-        return "/admin/role/permission/list";
+        return "/admin/authority/permission/list";
     }
 
     /**
-     * 获取权限列表
+     * 获取权限列表， 非树结构。树化在前端页面完成
      *
      * @return
      */
@@ -57,11 +57,12 @@ public class PermissionController extends BaseBizController {
     }
 
     /**
-     * 访问记录详情
+     * 详情
      */
     @RequestMapping(value="/view", method = {RequestMethod.GET})
     public String get(Long id, ModelMap model) {
         // 1为修改模式. 0为新增模式, 2为预览模式
+        // 暂未使用该功能
         Integer modelType = 0;
 
         if (id != null && id > 0) {
@@ -72,9 +73,10 @@ public class PermissionController extends BaseBizController {
             }
         }
 
+        model.put("permissionRootList", permissionService.findAllByParentId());
         model.put("modelType", modelType);
 
-        return "/admin/role/permission/view";
+        return "/admin/authority/permission/view";
     }
 
     /**
@@ -84,7 +86,7 @@ public class PermissionController extends BaseBizController {
     @RequestMapping(value = "/update.json", method = RequestMethod.POST)
     @ResponseBody
     public BaseResponse update(PermissionUpdateCondition condition) {
-        NormalResponse<Void> response = new NormalResponse<>();
+        BaseResponse response = new BaseResponse();
 
         if (condition != null) {
             if (condition.getId() != null && condition.getId() > 0) {
@@ -114,5 +116,39 @@ public class PermissionController extends BaseBizController {
 
         response.setMessage("数据保存成功！");
         return response;
+    }
+
+    /**
+     * 批量删除
+     * @param ids 数据主键列表
+     * @return 删除结果
+     */
+    @RequestMapping(value = "/delete.json", method = RequestMethod.POST)
+    @ResponseBody
+    public NormalResponse<Boolean> delete(@RequestParam("id") List<Long> ids) {
+        NormalResponse<Boolean> resp = new NormalResponse<>();
+
+        if (CollectionUtils.isNotEmpty(ids)) {
+            try {
+                Set<Long> idList = Sets.newHashSet();
+                idList.addAll(ids);
+
+                permissionService.deleteByIds(idList);
+                resp.setData(true);
+            } catch (MtonsException e) {
+                resp.setCode(e.getCode());
+                resp.setMessage("删除异常：" + e.getErrorMessage());
+                resp.setData(false);
+
+                logger.error("exception:", e);
+            } catch (Exception e) {
+                resp.setCode(ErrorType.INVALID_ERROR.getCode());
+                resp.setMessage("删除异常：" + e.getMessage());
+                resp.setData(false);
+
+                logger.error("exception:", e);
+            }
+        }
+        return resp;
     }
 }

@@ -1,5 +1,7 @@
 package com.mtons.mblog.entity.bao;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.Version;
 import lombok.Getter;
@@ -34,9 +36,11 @@ public class Permission extends AbstractIDPlusEntry implements Serializable {
     /**
      * @Version 乐观锁注解、标记
      */
-    @Version
     // set version = version+1 where version = version
-    //@TableField(value="version", fill = FieldFill.INSERT_UPDATE, update="%s+1")
+    @Version
+    // insert, set version = 0
+    @TableField(fill = FieldFill.INSERT)
+//    @TableField(value="version", fill = FieldFill.INSERT, update="%s+1")
     private Integer version;
 
 }

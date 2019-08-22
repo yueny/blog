@@ -23,18 +23,26 @@
     "url": "admin/user/list",
     "permission": "user:list"
   },
+
   {
     "icon": "fa fa fa-registered icon-xlarge",
     "name": "角色管理",
-    "url": "admin/role/list",
-    "permission": "role:list"
+    "url": "admin/authority/role/list",
+    "permission": "authority:role:list"
   },
   {
     "icon": "fa fa fa-registered icon-xlarge",
     "name": "权限管理",
-    "url": "admin/permission/index.html",
-    "permission": "permission:index"
+    "url": "admin/authority/permission/index.html",
+    "permission": "authority:permission:index"
   },
+  {
+    "icon": "fa fa fa-registered icon-xlarge",
+    "name": "菜单管理",
+    "url": "admin/authority/menu/index.html",
+    "permission": "authority:menu:index"
+  },
+
   {
     "icon": "fa fa-circle-o icon-xlarge",
     "name": "主题管理",
