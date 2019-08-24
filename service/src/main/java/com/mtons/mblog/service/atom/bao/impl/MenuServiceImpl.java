@@ -3,17 +3,11 @@ package com.mtons.mblog.service.atom.bao.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mtons.mblog.bo.MenuBo;
-import com.mtons.mblog.bo.PermissionBO;
 import com.mtons.mblog.dao.mapper.MenuMapper;
 import com.mtons.mblog.entity.bao.Menu;
-import com.mtons.mblog.model.MenuVo;
-import com.mtons.mblog.model.menu.MenuTreeVo;
 import com.mtons.mblog.service.atom.bao.MenuService;
-import com.mtons.mblog.service.atom.bao.PermissionService;
 import com.mtons.mblog.service.exception.MtonsException;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -25,8 +19,6 @@ import java.util.*;
 @Service
 public class MenuServiceImpl extends AbstractPlusService<MenuBo, Menu, MenuMapper>
         implements MenuService {
-    @Autowired
-    private PermissionService permissionService;
 
     @Override
     public List<MenuBo> findAllByParentId() {
@@ -41,58 +33,18 @@ public class MenuServiceImpl extends AbstractPlusService<MenuBo, Menu, MenuMappe
         return findAll(queryWrapper);
     }
 
-    @Override
-    public List<MenuTreeVo> findAllForTree() {
-        QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
-        queryWrapper.orderByDesc("weight");
-        queryWrapper.orderByAsc("id");
-
-        List<MenuBo> data = findAll(queryWrapper);
-
-        List<MenuTreeVo> results = new LinkedList<>();
-
-        Map<Long, MenuTreeVo> map = new LinkedHashMap<>();
-        for (MenuBo po : data) {
-            MenuTreeVo tree = new MenuTreeVo();
-            BeanUtils.copyProperties(po, tree);
-            map.put(po.getId(), tree);
-        }
-
-        for (MenuTreeVo m : map.values()) {
-            PermissionBO permissionBO = permissionService.get(m.getPermissionId());
-            m.setPermission(permissionBO.getName());
-
-            if (m.getParentId() == 0) {
-                results.add(m);
-            } else {
-                MenuTreeVo p = map.get(m.getParentId());
-                if (p != null) {
-                    p.addChildren(m);
-                }
-            }
-        }
-
-        return results;
-    }
-
-
     /**
-     * 因存在默认排序的服务重写
+     * 重写排序
      *
      * @return
      */
     @Override
-    public List<MenuVo> findAllForPermission() {
+    public List<MenuBo> findAll() {
         QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("weight");
         queryWrapper.orderByAsc("id");
 
-        List<MenuBo> menuBos = super.findAll(queryWrapper);
-        List<MenuVo> list = mapAny(menuBos, MenuVo.class);
-        for (MenuVo menuVo : list) {
-            menuVo.setPermission(permissionService.get(menuVo.getPermissionId()));
-        }
-        return list;
+        return findAll(queryWrapper);
     }
 
     @Override

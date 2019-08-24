@@ -63,6 +63,13 @@ public interface IPlusBizService<T extends IBo, S>
 	 */
 	boolean delete(Wrapper<S> wrapper);
 
+	/**
+	 * 数据保存操作操作
+	 *
+	 * @param bo 实体对象
+	 */
+	boolean saveOrUpdate(T bo);
+
 //	/**
 //	 * 根据 whereEntity 条件，更新记录
 //	 *
@@ -97,13 +104,6 @@ public interface IPlusBizService<T extends IBo, S>
 //	 * @param batchSize  更新批次数量
 //	 */
 //	boolean updateBatchById(Collection<T> entityList, int batchSize);
-//
-//	/**
-//	 * TableId 注解存在更新记录，否插入一条记录
-//	 *
-//	 * @param entity 实体对象
-//	 */
-//	boolean saveOrUpdate(T entity);
 //
 //	/**
 //	 * 根据 ID 查询

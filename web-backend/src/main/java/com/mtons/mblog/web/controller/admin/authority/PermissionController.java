@@ -2,8 +2,11 @@ package com.mtons.mblog.web.controller.admin.authority;
 
 import com.google.common.collect.Sets;
 import com.mtons.mblog.base.enums.ErrorType;
+import com.mtons.mblog.base.enums.FuncType;
+import com.mtons.mblog.base.enums.StatusType;
 import com.mtons.mblog.bo.PermissionBO;
 import com.mtons.mblog.condition.PermissionUpdateCondition;
+import com.mtons.mblog.model.PermissionTreeVo;
 import com.mtons.mblog.service.atom.bao.PermissionService;
 import com.mtons.mblog.service.exception.MtonsException;
 import com.mtons.mblog.web.controller.BaseBizController;
@@ -63,20 +66,20 @@ public class PermissionController extends BaseBizController {
      */
     @RequestMapping(value="/view", method = {RequestMethod.GET})
     public String get(Long id, ModelMap model) {
-        // 1为修改模式. 0为新增模式, 2为预览模式
-        // 暂未使用该功能
-        Integer modelType = 0;
-
         if (id != null && id > 0) {
             PermissionBO permissionBO = permissionService.get(id);
             if(permissionBO != null){
                 model.put("permission", permissionBO);
-                modelType = 1;
             }
         }
 
-        model.put("permissionRootList", permissionService.findAllByParentId());
-        model.put("modelType", modelType);
+        // 选择资源文件的父级， 所以为菜单
+        // 非树结构
+//        List<PermissionBO> permissionRootList = permissionService.findAllByParentId();
+        // 树结构
+        List<PermissionTreeVo> permissionRootList = permissionService.findAllForTree(FuncType.MENU);
+        model.put("permissionList", permissionRootList);
+        model.put("funcTypeList", FuncType.values());
 
         return "/admin/authority/permission/view";
     }
@@ -91,8 +94,9 @@ public class PermissionController extends BaseBizController {
         BaseResponse response = new BaseResponse();
 
         if (condition != null) {
+            PermissionBO permissionBO;
             if (condition.getId() != null && condition.getId() > 0) {
-                PermissionBO permissionBO = permissionService.get(condition.getId());
+                permissionBO = permissionService.get(condition.getId());
                 if(permissionBO == null){
                     response.setCode(ErrorType.INVALID_ERROR.getCode());
                     response.setMessage("欲更新数据不存在");
@@ -103,17 +107,17 @@ public class PermissionController extends BaseBizController {
                 permissionBO.setDescription(condition.getDescription());
                 permissionBO.setWeight(condition.getWeight());
                 permissionBO.setParentId(condition.getParentId());
-
-                permissionService.updateById(permissionBO);
+                permissionBO.setFuncType(condition.getFuncType());
             } else {
-                PermissionBO permissionBO = new PermissionBO();
+                permissionBO = new PermissionBO();
                 permissionBO.setName(condition.getName());
                 permissionBO.setDescription(condition.getDescription());
                 permissionBO.setWeight(condition.getWeight());
                 permissionBO.setParentId(condition.getParentId());
-
-                permissionService.insert(permissionBO);
+                permissionBO.setFuncType(condition.getFuncType());
             }
+
+            permissionService.saveOrUpdate(permissionBO);
         }
 
         response.setMessage("数据保存成功！");

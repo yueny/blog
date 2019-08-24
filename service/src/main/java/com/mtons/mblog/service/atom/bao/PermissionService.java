@@ -1,5 +1,6 @@
 package com.mtons.mblog.service.atom.bao;
 
+import com.mtons.mblog.base.enums.FuncType;
 import com.mtons.mblog.bo.PermissionBO;
 import com.mtons.mblog.model.PermissionTreeVo;
 import com.mtons.mblog.entity.bao.Permission;
@@ -11,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
+ * 功能只能挂在菜单下， 菜单只能挂在菜单下
+ *
  * @author - langhsu on 2018/2/11
  */
 public interface PermissionService extends IPlusBizService<PermissionBO, Permission> {
@@ -38,7 +41,7 @@ public interface PermissionService extends IPlusBizService<PermissionBO, Permiss
      * @return 菜单列表
      */
     @Transactional(readOnly = true)
-    List<PermissionTreeVo> findAllForTree();
+    List<PermissionTreeVo> findAllForTree(FuncType funcType);
 
     /**
      * 查询权限值信息

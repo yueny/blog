@@ -48,7 +48,8 @@
                                     <td>${row.email}</td>
                                     <td>
                                         <#list row.roles as role>
-                                            ${role.name}
+                                            <#-- ?pageNo=1&name=admin  -->
+                                            <a href="${ctx}/admin/authority/role/list">${role.name}</a>
                                         </#list>
                                     </td>
                                     <td>

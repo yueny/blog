@@ -1,7 +1,10 @@
-package com.mtons.mblog.service.atom.jpa;
+package com.mtons.mblog.service.atom.bao;
 
 import com.mtons.mblog.bo.PermissionBO;
 import com.mtons.mblog.bo.RoleBO;
+import com.mtons.mblog.entity.bao.Role;
+import com.mtons.mblog.model.RolePermissionVO;
+import com.mtons.mblog.service.api.bao.IPlusBizService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -12,41 +15,25 @@ import java.util.Set;
 /**
  * @author - langhsu on 2018/2/11
  */
-public interface RoleService {
+public interface RoleService extends IPlusBizService<RoleBO, Role> {
     /**
      * 分页查询角色
      * @param pageable 分页对象
-     * @param name 角色名称，模糊匹配，如果为null则忽略改查询条件
+     * @param roleName 角色名称，模糊匹配，如果为null则忽略改查询条件
      */
-    Page<RoleBO> paging(Pageable pageable, String name);
+    Page<RoleBO> findAll(Pageable pageable, String roleName);
 
     /**
      * 查询所有活动角色
      * @return 角色列表
      */
-    List<RoleBO> list();
-
-    Map<Long, RoleBO> findByIds(Set<Long> ids);
-
-    /**
-     * 根据角色ID获得角色信息
-     * @param id 角色ID
-     * @return Role
-     */
-    RoleBO get(long id);
+    List<RoleBO> findByActivate();
 
     /**
      * 保存角色信息。如果角色存在，则更新其信息，如果角色不存在，则添加新角色
      * @param r 角色对象
      */
     void update(RoleBO r, Set<PermissionBO> permissions);
-
-    /**
-     * 删除角色，已被授权的角色不允许删除
-     * @param id 角色ID
-     * @return true/false
-     */
-    boolean delete(long id);
 
     /**
      * 激活、停用角色

@@ -3,7 +3,7 @@ package com.mtons.mblog.web.controller.admin.trace;
 import com.google.common.collect.Sets;
 import com.mtons.mblog.base.enums.ErrorType;
 import com.mtons.mblog.base.lang.Result;
-import com.mtons.mblog.bo.ViewLogVO;
+import com.mtons.mblog.bo.ViewLogBo;
 import com.mtons.mblog.condition.ViewerQueryCondition;
 import com.mtons.mblog.service.atom.bao.ViewLogService;
 import com.mtons.mblog.service.util.PageHelper;
@@ -54,12 +54,12 @@ public class ViewerController extends BaseBizController {
      */
     @RequestMapping("/get/list.json")
     @ResponseBody
-    public PageListResponse<ViewLogVO> getListData(ViewerQueryCondition condition) {
-        PageListResponse<ViewLogVO> resp = new PageListResponse<>();
+    public PageListResponse<ViewLogBo> getListData(ViewerQueryCondition condition) {
+        PageListResponse<ViewLogBo> resp = new PageListResponse<>();
 
         try{
             // 查询分页结果
-            Page<ViewLogVO> page = viewLogService.findAllByCondition(wrapPageable(Sort.by(Sort.Direction.DESC,
+            Page<ViewLogBo> page = viewLogService.findAllByCondition(wrapPageable(Sort.by(Sort.Direction.DESC,
                     "created")), condition);
 
             resp.setList(PageHelper.fromSpringToYuenyPage(page));
@@ -78,10 +78,10 @@ public class ViewerController extends BaseBizController {
      */
     @RequestMapping(value="/get.json", method= RequestMethod.POST)
     @ResponseBody
-    public NormalResponse<ViewLogVO> get(Long id) {
-        NormalResponse<ViewLogVO> resp = new NormalResponse<>();
+    public NormalResponse<ViewLogBo> get(Long id) {
+        NormalResponse<ViewLogBo> resp = new NormalResponse<>();
 
-        ViewLogVO viewLogVO = viewLogService.get(id);
+        ViewLogBo viewLogVO = viewLogService.get(id);
         resp.setData(viewLogVO);
 
         return resp;

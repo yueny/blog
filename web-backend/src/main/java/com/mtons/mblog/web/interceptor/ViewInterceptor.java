@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.web.interceptor;
 
-import com.mtons.mblog.bo.ViewLogVO;
+import com.mtons.mblog.bo.ViewLogBo;
 import com.mtons.mblog.modules.hook.interceptor.InterceptorHookManager;
 import com.mtons.mblog.service.atom.bao.ViewLogService;
 import com.yueny.rapid.lang.agent.UserAgentResource;
@@ -57,7 +57,7 @@ public class ViewInterceptor extends HandlerInterceptorAdapter {
 			String method = request.getMethod();
 			MaskfulDecorator maskfulDecorator = new MaskfulDecorator(getRequestParameter(request));
 			String parameterJson = JsonUtil.toJson(maskfulDecorator.mask());
-			ViewLogVO viewLogVO = ViewLogVO.builder()
+			ViewLogBo viewLogVO = ViewLogBo.builder()
 					.clientIp(IpUtil.getClientIp(request))
 					.clientAgent(clentAgent.toString())
 					.method(method)

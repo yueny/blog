@@ -24,7 +24,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ViewLogVO extends AbstractBo implements IBo {
+public class ViewLogBo extends AbstractBo implements IBo {
 	/**
 	 * 数据库主键
 	 */

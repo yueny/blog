@@ -17,13 +17,16 @@ import lombok.Setter;
 import java.io.Serializable;
 
 /**
+ * 角色-权限关系对象
+ *
  * @author langhsu
- * 
+ *
  */
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = false)
-public class RolePermissionVO extends AbstractMaskBo implements IBo, Serializable {
+public class RolePermissionBo extends AbstractMaskBo implements IBo, Serializable {
+
 	private Long id;
 
 	private Long roleId;

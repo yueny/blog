@@ -116,8 +116,14 @@
          -->
         <script type="text/javascript">
             $(function () {
-                $('.selectpicker').selectpicker();
+                $('.selectpicker').selectpicker({
+                    noneSelectedText : '请选择'
+                });
+                //$('.selectpicker').selectpicker();
                 //$('select').selectpicker();
+
+                // 刷新
+                // $('.selectpicker').selectpicker('refresh');
 
                 $(".switch").bootstrapSwitch();
             });

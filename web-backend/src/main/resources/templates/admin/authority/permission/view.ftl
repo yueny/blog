@@ -1,3 +1,30 @@
+<#macro selectIterator nodes>
+    <#-- 循环节点-->
+    <#list nodes as row>
+        <optgroup label="${row.description}">
+            <option value="${row.id}"
+                    <#if (permission.parentId == row.id)> selected </#if>>
+                ${row.description} / ${row.name}
+            </option>
+
+            <#if (row.items)?? && ((row.items)?size > 0) >
+                <#list row.items as item>
+                    <option value="${item.id}"
+                            <#if (permission.parentId == item.id)> selected </#if>>
+                        ${item.description} / ${item.name}
+                    </option>
+
+                    <#-- 判断是否有子集 -->
+                    <#-- 权限树上不会存在3级菜单目录，因此不做遍历。且插件也不支持
+                    <#if item.items??>
+                        <@selectIterator nodes=item.items />
+                    </#if>
+                     -->
+                </#list>
+            </#if>
+        </optgroup>
+    </#list>
+</#macro>
 
     <div>
             <form method="post" action="${base}/admin/authority/permission/update.json" role="form">
@@ -13,16 +40,41 @@
                     </div>
 
                     <div class="form-group input-group">
-                        <span class="input-group-addon">父级</span>
-                        <select class="selectpicker show-tick" name="parentId">
-                            <option value="0" title="根ROOT">/</option>
-                            <#list permissionRootList as permissionRoot>
-                                <option value="${permissionRoot.id}"
-                                        <#if (permission.parentId == permissionRoot.id)> selected </#if>>
-                                    ${permissionRoot.description} / ${permissionRoot.name}
+                        <span class="input-group-addon">父级目录</span>
+                        <select class="selectpicker show-tick" name="parentId"
+                                data-live-search="true" data-live-search-placeholder="搜索"
+                                data-selected-text-format="count"
+                                data-style="btn-primary"
+                                <#-- Select/deselect all options -->
+                                data-actions-box="true">
+                            <option value="0" title="/">/</option>
+                            <#-- 循环下拉列表 -->
+                            <@selectIterator nodes=permissionList />
+<#--                            <#list permissionList as permissionRoot>-->
+<#--                                <option value="${permissionRoot.id}"-->
+<#--                                        <#if (permission.parentId == permissionRoot.id)> selected </#if>>-->
+<#--                                    ${permissionRoot.description} / ${permissionRoot.name}-->
+<#--                                </option>-->
+<#--                            </#list>-->
+                        </select>
+                    </div>
+
+
+                    <#-- 类型， 0菜单，1功能 -->
+                    <div class="form-group input-group">
+                        <label for="status" class="col-lg-2 control-label">功能</label>
+                        <select class="selectpicker show-tick" name="funcType" required>
+                            <#list funcTypeList as funcTypeNode>
+                                <option value="${funcTypeNode}"
+                                        <#if (funcTypeNode == permission.funcType)> selected </#if>>
+                                    ${funcTypeNode.desc}「${funcTypeNode}」
                                 </option>
                             </#list>
                         </select>
+                        <a class="plus">
+                            <i class="tooltip-icon-info glyphicon glyphicon-exclamation-sign"></i>
+                        </a>
+<#--                        <span>功能只能挂在菜单下， 菜单只能挂在菜单下</span>-->
                     </div>
 
                     <div class="row form-group">
@@ -66,8 +118,23 @@
     <script type="text/javascript">
         $(function () {
             $('.selectpicker').selectpicker({
-                /* 当设置为true，增加了一个搜索框的下拉selectpicker的顶部。 */
-                liveSearch:true
+                noneSelectedText : '请选择'
             });
+
+            var tips;
+            $('i.tooltip-icon-info').on({
+                mouseenter:function(){
+                    var that = this;
+                    tips =layer.tips(
+                        "<span style='color:#000;'>功能只能挂在菜单下， 菜单只能挂在菜单下</span>",
+                        that,
+                        {tips:[2,'#fff'],time:0,area: 'auto',maxWidth:500}
+                    );
+                },
+                mouseleave:function(){
+                    layer.close(tips);
+                }
+            });
+
         });
     </script>

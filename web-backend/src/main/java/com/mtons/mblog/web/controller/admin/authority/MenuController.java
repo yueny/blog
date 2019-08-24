@@ -3,19 +3,18 @@ package com.mtons.mblog.web.controller.admin.authority;
 import com.google.common.collect.Sets;
 import com.mtons.mblog.base.enums.ErrorType;
 import com.mtons.mblog.bo.MenuBo;
-import com.mtons.mblog.bo.PermissionBO;
 import com.mtons.mblog.condition.MenuUpdateCondition;
 import com.mtons.mblog.model.MenuVo;
 import com.mtons.mblog.model.PermissionTreeVo;
 import com.mtons.mblog.service.atom.bao.MenuService;
 import com.mtons.mblog.service.atom.bao.PermissionService;
 import com.mtons.mblog.service.exception.MtonsException;
+import com.mtons.mblog.service.manager.IMenuRolePermissionManagerService;
 import com.mtons.mblog.web.controller.BaseBizController;
 import com.yueny.rapid.data.resp.pojo.response.BaseResponse;
 import com.yueny.rapid.data.resp.pojo.response.ListResponse;
 import com.yueny.rapid.data.resp.pojo.response.NormalResponse;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -40,6 +39,8 @@ public class MenuController extends BaseBizController {
     @Autowired
     private MenuService menuService;
     @Autowired
+    private IMenuRolePermissionManagerService menuRolePermissionManagerService;
+    @Autowired
     private PermissionService permissionService;
 
     /**
@@ -60,10 +61,10 @@ public class MenuController extends BaseBizController {
      */
     @RequestMapping("/list.json")
     @ResponseBody
-    public ListResponse<MenuVo> list() {
+    public ListResponse<MenuVo> list(String search) {
         ListResponse<MenuVo> response = new ListResponse<>();
 
-        List<MenuVo> list = menuService.findAllForPermission();
+        List<MenuVo> list = menuRolePermissionManagerService.findAllForPermission();
         response.setData(list);
         return response;
     }
@@ -80,11 +81,17 @@ public class MenuController extends BaseBizController {
             }
         }
 
+        //查询所有根菜单。
+        // 因为菜单总共两级，所以新建菜单只需要归属到顶级菜单就足够了。
         model.put("menuRootList", menuService.findAllByParentId());
 
-        List<PermissionBO> permissionTree = permissionService.findAll();
-//        List<PermissionTreeVo> permissionTree = permissionService.findAllForTree();
-        model.put("permissionTree", permissionTree);
+        // 给当前菜单分配权限，所以此处为所有权限， 包括菜单和功能。
+        // 此处存在的问题是： 二级菜单下的三级功能无法展示。不过给菜单分配权限不会涉及三级功能，所以此处可以忽视
+        // 非树结构
+//        List<PermissionBO> permissionTreeList = permissionService.findAll();
+        // 树结构
+        List<PermissionTreeVo> permissionTreeList = permissionService.findAllForTree(null);
+        model.put("permissionList", permissionTreeList);
 
         return "/admin/authority/menu/view";
     }

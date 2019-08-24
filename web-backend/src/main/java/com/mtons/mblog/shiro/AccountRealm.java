@@ -1,13 +1,13 @@
 package com.mtons.mblog.shiro;
 
-import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.enums.StatusType;
 import com.mtons.mblog.model.AccountProfile;
-import com.mtons.mblog.bo.RoleBO;
 import com.mtons.mblog.bo.UserBO;
+import com.mtons.mblog.model.RolePermissionVO;
 import com.mtons.mblog.service.atom.bao.UserService;
-import com.mtons.mblog.service.atom.jpa.UserRoleService;
+import com.mtons.mblog.service.atom.bao.UserRoleService;
 import com.mtons.mblog.service.atom.jpa.UserJpaService;
+import com.mtons.mblog.service.manager.IUserManagerService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.AllowAllCredentialsMatcher;
@@ -27,6 +27,8 @@ public class AccountRealm extends AuthorizingRealm {
     private UserService userService;
     @Autowired
     private UserRoleService userRoleService;
+    @Autowired
+    private IUserManagerService userManagerService;
 
     public AccountRealm() {
         super(new AllowAllCredentialsMatcher());
@@ -40,7 +42,7 @@ public class AccountRealm extends AuthorizingRealm {
             UserBO user = userService.get(profile.getId());
             if (user != null) {
                 SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-                List<RoleBO> roles = userRoleService.listRoles(user.getId());
+                List<RolePermissionVO> roles = userManagerService.findListRolesByUserId(user.getId());
 
                 //赋予角色
                 roles.forEach(role -> {

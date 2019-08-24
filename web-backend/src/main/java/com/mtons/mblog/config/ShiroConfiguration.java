@@ -76,6 +76,7 @@ public class ShiroConfiguration {
         hashMap.put("/storage/**", "anon");
         hashMap.put("/login", "anon");
 
+        /** 前台 */
         /* https://host/users/.. 路径属于前端展示, 不拦截  */
         hashMap.put("/user/**", "authc");
         hashMap.put("/settings/**", "authc");
@@ -84,7 +85,27 @@ public class ShiroConfiguration {
         hashMap.put("/post/delete/*", "authc");
         hashMap.put("/post/upload", "authc");
 
-        /** 页面权限 */
+        // ApiController
+        // CallbackController
+        // EmailController
+        // ForgotController
+        // LoginController
+        // RegisterController
+        // LogoutController
+        // CommentController
+        // PostController
+        // UploadController
+        // FavorController
+        // SettingsController
+        // UsersController
+        // ArticleBlogDetailShowActionController
+        // ChannelController
+        // IndexController
+        // SearchController
+        // TagController
+
+
+        /** 后台：页面权限 */
         // 首页 AdminController
 
         // 栏目管理 ChannelController

@@ -1,5 +1,6 @@
 package com.mtons.mblog.condition;
 
+import com.mtons.mblog.base.enums.FuncType;
 import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +22,12 @@ public class PermissionUpdateCondition extends AbstractMaskBo {
      * 权限配置值
      */
     private String name;
+
+    /**
+     * 类型， 0菜单，1功能
+     */
+    private FuncType funcType;
+
     /**
      * 权限描述
      */

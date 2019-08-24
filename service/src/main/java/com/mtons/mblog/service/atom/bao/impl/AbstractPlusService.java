@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mtons.mblog.service.api.bao.IPlusBizService;
+import com.mtons.mblog.service.util.PKUtil;
 import com.mtons.mblog.service.util.PageHelper;
 import com.mtons.mblog.util.IdFieldSetterUtil;
 import com.yueny.kapo.api.pojo.IEntry;
@@ -229,6 +230,10 @@ import java.util.*;
 
 	@Override
 	public T get(Long id) {
+		if(!PKUtil.available(id)){
+			return null;
+		}
+
 		S entry = baseMapper.selectById(id);
 
 		if(entry == null){
@@ -241,6 +246,10 @@ import java.util.*;
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean delete(Long id) {
+		if(!PKUtil.available(id)){
+			return false;
+		}
+
 		return baseMapper.deleteById(id) > 0;
 	}
 
@@ -360,6 +369,19 @@ import java.util.*;
 
 		List<T> list = map(entryPageList.getContent(), boClazz);
 		return new PageImpl<>(list, entryPageList.getPageable(), entryPageList.getTotalElements());
+	}
+
+	@Override
+	public boolean saveOrUpdate(T bo) {
+		if(bo == null){
+			return false;
+		}
+
+		if (PKUtil.available(IdFieldSetterUtil.getPrimaryKey(bo, bo.getClass()))) {
+			return updateById(bo);
+		} else {
+			return insert(bo);
+		}
 	}
 
 	@Override

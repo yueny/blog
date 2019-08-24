@@ -26,15 +26,19 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = false)
-public class RoleBO extends AbstractMaskBo {
-	private static final long serialVersionUID = -3482423006644858770L;
+public class UserRoleBo extends AbstractMaskBo {
+	private static final long serialVersionUID = 5214927920896405959L;
 
-	private Long id;
+	private long id;
 
-	private String name;
+	private Long roleId;
 
-	private String description;
+	private Long userId;
 
-	private StatusType status;
+	/**
+	 * 用户唯一标示
+	 */
+	private String uid;
+
 
 }

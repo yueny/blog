@@ -14,8 +14,8 @@ import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.model.UserVO;
 import com.mtons.mblog.service.atom.bao.UserService;
-import com.mtons.mblog.service.atom.jpa.RoleService;
-import com.mtons.mblog.service.atom.jpa.UserRoleService;
+import com.mtons.mblog.service.atom.bao.RoleService;
+import com.mtons.mblog.service.atom.bao.UserRoleService;
 import com.mtons.mblog.service.comp.base.IUserPassportService;
 import com.mtons.mblog.service.manager.IUserManagerService;
 import com.mtons.mblog.web.controller.BaseBizController;
@@ -71,7 +71,7 @@ public class UserController extends BaseBizController {
 		model.put("view", userVO);
 
 		// 角色列表 admin/user/guest 等
-		model.put("roles", roleService.list());
+		model.put("roles", roleService.findByActivate());
 		return "/admin/user/view";
 	}
 

@@ -94,6 +94,10 @@
                         title: '权限配置值'
                     },
                     {
+                        field: 'funcType',
+                        title: '类型'
+                    },
+                    {
                         field: 'weight',
                         title: '权重'
                     },

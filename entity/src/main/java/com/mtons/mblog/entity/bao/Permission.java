@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.Version;
+import com.mtons.mblog.base.enums.FuncType;
+import com.mtons.mblog.base.enums.StatusType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,6 +32,12 @@ public class Permission extends AbstractIDPlusEntry implements Serializable {
 
     @Column(length = 140)
     private String description;
+
+    /**
+     * 类型， 0菜单，1功能
+     */
+    @Column(name = "func_type")
+    private FuncType funcType;
 
     private int weight;
 

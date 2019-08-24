@@ -62,23 +62,27 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="status" class="col-lg-2 control-label">角色状态：</label>
-                            <div class="col-lg-3">
-                                <input type="text" class="form-control" name="status"
-                                       value="${view.status}" required>
-                            </div>
+                        <div class="form-group input-group">
+                            <label for="status" class="col-lg-2 control-label">角色状态</label>
+                            <select class="selectpicker show-tick" name="status" required>
+                                <#list statusList as status>
+                                    <option value="${status}"
+                                            <#if (status == view.status)> selected </#if>>
+                                        ${status.desc}「${status}」
+                                    </option>
+                                </#list>
+                            </select>
                         </div>
 
                         <div class="form-group">
-                            <label for="item" class="col-lg-2 control-label">分配菜单：</label>
+                            <label for="item" class="col-lg-2 control-label">分配菜单和权限资源：</label>
                             <div class="col-lg-6" id="perms">
                                 <table id="dataGrid" class="table table-border table-bordered table-bg">
                                     <caption>
                                         <a href="#" onclick="jQuery('#dataGrid').treetable('expandAll'); return false;">展开所有</a>
                                         <a href="#" onclick="jQuery('#dataGrid').treetable('collapseAll'); return false;">收起所有</a>
-                                        <a href="#" onclick="return false;" disabled="disabled">全选</a>
-                                        <a href="#" onclick="return false;" disabled="disabled">全清</a>
+                                        <a href="#" onclick="return false;" disabled>全选</a>
+                                        <a href="#" onclick="return false;" disabled>全清</a>
                                     </caption>
                                     <tbody>
                                         <@treeIterator nodes=permissions />
@@ -121,27 +125,27 @@
             indent : 30//每个分支缩进的像素数。
         });
 
-        // $('#dataGrid input[type=checkbox]').click(function () {
-        //     if ($(this).prop("checked")) {
-        //         var tr = $(this).closest("tr");
-        //         var parent = tr.attr("data-tt-parent-id");
-        //
-        //         if (typeof(parent) != 'undefined') {
-        //             var parentArray = parent.split('.');
-        //
-        //             var temp = '';
-        //             for (var i = 0; i < parentArray.length; i++) {
-        //                 if (i > 0) {
-        //                     temp += '.' + parentArray[i];
-        //                 } else {
-        //                     temp += parentArray[i];
-        //                 }
-        //
-        //                 $('tr[data-tt-id="' + temp + '"]>td>input:checkbox').prop("checked", $(this).prop("checked"));
-        //             }
-        //         }
-        //     }
-        // })
+        $('#dataGrid input[type=checkbox]').click(function () {
+            if ($(this).prop("checked")) {
+                var tr = $(this).closest("tr");
+                var parent = tr.attr("data-tt-parent-id");
+
+                if (typeof(parent) != 'undefined') {
+                    var parentArray = parent.split('.');
+
+                    var temp = '';
+                    for (var i = 0; i < parentArray.length; i++) {
+                        if (i > 0) {
+                            temp += '.' + parentArray[i];
+                        } else {
+                            temp += parentArray[i];
+                        }
+
+                        $('tr[data-tt-id="' + temp + '"]>td>input:checkbox').prop("checked", $(this).prop("checked"));
+                    }
+                }
+            }
+        })
 
 
         // Highlight a row when selected
@@ -159,17 +163,20 @@
             var checked = $(_this).attr("checked");
             var menuId = $(_this).parent().parent().attr("data-tt-id");
             var parentMenuId = $(_this).parent().parent().attr("data-tt-parent-id");
-            var childCount = $("#dataGrid").find("[data-tt-parent-id='"+menuId+"']").find("input[type=checkbox]").length;
+            var childCount = $("#dataGrid").find("[data-tt-parent-id='"+menuId+"']")
+                .find("input[type=checkbox]").length;
+
             if(autoFlag){//自动触发
                 if(parentSelectedFlag){//如果是需要选中其父节点
                     //将其直接的父节点置为选中状态
-                    $("#dataGrid").find("[data-tt-id='"+parentMenuId+"']").find("input[type=checkbox]").each(function(){
-                        $(this).attr("checked",true).prop("checked",true);
-                        if(parentMenuId == "0"){
-                            return;//已经到根节点，直接返回
-                        }
-                        //自动将该节点的父节点的父节点选中
-                        checkboxClickFn(this,true,true);
+                    $("#dataGrid").find("[data-tt-id='"+parentMenuId+"']")
+                        .find("input[type=checkbox]").each(function(){
+                            $(this).attr("checked",true).prop("checked",true);
+                            if(parentMenuId == "0"){
+                                return;//已经到根节点，直接返回
+                            }
+                            //自动将该节点的父节点的父节点选中
+                            checkboxClickFn(this,true,true);
                     });
                     return;
                 }
@@ -177,21 +184,24 @@
                     if(childCount == 0){
                         return;
                     }
-                    $("#dataGrid").find("[data-tt-parent-id='"+menuId+"']").find("input[type=checkbox]").each(function(){
-                        $(this).attr("checked",true).prop("checked",true);
-                        checkboxClickFn(this,true);
+                    $("#dataGrid").find("[data-tt-parent-id='"+menuId+"']")
+                        .find("input[type=checkbox]").each(function(){
+                            $(this).attr("checked",true).prop("checked",true);
+                            checkboxClickFn(this,true);
                     });
                 }else{//如果是取消选中，则其子菜单全部取消选中
                     if(childCount == 0){
                         return;
                     }
-                    $("#dataGrid").find("[data-tt-parent-id='"+menuId+"']").find("input[type=checkbox]").each(function(){
-                        $(this).prop("checked",false).removeAttr("checked");
-                        checkboxClickFn(this,true);
+                    $("#dataGrid").find("[data-tt-parent-id='"+menuId+"']")
+                        .find("input[type=checkbox]").each(function(){
+                            $(this).prop("checked",false).removeAttr("checked");
+                            checkboxClickFn(this,true);
                     });
                 }
                 return;
             }
+
             //手动触发
             if(!checked){
                 $(_this).attr("checked",true);

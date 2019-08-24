@@ -10,9 +10,12 @@
 package com.mtons.mblog.service.manager;
 
 import com.mtons.mblog.bo.UserBO;
+import com.mtons.mblog.model.RolePermissionVO;
 import com.mtons.mblog.model.UserVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 /**
  * 汇总用户信息、头像信息、权限角色信息和安全基本信息
@@ -50,4 +53,11 @@ public interface IUserManagerService {
      * @return 尝试密码的加密密码， 不校验与实际密码的正确性
      */
     String tryLogin(String username, String tryPassword);
+
+    /**
+     * 查询用户已有的角色 和 权限清单
+     * @param userId 用户ID
+     * @return
+     */
+    List<RolePermissionVO> findListRolesByUserId(Long userId);
 }

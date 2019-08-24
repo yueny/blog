@@ -51,6 +51,27 @@ public class IdFieldSetterUtil {
     }
 
     /**
+     * 获取主键的值
+     *
+     * @param clazzInstance
+     * @param clazz
+     * @return
+     */
+    public static Long getPrimaryKey(Object clazzInstance, final Class<? extends IBo> clazz) {
+        final Field primaryKeyField = extractPrimaryKeyField(clazz);
+        final boolean isAccessible = primaryKeyField.isAccessible();
+        primaryKeyField.setAccessible(true);
+        Long primaryKey = -1L;
+        try {
+            primaryKey = (Long) primaryKeyField.get(clazzInstance);
+        } catch (final IllegalAccessException e) {
+            //Assert.isTrue(false, "无法获取实体" + getClass().getName() + "主键");
+        } finally {
+            primaryKeyField.setAccessible(isAccessible);
+        }
+        return primaryKey;
+    }
+    /**
      * 获取主键域
      *
      * @param clazz

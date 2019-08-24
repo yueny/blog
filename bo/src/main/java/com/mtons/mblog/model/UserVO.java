@@ -39,6 +39,6 @@ public class UserVO extends UserBO implements Serializable {
 	private NeedChangeType needChangePw;
 
 	@JSONField(serialize = false)
-	private List<RoleBO> roles = new ArrayList<>();
+	private List<RolePermissionVO> roles = new ArrayList<>();
 
 }

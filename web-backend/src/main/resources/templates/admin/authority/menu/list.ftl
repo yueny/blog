@@ -23,7 +23,24 @@
                     </div>
 
                     <#-- table -->
-                    <table id="table"></table>
+                    <table id="table" data-click-to-select="true" class="table table-bordered">
+                        <thead>
+                            <tr >
+                                <th data-checkbox="true" data-visible="true" data-field="ck"></th>
+                                <th data-field="name" width="100">菜单名</th>
+                                <th data-visible="false" data-field="parentId">parentId</th>
+                                <th data-field="url">链接地址</th>
+                                <th data-field="weight">权重</th>
+                                <th data-field="icon" data-formatter="iconFormatter">图标</th>
+                                <th data-field="permission.name" data-formatter="nameFormatter">分配资源权限值</th>
+                                <th data-field="updated">更新时间</th>
+                                <th data-field="button" data-events="operateEvents" data-formatter="editorFormatter">操作</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
 
             </div>
@@ -52,51 +69,67 @@
                 searchOnEnterKey: true, // 回车触发搜索
                 searchAlign: 'right',
                 buttonsAlign: 'right', // 按钮位置
-                columns: [
-                    {
-                        field: 'ck',
-                        checkbox: true,
-                        visible: true
-                    },
-                    {
-                        field: 'name',
-                        title: '菜单名',
-                        width: 100
-                    },
-                    {
-                        field: 'parentId',
-                        title: 'parentId',
-                        visible: false
-                    },
-                    {
-                        field: 'url',
-                        title: '链接地址'
-                    },
-                    {
-                        field: 'weight',
-                        title: '权重'
-                    },
-                    {
-                        field: 'icon',
-                        title: '图标',
-                        formatter:'iconFormatter'
-                    },
-                    {
-                        field: 'permission.name',
-                        title: '权限值',
-                        formatter:'nameFormatter'
-                    },
-                    {
-                        field: 'updated',
-                        title: '更新时间'
-                    },
-                    {
-                        field:'button',
-                        title:'操作',
-                        events:'operateEvents',
-                        formatter:'editorFormatter'
-                    }
-                ],
+                /* 得到查询的参数 */
+                queryParams : function (params) {
+                    // 获取自定义查询条件
+                    var temp = queryParams();
+                    temp["sort"] = params.sort;                         //排序列名
+                    temp["sortOrder"] = params.order;                   //排位命令（desc，asc）
+                    temp["search"] = params.search;
+                    return temp;
+                },
+                // rowStyle: function (row, index) {//row 表示行数据，object,index为行索引，从0开始
+                //     var style = "";
+                //     if (row.weight >  0) {
+                //         style = { css: { 'color': 'red' } };
+                //     }
+                //     return  style;
+                // },
+                // columns: [
+                //     {
+                //         field: 'ck',
+                //         checkbox: true,
+                //         visible: true
+                //     },
+                //     {
+                //         field: 'name',
+                //         title: '菜单名',
+                //         width: 100
+                //     },
+                //     {
+                //         field: 'parentId',
+                //         title: 'parentId',
+                //         visible: false
+                //     },
+                //     {
+                //         field: 'url',
+                //         title: '链接地址'
+                //     },
+                //     {
+                //         field: 'weight',
+                //         title: '权重'
+                //     },
+                //     {
+                //         field: 'icon',
+                //         title: '图标',
+                //         formatter:'iconFormatter'
+                //     },
+                //     {
+                //         field: 'permission.name',
+                //         title: '资源权限值',
+                //         formatter:'nameFormatter'
+                //     },
+                //     {
+                //         field: 'updated',
+                //         title: '更新时间'
+                //     },
+                //     {
+                //         field:'button',
+                //         title:'操作',
+                //         events:'operateEvents',
+                //         formatter:'editorFormatter'
+                //     }
+                // ],
                 idField: 'id',
                 uniqueId: "id",   //每一行的唯一标识，一般为主键列
                 treeShowField: 'name',
@@ -168,7 +201,9 @@
 
         // 显示title
         function nameFormatter(value,row,index) {
-            return '<span title="' + row.permission.description + '">' + value + '</span>';
+            return '<span title="' + row.permission.description + '">' +
+                '<a href="${ctx}/admin/authority/permission/index.html">'+ value +'</a>' +
+                '</span>';
         }
 
         //操作列

@@ -3,11 +3,10 @@ package com.mtons.mblog.service.manager.impl;
 import com.alibaba.fastjson.JSONArray;
 import com.mtons.mblog.model.menu.MenuTreeVo;
 import com.mtons.mblog.service.BaseService;
-import com.mtons.mblog.service.atom.bao.MenuService;
 import com.mtons.mblog.service.manager.IMenuJsonService;
+import com.mtons.mblog.service.manager.IMenuRolePermissionManagerService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -26,7 +25,7 @@ import java.util.List;
 @Service
 public class MenuJsonService extends BaseService implements IMenuJsonService {
     @Autowired
-    private MenuService menuService;
+    private IMenuRolePermissionManagerService menuRolePermissionManagerService;
 
     // 此处从 json文件加载，也可以改为从数据库加载
     private static String config = "/scripts/menu.json";
@@ -73,7 +72,7 @@ public class MenuJsonService extends BaseService implements IMenuJsonService {
     @Override
     public boolean reload() {
         try {
-            List<MenuTreeVo> menuTreeVos = menuService.findAllForTree();
+            List<MenuTreeVo> menuTreeVos = menuRolePermissionManagerService.findAllMenuForTree();
 
             if(CollectionUtils.isEmpty(menuTreeVos)){
                 menuTreeVos = loadJson();

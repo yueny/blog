@@ -14,18 +14,19 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mtons.mblog.base.consts.EntityStatus;
 import com.mtons.mblog.base.enums.NeedChangeType;
 import com.mtons.mblog.bo.ResourceBO;
-import com.mtons.mblog.bo.RoleBO;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.bo.UserSecurityBO;
 import com.mtons.mblog.entity.bao.UserSecurityEntry;
+import com.mtons.mblog.model.RolePermissionVO;
 import com.mtons.mblog.model.UserVO;
 import com.mtons.mblog.service.BaseService;
 import com.mtons.mblog.service.atom.bao.IUserSecurityService;
 import com.mtons.mblog.service.atom.bao.ResourceService;
 import com.mtons.mblog.service.atom.bao.UserService;
-import com.mtons.mblog.service.atom.jpa.UserRoleService;
+import com.mtons.mblog.service.atom.bao.UserRoleService;
 import com.mtons.mblog.service.atom.jpa.UserJpaService;
 import com.mtons.mblog.service.comp.base.IPasswdService;
+import com.mtons.mblog.service.manager.IMenuRolePermissionManagerService;
 import com.mtons.mblog.service.manager.IUserManagerService;
 import com.mtons.mblog.service.seq.SeqType;
 import com.mtons.mblog.service.seq.container.ISeqContainer;
@@ -64,6 +65,8 @@ public class UserManagerServiceImpl extends BaseService implements IUserManagerS
     private IPasswdService passwdService;
     @Autowired
     private ISeqContainer seqContainer;
+    @Autowired
+    private IMenuRolePermissionManagerService menuRolePermissionManagerService;
 
     @Override
     public UserVO get(String uid) {
@@ -74,7 +77,7 @@ public class UserManagerServiceImpl extends BaseService implements IUserManagerS
 
         // Role
         UserVO userVO = mapAny(userBO, UserVO.class);
-        userVO.setRoles(userRoleService.listRoles(userBO.getId()));
+        userVO.setRoles(findListRolesByUserId(userBO.getId()));
 
         // Security
         LambdaQueryWrapper<UserSecurityEntry> queryWrapper = new QueryWrapper<UserSecurityEntry>().lambda();
@@ -103,7 +106,7 @@ public class UserManagerServiceImpl extends BaseService implements IUserManagerS
         page.getContent().forEach(item -> {
             userIds.add(item.getId());
         });
-        Map<Long, List<RoleBO>> map = userRoleService.findMapByUserIds(userIds);
+        Map<Long, List<RolePermissionVO>> map = userRoleService.findMapByUserIds(userIds);
 
         List<UserVO> list = mapAny(page.getContent(), UserVO.class);
         list.forEach(userVo -> {
@@ -185,4 +188,12 @@ public class UserManagerServiceImpl extends BaseService implements IUserManagerS
 
         return passwdService.encode(tryPassword, "");
     }
+
+    @Override
+    public List<RolePermissionVO> findListRolesByUserId(Long userId) {
+        List<Long> roleIds = userRoleService.listRoleIds(userId);
+
+        return new ArrayList<>(menuRolePermissionManagerService.findMapByIds(new HashSet<>(roleIds)).values());
+    }
+
 }

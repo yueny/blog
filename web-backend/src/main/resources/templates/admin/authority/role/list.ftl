@@ -32,6 +32,9 @@
                             <tr>
                                 <th style="text-align: center" title="序号">#</th>
                                 <th>用户名</th>
+                                <th>描述</th>
+                                <th>状态</th>
+                                <th>资源权限数</th>
                                 <th width="300" style="text-align: center">操作</th>
                             </tr>
                             </thead>
@@ -40,6 +43,11 @@
                                 <tr>
                                     <td class="text-center">${row_index + 1}</td>
                                     <td>${row.name}</td>
+                                    <td>${row.description}</td>
+                                    <td>${row.status.desc}</td>
+                                    <td>
+                                        <a class="disabled" disabled="">${(row.permissions)?size}</a>
+                                    </td>
                                     <td class="text-center">
                                         <#-- 管理员数据不可被修改，其他的均可被修改 -->
 <#--                                        <#if row.id != 1>-->

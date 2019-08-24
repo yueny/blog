@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.collect.Sets;
 import com.mtons.mblog.bo.AttackIpBo;
-import com.mtons.mblog.bo.ViewLogVO;
+import com.mtons.mblog.bo.ViewLogBo;
 import com.mtons.mblog.entity.bao.ViewLogEntry;
 import com.mtons.mblog.service.AbstractService;
 import com.mtons.mblog.service.atom.jpa.AttackIpService;
@@ -50,7 +50,7 @@ public class FindBlackIpTask extends AbstractService implements ISecurityAction 
 //            IPage<ViewLogEntry> page = new Page<>(0, 50);
             Pageable pageable = PageRequest.of(0, 50);
             LambdaQueryWrapper<ViewLogEntry> queryWrapper = assemblyQueryCondition();
-            Page<ViewLogVO> pageResult = viewLogService.findAll(pageable, queryWrapper);
+            Page<ViewLogBo> pageResult = viewLogService.findAll(pageable, queryWrapper);
 
             Set<String> attackIps = Sets.newHashSet();
             if(pageResult.getContent().isEmpty()){
@@ -86,7 +86,7 @@ public class FindBlackIpTask extends AbstractService implements ISecurityAction 
      * @param pageResult
      * @return
      */
-    private Set<String> computer(Page<ViewLogVO> pageResult, LambdaQueryWrapper<ViewLogEntry> queryWrapper){
+    private Set<String> computer(Page<ViewLogBo> pageResult, LambdaQueryWrapper<ViewLogEntry> queryWrapper){
         Set<String> attackIps = Sets.newHashSet();
 
         computer(pageResult, attackIps);
@@ -100,8 +100,8 @@ public class FindBlackIpTask extends AbstractService implements ISecurityAction 
         return attackIps;
     }
 
-    private void computer(Page<ViewLogVO> pageResult, Set<String> attackIps){
-        for (ViewLogVO entry: pageResult.getContent()) {
+    private void computer(Page<ViewLogBo> pageResult, Set<String> attackIps){
+        for (ViewLogBo entry: pageResult.getContent()) {
             if(analyzeService.isAttackUrl(entry.getResourcePath())){
                 attackIps.add(entry.getClientIp());
             }

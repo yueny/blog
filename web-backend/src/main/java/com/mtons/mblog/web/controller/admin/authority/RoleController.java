@@ -4,12 +4,14 @@
 package com.mtons.mblog.web.controller.admin.authority;
 
 import com.mtons.mblog.base.consts.Consts;
+import com.mtons.mblog.base.enums.StatusType;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.bo.PermissionBO;
 import com.mtons.mblog.bo.RoleBO;
-import com.mtons.mblog.entity.jpa.Role;
+import com.mtons.mblog.model.RolePermissionVO;
 import com.mtons.mblog.service.atom.bao.PermissionService;
-import com.mtons.mblog.service.atom.jpa.RoleService;
+import com.mtons.mblog.service.atom.bao.RoleService;
+import com.mtons.mblog.service.manager.IMenuRolePermissionManagerService;
 import com.mtons.mblog.web.controller.BaseBizController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,6 +37,8 @@ public class RoleController extends BaseBizController {
 	@Autowired
     private RoleService roleService;
 	@Autowired
+	private IMenuRolePermissionManagerService menuRolePermissionManagerService;
+	@Autowired
 	private PermissionService permissionService;
 
 	/**
@@ -47,22 +51,23 @@ public class RoleController extends BaseBizController {
 	@GetMapping("/list")
 	public String paging(String name, ModelMap model) {
 		Pageable pageable = wrapPageable();
-		Page<RoleBO> page = roleService.paging(pageable, name);
+		Page<RolePermissionVO> page = menuRolePermissionManagerService.findAllByRoleName(pageable, name);
 		model.put("name", name);
 		model.put("page", page);
+
 		return "/admin/authority/role/list";
 	}
 
 	@RequestMapping("/view")
 	public String view(Long id, ModelMap model) {
 		try{
-			if (id != null && id > 0) {
-				RoleBO role = roleService.get(id);
-				model.put("view", role);
+			if (id != null && id > 0) {;
+				model.put("view", menuRolePermissionManagerService.getForVo(id));
 			}
 
-			// 菜单列表
-			model.put("permissions", permissionService.findAllForTree());
+			// 分配菜单和权限资源，所以此处为所有权限， 包括菜单和功能
+			model.put("permissions", permissionService.findAllForTree(null));// 菜单列表
+      		model.put("statusList", StatusType.values());
 		}catch (Exception e){
 			e.printStackTrace();
 		}
@@ -94,7 +99,13 @@ public class RoleController extends BaseBizController {
         model.put("data", data);
         return "redirect:/admin/authority/role/list";
 	}
-	
+
+	/**
+	 * 激活或冻结
+	 * @param id
+	 * @param active true 为激活，false为冻结
+	 * @return
+	 */
 	@RequestMapping("/activate")
 	@ResponseBody
 	public Result activate(Long id, Boolean active) {

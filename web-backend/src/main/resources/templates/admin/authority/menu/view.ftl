@@ -1,4 +1,26 @@
 
+
+<#macro selectIterator nodes>
+    <#-- 循环节点-->
+    <#list nodes as row>
+        <optgroup label="${row.description}">
+            <option value="${row.id}"
+                    <#if (menuBo.permissionId == row.id)> selected </#if>>
+                ${row.description} / ${row.name}
+            </option>
+
+            <#if (row.items)?? && ((row.items)?size > 0) >
+                <#list row.items as item>
+                    <option value="${item.id}"
+                            <#if (menuBo.permissionId == item.id)> selected </#if>>
+                        ${item.description} / ${item.name}
+                    </option>
+                </#list>
+            </#if>
+        </optgroup>
+    </#list>
+</#macro>
+
     <div>
             <form method="post" action="${base}/admin/authority/menu/update.json" role="form">
                     <#if menuBo??>
@@ -9,7 +31,7 @@
                         <span class="input-group-addon">父级</span>
                         <select class="selectpicker show-tick" name="parentId"
                                 data-live-search="true" data-live-search-placeholder="搜索">
-                            <option value="0" title="根ROOT">/</option>
+                            <option value="0" title="/根">/</option>
                             <#list menuRootList as menuRoot>
                                 <option value="${menuRoot.id}"
                                         <#if (menuBo.parentId == menuRoot.id)> selected </#if>>
@@ -45,15 +67,32 @@
                     </div>
 
                     <div class="form-group input-group">
-                        <span class="input-group-addon">分配权限</span>
+                        <span class="input-group-addon">分配资源权限值</span>
                         <select class="selectpicker show-tick" name="permissionId"
-                                data-live-search="true" data-live-search-placeholder="搜索">
-                            <#list permissionTree as permission>
-                                <option value="${permission.id}"
-                                        <#if (menuBo.permissionId == permission.id)> selected </#if>>
-                                    ${permission.description} / ${permission.name}
-                                </option>
-                            </#list>
+                                data-live-search="true" data-live-search-placeholder="搜索"
+                                data-selected-text-format="count"
+                                data-style="btn-primary"
+                                <#-- Select/deselect all options -->
+                                data-actions-box="true">
+                            <#-- 循环下拉列表 -->
+                            <@selectIterator nodes=permissionList />
+<#--                            <#list permissionList as permissionTree>-->
+<#--                                <optgroup label="${permissionTree.description}">-->
+<#--                                    <option value="${permissionTree.id}"-->
+<#--                                            <#if (menuBo.permissionId == permissionTree.id)> selected </#if>>-->
+<#--                                        ${permissionTree.description} / ${permissionTree.name}-->
+<#--                                    </option>-->
+<#--                                    &lt;#&ndash; 子项 &ndash;&gt;-->
+<#--                                    <#if (permissionTree.items)?? && ((permissionTree.items)?size > 0) >-->
+<#--                                        <#list permissionTree.items as item>-->
+<#--                                            <option value="${item.id}"-->
+<#--                                                    <#if (menuBo.permissionId == item.id)> selected </#if>>-->
+<#--                                                ${item.description} / ${item.name}-->
+<#--                                            </option>-->
+<#--                                        </#list>-->
+<#--                                    </#if>-->
+<#--                                </optgroup>-->
+<#--                            </#list>-->
                         </select>
                     </div>
 

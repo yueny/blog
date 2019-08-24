@@ -9,6 +9,8 @@
 */
 package com.mtons.mblog.bo;
 
+import com.mtons.mblog.base.enums.FuncType;
+import com.mtons.mblog.base.enums.StatusType;
 import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
 import com.yueny.superclub.api.pojo.IBo;
 import lombok.EqualsAndHashCode;
@@ -36,6 +38,11 @@ public class PermissionBO extends AbstractMaskBo implements IBo, Serializable {
 	private String name;
 
 	private String description;
+
+	/**
+	 * 类型， 0菜单，1功能
+	 */
+	private FuncType funcType;
 
 	private int weight;
 

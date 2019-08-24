@@ -5,17 +5,17 @@ import com.yueny.superclub.api.enums.core.IEnumType;
 import lombok.Getter;
 
 /**
- * 状态没救
+ * 功能枚举
  */
-public enum StatusType implements IEnumType {
+public enum FuncType implements IEnumType {
     /**
-     * 正常，已激活、有效、初始状态
+     * 类型 1 功能
      */
-    NORMAL(0, "正常，已激活、有效"),
+    FUNC(StatusType.CLOSED.getValue(), "功能"),
     /**
-     * 关闭、禁用
+     * 类型  0 菜单
      */
-    CLOSED(1, "关闭、禁用");
+    MENU(StatusType.NORMAL.getValue(), "菜单");
 
     @EnumValue
     private Integer value;
@@ -23,13 +23,13 @@ public enum StatusType implements IEnumType {
     @Getter
     private String desc;
 
-    StatusType(Integer value, String desc){
+    FuncType(Integer value, String desc){
         this.value = value;
         this.desc = desc;
     }
 
-    public static StatusType getBy(Integer value) {
-        for(StatusType type : values()) {
+    public static FuncType getBy(Integer value) {
+        for(FuncType type : values()) {
             if(type.getValue().intValue() == value) {
                 return type;
             }
@@ -37,16 +37,9 @@ public enum StatusType implements IEnumType {
         return null;
     }
 
-    /**
-     * 是否有效
-     * @return
-     */
-    public boolean isActivate() {
-        return this.value == NORMAL.value.intValue();
-    }
-
     @com.yueny.superclub.api.annnotation.EnumValue
     public Integer getValue() {
         return value;
     }
+
 }

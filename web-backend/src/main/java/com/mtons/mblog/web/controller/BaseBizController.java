@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Controller 业务基类
  */
-public class BaseBizController extends BaseController {
+public abstract class BaseBizController extends BaseController {
     @Autowired
     protected StorageFactory storageFactory;
     @Autowired

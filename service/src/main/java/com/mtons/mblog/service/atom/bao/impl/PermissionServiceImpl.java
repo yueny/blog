@@ -2,6 +2,7 @@ package com.mtons.mblog.service.atom.bao.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.mtons.mblog.base.enums.FuncType;
 import com.mtons.mblog.bo.PermissionBO;
 import com.mtons.mblog.model.PermissionTreeVo;
 import com.mtons.mblog.entity.bao.Permission;
@@ -68,8 +69,12 @@ public class PermissionServiceImpl extends AbstractPlusService<PermissionBO, Per
     }
 
     @Override
-    public List<PermissionTreeVo> findAllForTree() {
+    public List<PermissionTreeVo> findAllForTree(FuncType funcType) {
         QueryWrapper<Permission> queryWrapper = new QueryWrapper<Permission>();
+        if(funcType != null){
+            queryWrapper.eq("func_type", funcType.getValue());
+        }
+
         queryWrapper.orderByDesc("weight");
         queryWrapper.orderByAsc("id");
 
@@ -135,6 +140,30 @@ public class PermissionServiceImpl extends AbstractPlusService<PermissionBO, Per
 ////        });
 ////        return results;
 ////    }
+
+    @Override
+    public boolean saveOrUpdate(PermissionBO bo) {
+        if(bo == null){
+            return false;
+        }
+
+        // 功能只能挂在菜单下， 菜单只能挂在菜单下， 也就是说，功能下不能挂任何东西
+        PermissionBO parentBo = get(bo.getParentId());
+        if(bo.getFuncType() == FuncType.FUNC){
+            if(parentBo.getFuncType() == FuncType.FUNC){
+                throw new MtonsException("功能只能挂在菜单下");
+            }
+        }else{
+            if(parentBo.getFuncType() == FuncType.FUNC){
+                throw new MtonsException("菜单只能挂在菜单下");
+            }
+        }
+//        if(parentBo.getFuncType() == FuncType.FUNC){
+//            throw new MtonsException("功能只能挂在菜单下， 菜单只能挂在菜单下");
+//        }
+
+        return super.saveOrUpdate(bo);
+    }
 
     /**
      * 因存在默认排序的服务重写
