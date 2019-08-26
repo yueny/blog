@@ -78,7 +78,10 @@ public class User extends AbstractUpdatePlusEntry implements Serializable {
 	@Column(name = "name", length = 18)
 	private String name;  // 昵称
 
-	private Integer gender;   // 性别
+	/**
+	 * 性别, 1男， 2女， 0未知
+	 */
+	private Integer gender;
 
 	@Column(name = "email", unique = true, length = 64)
 	private String email;  // 邮箱

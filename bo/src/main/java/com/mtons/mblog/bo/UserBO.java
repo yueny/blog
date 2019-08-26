@@ -10,6 +10,7 @@
 package com.mtons.mblog.bo;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.yueny.rapid.lang.common.enums.GenderType;
 import com.yueny.rapid.lang.mask.annotation.Mask;
 import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
 import lombok.Getter;
@@ -49,6 +50,11 @@ public class UserBO extends AbstractMaskBo implements Serializable {
 	private String thumbnailCode;
 
 	private String name;
+
+	/**
+	 * 性别, 1男， 2女， 0未知
+	 */
+	private GenderType gender;
 
 	/**
 	 * 自定义个性域名
