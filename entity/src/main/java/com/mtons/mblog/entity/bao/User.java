@@ -94,7 +94,10 @@ public class User extends AbstractUpdatePlusEntry implements Serializable {
 
 	private String signature; // 个性签名
 
-	private Integer status; // 用户状态， 0为可用， 1为不可用
+	/**
+	 * 0 激活， 1禁用。 用户状态， 0为可用， 1为不可用
+	 */
+	private Integer status;
 
 	public User() {
 		//.

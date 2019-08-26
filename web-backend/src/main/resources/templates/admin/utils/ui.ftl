@@ -35,7 +35,7 @@
 
         <#-- 4、etc -->
         <link rel="stylesheet" href="${base}/dist/css/checkbox.css">
-        <link rel="stylesheet" href="${base}/dist/js/comp/number-spinner.css">
+        <link rel="stylesheet" href="${base}/dist/js/comp/number-spinner/number-spinner.css">
 
         <#-- Theme Style -->
         <link href="${base}/theme/admin/dist/css/site.css" rel="stylesheet">
@@ -79,11 +79,12 @@
         <#--    <script type="text/javascript" src="https://cdn.bootcss.com/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>-->
         <script src="${base}/dist/vendors/jquery-treegrid/0.3.0/js/jquery.treegrid.js"></script>
         <script src="https://unpkg.com/bootstrap-table@1.15.4/dist/extensions/treegrid/bootstrap-table-treegrid.min.js"></script>
+        <script src="${base}/dist/js/comp/bootstrap-table/formatter-tools.js"></script>
 
         <#-- 4、etc -->
         <script src='${base}/dist/vendors/bootstrap-hover/twitter-bootstrap-hover-dropdown.js'></script>
 
-        <script src="${base}/dist/js/comp/number-spinner.js"></script>
+        <script src="${base}/dist/js/comp/number-spinner/number-spinner.js"></script>
         <script src="${base}/dist/vendors/qiaoJs/qiao.js"></script>
         <script src="${base}/dist/vendors/qiaoJs/qiao.config.js"></script>
 
@@ -92,7 +93,7 @@
         <script src="${base}/dist/js/crypto/js-cryptoJS.js"></script>
         <script src="${base}/dist/js/public.js"></script>
         <script src="${base}/dist/js/tools.js"></script>
-        <script src="${base}/dist/js/bootstrap-dialog-tools.js"></script>
+        <script src="${base}/dist/js/comp/bootstrap-dialog/bootstrap-dialog-tools.js"></script>
 
         <script src='${base}/dist/vendors/jquery-validation/jquery.validate.min.js'></script>
         <script src='${base}/dist/vendors/jquery-validation/additional-methods.js'></script>

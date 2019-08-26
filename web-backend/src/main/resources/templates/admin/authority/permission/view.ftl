@@ -109,11 +109,11 @@
     </div>
 
 
-    <link rel="stylesheet" href="${base}/dist/js/comp/number-spinner.css">
-    <link rel="stylesheet" href="${base}/static/dist/vendors/bootstrap-select/1.13.7/css/bootstrap-select.css">
-    <script src="${base}/static/dist/vendors/bootstrap-select/1.13.7/js/bootstrap-select.js"></script>
-    <script src="${base}/static/dist/vendors/bootstrap-select/1.13.7/js/i18n/defaults-zh_CN.js"></script>
-    <script src="${base}/dist/js/comp/number-spinner.js"></script>
+    <link rel="stylesheet" href="${base}/dist/js/comp/number-spinner/number-spinner.css">
+    <link rel="stylesheet" href="${base}/dist/vendors/bootstrap-select/1.13.7/css/bootstrap-select.css">
+    <script src="${base}/dist/vendors/bootstrap-select/1.13.7/js/bootstrap-select.js"></script>
+    <script src="${base}/dist/vendors/bootstrap-select/1.13.7/js/i18n/defaults-zh_CN.js"></script>
+    <script src="${base}/dist/js/comp/number-spinner/number-spinner.js"></script>
 
     <script type="text/javascript">
         $(function () {

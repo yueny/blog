@@ -26,7 +26,11 @@
                             <label class="col-sm-2 control-label">用户名</label>
                             <div class="col-sm-8">
                                 <input class="form-control" type="text" value="${view.username}"
-                                       disabled style="width:200px;" title="用户名/登录名">
+                                       style="width:200px;" title="用户名/登录名"
+                                <#if view?? && (view.id > 0)>
+                                    disabled
+                                </#if>
+                                >
                             </div>
                         </div>
                         <div class="form-group">

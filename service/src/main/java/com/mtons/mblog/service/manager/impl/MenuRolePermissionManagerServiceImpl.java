@@ -133,6 +133,10 @@ public class MenuRolePermissionManagerServiceImpl
     }
 
     private RolePermissionVO toVO(RoleBO po) {
+        if(po == null){
+            return null;
+        }
+
         RolePermissionVO r = mapAny(po, RolePermissionVO.class);
 
         r.setPermissions(findAllPermByRoleId(r.getId()));

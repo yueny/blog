@@ -22,6 +22,48 @@
                         </a>
                     </div>
 
+                    <#-- 查询条件 -->
+                    <form id="qForm" class="form-inline search-row">
+
+                        <div class="form-group">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    url(<span class="text-danger">模糊</span>)
+                                </button>
+                                <input type="text" class="form-control" name="url"
+                                       placeholder='链接地址，模糊查询, sql(%a%)' title='链接地址，模糊查询'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    name(<span class="text-danger">模糊</span>)
+                                </button>
+                                <input type="text" class="form-control" name="name"
+                                       placeholder='菜单名，模糊查询, sql(%a%)' title='菜单名，模糊查询'>
+                            </div>
+                        </div>
+
+                        <div class="pull-right btn-group">
+                            <button id="btn_search" onclick="searchInfo()" type="button"
+                                    class="btn btn-primary btn-space">
+                                <span class="fa fa-search" aria-hidden="true" class="btn-icon-space"></span>
+                                查询(暂未开启)
+                            </button>
+                            <button id="btn_reset" onclick="resetSearch()" type="button"
+                                    class="btn btn-default btn-space">
+                                <span class="fa fa-eraser" aria-hidden="true" class="btn-icon-space"></span>
+                                重置
+                            </button>
+                            <#--
+                            <button id="btn_refresh" onclick="refresh()" type="button"
+                                    class="btn btn-default btn-space">
+                                <span class="fa fa-refresh" class="btn-icon-space"></span>
+                            </button>
+                            -->
+                        </div>
+                    </form>
+
                     <#-- table -->
                     <table id="table" data-click-to-select="true" class="table table-bordered">
                         <thead>
@@ -65,17 +107,16 @@
                 showToggle: true,                   //是否显示详细视图和列表视图的切换按钮
                 cardView: false,                    //是否显示详细视图
                 showColumns: true,
-                search: true,           //是否显示表格搜索，此搜索是客户端搜索，不会进服务端
+                search: false,           //是否显示表格搜索，此搜索是客户端搜索，不会进服务端
                 searchOnEnterKey: true, // 回车触发搜索
                 searchAlign: 'right',
                 buttonsAlign: 'right', // 按钮位置
                 /* 得到查询的参数 */
-                queryParams : function (params) {
+                queryParam : function (params) {
                     // 获取自定义查询条件
                     var temp = queryParams();
                     temp["sort"] = params.sort;                         //排序列名
                     temp["sortOrder"] = params.order;                   //排位命令（desc，asc）
-                    temp["search"] = params.search;
                     return temp;
                 },
                 // rowStyle: function (row, index) {//row 表示行数据，object,index为行索引，从0开始
@@ -151,7 +192,7 @@
                 },
                 onDblClickRow: function(row){
                     $.showDialog("${base}/admin/authority/menu/view?id="+row.id, "GET",
-                        row.name + "」明细",
+                        "菜单「" + row.name + "」明细",
                         function(){
                             //刷新Table，Bootstrap Table 会自动执行重新查询
                             $table.bootstrapTable('refresh');
@@ -164,6 +205,19 @@
                 }
             })
         });
+
+        // 获取自定义查询条件
+        function queryParams() {
+            var param = {};
+            $('#qForm').find('[name]').each(function () {
+                var value = $(this).val();
+                if (value != '') {
+                    param[$(this).attr('name')] = value;
+                }
+            });
+
+            return param;
+        }
     </script>
 
     <script>
@@ -186,17 +240,27 @@
                     }
                 }, "json");
         }
+
+        // 重置
+        function resetSearch() {
+            $('#qForm').find('[name]').each(function () {
+                $(this).val('');
+            });
+        }
+
+        /*
+        * 查询
+        */
+        function searchInfo() {
+            refresh();
+        }
+
         /*
         * 刷新
         */
         function refresh() {
             //刷新Table，Bootstrap Table 会自动执行重新查询
             $table.bootstrapTable('refresh');
-        }
-
-        // 图标显示
-        function iconFormatter(value,row,index) {
-            return '<i class=">' + value + '" title="' + value + '"></i>';
         }
 
         // 显示title
@@ -217,7 +281,7 @@
         window.operateEvents={
             "click #tableEditor":function (e,value,row,index){
                 $.showDialog("${base}/admin/authority/menu/view?id="+row.id, "GET",
-                    row.name + "明细", refresh);
+                    "菜单「" + row.name + "」明细", refresh);
             },
             "click #tableDelete":function (e,value,row,index){
                 var ids = [];

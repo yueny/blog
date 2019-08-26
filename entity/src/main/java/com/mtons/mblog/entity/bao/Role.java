@@ -3,6 +3,7 @@ package com.mtons.mblog.entity.bao;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.mtons.mblog.base.enums.StatusType;
+import com.yueny.rapid.lang.common.enums.YesNoType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -35,7 +36,10 @@ public class Role extends AbstractIDPlusEntry {
      */
     private StatusType status;
 
-
+    /**
+     * 是否为超级管理员。 1 是， 0否
+     */
+    private Integer side;
 
 
 //

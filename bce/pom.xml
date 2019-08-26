@@ -17,6 +17,10 @@
             <groupId>com.yueny</groupId>
             <artifactId>api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.yueny.rapid</groupId>
+            <artifactId>rapid-lang-common</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.baomidou</groupId>

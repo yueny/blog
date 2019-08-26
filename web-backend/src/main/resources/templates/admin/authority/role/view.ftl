@@ -63,6 +63,22 @@
                         </div>
 
                         <div class="form-group input-group">
+                            <label for="side" class="col-lg-2 control-label">是否为超级管理员</label>
+                            <select class="selectpicker show-tick" name="side" required>
+                                <#list yesNoList as yesNo>
+                                    <option value="${yesNo}"
+                                            <#if (yesNo == view.side)> selected </#if>>
+                                        <#if yesNo == 'Y'>
+                                            超级管理员「${yesNo}」
+                                        <#else>
+                                            非超级管理员「${yesNo}」
+                                        </#if>
+                                    </option>
+                                </#list>
+                            </select>
+                        </div>
+
+                        <div class="form-group input-group">
                             <label for="status" class="col-lg-2 control-label">角色状态</label>
                             <select class="selectpicker show-tick" name="status" required>
                                 <#list statusList as status>

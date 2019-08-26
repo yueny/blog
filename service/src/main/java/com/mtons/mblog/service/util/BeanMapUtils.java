@@ -16,7 +16,6 @@ import com.mtons.mblog.entity.bao.Comment;
 import com.mtons.mblog.entity.bao.Post;
 import com.mtons.mblog.entity.bao.User;
 import com.mtons.mblog.entity.jpa.*;
-import com.mtons.mblog.model.AccountProfile;
 import org.springframework.beans.BeanUtils;
 
 /**
@@ -34,18 +33,18 @@ public class BeanMapUtils {
         return ret;
     }
 
-    public static AccountProfile copyPassport(User entry) {
-        AccountProfile passport = new AccountProfile(entry.getId(), entry.getUsername());
-        passport.setName(entry.getName());
-        passport.setEmail(entry.getEmail());
-        passport.setAvatar(entry.getAvatar());
-        passport.setLastLogin(entry.getLastLogin());
-        passport.setStatus(entry.getStatus());
-        passport.setDomainHack(entry.getDomainHack());
-        passport.setUid(entry.getUid());
-
-        return passport;
-    }
+//    public static AccountProfile copyPassport(User entry) {
+//        AccountProfile passport = new AccountProfile(entry.getId(), entry.getUsername());
+//        passport.setName(entry.getName());
+//        passport.setEmail(entry.getEmail());
+//        passport.setAvatar(entry.getAvatar());
+//        passport.setLastLogin(entry.getLastLogin());
+//        passport.setStatus(entry.getStatus());
+//        passport.setDomainHack(entry.getDomainHack());
+//        passport.setUid(entry.getUid());
+//
+//        return passport;
+//    }
 
     public static CommentBo copy(Comment entry) {
         CommentBo ret = new CommentBo();

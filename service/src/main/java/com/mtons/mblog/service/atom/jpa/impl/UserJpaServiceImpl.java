@@ -10,16 +10,11 @@
 package com.mtons.mblog.service.atom.jpa.impl;
 
 import com.mtons.mblog.dao.repository.UserRepository;
-import com.mtons.mblog.service.exception.MtonsException;
-import com.mtons.mblog.model.AccountProfile;
-import com.mtons.mblog.bo.BadgesCount;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.bao.User;
 import com.mtons.mblog.service.BaseService;
 import com.mtons.mblog.service.atom.jpa.MessageService;
 import com.mtons.mblog.service.atom.jpa.UserJpaService;
-import com.mtons.mblog.service.util.BeanMapUtils;
-import com.yueny.rapid.lang.exception.invalid.InvalidException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -86,7 +81,7 @@ public class UserJpaServiceImpl extends BaseService implements UserJpaService {
 
     @Override
     @Transactional
-    public AccountProfile login(String username, String password) {
+    public UserBO login(String username, String password) {
         User po = userRepositoryU.findByUsername(username);
         Assert.notNull(po, "账户不存在");
 
@@ -97,35 +92,7 @@ public class UserJpaServiceImpl extends BaseService implements UserJpaService {
         po.setLastLogin(Calendar.getInstance().getTime());
         userRepositoryU.save(po);
 
-        AccountProfile u = mapAny(po, AccountProfile.class);
-        //AccountProfile u = BeanMapUtils.copyPassport(po);
-
-        BadgesCount badgesCount = new BadgesCount();
-        badgesCount.setMessages(messageService.unread4Me(u.getId()));
-
-        u.setBadgesCount(badgesCount);
-        return u;
+        return map(po, UserBO.class);
     }
-
-    @Override
-    @Transactional
-    public AccountProfile findProfile(Long id) {
-        User po = userRepositoryU.findById(id).get();
-
-        Assert.notNull(po, "账户不存在");
-
-//		Assert.state(po.getStatus() != Const.STATUS_CLOSED, "您的账户已被封禁");
-        po.setLastLogin(Calendar.getInstance().getTime());
-
-        AccountProfile accountProfile = mapAny(po, AccountProfile.class);
-
-        BadgesCount badgesCount = new BadgesCount();
-        badgesCount.setMessages(messageService.unread4Me(accountProfile.getId()));
-
-        accountProfile.setBadgesCount(badgesCount);
-
-        return accountProfile;
-    }
-
 
 }

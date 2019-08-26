@@ -14,7 +14,7 @@ import com.mtons.mblog.service.exception.MtonsException;
 import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.service.atom.jpa.MessageService;
-import com.mtons.mblog.service.atom.jpa.UserJpaService;
+import com.mtons.mblog.service.manager.IAccountProfileService;
 import com.mtons.mblog.web.controller.BaseBizController;
 import com.mtons.mblog.web.controller.site.Views;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,11 +36,11 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/users")
 public class UsersController extends BaseBizController {
     @Autowired
-    private UserJpaService userJpaService;
-    @Autowired
     private UserService userService;
     @Autowired
     private MessageService messageService;
+    @Autowired
+    private IAccountProfileService accountProfileService;
 
     /**
      * 用户文章
@@ -96,7 +96,7 @@ public class UsersController extends BaseBizController {
         AccountProfile profile = getProfile();
         if (null != profile && profile.getId() == userId) {
             owner = true;
-            putProfile(userJpaService.findProfile(profile.getId()));
+            putProfile(accountProfileService.get(profile.getId()));
         }
         model.put("owner", owner);
     }

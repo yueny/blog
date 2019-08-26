@@ -61,18 +61,14 @@ public class RoleServiceImpl extends AbstractPlusService<RoleBO, Role, RoleMappe
         RoleBO roleBO = get(r.getId());
         if(roleBO == null){
             roleBO = new RoleBO();
-            roleBO.setName(r.getName());
         }
 
+        roleBO.setName(r.getName());
         roleBO.setDescription(r.getDescription());
         roleBO.setStatus(r.getStatus());
+        roleBO.setSide(r.getSide());
 
         saveOrUpdate(roleBO);
-//        if(PKUtil.available(roleBO.getId())){
-//            super.updateById(roleBO);
-//        }else{
-//            insert(roleBO);
-//        }
 
         rolePermissionService.deleteByRoleId(roleBO.getId());
 

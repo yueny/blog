@@ -67,6 +67,9 @@ public class UserBO extends AbstractMaskBo implements Serializable {
 	private Date lastLogin;
 	private String signature; // 个性签名
 
+	/**
+	 * 0 激活， 1禁用
+	 */
 	private int status;
 
 }

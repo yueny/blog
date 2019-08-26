@@ -14,18 +14,28 @@
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">用户列表</h3><div class="box-tools">
-                    <#-- 模态窗口 -->
-                    <a class="btn btn-default btn-sm" href="">添加用户(暂未实现)</a>
                 </div>
                 </div>
                 <div class="box-body">
-                    <form id="qForm" class="form-inline search-row">
+                    <div id="toolbar" class="box-tools btn-group">
+                        <#--
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" data-toggle="tooltip"
+                           data-evt="add" data-id="0">
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                            添加用户
+                        </a>
+                        -->
+                        添加用户
+                    </div>
+
+                    <form id="qForm" class="form-inline search-row right-side">
                         <input type="hidden" name="pageNo" value="${page.number + 1}"/>
                         <div class="form-group">
                             <input type="text" name="name" class="form-control" value="${name}" placeholder="请输入关键字">
                         </div>
                         <button type="submit" class="btn btn-default">查询</button>
                     </form>
+
                     <div class="table-responsive">
                         <table id="dataGrid" class="table table-striped table-bordered">
                             <thead>
@@ -49,7 +59,7 @@
                                     <td>
                                         <#list row.roles as role>
                                             <#-- ?pageNo=1&name=admin  -->
-                                            <a href="${ctx}/admin/authority/role/list">${role.name}</a>
+                                            <a href="${ctx}/admin/authority/role/index.html">${role.name}</a>
                                         </#list>
                                     </td>
                                     <td>
@@ -59,16 +69,20 @@
                                             <span class="label label-default">禁用</span>
                                         </#if>
                                     </td>
+
                                     <td class="text-center">
+                                        <#-- 普通用户才可操作， 超级管理员不能编辑 -->
                                         <#if row.id != 1>
+                                            <#-- 用户状态， 0为可用， 1为不可用 -->
                                             <#if row.status == 0>
-                                                <a href="javascript:void(0);" class="btn btn-xs btn-default" data-id="${row.id}" data-action="close">关闭</a>
+                                                <a href="javascript:void(0);" class="btn btn-xs btn-default" data-id="${row.id}" data-action="close">禁用</a>
                                             <#else>
                                                 <a href="javascript:void(0);" class="btn btn-xs btn-success" data-id="${row.id}" data-action="open">激活</a>
                                             </#if>
+
                                             <a href="${base}/admin/user/pwd?id=${row.id}" class="btn btn-xs btn-success">修改密码</a>
 
-                                            <a href="${base}/admin/user/view?id=${row.id}" class="btn btn-xs btn-primary">修改角色</a>
+                                            <a href="${base}/admin/user/view?id=${row.id}" data-id="${row.id}" class="btn btn-xs btn-primary">修改角色</a>
                                         <#else>
                                             <a href="javascript:void(0);" class="btn btn-xs disabled"><i class="fa fa-check-square-o"></i> 不可编辑</a>
                                         </#if>
@@ -101,6 +115,15 @@ function ajaxReload(json){
 }
 
 $(function() {
+    /** 新增用户
+    $('a[data-evt=add]').click(function () {
+        var id = $(this).attr('data-id');
+
+        $.showDialog("${base}/admin/user/view?id="+id, "GET",
+            "新增明细", ajaxReload);
+    });
+     */
+
 	// 停用
     $('#dataGrid a[data-action="close"]').bind('click', function(){
 		var that = $(this);

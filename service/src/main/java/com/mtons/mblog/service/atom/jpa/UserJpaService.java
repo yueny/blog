@@ -10,12 +10,8 @@
 package com.mtons.mblog.service.atom.jpa;
 
 import com.mtons.mblog.base.consts.Consts;
-import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.UserBO;
-import com.yueny.rapid.lang.exception.invalid.InvalidException;
 import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -49,14 +45,7 @@ public interface UserJpaService {
 	 * @param password
 	 * @return
 	 */
-	AccountProfile login(String username, String password);
-
-	/**
-	 * 登录,用于记住登录时获取用户信息
-	 * @param id
-	 * @return
-	 */
-	AccountProfile findProfile(Long id);
+	UserBO login(String username, String password);
 
 
 }

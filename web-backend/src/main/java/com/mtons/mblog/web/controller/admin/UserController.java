@@ -12,12 +12,14 @@ package com.mtons.mblog.web.controller.admin;
 import com.mtons.mblog.base.enums.StatusType;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.bo.UserBO;
+import com.mtons.mblog.bo.UserRoleBo;
 import com.mtons.mblog.model.UserVO;
 import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.atom.bao.RoleService;
 import com.mtons.mblog.service.atom.bao.UserRoleService;
 import com.mtons.mblog.service.comp.base.IUserPassportService;
 import com.mtons.mblog.service.manager.IUserManagerService;
+import com.mtons.mblog.service.util.PKUtil;
 import com.mtons.mblog.web.controller.BaseBizController;
 import com.yueny.rapid.lang.exception.invalid.InvalidException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +43,6 @@ public class UserController extends BaseBizController {
 	private UserService userService;
 	@Autowired
 	private RoleService roleService;
-
 	@Autowired
 	private IUserManagerService userManagerService;
 	@Autowired
@@ -64,11 +65,13 @@ public class UserController extends BaseBizController {
 	 */
 	@RequestMapping("/view")
 	public String view(Long id, ModelMap model) {
-		UserBO bo = userService.get(id);
+		if (PKUtil.available(id)) {
+			UserBO bo = userService.get(id);
 
-		UserVO userVO = userManagerService.get(bo.getUid());
+			UserVO userVO = userManagerService.get(bo.getUid());
 
-		model.put("view", userVO);
+			model.put("view", userVO);
+		}
 
 		// 角色列表 admin/user/guest 等
 		model.put("roles", roleService.findByActivate());
@@ -81,7 +84,14 @@ public class UserController extends BaseBizController {
 	@PostMapping("/update_role")
 //	@RequiresPermissions("user:role")
 	public String postAuthc(Long id, String uid, @RequestParam(value = "roleIds", required=false) Set<Long> roleIds, ModelMap model) {
-		userRoleService.updateRole(id, uid, roleIds);
+		if (PKUtil.available(id)) {
+			// 由于用户已经存在，所以更多的为变更角色关系
+			userRoleService.updateRole(id, uid, roleIds);
+		}else{
+//			UserRoleBo userRoleBo = new UserRoleBo();
+//			userRoleService.saveOrUpdate(userRoleBo);
+		}
+
 		model.put("data", Result.success());
 		return "redirect:/admin/user/list";
 	}

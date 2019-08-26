@@ -58,7 +58,7 @@
   {
     "icon": "fa fa-fw fa-plus",
     "name": "追踪管理",
-    "url": "/none",
+    "url": "/",
     "permission": "viewer:index",
     "children": [
       {

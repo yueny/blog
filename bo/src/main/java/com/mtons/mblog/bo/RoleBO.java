@@ -10,6 +10,7 @@
 package com.mtons.mblog.bo;
 
 import com.mtons.mblog.base.enums.StatusType;
+import com.yueny.rapid.lang.common.enums.YesNoType;
 import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -36,5 +37,10 @@ public class RoleBO extends AbstractMaskBo {
 	private String description;
 
 	private StatusType status;
+
+	/**
+	 * 是否为超级管理员。 1 是， 0否
+	 */
+	private YesNoType side;
 
 }

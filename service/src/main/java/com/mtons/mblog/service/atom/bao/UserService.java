@@ -13,7 +13,6 @@ import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.enums.StatusType;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.bao.User;
-import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.service.api.bao.IPlusBizService;
 import com.yueny.rapid.lang.exception.invalid.InvalidException;
 import org.springframework.cache.annotation.CacheConfig;
@@ -58,7 +57,7 @@ public interface UserService extends IPlusBizService<UserBO, User> {
 	 * @return
 	 */
 	@CacheEvict(key = "#user.getId()")
-	AccountProfile update(UserBO user);
+	boolean update(UserBO user);
 
 	/**
 	 * 修改用户信息
@@ -66,7 +65,7 @@ public interface UserService extends IPlusBizService<UserBO, User> {
 	 * @return
 	 */
 	@CacheEvict(key = "#id")
-	AccountProfile updateEmail(long id, String email);
+	boolean updateEmail(long id, String email);
 
 	//	/**
 //	 * 查询单个用户
@@ -100,7 +99,7 @@ public interface UserService extends IPlusBizService<UserBO, User> {
 	 * @return
 	 */
 	@CacheEvict(key = "#id")
-	AccountProfile updateAvatar(long id, String path);
+	boolean updateAvatar(long id, String path);
 
 	/**
 	 * 修改密码

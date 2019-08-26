@@ -2,6 +2,7 @@ package com.mtons.mblog.shiro;
 
 import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.service.atom.jpa.UserJpaService;
+import com.mtons.mblog.service.manager.IAccountProfileService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.mgt.DefaultSubjectFactory;
 import org.apache.shiro.mgt.SecurityManager;
@@ -23,6 +24,8 @@ import javax.servlet.ServletResponse;
 public class AccountSubjectFactory extends DefaultSubjectFactory {
     @Autowired
     private UserJpaService userService;
+    @Autowired
+    private IAccountProfileService accountProfileService;
 
     @Override
     public Subject createSubject(SubjectContext context) {
@@ -50,7 +53,8 @@ public class AccountSubjectFactory extends DefaultSubjectFactory {
         if ((subject.isAuthenticated() || subject.isRemembered()) && session.getAttribute("profile") == null) {
             AccountProfile profile = (AccountProfile) subject.getPrincipal();
             log.debug("reload session - " + profile.getUsername());
-            session.setAttribute("profile", userService.findProfile(profile.getId()));
+
+            session.setAttribute("profile", accountProfileService.get(profile.getId()));
         }
     }
 

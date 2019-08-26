@@ -6,6 +6,7 @@ import com.mtons.mblog.base.utils.FileKit;
 import com.mtons.mblog.base.utils.FilePathUtils;
 import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.comp.base.IUserPassportService;
+import com.mtons.mblog.service.manager.IAccountProfileService;
 import com.mtons.mblog.service.util.ImageUtils;
 import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.UserBO;
@@ -36,14 +37,15 @@ public class SettingsController extends BaseBizController {
     private SecurityCodeService securityCodeService;
     @Autowired
     private IUserPassportService userPassportService;
+    @Autowired
+    private IAccountProfileService accountProfileService;
 
     /**
      * 查看个人基本信息
      */
     @GetMapping(value = "/profile")
     public String view(ModelMap model) {
-        AccountProfile profile = getProfile();
-        UserBO view = userService.get(profile.getId());
+        UserBO view = userService.get(getProfile().getId());
         model.put("view", view);
         return view(Views.SETTINGS_PROFILE);
     }
@@ -87,7 +89,8 @@ public class SettingsController extends BaseBizController {
                 user.setDomainHack(domainHack);
             }
 
-            putProfile(userService.update(user));
+            userService.update(user);
+            putProfile(accountProfileService.get(profile.getId()));
 
             // put 最新信息
             UserBO view = userService.get(profile.getId());
@@ -115,8 +118,9 @@ public class SettingsController extends BaseBizController {
 
             securityCodeService.verify(String.valueOf(profile.getId()), Consts.CODE_BIND, code);
             // 先执行修改，内部判断邮箱是否更改，或邮箱是否被人使用
-            AccountProfile p = userService.updateEmail(profile.getId(), email);
-            putProfile(p);
+            userService.updateEmail(profile.getId(), email);
+
+            putProfile(accountProfileService.get(profile.getId()));
 
             data = Result.success();
         } catch (Exception e) {
@@ -134,8 +138,7 @@ public class SettingsController extends BaseBizController {
     public String updatePassword(String oldPassword, String password, ModelMap model) {
         Result data;
         try {
-            AccountProfile profile = getProfile();
-            userPassportService.modifyPassPort(profile.getUid(), oldPassword, password);
+            userPassportService.modifyPassPort(getProfile().getUid(), oldPassword, password);
 
             data = Result.success();
         } catch (Exception e) {
@@ -179,8 +182,9 @@ public class SettingsController extends BaseBizController {
 //                            .nailTypeAppend(getAvaPath(profile.getId(), 240))
 //                    .build(), 240, 240);
 
-            AccountProfile user = userService.updateAvatar(profile.getId(), path);
-            putProfile(user);
+            userService.updateAvatar(profile.getId(), path);
+
+            putProfile(accountProfileService.get(profile.getId()));
 
             result.ok(UploadController.errorInfo.get("SUCCESS"));
             result.setName(fileName);

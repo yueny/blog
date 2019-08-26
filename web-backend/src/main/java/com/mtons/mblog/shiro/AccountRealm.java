@@ -7,6 +7,7 @@ import com.mtons.mblog.model.RolePermissionVO;
 import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.atom.bao.UserRoleService;
 import com.mtons.mblog.service.atom.jpa.UserJpaService;
+import com.mtons.mblog.service.manager.IAccountProfileService;
 import com.mtons.mblog.service.manager.IUserManagerService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -29,6 +30,8 @@ public class AccountRealm extends AuthorizingRealm {
     private UserRoleService userRoleService;
     @Autowired
     private IUserManagerService userManagerService;
+    @Autowired
+    private IAccountProfileService accountProfileService;
 
     public AccountRealm() {
         super(new AllowAllCredentialsMatcher());
@@ -41,17 +44,18 @@ public class AccountRealm extends AuthorizingRealm {
         if (profile != null) {
             UserBO user = userService.get(profile.getId());
             if (user != null) {
-                SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+                // 获取用户对应角色所拥有的权限，然后将这些权限放到SimpleAuthorizationInfo的权限认证书中
+                SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
                 List<RolePermissionVO> roles = userManagerService.findListRolesByUserId(user.getId());
 
                 //赋予角色
                 roles.forEach(role -> {
-                    info.addRole(role.getName());
+                    authorizationInfo.addRole(role.getName());
 
                     //赋予权限
-                    role.getPermissions().forEach(permission -> info.addStringPermission(permission.getName()));
+                    role.getPermissions().forEach(permission -> authorizationInfo.addStringPermission(permission.getName()));
                 });
-                return info;
+                return authorizationInfo;
             }
         }
         return null;
@@ -73,6 +77,8 @@ public class AccountRealm extends AuthorizingRealm {
 
     protected AccountProfile getAccount(UserJpaService userService, AuthenticationToken token) {
         UsernamePasswordToken upToken = (UsernamePasswordToken) token;
-        return userService.login(upToken.getUsername(), String.valueOf(upToken.getPassword()));
+        UserBO userBO = userService.login(upToken.getUsername(), String.valueOf(upToken.getPassword()));
+
+        return accountProfileService.get(userBO.getId());
     }
 }

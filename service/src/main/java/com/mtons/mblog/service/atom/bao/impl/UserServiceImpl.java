@@ -7,7 +7,6 @@ import com.mtons.mblog.base.enums.StatusType;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.dao.mapper.UserMapper;
 import com.mtons.mblog.entity.bao.User;
-import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.atom.jpa.MessageService;
 import com.mtons.mblog.service.exception.MtonsException;
@@ -38,7 +37,7 @@ public class UserServiceImpl extends AbstractPlusService<UserBO, User, UserMappe
     }
 
     @Override
-    public AccountProfile update(UserBO user) {
+    public boolean update(UserBO user) {
         UserBO userBO = get(user.getId());
 
         userBO.setName(user.getName());
@@ -52,11 +51,11 @@ public class UserServiceImpl extends AbstractPlusService<UserBO, User, UserMappe
 
         updateById(userBO);
 
-        return mapAny(userBO, AccountProfile.class);
+        return true;
     }
 
     @Override
-    public AccountProfile updateEmail(long id, String email) {
+    public boolean updateEmail(long id, String email) {
         UserBO userBO = get(id);
 
         if (userBO == null) {
@@ -76,7 +75,7 @@ public class UserServiceImpl extends AbstractPlusService<UserBO, User, UserMappe
         save.setEmail(email);
         updateById(save);
 
-        return mapAny(userBO, AccountProfile.class);
+        return true;
     }
 
     @Override
@@ -112,7 +111,7 @@ public class UserServiceImpl extends AbstractPlusService<UserBO, User, UserMappe
     }
 
     @Override
-    public AccountProfile updateAvatar(long id, String path) {
+    public boolean updateAvatar(long id, String path) {
         UserBO userBO = get(id);
 
         if (userBO == null) {
@@ -124,7 +123,7 @@ public class UserServiceImpl extends AbstractPlusService<UserBO, User, UserMappe
         save.setAvatar(path);
         updateById(save);
 
-        return mapAny(userBO, AccountProfile.class);
+        return true;
     }
 
     @Override

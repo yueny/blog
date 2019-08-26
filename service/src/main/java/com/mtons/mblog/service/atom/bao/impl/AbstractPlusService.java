@@ -219,6 +219,10 @@ import java.util.*;
 
 	@Override
 	public List<T> findAllById(Set<Long> ids) {
+		if(CollectionUtils.isEmpty(ids)){
+			return Collections.emptyList();
+		}
+
 		List<S> entryList = baseMapper.selectBatchIds(ids);
 
 		if(CollectionUtils.isEmpty(entryList)){
@@ -256,12 +260,20 @@ import java.util.*;
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean deleteByIds(Set<Long> ids) {
+		if(CollectionUtils.isEmpty(ids)){
+			return false;
+		}
+
 		return baseMapper.deleteBatchIds(ids) == ids.size();
 	}
 
 	@Override
 	@Transactional
 	public boolean insert(T t) {
+		if(t == null){
+			return false;
+		}
+
 		S entry = map(t, entryClazz);
 
 		int pk = baseMapper.insert(entry);
@@ -275,6 +287,10 @@ import java.util.*;
 
 	@Override
 	public boolean updateById(T t) {
+		if(t == null){
+			return false;
+		}
+
 		S entry = map(t, entryClazz);
 
 		return baseMapper.updateById(entry) > 0;
@@ -283,6 +299,10 @@ import java.util.*;
 	@Override
 	@Transactional
 	public boolean insertBatchs(Collection<T> boList) {
+		if(CollectionUtils.isEmpty(boList)){
+			return false;
+		}
+
 		for (T t : boList) {
 			S entry = map(t, entryClazz);
 

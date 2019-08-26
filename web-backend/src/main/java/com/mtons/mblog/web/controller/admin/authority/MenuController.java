@@ -57,11 +57,14 @@ public class MenuController extends BaseBizController {
     /**
      * 获取菜单列表， 非树结构。树化在前端页面完成
      *
+     * @param url 链接地址查询，模糊查询
+     * @param name 菜单名查询， 模糊查询
+     *
      * @return
      */
     @RequestMapping("/list.json")
     @ResponseBody
-    public ListResponse<MenuVo> list(String search) {
+    public ListResponse<MenuVo> list(String url, String name) {
         ListResponse<MenuVo> response = new ListResponse<>();
 
         List<MenuVo> list = menuRolePermissionManagerService.findAllForPermission();
