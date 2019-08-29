@@ -15,7 +15,9 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">评论列表</h3>
                     <div class="box-tools">
-                        <a class="btn btn-default btn-sm" href="javascript:void(0);" data-action="batch_del">批量删除</a>
+                        <@shiroRuleOpts permission="${shiroRuleMap.commentDelete}">
+                            <a class="btn btn-default btn-sm" href="javascript:void(0);" data-action="batch_del">批量删除</a>
+                        </@shiroRuleOpts>
                     </div>
                 </div>
                 <div class="box-body">
@@ -71,9 +73,11 @@
                                     </td>
                                     <td>${row.created?string('yyyy-MM-dd')}</td>
                                     <td>
-                                        <a href="javascript:void(0);" class="btn btn-xs btn-primary" data-id="${row.id}"
-                                           data-action="delete">删除
-                                        </a>
+                                        <@shiroRuleOpts permission="${shiroRuleMap.commentDelete}">
+                                            <a href="javascript:void(0);" class="btn btn-xs btn-primary" data-id="${row.id}"
+                                               data-action="delete">删除
+                                            </a>
+                                        </@shiroRuleOpts>
                                     </td>
                                 </tr>
                                 </#list>

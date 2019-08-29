@@ -88,6 +88,7 @@
         <script src="${base}/dist/vendors/qiaoJs/qiao.js"></script>
         <script src="${base}/dist/vendors/qiaoJs/qiao.config.js"></script>
 
+        <script src="${base}/dist/js/permission.js"></script>
         <script src="${base}/dist/js/plugins.js"></script>
         <script src="${base}/dist/js/crypto/js-base64.js"></script>
         <script src="${base}/dist/js/crypto/js-cryptoJS.js"></script>
@@ -200,22 +201,24 @@
                     <ul class="sidebar-menu" data-widget="tree">
                         <li class="header">菜单</li>
 
-                        <li>
-                            <a href="${base}/admin" class="active">
-                                <i class="fa fa-dashboard"></i>
-                                <span>仪表盘</span>
-                            </a>
-                        </li>
+<#--                        <li>-->
+<#--                            <a href="${base}/admin" class="active">-->
+<#--                                <i class="fa fa-dashboard"></i>-->
+<#--                                <span>仪表盘</span>-->
+<#--                            </a>-->
+<#--                        </li>-->
 
                         <#-- 数据来自于菜单宏， @getName() -->
                         <@menus>
                             <#list results as menu>
-
-                            <#-- 含子菜单: 不为空且长度不为0 -->
+                                <#-- 含子菜单: 不为空且长度不为0 -->
                                 <#if menu.children?? && (menu.children)?size>
                                     <li class="dropdown">
                                         <a href="${menu.url}" data-toggle="dropdown"
-                                           aria-haspopup="true" aria-expanded="false">
+                                           aria-haspopup="true" aria-expanded="false"
+                                                <#if menu_index == 0>
+                                                    class="active"
+                                                </#if>>
                                             <i class="fa fa-fw fa-plus"> </i>
                                             ${menu.name}
                                             <span class="caret"></span>
@@ -233,9 +236,12 @@
                                         </ul>
                                     </li>
                                 <#else>
-                                <#-- 不含子菜单，一级菜单 -->
+                                    <#-- 不含子菜单，一级菜单 -->
                                     <li>
-                                        <a href="${base}/${menu.url}">
+                                        <a href="${base}/${menu.url}"
+                                            <#if menu_index == 0>
+                                                class="active"
+                                            </#if>>
                                             <i class="${menu.icon}"></i>
                                             <span>${menu.name}</span>
                                         </a>

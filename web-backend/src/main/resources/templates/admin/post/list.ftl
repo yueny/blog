@@ -15,8 +15,12 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">文章列表</h3>
                     <div class="box-tools">
-                        <a class="btn btn-default btn-sm" href="${base}/admin/post/view">新建</a>
-                        <a class="btn btn-default btn-sm" href="javascript:void(0);" data-action="batch_del">批量删除</a>
+                        <@shiroRuleOpts permission="${shiroRuleMap.postUpdate}">
+                            <a class="btn btn-default btn-sm" href="${base}/admin/post/view">新建</a>
+                        </@shiroRuleOpts>
+                        <@shiroRuleOpts permission="${shiroRuleMap.postDelete}">
+                            <a class="btn btn-default btn-sm" href="javascript:void(0);" data-action="batch_del">批量删除</a>
+                        </@shiroRuleOpts>
                     </div>
                 </div>
                 <div class="box-body">
@@ -98,25 +102,31 @@
                                         </#if>
                                     </td>
                                     <td>
-                                        <#if (article.featured.value == 0)>
-                                            <a href="javascript:void(0);" class="btn btn-xs btn-default"
-                                               data-id="${article.articleBlogId}" rel="featured">推荐</a>
-                                        <#else>
-                                            <a href="javascript:void(0);" class="btn btn-xs btn-danger"
-                                               data-id="${article.articleBlogId}" rel="unfeatured">消荐</a>
-                                        </#if>
+<#--                                        <@shiroRuleOpts permission="${shiroRuleMap.postWeight}">-->
+                                            <#if (article.featured.value == 0)>
+                                                <a href="javascript:void(0);" class="btn btn-xs btn-default"
+                                                   data-id="${article.articleBlogId}" rel="featured">推荐</a>
+                                            <#else>
+                                                <a href="javascript:void(0);" class="btn btn-xs btn-danger"
+                                                   data-id="${article.articleBlogId}" rel="unfeatured">消荐</a>
+                                            </#if>
 
-                                        <#if (article.weight == 0)>
-                                            <a href="javascript:void(0);" class="btn btn-xs btn-default"
-                                               data-id="${article.articleBlogId}" rel="weight">置顶</a>
-                                        <#else>
-                                            <a href="javascript:void(0);" class="btn btn-xs btn-warning"
-                                               data-id="${article.articleBlogId}" rel="unweight">消顶</a>
-                                        </#if>
+                                            <#if (article.weight == 0)>
+                                                <a href="javascript:void(0);" class="btn btn-xs btn-default"
+                                                   data-id="${article.articleBlogId}" rel="weight">置顶</a>
+                                            <#else>
+                                                <a href="javascript:void(0);" class="btn btn-xs btn-warning"
+                                                   data-id="${article.articleBlogId}" rel="unweight">消顶</a>
+                                            </#if>
+<#--                                        </@shiroRuleOpts>-->
 
-                                        <a href="${base}/admin/post/view?articleBlogId=${article.articleBlogId}" class="btn btn-xs btn-info">修改</a>
-                                        <a href="javascript:void(0);" class="btn btn-xs btn-primary"
-                                           data-id="${article.articleBlogId}" rel="delete">删除</a>
+<#--                                        <@shiroRuleOpts permission="${shiroRuleMap.postUpdate}">-->
+                                            <a href="${base}/admin/post/view?articleBlogId=${article.articleBlogId}" class="btn btn-xs btn-info">修改</a>
+<#--                                        </@shiroRuleOpts>-->
+<#--                                        <@shiroRuleOpts permission="${shiroRuleMap.postDelete}">-->
+                                            <a href="javascript:void(0);" class="btn btn-xs btn-primary"
+                                               data-id="${article.articleBlogId}" rel="delete">删除</a>
+<#--                                        </@shiroRuleOpts>-->
                                     </td>
                                 </tr>
                                 </#list>

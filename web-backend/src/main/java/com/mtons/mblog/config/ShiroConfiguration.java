@@ -5,6 +5,7 @@ import com.mtons.mblog.service.manager.IMenuRolePermissionManagerService;
 import com.mtons.mblog.shiro.AccountRealm;
 import com.mtons.mblog.shiro.AccountSubjectFactory;
 import com.mtons.mblog.shiro.AuthenticatedFilter;
+import com.mtons.mblog.shiro.ShiroRuleFuncNames;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
@@ -150,38 +151,33 @@ public class ShiroConfiguration {
 
 
         /** 后台：页面权限 */
-        // 首页 AdminController
+        // 首页 AdminController  ok
+        hashMap.put("/admin/reload_options", getAuthc(ShiroRuleFuncNames.adminCache));
+        hashMap.put("/admin/reset_indexes", getAuthc(ShiroRuleFuncNames.adminCache));
+        hashMap.put("/admin/reload_menu", getAuthc(ShiroRuleFuncNames.adminCache));
 
-        // 栏目管理 ChannelController
-        hashMap.put("/admin/channel/list.html", "authc,perms[channel:list]");
-        hashMap.put("/admin/channel/view*", "authc,perms[channel:list]");
-        hashMap.put("/admin/channel/tree/add*", "authc,perms[channel:update]");
-        hashMap.put("/admin/channel/tree/query.json", "authc,perms[channel:list]");
-        hashMap.put("/admin/channel/update.json", "authc,perms[channel:update]");
-        hashMap.put("/admin/channel/weight.json", "authc,perms[channel:update]");
-        hashMap.put("/admin/channel/delete.json", "authc,perms[channel:delete]");
+        // 栏目管理 ChannelController ok
+        hashMap.put("/admin/channel/view.html", getAuthc(ShiroRuleFuncNames.channelList));
+        hashMap.put("/admin/channel/view*", getAuthc(ShiroRuleFuncNames.channelList));
+        hashMap.put("/admin/channel/tree/*", getAuthc(ShiroRuleFuncNames.channelUpdate));
+        hashMap.put("/admin/channel/update.json", getAuthc(ShiroRuleFuncNames.channelUpdate));
+        hashMap.put("/admin/channel/delete.json", getAuthc(ShiroRuleFuncNames.channelDelete));
+        hashMap.put("/admin/channel/weight.json", getAuthc(ShiroRuleFuncNames.channelWeight));
 
-        // 留言 CommentController
-        hashMap.put("/admin/comment/list", "authc,perms[comment:list]");
-        hashMap.put("/admin/comment/delete", "authc,perms[comment:delete]");
+        // 留言 CommentController ok
+        hashMap.put("/admin/comment/delete", getAuthc(ShiroRuleFuncNames.commentDelete));
 
-        // 系统配置 OptionsController
-        hashMap.put("/admin/options/index", "authc,perms[options:index]");
-        hashMap.put("/admin/options/update", "authc,perms[options:update]");
-        hashMap.put("/admin/options/reload_options", "authc,perms[options:update]");
-        hashMap.put("/admin/options/reset_indexes", "authc,perms[options:update]");
-        hashMap.put("/admin/options/reload_menu", "authc,perms[options:update]");
+        // 系统配置 OptionsController ok
+        hashMap.put("/admin/options/update", getAuthc(ShiroRuleFuncNames.optionsUpdate));
 
-        // 博文管理 PostController
-        hashMap.put("/admin/post/list", "authc,perms[post:list]");
-        hashMap.put("/admin/post/view", "authc,perms[post:list]");
-        hashMap.put("/admin/post/update", "authc,perms[post:update]");
-        hashMap.put("/admin/post/featured", "authc,perms[post:update]");
-        hashMap.put("/admin/post/weight", "authc,perms[post:update]");
-        hashMap.put("/admin/post/delete", "authc,perms[post:delete]");
+        // 博文管理 PostController ok
+        hashMap.put("/admin/post/view", getAuthc(ShiroRuleFuncNames.postList));
+        hashMap.put("/admin/post/update", getAuthc(ShiroRuleFuncNames.postUpdate));
+        hashMap.put("/admin/post/delete", getAuthc(ShiroRuleFuncNames.postDelete));
+        hashMap.put("/admin/post/featured", getAuthc(ShiroRuleFuncNames.postWeight));
+        hashMap.put("/admin/post/weight", getAuthc(ShiroRuleFuncNames.postWeight));
 
         // 用户管理 UserController
-        hashMap.put("/admin/user/list", "authc,perms[user:list]");
         hashMap.put("/admin/user/view", "authc,perms[user:list]");
         hashMap.put("/admin/user/update_role", "authc,perms[user:role]");
         hashMap.put("/admin/user/pwd", "authc,perms[user:pwd]");
@@ -190,15 +186,12 @@ public class ShiroConfiguration {
 
         // 追踪管理
         // 访问行为分析 ViewerAnalyzeController
-        hashMap.put("/admin/trace/analyze/index.html", "authc,perms[trace:analyze:index]");
         // 访问记录控制器 ViewerController
-        hashMap.put("/admin/trace/viewer/index.html", "authc,perms[trace:viewer:index]");
         hashMap.put("/admin/trace/viewer/get/list.json", "authc,perms[trace:viewer:index]");
         hashMap.put("/admin/trace/viewer/get.json", "authc,perms[trace:viewer:index]");
         hashMap.put("/admin/trace/viewer/delete.json", "authc,perms[trace:viewer:delete]");
 
         // 角色管理 RoleController
-        hashMap.put("/admin/authority/role/index.html", "authc,perms[authority:role:list]");
         hashMap.put("/admin/authority/role/list.json", "authc,perms[authority:role:list]");
         hashMap.put("/admin/authority/role/view", "authc,perms[authority:role:list]");
         hashMap.put("/admin/authority/role/update", "authc,perms[authority:role:update]");
@@ -206,41 +199,65 @@ public class ShiroConfiguration {
         hashMap.put("/admin/authority/role/delete.json", "authc,perms[authority:role:delete]");
 
 //        // 资源权限管理 PermissionController
-        hashMap.put("/admin/authority/permission/index.html", "authc,perms[authority:permission:index]");
         hashMap.put("/admin/authority/permission/list.json", "authc,perms[authority:permission:index]");
         hashMap.put("/admin/authority/permission/view", "authc,perms[authority:permission:index]");
         hashMap.put("/admin/authority/permission/update.json", "authc,perms[authority:permission:update]");
         hashMap.put("/admin/authority/permission/delete.json", "authc,perms[authority:permission:delete]");
 
         // 菜单管理 MenuController
-        hashMap.put("/admin/authority/menu/index.html", "authc,perms[authority:menu:index]");
         hashMap.put("/admin/authority/menu/list.json", "authc,perms[authority:menu:index]");
         hashMap.put("/admin/authority/menu/view", "authc,perms[authority:menu:index]");
         hashMap.put("/admin/authority/menu/update.json", "authc,perms[authority:menu:update]");
         hashMap.put("/admin/authority/menu/delete.json", "authc,perms[authority:menu:delete]");
 
         // 主题管理 ThemeController
-        hashMap.put("/admin/theme/*", "authc,perms[theme:index]");
+        hashMap.put("/admin/theme/active", "authc,perms[theme:index]");
+        hashMap.put("/admin/theme/upload", "authc,perms[theme:index]");
 
-        // 后台首页
-        hashMap.put("/admin", "authc,perms[admin]");
-
-        hashMap.put("/admin/*", "authc,perms[admin]");
 
         /**
-         * 从数据库 加载菜单/功能的权限配置，存在重复则覆盖
+         * 从数据库 加载「菜单」的权限配置，存在重复则覆盖
          */
-//        List<MenuVo> list = menuRolePermissionManagerService.findAllForPermission();
-//        list.forEach(menuVo -> {
-//            if(menuVo.getPermission() != null){
-//                if(StringUtils.startsWith(menuVo.getUrl(), "/")){
-//                    hashMap.put(menuVo.getUrl(), "authc,perms[" + menuVo.getPermission().getName() + "]");
-//                }else{
-//                    hashMap.put("/" + menuVo.getUrl(), "authc,perms[" + menuVo.getPermission().getName() + "]");
-//                }
-//            }
-//        });
+        List<MenuVo> list = menuRolePermissionManagerService.findAllForPermission();
+        list.forEach(menuVo -> {
+            if(menuVo.getPermission() != null){
+                if(StringUtils.isEmpty(menuVo.getUrl())
+                    || StringUtils.equals(menuVo.getUrl(), "/")){
+                    return;
+                }
+
+                if(StringUtils.startsWith(menuVo.getUrl(), "/")){
+                    hashMap.put(menuVo.getUrl(), "authc,perms[" + menuVo.getPermission().getName() + "]");
+                }else{
+                    hashMap.put("/" + menuVo.getUrl(), "authc,perms[" + menuVo.getPermission().getName() + "]");
+                }
+            }
+        });
+//        hashMap.put("/admin/channel/list.html", "authc,perms[channel:list]");
+//        hashMap.put("/admin/comment/list", getAuthc(ShiroRuleFuncNames.commentList));
+//        hashMap.put("/admin/options/index", "authc,perms[options:index]");
+//        hashMap.put("/admin/post/list", "authc,perms[post:list]");
+//        hashMap.put("/admin/user/list", "authc,perms[user:list]");
+//        hashMap.put("/admin/trace/analyze/index.html", "authc,perms[trace:analyze:index]");
+//        hashMap.put("/admin/trace/viewer/index.html", "authc,perms[trace:viewer:index]");
+//        hashMap.put("/admin/authority/role/index.html", "authc,perms[authority:role:list]");
+//        hashMap.put("/admin/authority/permission/index.html", "authc,perms[authority:permission:index]");
+//        hashMap.put("/admin/authority/menu/index.html", "authc,perms[authority:menu:index]");
+//        hashMap.put("/admin/theme/index", "authc,perms[theme:index]");
+//        hashMap.put("/admin", getAuthc(ShiroRuleFuncNames.admin));
+
+        /*
+         * 功能的权限配置，在每个 Controller 控制器中通过注解完成
+         */
+        //.
+
+        // 默认需要的权限
+//        hashMap.put("/admin/*", getAuthc(ShiroRuleFuncNames.adminImprove));
 
         return hashMap;
+    }
+
+    private String getAuthc(String shiroRuleFuncName){
+        return "authc,perms[" + shiroRuleFuncName + "]";
     }
 }

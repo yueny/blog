@@ -12,6 +12,8 @@ package com.mtons.mblog.web.controller.api;
 import com.google.common.collect.Sets;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.lang.Result;
+import com.mtons.mblog.bo.CommentBo;
+import com.mtons.mblog.service.atom.bao.CommentService;
 import com.mtons.mblog.service.util.BeanMapUtils;
 import com.mtons.mblog.model.PostVO;
 import com.mtons.mblog.service.manager.PostManagerService;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 侧边栏数据加载
@@ -36,6 +39,8 @@ import javax.servlet.http.HttpServletRequest;
 public class ApiController extends BaseBizController {
     @Autowired
     private PostManagerService postManagerService;
+    @Autowired
+    private CommentService commentService;
 
     @PostMapping(value = "/login")
     public Result login(String username, String password) {
@@ -48,4 +53,20 @@ public class ApiController extends BaseBizController {
         int channelId = ServletRequestUtils.getIntParameter(request, "channelId", 0);
         return postManagerService.paging(wrapPageable(Sort.by(Sort.Direction.DESC, BeanMapUtils.postOrder(order))), Sets.newHashSet(channelId), null);
     }
+
+    /**
+     * 获取最新评论
+     *
+     * @param request
+     * @returnC
+     */
+    @RequestMapping("/latest_comments")
+    public List<CommentBo> latestComments(HttpServletRequest request) {
+        int size = ServletRequestUtils.getIntParameter(request, "size", 6);
+
+        List<CommentBo> list = commentService.findLatestComments(size);
+
+        return list;
+    }
+
 }

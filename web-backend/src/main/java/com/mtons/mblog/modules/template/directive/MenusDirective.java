@@ -1,4 +1,4 @@
-package com.mtons.mblog.web.menu;
+package com.mtons.mblog.modules.template.directive;
 
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.model.menu.MenuTreeVo;

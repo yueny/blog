@@ -21,7 +21,7 @@ public class DefaultMojoFactory {
                 .avatar("")
                 .domainHack("guest")
                 .uid(BlogConstant.DEFAULT_GUEST_U_ID)
-                .username("guest")
+                .name("guest")
                 .commitAuthoredType(AuthoredType.GUEST)
                 .build();
 

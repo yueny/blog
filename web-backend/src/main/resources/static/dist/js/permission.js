@@ -1,0 +1,3 @@
+const permission = {
+    appName: "muzinuo",
+};

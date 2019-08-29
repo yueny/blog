@@ -9,14 +9,23 @@
 */
 package com.mtons.mblog.web.controller.admin;
 
+import com.mtons.mblog.base.lang.Result;
+import com.mtons.mblog.config.ContextStartup;
+import com.mtons.mblog.modules.service.PostSearchService;
 import com.mtons.mblog.service.atom.bao.CommentService;
 import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.atom.jpa.ChannelService;
 import com.mtons.mblog.service.atom.bao.PostService;
+import com.mtons.mblog.service.manager.IMenuJsonService;
+import com.mtons.mblog.shiro.ShiroRuleFuncNames;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,6 +43,12 @@ public class AdminController {
     private CommentService commentService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private PostSearchService postSearchService;
+    @Autowired
+    private ContextStartup contextStartup;
+    @Autowired
+    private IMenuJsonService menuJsonService;
 
 	@RequestMapping("/admin")
 	public String index(HttpServletRequest request, ModelMap model) {
@@ -60,4 +75,43 @@ public class AdminController {
         model.addAttribute("os", os);
         model.addAttribute("javaVersion", javaVersion);
 	}
+
+
+    /**
+     * 刷新系统变量
+     * @return
+     */
+    @RequestMapping("/admin/reload_options")
+    @ResponseBody
+
+    @RequiresPermissions(ShiroRuleFuncNames.adminCache)
+    @RequiresAuthentication
+    public Result reloadOptions() {
+        contextStartup.reloadOptions(false);
+        contextStartup.resetChannels();
+        return Result.success();
+    }
+
+    /**
+     * 重建索引
+     * @return
+     */
+    @RequestMapping("/admin/reset_indexes")
+    @ResponseBody
+    public Result resetIndexes() {
+        postSearchService.resetIndexes();
+        return Result.success();
+    }
+
+    /**
+     * 刷新菜单
+     * @return
+     */
+    @RequestMapping(value = "/admin/reload_menu", method = RequestMethod.POST)
+    @ResponseBody
+    public Result reloadMenu() {
+        menuJsonService.reload();
+
+        return Result.success();
+    }
 }

@@ -101,26 +101,29 @@
                     </table>
                 </div>
             </div>
-            <div class="box box-success">
-                <div class="box-header with-border">
-                    <h3 class="box-title">缓存</h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+
+<#--            <@shiroRuleOpts permission="${shiroRuleMap.adminCache}">-->
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">缓存</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <button type="button" class="btn btn-primary" data-action="reload_options">
+                            刷新系统变量
+                        </button>
+                        <button type="button" class="btn btn-info" data-action="reset_indexes">
+                            重建索引
+                        </button>
+                        <button type="button" class="btn btn-link" data-action="reload_menu">
+                            刷新菜单
                         </button>
                     </div>
                 </div>
-                <div class="box-body">
-                    <button type="button" class="btn btn-primary" data-action="reload_options">
-                        刷新系统变量
-                    </button>
-                    <button type="button" class="btn btn-info" data-action="reset_indexes">
-                        重建索引
-                    </button>
-                    <button type="button" class="btn btn-link" data-action="reload_menu">
-                        刷新菜单
-                    </button>
-                </div>
-            </div>
+<#--            </@shiroRuleOpts>-->
         </div>
         <div class="col-md-6">
             <div class="box box-info">
@@ -166,7 +169,7 @@
         // 刷新系统变量
         $('button[data-action="reload_options"]').bind('click', function(){
             if(confirm('确定要刷新系统变量的缓存吗？')){
-                J.getJSON('${base}/admin/options/reload_options', ajaxReload);
+                J.getJSON('${base}/admin/reload_options', ajaxReload);
             }
             return false;
         });
@@ -174,7 +177,7 @@
         // 重建索引
         $('button[data-action="reset_indexes"]').bind('click', function(){
             if(confirm('确定要重建文章索引吗？')){
-                J.getJSON('${base}/admin/options/reset_indexes', ajaxReload);
+                J.getJSON('${base}/admin/reset_indexes', ajaxReload);
             }
             return false;
         });
@@ -182,7 +185,7 @@
         // 刷新菜单
         $('button[data-action="reload_menu"]').bind('click', function(){
             if(confirm('确定要刷新菜单吗？')){
-                J.post('${base}/admin/options/reload_menu',
+                J.post('${base}/admin/reload_menu',
                     ajaxReload, "json");
             }
             return false;

@@ -106,8 +106,6 @@ public class CommentBo extends AbstractMaskBo implements IBo, Serializable {
 	@NoArgsConstructor
 	@AllArgsConstructor
 	public static class UserCommentModel extends AbstractMaskBo {
-		private String username;
-
 		private String avatar;
 		private String name;
 

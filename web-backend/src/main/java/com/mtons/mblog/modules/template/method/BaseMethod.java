@@ -1,5 +1,6 @@
-package com.mtons.mblog.modules.template;
+package com.mtons.mblog.modules.template.method;
 
+import com.mtons.mblog.modules.template.TemplateModelUtils;
 import freemarker.template.TemplateMethodModelEx;
 import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;

@@ -15,7 +15,9 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">栏目列表</h3>
                     <div class="box-tools">
-                        <a id="tooltip2" class="btn btn-primary btn-sm" href="${base}/admin/channel/view.html">添加栏目</a>
+                        <@shiroRuleOpts permission="${shiroRuleMap.channelUpdate}">
+                            <a id="tooltip2" class="btn btn-primary btn-sm" href="${base}/admin/channel/view.html">添加栏目</a>
+                        </@shiroRuleOpts>
                     </div>
                 </div>
                 <div class="box-body">
@@ -88,10 +90,16 @@
                                         </#if>
                                     </td>
                                     <td>
-                                        <a href="javascript:void(0);" class="btn btn-xs btn-default" data-id="${row.channelCode}" data-action="weight.json">置顶</a>
-                                        <a href="view/${row.channelCode}.html" class="btn btn-xs btn-success">修改</a>
-                                        <a href="javascript:void(0);" class="deletetor btn btn-xs btn-danger" data-id="${row.channelCode}"
-                                           data-action="delete.json">删除</a>
+<#--                                        <@shiroRuleOpts permission="${shiroRuleMap.channelWeight}">-->
+                                            <a href="javascript:void(0);" class="btn btn-xs btn-default" data-id="${row.channelCode}" data-action="weight.json">置顶</a>
+<#--                                        </@shiroRuleOpts>-->
+<#--                                        <@shiroRuleOpts permission="${shiroRuleMap.channelUpdate}">-->
+                                            <a href="view/${row.channelCode}.html" class="btn btn-xs btn-success">修改</a>
+<#--                                        </@shiroRuleOpts>-->
+<#--                                        <@shiroRuleOpts permission="${shiroRuleMap.channelDelete}">-->
+                                            <a href="javascript:void(0);" class="deletetor btn btn-xs btn-danger" data-id="${row.channelCode}"
+                                               data-action="delete.json">删除</a>
+<#--                                        </@shiroRuleOpts>-->
                                     </td>
                                 </tr>
                                 </#list>

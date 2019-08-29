@@ -1,6 +1,5 @@
 package com.mtons.mblog.modules.template.method;
 
-import com.mtons.mblog.modules.template.BaseMethod;
 import freemarker.template.TemplateModelException;
 import org.joda.time.DateTime;
 

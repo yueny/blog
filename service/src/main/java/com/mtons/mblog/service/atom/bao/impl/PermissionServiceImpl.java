@@ -154,13 +154,10 @@ public class PermissionServiceImpl extends AbstractPlusService<PermissionBO, Per
                 throw new MtonsException("功能只能挂在菜单下");
             }
         }else{
-            if(parentBo.getFuncType() == FuncType.FUNC){
+            if(parentBo !=null && parentBo.getFuncType() == FuncType.FUNC){
                 throw new MtonsException("菜单只能挂在菜单下");
             }
         }
-//        if(parentBo.getFuncType() == FuncType.FUNC){
-//            throw new MtonsException("功能只能挂在菜单下， 菜单只能挂在菜单下");
-//        }
 
         return super.saveOrUpdate(bo);
     }
