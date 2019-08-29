@@ -252,7 +252,7 @@ public class ShiroConfiguration {
         //.
 
         // 默认需要的权限
-        hashMap.put("/admin/*", getAuthc(ShiroRuleFuncNames.adminCache));
+        hashMap.put("/admin/*", getAuthc(ShiroRuleFuncNames.adminImprove));
 
         return hashMap;
     }
