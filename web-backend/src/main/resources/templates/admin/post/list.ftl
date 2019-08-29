@@ -102,7 +102,7 @@
                                         </#if>
                                     </td>
                                     <td>
-<#--                                        <@shiroRuleOpts permission="${shiroRuleMap.postWeight}">-->
+                                        <@shiroRuleOpts permission="${shiroRuleMap.postWeight}">
                                             <#if (article.featured.value == 0)>
                                                 <a href="javascript:void(0);" class="btn btn-xs btn-default"
                                                    data-id="${article.articleBlogId}" rel="featured">推荐</a>
@@ -118,15 +118,15 @@
                                                 <a href="javascript:void(0);" class="btn btn-xs btn-warning"
                                                    data-id="${article.articleBlogId}" rel="unweight">消顶</a>
                                             </#if>
-<#--                                        </@shiroRuleOpts>-->
+                                        </@shiroRuleOpts>
 
-<#--                                        <@shiroRuleOpts permission="${shiroRuleMap.postUpdate}">-->
+                                        <@shiroRuleOpts permission="${shiroRuleMap.postUpdate}">
                                             <a href="${base}/admin/post/view?articleBlogId=${article.articleBlogId}" class="btn btn-xs btn-info">修改</a>
-<#--                                        </@shiroRuleOpts>-->
-<#--                                        <@shiroRuleOpts permission="${shiroRuleMap.postDelete}">-->
+                                        </@shiroRuleOpts>
+                                        <@shiroRuleOpts permission="${shiroRuleMap.postDelete}">
                                             <a href="javascript:void(0);" class="btn btn-xs btn-primary"
                                                data-id="${article.articleBlogId}" rel="delete">删除</a>
-<#--                                        </@shiroRuleOpts>-->
+                                        </@shiroRuleOpts>
                                     </td>
                                 </tr>
                                 </#list>

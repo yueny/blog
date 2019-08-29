@@ -90,16 +90,16 @@
                                         </#if>
                                     </td>
                                     <td>
-<#--                                        <@shiroRuleOpts permission="${shiroRuleMap.channelWeight}">-->
+                                        <@shiroRuleOpts permission="${shiroRuleMap.channelWeight}">
                                             <a href="javascript:void(0);" class="btn btn-xs btn-default" data-id="${row.channelCode}" data-action="weight.json">置顶</a>
-<#--                                        </@shiroRuleOpts>-->
-<#--                                        <@shiroRuleOpts permission="${shiroRuleMap.channelUpdate}">-->
+                                        </@shiroRuleOpts>
+                                        <@shiroRuleOpts permission="${shiroRuleMap.channelUpdate}">
                                             <a href="view/${row.channelCode}.html" class="btn btn-xs btn-success">修改</a>
-<#--                                        </@shiroRuleOpts>-->
-<#--                                        <@shiroRuleOpts permission="${shiroRuleMap.channelDelete}">-->
+                                        </@shiroRuleOpts>
+                                        <@shiroRuleOpts permission="${shiroRuleMap.channelDelete}">
                                             <a href="javascript:void(0);" class="deletetor btn btn-xs btn-danger" data-id="${row.channelCode}"
                                                data-action="delete.json">删除</a>
-<#--                                        </@shiroRuleOpts>-->
+                                        </@shiroRuleOpts>
                                     </td>
                                 </tr>
                                 </#list>
