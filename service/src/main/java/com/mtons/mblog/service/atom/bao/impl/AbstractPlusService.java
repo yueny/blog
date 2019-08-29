@@ -386,6 +386,9 @@ import java.util.*;
 		com.baomidou.mybatisplus.core.metadata.IPage<S> pageList = page(pageablePlus, queryWrapper);
 
 		Page<S> entryPageList = PageHelper.fromPlusToSpringPage(pageList);
+		if(CollectionUtils.isEmpty(entryPageList.getContent())){
+			return new PageImpl<>(Collections.emptyList(), entryPageList.getPageable(), entryPageList.getTotalElements());
+		}
 
 		List<T> list = map(entryPageList.getContent(), boClazz);
 		return new PageImpl<>(list, entryPageList.getPageable(), entryPageList.getTotalElements());

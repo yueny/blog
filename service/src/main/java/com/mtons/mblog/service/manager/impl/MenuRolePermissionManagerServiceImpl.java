@@ -12,8 +12,8 @@ import com.mtons.mblog.service.atom.bao.MenuService;
 import com.mtons.mblog.service.atom.bao.PermissionService;
 import com.mtons.mblog.service.atom.bao.RolePermissionService;
 import com.mtons.mblog.service.atom.bao.RoleService;
-import com.mtons.mblog.service.atom.bao.UserRoleService;
 import com.mtons.mblog.service.manager.IMenuRolePermissionManagerService;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -41,13 +41,14 @@ public class MenuRolePermissionManagerServiceImpl
     private MenuService menuService;
     @Autowired
     private RoleService roleService;
-    @Autowired
-    private UserRoleService userRoleService;
 
     @Override
     @Transactional(readOnly = true)
     public List<PermissionBO> findAllPermByRoleId(long roleId) {
         List<RolePermissionBo> rps = rolePermissionService.findPermissionsByRoleId(roleId);
+        if(CollectionUtils.isEmpty(rps)){
+            return Collections.emptyList();
+        }
 
         Set<Long> pids = new HashSet<>();
         rps.forEach(rp -> pids.add(rp.getPermissionId()));
@@ -59,6 +60,9 @@ public class MenuRolePermissionManagerServiceImpl
         List<MenuBo> data = menuService.findAll();
 
         List<MenuTreeVo> results = new LinkedList<>();
+        if(CollectionUtils.isEmpty(data)){
+            return results;
+        }
 
         Map<Long, MenuTreeVo> map = new LinkedHashMap<>();
         for (MenuBo po : data) {
@@ -69,6 +73,10 @@ public class MenuRolePermissionManagerServiceImpl
 
         for (MenuTreeVo m : map.values()) {
             PermissionBO permissionBO = permissionService.get(m.getPermissionId());
+            if(permissionBO == null){
+                logger.warn("权限信息不存在，id:{}.", m.getPermissionId());
+                continue;
+            }
             m.setPermission(permissionBO.getName());
 
             if (m.getParentId() == 0) {
@@ -92,6 +100,9 @@ public class MenuRolePermissionManagerServiceImpl
     @Override
     public List<MenuVo> findAllForPermission() {
         List<MenuBo> menuBos = menuService.findAll();
+        if(CollectionUtils.isEmpty(menuBos)){
+            return Collections.emptyList();
+        }
 
         List<MenuVo> list = mapAny(menuBos, MenuVo.class);
         for (MenuVo menuVo : list) {
@@ -114,6 +125,9 @@ public class MenuRolePermissionManagerServiceImpl
     @Override
     public Map<Long, RolePermissionVO> findMapByIds(Set<Long> roleIds) {
         List<RoleBO> list = roleService.findAllById(roleIds);
+        if(CollectionUtils.isEmpty(list)){
+            return Collections.emptyMap();
+        }
 
         Map<Long, RolePermissionVO> ret = new LinkedHashMap<>();
         list.forEach(po -> {
@@ -125,6 +139,10 @@ public class MenuRolePermissionManagerServiceImpl
     }
 
     private List<RolePermissionVO> toVO(List<RoleBO> po) {
+        if(CollectionUtils.isEmpty(po)){
+            return Collections.emptyList();
+        }
+
         List<RolePermissionVO> list = new ArrayList<>(po.size());
         for (RoleBO roleBO : po) {
             list.add(toVO(roleBO));
