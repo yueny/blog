@@ -11,6 +11,12 @@ body {
     overflow-y: scroll;
 }
 
+/* 新增*/
+/* 此处是避免博文列表受影响：.item-info ul */
+.item-info ul, ol, h1, h2, h3 {
+    list-style: none;
+}
+
 a {
     color: #333;
     text-decoration: none;
@@ -256,6 +262,7 @@ abbr[data-original-title], abbr[title] {
     margin-right: 10px;
 }
 
+/* 新增*/
 .navbar .nav>li>.dropdown-menu:before{content:'';display:inline-block;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:7px solid #ccc;border-bottom-color:rgba(0, 0, 0, 0.2);position:absolute;top:-7px;left:9px;}
 .navbar .nav>li>.dropdown-menu:after{content:'';display:inline-block;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:6px solid #ffffff;position:absolute;top:-6px;left:10px;}
 .navbar-fixed-bottom .nav>li>.dropdown-menu:before{border-top:7px solid #ccc;border-top-color:rgba(0, 0, 0, 0.2);border-bottom:0;bottom:-7px;top:auto;}
