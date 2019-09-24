@@ -1,16 +1,16 @@
-package com.mtons.mblog.service.atom.jpa.impl;
+package com.mtons.mblog.service.atom.bao.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.PostTagVO;
 import com.mtons.mblog.bo.PostBo;
 import com.mtons.mblog.bo.TagBO;
-import com.mtons.mblog.entity.jpa.PostTag;
-import com.mtons.mblog.entity.jpa.Tag;
-import com.mtons.mblog.dao.repository.PostTagRepository;
-import com.mtons.mblog.dao.repository.TagRepository;
-import com.mtons.mblog.service.atom.jpa.TagService;
+import com.mtons.mblog.dao.mapper.TagMapper;
+import com.mtons.mblog.entity.bao.Tag;
+import com.mtons.mblog.service.atom.bao.PostTagService;
+import com.mtons.mblog.service.atom.bao.TagService;
 import com.mtons.mblog.service.atom.bao.PostService;
-import com.mtons.mblog.service.util.BeanMapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -26,14 +26,20 @@ import java.util.stream.Collectors;
  */
 @Service
 @Transactional
-public class TagServiceImpl extends AbstractJpaService<TagBO, Tag, TagRepository>
+public class TagServiceImpl extends AbstractPlusService<TagBO, Tag, TagMapper>
         implements TagService {
     @Autowired
-    private TagRepository tagRepository;
-    @Autowired
-    private PostTagRepository postTagRepository;
+    private PostTagService postTagService;
     @Autowired
     private PostService postService;
+
+    @Override
+    public TagBO findByName(String name) {
+        LambdaQueryWrapper<Tag> queryWrapper = new QueryWrapper<Tag>().lambda();
+        queryWrapper.eq(Tag::getName, name);
+
+        return get(queryWrapper);
+    }
 
     @Override
     public Page<TagBO> pagingQueryTags(Pageable pageable) {
@@ -48,33 +54,36 @@ public class TagServiceImpl extends AbstractJpaService<TagBO, Tag, TagRepository
 
     @Override
     public List<TagBO> findPagingTagsByNameLike(Pageable pageable, String name) {
-        ExampleMatcher matcher = ExampleMatcher.matching()
-                //模糊查询匹配开头，即{username}%
-                //.withMatcher("username", ExampleMatcher.GenericPropertyMatchers.startsWith())
-                //全部模糊查询，即%{address}%
-                .withMatcher("name" ,ExampleMatcher.GenericPropertyMatchers.contains())
-                //忽略字段，即不管password是什么值都不加入查询条件
-                .withIgnorePaths("id");
+//        ExampleMatcher matcher = ExampleMatcher.matching()
+//                //模糊查询匹配开头，即{username}%
+//                //.withMatcher("username", ExampleMatcher.GenericPropertyMatchers.startsWith())
+//                //全部模糊查询，即%{address}%
+//                .withMatcher("name" ,ExampleMatcher.GenericPropertyMatchers.contains())
+//                //忽略字段，即不管password是什么值都不加入查询条件
+//                .withIgnorePaths("id");
 
-        Tag condition = new Tag();
-        condition.setName(name);
-        Example<Tag> example = Example.of(condition, matcher);
+//        Tag condition = new Tag();
+//        condition.setName(name);
+//        Example<Tag> example = Example.of(condition, matcher);
 
-        List<TagBO> list = findAll(example);
+        LambdaQueryWrapper<Tag> queryWrapper = new QueryWrapper<Tag>().lambda();
+        queryWrapper.like(Tag::getName, name);
+
+        List<TagBO> list = findAll(queryWrapper);
 
         return list;
     }
 
     @Override
     public Page<PostTagVO> pagingQueryPosts(Pageable pageable, String tagName) {
-        Tag tag = tagRepository.findByName(tagName);
+        TagBO tag = findByName(tagName);
         Assert.notNull(tag, "标签不存在");
-        Page<PostTag> page = postTagRepository.findAllByTagId(pageable, tag.getId());
+        Page<PostTagVO> page = postTagService.findAll(pageable, tag.getId());
 
         Set<Long> postIds = new HashSet<>();
         List<PostTagVO> rets = page.getContent().stream().map(po -> {
             postIds.add(po.getPostId());
-            return BeanMapUtils.copy(po);
+            return po;
         }).collect(Collectors.toList());
 
         Map<Long, PostBo> posts = postService.findMapByIds(postIds);
@@ -97,18 +106,18 @@ public class TagServiceImpl extends AbstractJpaService<TagBO, Tag, TagRepository
                 continue;
             }
 
-            Tag po = tagRepository.findByName(name);
+            TagBO po = findByName(name);
             if (po != null) {
-                PostTag pt = postTagRepository.findByPostIdAndTagId(latestPostId, po.getId());
+                PostTagVO pt = postTagService.findByPostIdAndTagId(latestPostId, po.getId());
                 if (null != pt) {
                     pt.setWeight(System.currentTimeMillis());
-                    postTagRepository.save(pt);
+                    postTagService.insert(pt);
                     continue;
                 }
                 po.setPosts(po.getPosts() + 1);
                 po.setUpdated(current);
             } else {
-                po = new Tag();
+                po = new TagBO();
                 po.setName(name);
                 po.setCreated(current);
                 po.setUpdated(current);
@@ -116,19 +125,19 @@ public class TagServiceImpl extends AbstractJpaService<TagBO, Tag, TagRepository
             }
 
             po.setLatestPostId(latestPostId);
-            tagRepository.save(po);
+            insert(po);
 
-            PostTag pt = new PostTag();
+            PostTagVO pt = new PostTagVO();
             pt.setPostId(latestPostId);
             pt.setTagId(po.getId());
             pt.setWeight(System.currentTimeMillis());
-            postTagRepository.save(pt);
+            postTagService.insert(pt);
         }
     }
 
     @Override
     @Transactional
     public void deteleMappingByPostId(long postId) {
-        postTagRepository.deleteByPostId(postId);
+        postTagService.deleteByPostId(postId);
     }
 }

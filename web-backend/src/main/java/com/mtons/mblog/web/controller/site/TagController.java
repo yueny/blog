@@ -5,7 +5,7 @@ package com.mtons.mblog.web.controller.site;
 
 import com.mtons.mblog.bo.PostTagVO;
 import com.mtons.mblog.bo.TagBO;
-import com.mtons.mblog.service.atom.jpa.TagService;
+import com.mtons.mblog.service.atom.bao.TagService;
 import com.mtons.mblog.web.controller.BaseBizController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * 标签

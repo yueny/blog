@@ -1,9 +1,9 @@
-package com.mtons.mblog.service.atom.jpa;
+package com.mtons.mblog.service.atom.bao;
 
 import com.mtons.mblog.bo.PostTagVO;
 import com.mtons.mblog.bo.TagBO;
-import com.mtons.mblog.entity.jpa.Tag;
-import com.mtons.mblog.service.api.jpa.IJpaBizService;
+import com.mtons.mblog.entity.bao.Tag;
+import com.mtons.mblog.service.api.bao.IPlusBizService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -12,7 +12,13 @@ import java.util.List;
 /**
  * @author : langhsu
  */
-public interface TagService extends IJpaBizService<TagBO, Tag> {
+public interface TagService extends IPlusBizService<TagBO, Tag> {
+
+    TagBO findByName(String name);
+
+
+
+
     /**
      * 分页查询
      * @param pageable

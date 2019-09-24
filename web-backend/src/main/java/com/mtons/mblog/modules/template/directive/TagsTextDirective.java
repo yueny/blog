@@ -6,7 +6,7 @@
 //import com.mtons.mblog.bo.TagBO;
 //import com.mtons.mblog.modules.template.DirectiveHandler;
 //import com.mtons.mblog.modules.template.TemplateDirective;
-//import com.mtons.mblog.service.atom.jpa.TagService;
+//import com.mtons.mblog.service.atom.bao.TagService;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.data.domain.Page;
 //import org.springframework.data.domain.PageRequest;

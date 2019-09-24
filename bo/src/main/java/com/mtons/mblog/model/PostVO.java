@@ -12,9 +12,13 @@ package com.mtons.mblog.model;
 import com.mtons.mblog.bo.ChannelVO;
 import com.mtons.mblog.bo.PostBo;
 import com.mtons.mblog.bo.ResourceBO;
+import com.mtons.mblog.bo.TagBO;
 import com.yueny.superclub.api.pojo.IBo;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author langhsu
@@ -27,6 +31,11 @@ public class PostVO extends PostBo implements IBo {
 	private ResourceBO resource;
 
 	private ChannelVO channel;
+
+	/**
+	 * 标签, 与属性 tags 对应
+	 */
+	private List<TagBO> tagsList = new ArrayList<>();
 
 	/**
 	 * 编辑器

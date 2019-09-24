@@ -1,4 +1,8 @@
-package com.mtons.mblog.entity.jpa;
+package com.mtons.mblog.entity.bao;
+
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -9,10 +13,13 @@ import javax.persistence.*;
 @Table(name = "mto_post_tag", indexes = {
         @Index(name = "IK_TAG_ID", columnList = "tag_id")
 })
-public class PostTag extends com.yueny.kapo.api.pojo.instance.Entity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+@TableName("mto_post_tag")
+@Getter
+@Setter
+public class PostTag extends AbstractIDPlusEntry {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private long id;
 
     @Column(name = "post_id")
     private long postId;
@@ -21,14 +28,6 @@ public class PostTag extends com.yueny.kapo.api.pojo.instance.Entity {
     private long tagId;
 
     private long weight;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public long getPostId() {
         return postId;

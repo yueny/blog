@@ -20,13 +20,38 @@
             <div class="infos panel-heading">
                 <h1 class="panel-title topic-title">${view.title}</h1>
                 <div class="meta inline-block">
-                    <a class="author" href="${base}/users/${view.author.domainHack}">
-                        ${view.author.name}
-                    </a>
-                    <abbr class="timeago">${timeAgo(view.created)}</abbr>
-                    ⋅
-                    ${view.views} 阅读
+                    <span>
+                        <i class=" icon-list-2"></i>
+                        <a class="author" href="${base}/users/${view.author.domainHack}">
+                            ${view.author.name}
+                        </a>
+                    </span>
+
+                    <#-- 标签等其他信息 -->
+                    <span>
+                        <i class="icon-list"></i>
+                        <a href="https://www.waitsun.com/topics/company/omni-group">${view.tags}</a>
+                    </span>
                 </div>
+                <div class="meta inline-block">
+                    <span>
+                        <i class="icon-clock"></i>
+                        <abbr class="timeago">${timeAgo(view.created)}</abbr>
+                    </span>
+                    ⋅
+                    <span>
+                        <i class="icon-book-open"></i>
+                        ${view.views} 阅读
+                    </span>
+                    ⋅
+                    <#-- 评论数 -->
+                    <span>
+<#--                        <i class="icon-comment"></i>-->
+                        <i class="icon-bubble"></i>
+                        <a href="#chat">${view.comments}</a>
+                    </span>
+                </div>
+
                 <div class="clearfix"></div>
             </div>
 

@@ -98,6 +98,7 @@
 
 <script type="text/javascript">
 $(function() {
+    <#-- 图片上传 -->
     $('#upload_btn').change(function(){
         $(this).upload('${base}/post/upload?crop=thumbnail_post_size&nailType=blogThumb', function(data){
             if (tools.success200(data.status)) {

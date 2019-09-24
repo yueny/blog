@@ -17,6 +17,7 @@
                 <div class="item-text">${row.summary}</div>
                 <div class="item-info pull-left">
                     <ul>
+                        <#-- 作者 -->
                         <li class="post-author hidden-xs">
                             <div class="avatar">
                                 <img src="<@resource src=row.author.avatar + '?t=' + .now?time/>" class="lazy avatar avatar-50 photo" height="50" width="50">
@@ -24,9 +25,13 @@
                             <#-- 创建者链接 -->
                             <a href="${base}/users/${row.author.domainHack}" target="_blank">${row.author.name}</a>
                         </li>
+
                         <li class="ico-cat"><@utils.showChannel row/></li>
+
+                        <#-- 评论时间 -->
                         <li class="ico-time" title="${row.created}"><i class="icon-clock"></i>${timeAgo(row.created)}</li>
                         <li class="ico-eye hidden-xs"><i class="icon-book-open"></i>${row.views}</li>
+                        <#-- 评论数 -->
                         <li class="ico-like hidden-xs"><i class="icon-bubble"></i>${row.comments}</li>
                     </ul>
                 </div>

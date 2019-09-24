@@ -9,20 +9,18 @@
 */
 package com.mtons.mblog.service.manager.impl;
 
+import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mtons.mblog.base.consts.Consts;
-import com.mtons.mblog.bo.PostAttributeBo;
+import com.mtons.mblog.bo.*;
 import com.mtons.mblog.service.atom.bao.IPostAttributeService;
 import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.service.util.PreviewTextUtils;
-import com.mtons.mblog.bo.ChannelVO;
-import com.mtons.mblog.bo.PostBo;
-import com.mtons.mblog.bo.ResourceBO;
 import com.mtons.mblog.model.PostVO;
 import com.mtons.mblog.service.watcher.event.PostUpdateEvent;
 import com.mtons.mblog.service.atom.bao.PostService;
-import com.mtons.mblog.service.atom.jpa.TagService;
+import com.mtons.mblog.service.atom.bao.TagService;
 import com.mtons.mblog.service.BaseService;
 import com.mtons.mblog.service.atom.jpa.ChannelService;
 import com.mtons.mblog.service.atom.bao.ResourceService;
@@ -279,6 +277,25 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 		if(StringUtils.isEmpty(post.getThumbnail())){
 			post.setThumbnail(resourceBO.getPath());
 		}
+	}
+
+	private void buildTags(PostVO post) {
+		if(StringUtils.isEmpty(post.getTags())){
+			return;
+		}
+
+		List<String> tags = Splitter.on(",").splitToList(post.getTags());
+		List<TagBO> tagsList = new ArrayList<>(tags.size());
+		for (String tag : tags) {
+			TagBO tagBO = tagService.findByName(tag);
+			if(tagBO == null){
+				continue;
+			}
+
+			tagsList.add(tagBO);
+		}
+
+		post.setTagsList(tagsList);
 	}
 
 	private void buildGroups(Collection<PostVO> posts, Set<Integer> groupIds) {
