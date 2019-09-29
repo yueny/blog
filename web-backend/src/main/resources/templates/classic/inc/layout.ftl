@@ -33,6 +33,7 @@
     <link href="${base}/dist/vendors/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="${base}/dist/vendors/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
 
+    <link href="${base}/theme/classic/dist/css/reset.css" rel="stylesheet"/>
     <link href="${base}/theme/classic/dist/css/style.css" rel="stylesheet"/>
     <link href="${base}/dist/css/editor.css" rel="stylesheet"/>
     <link href="${base}/dist/css/plugins.css" rel="stylesheet"/>

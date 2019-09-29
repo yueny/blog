@@ -123,9 +123,8 @@ public class TagServiceImpl extends AbstractPlusService<TagBO, Tag, TagMapper>
                 po.setUpdated(current);
                 po.setPosts(1);
             }
-
             po.setLatestPostId(latestPostId);
-            insert(po);
+            saveOrUpdate(po);
 
             PostTagVO pt = new PostTagVO();
             pt.setPostId(latestPostId);

@@ -132,6 +132,7 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 		buildGroups(Lists.newArrayList(vo), Sets.newHashSet(vo.getChannelId()));
 
 		buildResource(vo);
+		buildTags(vo);
 
 		// 博文内容
 		PostAttributeBo attr = postAttributeService.get(vo.getId());
@@ -155,6 +156,7 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 		buildGroups(Lists.newArrayList(vo), Sets.newHashSet(vo.getChannelId()));
 
 		buildResource(vo);
+		buildTags(vo);
 
 		// 博文内容
 		PostAttributeBo attr = postAttributeService.get(vo.getId());
@@ -284,18 +286,19 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 			return;
 		}
 
-		List<String> tags = Splitter.on(",").splitToList(post.getTags());
-		List<TagBO> tagsList = new ArrayList<>(tags.size());
-		for (String tag : tags) {
-			TagBO tagBO = tagService.findByName(tag);
-			if(tagBO == null){
-				continue;
-			}
-
-			tagsList.add(tagBO);
-		}
-
-		post.setTagsList(tagsList);
+		// 使用 String[] getTagsArray() 方法
+//		List<String> tags = Splitter.on(",").splitToList(post.getTags());
+//		List<TagBO> tagsList = new ArrayList<>(tags.size());
+//		for (String tag : tags) {
+//			TagBO tagBO = tagService.findByName(tag);
+//			if(tagBO == null){
+//				continue;
+//			}
+//
+//			tagsList.add(tagBO);
+//		}
+//
+//		post.setTagsList(tagsList);
 	}
 
 	private void buildGroups(Collection<PostVO> posts, Set<Integer> groupIds) {

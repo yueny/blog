@@ -64,7 +64,8 @@ public interface IPlusBizService<T extends IBo, S>
 	boolean delete(Wrapper<S> wrapper);
 
 	/**
-	 * 数据保存操作操作
+	 * 数据保存操作操作。
+	 * 如果主键存在数据则更新，如果不存在则新增
 	 *
 	 * @param bo 实体对象
 	 */

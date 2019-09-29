@@ -20,19 +20,35 @@
             <div class="infos panel-heading">
                 <h1 class="panel-title topic-title">${view.title}</h1>
                 <div class="meta inline-block">
+                    <#-- 作者  -->
                     <span>
-                        <i class=" icon-list-2"></i>
+                        <i>作者：</i>
                         <a class="author" href="${base}/users/${view.author.domainHack}">
                             ${view.author.name}
                         </a>
                     </span>
 
-                    <#-- 标签等其他信息 -->
+                    <#-- 标签 tagsList -->
                     <span>
-                        <i class="icon-list"></i>
-                        <a href="https://www.waitsun.com/topics/company/omni-group">${view.tags}</a>
+                        <#if (view.tagsArray)?? && ((view.tagsArray)?size > 0)>
+                            <i class="icon-list" title="tags"></i>
+
+                            <#-- 使用 String[] getTagsArray() 方法 -->
+                            <#list view.tagsArray as tag>
+                                <span>
+                                    <a class="highlight" href="${base}/tag/${tag}/">${tag}</a>
+                                </span>
+                                <#if tag_index != (view.tagsArray)?size -1>
+                                    |
+                                </#if>
+                            </#list>
+                        <#else>
+<#--                            <i class="icon-list">Nui</i>-->
+                        </#if>
                     </span>
                 </div>
+
+                <#-- 其他信息 -->
                 <div class="meta inline-block">
                     <span>
                         <i class="icon-clock"></i>

@@ -36,10 +36,9 @@ public class PostTagServiceImpl extends AbstractPlusService<PostTagVO, PostTag, 
 
     @Override
     public Page<PostTagVO> findAll(Pageable pageable, Long tagId) {
-//        QueryWrapper<PostTag> queryWrapper = new QueryWrapper<>();
-        LambdaQueryWrapper<PostTag> queryWrapper = new QueryWrapper<PostTag>().lambda();
-        queryWrapper.eq(PostTag::getTagId, tagId);
-        queryWrapper.orderByDesc(PostTag::getId);
+        QueryWrapper<PostTag> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("tag_id", tagId);
+        queryWrapper.orderByDesc("id");
 
         return findAll(pageable, queryWrapper);
     }

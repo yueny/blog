@@ -65,10 +65,10 @@
 <![endif]-->
 
 <!-- Fixed navbar -->
-<header class="site-header headroom">
+<header id="header" class="site-header headroom">
     <div class="container">
         <nav class="navbar" role="navigation">
-            <div class="navbar-header">
+            <div class="navbar-header logo">
                 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
                 </button>
@@ -77,55 +77,57 @@
                 </a>
             </div>
             <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-					<#if profile??>
-						<li data="user">
-							<a href="${base}/users/${profile.domainHack}" nav="user">我的主页</a>
-						</li>
-					</#if>
-
-					<#list channels as row>
-                        <#--  是否为叶子节点。1为是叶子节点，0为不是叶子节点(存在后续分支) isLeaf  -->
-                        <#if row.nodeType?? && row.nodeType.isLeaf == 1>
-                            <li>
-                                <a href="${base}/channel/${row.flag}" nav="${row.name}">
-                                    <#--
-                                    <#if row.thumbnail?? && row.thumbnail != ''>
-                                        <img class="img-circle img-thumbnail img-responsive" src="<@resource src=row.thumbnail + '?t=' + .now?time />">
-                                    </#if>
-                                    -->
-                                    ${row.name}
-                                </a>
-                            </li>
-                        <#else>
-                            <#-- 菜单模式 -->
-                            <#if row.children??>
-                                <li class="dropdown">
-                                    <a href="${base}/channel/${row.flag}" class="dropdown-toggle js-activated"
-                                       aria-haspopup="true" aria-expanded="false">
-                                        <#if row.thumbnail?? && row.thumbnail != ''>
-                                        </#if>
-                                        ${row.name} <b class="caret"></b>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <#list row.children as cc>
-                                            <li><a href="${base}/channel/${cc.flag}" nav="${cc.name}" tabindex="-1">${cc.name}</a></li>
-                                        </#list>
-                                    </ul>
-                                </li>
-                            <#else>
-                                <#-- 无节点菜单 -->
-                                <li>
-                                    <a href="${base}/channel/${row.flag}" nav="${row.name}">${row.name}</a>
+                <#--  -->
+                <div role="navigation" class="primary-menu">
+                        <ul id="menu-navigation" class="menu nav navbar-nav">
+                            <#if profile??>
+                                <li data="user">
+                                    <a href="${base}/users/${profile.domainHack}" nav="user">我的主页</a>
                                 </li>
                             </#if>
-                        </#if>
-					</#list>
 
-                    <li>
-                        <a href="${base}/tags" nav="tags">标签</a>
-                    </li>
-                </ul>
+                            <#list channels as row>
+                                <#--    -->
+                                <#if row.nodeType?? && row.nodeType.isLeaf == 1>
+                                    <li>
+                                        <a href="${base}/channel/${row.flag}" nav="${row.name}">
+                                            ${row.name}
+                                        </a>
+                                    </li>
+                                <#else>
+                                    <#-- 菜单模式 -->
+                                    <#if row.children??>
+                                        <li class="menu-item-has-children">
+                                            <a href="${base}/channel/${row.flag}">
+                                                <#if row.thumbnail?? && row.thumbnail != ''>
+                                                    <b class="caret"></b>
+                                                </#if>
+                                                ${row.name}
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <#list row.children as cc>
+                                                    <li class="current-post-ancestor current-menu-parent">
+                                                        <a href="${base}/channel/${cc.flag}" nav="${cc.name}" tabindex="-1">${cc.name}</a>
+                                                    </li>
+                                                </#list>
+                                            </ul>
+                                        </li>
+                                    <#else>
+                                        <#-- 无节点菜单 -->
+                                        <li>
+                                            <a href="${base}/channel/${row.flag}" nav="${row.name}">
+                                                ${row.name}
+                                            </a>
+                                        </li>
+                                    </#if>
+                                </#if>
+                            </#list>
+
+                            <li>
+                                <a href="${base}/tags" nav="tags">标签</a>
+                            </li>
+                        </ul>
+                </div>
 
                 <ul class="navbar-button list-inline" id="header_user">
                     <li view="search" class="hidden-xs hidden-sm">
@@ -179,6 +181,7 @@
                             <li><a href="${base}/register" class="btn btn-primary btn-sm signup">注册</a></li>
                         </@controls>
                     </#if>
+
                     <li>
                         <a class="plus"
                            href='mailto:invitations@muzinuo.com'>

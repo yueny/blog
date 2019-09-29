@@ -32,10 +32,10 @@ public class PostVO extends PostBo implements IBo {
 
 	private ChannelVO channel;
 
-	/**
-	 * 标签, 与属性 tags 对应
-	 */
-	private List<TagBO> tagsList = new ArrayList<>();
+//	/**
+//	 * 标签, 与属性 tags 对应
+//	 */
+//	private List<TagBO> tagsList = new ArrayList<>();
 
 	/**
 	 * 编辑器
