@@ -54,7 +54,7 @@ public class AccountSubjectFactory extends DefaultSubjectFactory {
             AccountProfile profile = (AccountProfile) subject.getPrincipal();
             log.debug("reload session - " + profile.getUsername());
 
-            session.setAttribute("profile", accountProfileService.get(profile.getId()));
+            session.setAttribute("profile", accountProfileService.find(profile.getId()));
         }
     }
 

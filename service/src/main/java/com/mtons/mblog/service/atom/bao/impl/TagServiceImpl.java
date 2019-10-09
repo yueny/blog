@@ -38,7 +38,7 @@ public class TagServiceImpl extends AbstractPlusService<TagBO, Tag, TagMapper>
         LambdaQueryWrapper<Tag> queryWrapper = new QueryWrapper<Tag>().lambda();
         queryWrapper.eq(Tag::getName, name);
 
-        return get(queryWrapper);
+        return find(queryWrapper);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class TagServiceImpl extends AbstractPlusService<TagBO, Tag, TagMapper>
             return po;
         }).collect(Collectors.toList());
 
-        Map<Long, PostBo> posts = postService.findMapByIds(postIds);
+        Map<Long, PostBo> posts = postService.findMapForAuthorByIds(postIds);
         rets.forEach(n -> n.setPost(posts.get(n.getPostId())));
         return new PageImpl<>(rets, pageable, page.getTotalElements());
     }

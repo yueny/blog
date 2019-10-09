@@ -32,7 +32,7 @@ public class UserPassportServiceImpl implements IUserPassportService {
 
 	@Override
 	public boolean getMatch(final String uid, final String password) throws InvalidException {
-		UserBO po = userService.get(uid);
+		UserBO po = userService.find(uid);
 		if(po == null){
 			throw new InvalidException(ErrorType.USER_NOT_EXIST1);
 		}
@@ -75,7 +75,7 @@ public class UserPassportServiceImpl implements IUserPassportService {
 			throw new InvalidException(ErrorType.INVALID_ERROR.getCode(), msg);
 		}
 
-		UserBO po = userService.get(uid);
+		UserBO po = userService.find(uid);
 		if(po == null){
 			throw new InvalidException(ErrorType.USER_NOT_EXIST1);
 		}

@@ -69,8 +69,8 @@ public class UserManagerServiceImpl extends BaseService implements IUserManagerS
     private IMenuRolePermissionManagerService menuRolePermissionManagerService;
 
     @Override
-    public UserVO get(String uid) {
-        UserBO userBO = userService.get(uid);
+    public UserVO find(String uid) {
+        UserBO userBO = userService.find(uid);
         if(userBO == null){
             return null;
         }
@@ -167,7 +167,7 @@ public class UserManagerServiceImpl extends BaseService implements IUserManagerS
             // exception
         };
 
-        return get(uid);
+        return find(uid);
     }
 
     @Override

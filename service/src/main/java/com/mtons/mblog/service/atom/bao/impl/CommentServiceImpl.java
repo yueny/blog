@@ -206,7 +206,7 @@ public class CommentServiceImpl extends AbstractPlusService<CommentBo, Comment, 
 
 	@Override
 	public void delete(long id, String uid) {
-		CommentBo bo = get(id);
+		CommentBo bo = find(id);
 		// 判断文章是否属于当前登录用户
 		Assert.isTrue(StringUtils.equals(bo.getUid(), uid), "认证失败");
 
@@ -252,7 +252,7 @@ public class CommentServiceImpl extends AbstractPlusService<CommentBo, Comment, 
 	}
 
 	private void buildPosts(Collection<CommentBo> comments, Set<Long> postIds) {
-		Map<Long, PostBo> postMap = postService.findMapByIds(postIds);
+		Map<Long, PostBo> postMap = postService.findMapForAuthorByIds(postIds);
 		comments.forEach(p -> {
 			PostBo postBO = postMap.get(p.getPostId());
 			p.setPost(postBO);

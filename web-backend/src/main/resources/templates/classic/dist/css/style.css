@@ -266,13 +266,13 @@ a.highlight:hover {
     opacity: .97;
 }
 
-/*.site-header .navbar-brand {*/
-/*    padding: 9px 0;*/
-/*}*/
-
-/*.site-header .navbar-brand img {*/
-/*    height: 32px;*/
-/*}*/
+/* site_logo */
+.site-header .navbar-brand {
+    padding: 9px 0;
+}
+.site-header .navbar-brand img {
+    height: 32px;
+}
 
 .site-header .navbar {
     border: 0;

@@ -58,7 +58,7 @@ public class RoleServiceImpl extends AbstractPlusService<RoleBO, Role, RoleMappe
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(RoleBO r, Set<PermissionBO> permissions) {
-        RoleBO roleBO = get(r.getId());
+        RoleBO roleBO = find(r.getId());
         if(roleBO == null){
             roleBO = new RoleBO();
         }
@@ -110,7 +110,7 @@ public class RoleServiceImpl extends AbstractPlusService<RoleBO, Role, RoleMappe
 
     @Override
     public void activate(long id, boolean active) {
-        RoleBO roleBO = get(id);
+        RoleBO roleBO = find(id);
         roleBO.setStatus(active ? StatusType.NORMAL : StatusType.CLOSED);
 
         updateById(roleBO);

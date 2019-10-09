@@ -34,7 +34,7 @@ public class BlogMessageEventHandler extends AbstractService
         MessageVO nt = new MessageVO();
         nt.setPostId(event.getPostId());
 
-        UserBO userBo = userService.get(event.getFromUid());
+        UserBO userBo = userService.find(event.getFromUid());
         if(userBo == null){
             nt.setFromId(BlogConstant.DEFAULT_GUEST_AUTHOR_ID);
         }else{
@@ -56,7 +56,7 @@ public class BlogMessageEventHandler extends AbstractService
             // 自增评论数
             postService.identityComments(p2.getArticleBlogId());
         }else{
-            nt.setUserId(userService.get(event.getToUid()).getId());
+            nt.setUserId(userService.find(event.getToUid()).getId());
         }
 
         messageService.send(nt);

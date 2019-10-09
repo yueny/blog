@@ -52,14 +52,6 @@ public interface PostService extends IPlusBizService<PostBo, Post> {
 
 	Page<PostBo> paging4AdminForAuthor(Pageable pageable, int channelId, String title);
 
-//	/**
-//	 * 查询个人发布文章
-//	 * @param pageable
-//	 * @param userId
-//	 */
-//	@Cacheable
-//	Page<PostBO> pagingByAuthorId(Pageable pageable, long userId);
-
 	/**
 	 * 查询最近更新 - 按发布时间排序
 	 * @param maxResults
@@ -83,8 +75,7 @@ public interface PostService extends IPlusBizService<PostBo, Post> {
 	 * @param ids
 	 * @return <id, 文章对象>
 	 */
-	@Deprecated
-	Map<Long, PostBo> findMapByIds(Set<Long> ids);
+	Map<Long, PostBo> findMapForAuthorByIds(Set<Long> ids);
 
 	/**
 	 * 查询个人发布文章

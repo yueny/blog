@@ -182,7 +182,8 @@
                         </@controls>
                     </#if>
 
-                    <li>
+                    <#-- class="hidden-xs hidden-sm" 表示空间不足时隐藏 -->
+                    <li class="hidden-xs hidden-sm">
                         <a class="plus"
                            href='mailto:invitations@muzinuo.com'>
                             <i class="tooltip-icon-info glyphicon glyphicon-exclamation-sign"></i>

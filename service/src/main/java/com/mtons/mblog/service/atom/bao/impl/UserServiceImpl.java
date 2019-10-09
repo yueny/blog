@@ -38,7 +38,7 @@ public class UserServiceImpl extends AbstractPlusService<UserBO, User, UserMappe
 
     @Override
     public boolean update(UserBO user) {
-        UserBO userBO = get(user.getId());
+        UserBO userBO = find(user.getId());
 
         userBO.setName(user.getName());
         userBO.setSignature(user.getSignature());
@@ -56,7 +56,7 @@ public class UserServiceImpl extends AbstractPlusService<UserBO, User, UserMappe
 
     @Override
     public boolean updateEmail(long id, String email) {
-        UserBO userBO = get(id);
+        UserBO userBO = find(id);
 
         if (userBO == null) {
             throw new MtonsException("无效用户！");
@@ -79,11 +79,11 @@ public class UserServiceImpl extends AbstractPlusService<UserBO, User, UserMappe
     }
 
     @Override
-    public UserBO get(String uid) {
+    public UserBO find(String uid) {
         LambdaQueryWrapper<User> queryWrapper = new QueryWrapper<User>().lambda();
         queryWrapper.eq(User::getUid, uid);
 
-        return get(queryWrapper);
+        return find(queryWrapper);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class UserServiceImpl extends AbstractPlusService<UserBO, User, UserMappe
         LambdaQueryWrapper<User> queryWrapper = new QueryWrapper<User>().lambda();
         queryWrapper.eq(User::getUsername, username);
 
-        return get(queryWrapper);
+        return find(queryWrapper);
     }
 
     @Override
@@ -99,7 +99,7 @@ public class UserServiceImpl extends AbstractPlusService<UserBO, User, UserMappe
         LambdaQueryWrapper<User> queryWrapper = new QueryWrapper<User>().lambda();
         queryWrapper.eq(User::getEmail, email);
 
-        return get(queryWrapper);
+        return find(queryWrapper);
     }
 
     @Override
@@ -107,12 +107,12 @@ public class UserServiceImpl extends AbstractPlusService<UserBO, User, UserMappe
         LambdaQueryWrapper<User> queryWrapper = new QueryWrapper<User>().lambda();
         queryWrapper.eq(User::getDomainHack, domainHack);
 
-        return get(queryWrapper);
+        return find(queryWrapper);
     }
 
     @Override
     public boolean updateAvatar(long id, String path) {
-        UserBO userBO = get(id);
+        UserBO userBO = find(id);
 
         if (userBO == null) {
             throw new MtonsException("无效用户！");

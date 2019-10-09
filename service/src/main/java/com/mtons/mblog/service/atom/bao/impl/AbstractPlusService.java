@@ -27,6 +27,41 @@ import java.util.*;
 /**
  * 基类
  *
+ * <pre>
+ *
+	 ## mybatisplus
+		 * 查询
+			 + getOne
+			 + getMap
+			 + getById
+			 + listBy...
+			 + list...
+			 + page...
+		 * 更新
+			 + updateBy...
+			 + update
+		 * 删除
+			 + remove
+			 + removeBy...
+		 * 保存
+			 + saveOrUpdate
+			 + save
+		 * 其他
+		 	+ count
+
+	 ## mblog atom
+		 * 查询
+		 	+ find...
+		 * 更新
+		 	+ updateBy...
+		 * 删除
+		 	+ delete...
+		 * 保存
+			 + insert
+			 + saveOrUpdate
+		 * 其他
+		 	+ count
+ * </pre>
  * @author yueny(yueny09@163.com)
  *
  * @date 2015年8月9日 下午7:21:34
@@ -233,7 +268,7 @@ import java.util.*;
 	}
 
 	@Override
-	public T get(Long id) {
+	public T find(Long id) {
 		if(!PKUtil.available(id)){
 			return null;
 		}
@@ -325,7 +360,7 @@ import java.util.*;
 	///////////////////////////////////////////////////
 
 	@Override
-	public T get(Wrapper<S> queryWrapper) {
+	public T find(Wrapper<S> queryWrapper) {
 		S entry = baseMapper.selectOne(queryWrapper);
 
 		if(entry == null){

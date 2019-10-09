@@ -31,7 +31,7 @@ public class PostTagServiceImpl extends AbstractPlusService<PostTagVO, PostTag, 
         wrapper.eq(PostTag::getPostId, postId);
         wrapper.eq(PostTag::getTagId, tagId);
 
-        return get(wrapper);
+        return find(wrapper);
     }
 
     @Override

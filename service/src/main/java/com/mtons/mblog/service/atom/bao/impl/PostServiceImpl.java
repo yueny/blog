@@ -72,6 +72,7 @@ public class PostServiceImpl extends AbstractPlusService<PostBo, Post, PostMappe
 		LambdaQueryWrapper<Post> queryWrapper = new QueryWrapper<Post>().lambda();
 		queryWrapper.eq(Post::getArticleBlogId, articleBlogId);
 
+
 		Post po = baseMapper.selectOne(queryWrapper);
 		if(po == null){
 			return  null;
@@ -152,18 +153,18 @@ public class PostServiceImpl extends AbstractPlusService<PostBo, Post, PostMappe
 	
 	@Override
 	@PostStatusFilter
-	public Map<Long, PostBo> findMapByIds(Set<Long> ids) {
+	public Map<Long, PostBo> findMapForAuthorByIds(Set<Long> ids) {
 		if (ids == null || ids.isEmpty()) {
 			return Collections.emptyMap();
 		}
 
-		Iterable<Post> list = postRepository.findAllById(ids);
+		List<PostBo> list = findAllById(ids);
 
 		HashSet<Long> uids = new HashSet<>();
 		Map<Long, PostBo> rets = new HashMap<>();
-		list.forEach(po -> {
-			uids.add(po.getAuthorId());
-			rets.put(po.getId(), map(po, PostBo.class));
+		list.forEach(poBo -> {
+			uids.add(poBo.getAuthorId());
+			rets.put(poBo.getId(), poBo);
 		});
 
 		// 加载用户信息
@@ -185,7 +186,7 @@ public class PostServiceImpl extends AbstractPlusService<PostBo, Post, PostMappe
 	public PostBo getForAuthor(long id) {
 //		Post po = baseMapper.selectById(id);
 //		PostBO d = BeanMapUtils.copy(po);
-		PostBo d = get(id);
+		PostBo d = find(id);
 
 		// 加载用户信息s
 		buildUsers(Lists.newArrayList(d), Sets.newHashSet(d.getAuthorId()));
@@ -239,7 +240,7 @@ public class PostServiceImpl extends AbstractPlusService<PostBo, Post, PostMappe
 	@Transactional
 	@Deprecated
 	public void update(PostBo pp){
-		PostBo postBo = get(pp.getId());
+		PostBo postBo = find(pp.getId());
 //		Optional<Post> optional = postRepository.findById(pp.getId());
 
 //		if (optional.isPresent()) {
@@ -404,7 +405,7 @@ public class PostServiceImpl extends AbstractPlusService<PostBo, Post, PostMappe
 	}
 
 	private void buildUsers(PostBo post, String uid) {
-		UserBO userBo = userService.get(uid);
+		UserBO userBo = userService.find(uid);
 		if(userBo != null){
 			userBo.setPassword("");
 			post.setAuthor(userBo);

@@ -90,13 +90,13 @@ public class UsersController extends BaseBizController {
     }
 
     private void initUser(long userId, ModelMap model) {
-        model.put("user", userService.get(userId));
+        model.put("user", userService.find(userId));
         boolean owner = false;
 
         AccountProfile profile = getProfile();
         if (null != profile && profile.getId() == userId) {
             owner = true;
-            putProfile(accountProfileService.get(profile.getId()));
+            putProfile(accountProfileService.find(profile.getId()));
         }
         model.put("owner", owner);
     }

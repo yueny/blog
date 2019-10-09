@@ -29,7 +29,7 @@ public interface IPlusBizService<T extends IBo, S>
 	 * @param queryWrapper 查询条件
 	 * @return 不存在则返回为null
 	 */
-	T get(Wrapper<S> queryWrapper);
+	T find(Wrapper<S> queryWrapper);
 
 	/**
 	* 查询条件查询列表信息

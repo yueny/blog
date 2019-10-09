@@ -55,7 +55,7 @@ public class CommentManagerServiceImpl extends BaseService implements ICommentMa
     @Override
     @Transactional
     public void delete(long id, String uid) {
-        CommentBo commentBo = commentService.get(id);
+        CommentBo commentBo = commentService.find(id);
 
         // 评论删除后， 重置该用户的博文评论总数
         userEventExecutor.identityComment(uid, false);

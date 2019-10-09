@@ -36,8 +36,8 @@ public class AccountProfileServiceImpl extends BaseService
     private IUserManagerService userManagerService;
 
     @Override
-    public AccountProfile get(Long userId) {
-        UserBO userBO = userService.get(userId);
+    public AccountProfile find(Long userId) {
+        UserBO userBO = userService.find(userId);
         Assert.notNull(userBO, "账户不存在");
 
         // Assert.state(po.getStatus() != Const.STATUS_CLOSED, "您的账户已被封禁");

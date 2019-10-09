@@ -67,7 +67,7 @@ public class PermissionController extends BaseBizController {
     @RequestMapping(value="/view", method = {RequestMethod.GET})
     public String get(Long id, ModelMap model) {
         if (id != null && id > 0) {
-            PermissionBO permissionBO = permissionService.get(id);
+            PermissionBO permissionBO = permissionService.find(id);
             if(permissionBO != null){
                 model.put("permission", permissionBO);
             }
@@ -96,7 +96,7 @@ public class PermissionController extends BaseBizController {
         if (condition != null) {
             PermissionBO permissionBO;
             if (condition.getId() != null && condition.getId() > 0) {
-                permissionBO = permissionService.get(condition.getId());
+                permissionBO = permissionService.find(condition.getId());
                 if(permissionBO == null){
                     response.setCode(ErrorType.INVALID_ERROR.getCode());
                     response.setMessage("欲更新数据不存在");

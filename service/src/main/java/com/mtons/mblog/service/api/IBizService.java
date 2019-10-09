@@ -30,7 +30,7 @@ public interface IBizService<T extends IBo, S> {
      * @param id ID
      * @return 不存在则返回为null
      */
-    T get(Long id);
+    T find(Long id);
 
     /**
      * 删除

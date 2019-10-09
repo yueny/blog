@@ -52,7 +52,7 @@
                 <div class="meta inline-block">
                     <span>
                         <i class="icon-clock"></i>
-                        <abbr class="timeago">${timeAgo(view.created)}</abbr>
+                        <abbr class="timeago" title="${datetimeMinute(row.created)}">${timeAgo(view.created)}</abbr>
                     </span>
                     ⋅
                     <span>

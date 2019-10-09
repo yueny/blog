@@ -81,7 +81,7 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 			return Collections.emptyMap();
 		}
 
-		Map<Long, PostBo> rets = postService.findMapByIds(ids);
+		Map<Long, PostBo> rets = postService.findMapForAuthorByIds(ids);
 
 		Map<Long, PostVO> list = new HashMap<>();
 		for (Map.Entry<Long, PostBo> entry : rets.entrySet()) {
@@ -135,7 +135,7 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 		buildTags(vo);
 
 		// 博文内容
-		PostAttributeBo attr = postAttributeService.get(vo.getId());
+		PostAttributeBo attr = postAttributeService.find(vo.getId());
 		if(attr != null && StringUtils.isNotEmpty(attr.getContent())){
 			vo.setContent(attr.getContent());
 			vo.setEditor(attr.getEditor());
@@ -159,7 +159,7 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 		buildTags(vo);
 
 		// 博文内容
-		PostAttributeBo attr = postAttributeService.get(vo.getId());
+		PostAttributeBo attr = postAttributeService.find(vo.getId());
 		if(attr != null && StringUtils.isNotEmpty(attr.getContent())){
 			vo.setContent(attr.getContent());
 			vo.setEditor(attr.getEditor());
@@ -183,7 +183,7 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 		postService.update(pp);
 
 		// 保存扩展
-		PostAttributeBo attr = postAttributeService.get(pp.getId());
+		PostAttributeBo attr = postAttributeService.find(pp.getId());
 		if(attr == null){
 			attr = new PostAttributeBo();
 			attr.setId(pp.getId());

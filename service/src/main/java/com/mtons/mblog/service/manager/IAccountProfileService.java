@@ -14,5 +14,5 @@ public interface IAccountProfileService {
      * @param userId
      * @return
      */
-    AccountProfile get(Long userId);
+    AccountProfile find(Long userId);
 }

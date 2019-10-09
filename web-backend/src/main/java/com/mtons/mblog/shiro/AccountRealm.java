@@ -42,7 +42,7 @@ public class AccountRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         AccountProfile profile = (AccountProfile) SecurityUtils.getSubject().getPrincipal();
         if (profile != null) {
-            UserBO user = userService.get(profile.getId());
+            UserBO user = userService.find(profile.getId());
             if (user != null) {
                 // 获取用户对应角色所拥有的权限，然后将这些权限放到SimpleAuthorizationInfo的权限认证书中
                 SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
@@ -79,6 +79,6 @@ public class AccountRealm extends AuthorizingRealm {
         UsernamePasswordToken upToken = (UsernamePasswordToken) token;
         UserBO userBO = userService.login(upToken.getUsername(), String.valueOf(upToken.getPassword()));
 
-        return accountProfileService.get(userBO.getId());
+        return accountProfileService.find(userBO.getId());
     }
 }

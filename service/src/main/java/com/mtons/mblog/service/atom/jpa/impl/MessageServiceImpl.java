@@ -57,7 +57,7 @@ public class MessageServiceImpl implements MessageService {
         });
 
         // 加载
-        Map<Long, PostBo> posts = postService.findMapByIds(postIds);
+        Map<Long, PostBo> posts = postService.findMapForAuthorByIds(postIds);
         Map<Long, UserBO> fromUsers = userService.findMapByIds(fromUserIds);
 
         rets.forEach(n -> {

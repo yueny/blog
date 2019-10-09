@@ -77,7 +77,7 @@ abstract class AbstractJpaService<T extends IBo, S extends IEntry, M extends Jpa
     }
 
     @Override
-    public T get(Long id) {
+    public T find(Long id) {
         Optional<S> optional = baseRepository.findById(id);
 
         if(optional.isPresent()){

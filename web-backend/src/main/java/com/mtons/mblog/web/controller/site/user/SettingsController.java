@@ -45,7 +45,7 @@ public class SettingsController extends BaseBizController {
      */
     @GetMapping(value = "/profile")
     public String view(ModelMap model) {
-        UserBO view = userService.get(getProfile().getId());
+        UserBO view = userService.find(getProfile().getId());
         model.put("view", view);
         return view(Views.SETTINGS_PROFILE);
     }
@@ -90,10 +90,10 @@ public class SettingsController extends BaseBizController {
             }
 
             userService.update(user);
-            putProfile(accountProfileService.get(profile.getId()));
+            putProfile(accountProfileService.find(profile.getId()));
 
             // put 最新信息
-            UserBO view = userService.get(profile.getId());
+            UserBO view = userService.find(profile.getId());
             model.put("view", view);
 
             data = Result.success();
@@ -120,7 +120,7 @@ public class SettingsController extends BaseBizController {
             // 先执行修改，内部判断邮箱是否更改，或邮箱是否被人使用
             userService.updateEmail(profile.getId(), email);
 
-            putProfile(accountProfileService.get(profile.getId()));
+            putProfile(accountProfileService.find(profile.getId()));
 
             data = Result.success();
         } catch (Exception e) {
@@ -184,7 +184,7 @@ public class SettingsController extends BaseBizController {
 
             userService.updateAvatar(profile.getId(), path);
 
-            putProfile(accountProfileService.get(profile.getId()));
+            putProfile(accountProfileService.find(profile.getId()));
 
             result.ok(UploadController.errorInfo.get("SUCCESS"));
             result.setName(fileName);

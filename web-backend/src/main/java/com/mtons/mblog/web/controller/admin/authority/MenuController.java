@@ -78,7 +78,7 @@ public class MenuController extends BaseBizController {
     @RequestMapping(value="/view", method = {RequestMethod.GET})
     public String get(Long id, ModelMap model) {
         if (id != null && id > 0) {
-            MenuBo menuBo = menuService.get(id);
+            MenuBo menuBo = menuService.find(id);
             if(menuBo != null){
                 model.put("menuBo", menuBo);
             }
@@ -110,7 +110,7 @@ public class MenuController extends BaseBizController {
 
         if (condition != null) {
             if (condition.getId() != null && condition.getId() > 0) {
-                MenuBo menuBo = menuService.get(condition.getId());
+                MenuBo menuBo = menuService.find(condition.getId());
                 if(menuBo == null){
                     response.setCode(ErrorType.INVALID_ERROR.getCode());
                     response.setMessage("欲更新数据不存在");

@@ -34,26 +34,5 @@ public interface PostRepository extends CrudRepository<Post, Long>, JpaSpecifica
      * 根据 博文编号 articleBlogId 查询博文信息
      */
     Post findByArticleBlogId(String articleBlogId);
-//
-//    /**
-//     * 查询指定用户
-//     *
-//     * @param pageable
-//     * @param uid 用户编号
-//     * @return
-//     */
-//    Page<Post> findAllByUid(Pageable pageable, String uid);
-//
-//    @Modifying
-//    @Query("update Post set views = views + :increment where article_blog_id = :articleBlogId")
-//    void updateViews(@Param("articleBlogId") String articleBlogId, @Param("increment") int increment);
-//
-//    @Modifying
-//    @Query("update Post set favors = favors + :increment where article_blog_id = :articleBlogId")
-//    void updateFavors(@Param("articleBlogId") String articleBlogId, @Param("increment") int increment);
-//
-//    @Modifying
-//    @Query("update Post set comments = comments + :increment where article_blog_id = :articleBlogId")
-//    void updateComments(@Param("articleBlogId") String articleBlogId, @Param("increment") int increment);
 
 }

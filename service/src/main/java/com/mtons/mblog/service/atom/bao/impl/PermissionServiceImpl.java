@@ -108,7 +108,7 @@ public class PermissionServiceImpl extends AbstractPlusService<PermissionBO, Per
         LambdaQueryWrapper<Permission> queryWrapper = new QueryWrapper<Permission>().lambda();
         queryWrapper.eq(Permission::getName, name);
 
-        return get(queryWrapper);
+        return find(queryWrapper);
     }
 
 //    @Override
@@ -148,7 +148,7 @@ public class PermissionServiceImpl extends AbstractPlusService<PermissionBO, Per
         }
 
         // 功能只能挂在菜单下， 菜单只能挂在菜单下， 也就是说，功能下不能挂任何东西
-        PermissionBO parentBo = get(bo.getParentId());
+        PermissionBO parentBo = find(bo.getParentId());
         if(bo.getFuncType() == FuncType.FUNC){
             if(parentBo.getFuncType() == FuncType.FUNC){
                 throw new MtonsException("功能只能挂在菜单下");
@@ -186,7 +186,7 @@ public class PermissionServiceImpl extends AbstractPlusService<PermissionBO, Per
         for (Long id : ids) {
             // 判断该菜单 id 是否存在子菜单
             if(CollectionUtils.isNotEmpty(findAllByParentId(id))){
-                PermissionBO pb = get(id);
+                PermissionBO pb = find(id);
                 if(pb !=null){
                     throw new MtonsException("菜单项:「" + pb.getName() + "」 存在子菜单，不可以被删除。");
                 }

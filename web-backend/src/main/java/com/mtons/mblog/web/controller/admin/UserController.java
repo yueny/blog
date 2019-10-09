@@ -66,9 +66,9 @@ public class UserController extends BaseBizController {
 	@RequestMapping("/view")
 	public String view(Long id, ModelMap model) {
 		if (PKUtil.available(id)) {
-			UserBO bo = userService.get(id);
+			UserBO bo = userService.find(id);
 
-			UserVO userVO = userManagerService.get(bo.getUid());
+			UserVO userVO = userManagerService.find(bo.getUid());
 
 			model.put("view", userVO);
 		}
@@ -102,7 +102,7 @@ public class UserController extends BaseBizController {
 	@RequestMapping(value = "/pwd", method = RequestMethod.GET)
 //	@RequiresPermissions("user:pwd")
 	public String pwsView(Long id, ModelMap model) {
-		UserBO ret = userService.get(id);
+		UserBO ret = userService.find(id);
 		model.put("view", ret);
 		return "/admin/user/pwd";
 	}
@@ -113,7 +113,7 @@ public class UserController extends BaseBizController {
 	@RequestMapping(value = "/pwd", method = RequestMethod.POST)
 //	@RequiresPermissions("user:pwd")
 	public String pwd(Long id, String newPassword, ModelMap model) {
-		UserBO ret = userService.get(id);
+		UserBO ret = userService.find(id);
 		model.put("view", ret);
 
 		try {
@@ -133,7 +133,7 @@ public class UserController extends BaseBizController {
 //	@RequiresPermissions("user:open")
 	@ResponseBody
 	public Result open(Long id) {
-		UserBO userBO = userService.get(id);
+		UserBO userBO = userService.find(id);
 		userService.updateStatus(userBO.getUid(), StatusType.NORMAL);
 		return Result.success();
 	}
@@ -145,7 +145,7 @@ public class UserController extends BaseBizController {
 //	@RequiresPermissions("user:close")
 	@ResponseBody
 	public Result close(Long id) {
-		UserBO userBO = userService.get(id);
+		UserBO userBO = userService.find(id);
 		userService.updateStatus(userBO.getUid(), StatusType.CLOSED);
 		return Result.success();
 	}

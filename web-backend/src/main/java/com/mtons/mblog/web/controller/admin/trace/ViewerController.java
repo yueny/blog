@@ -81,7 +81,7 @@ public class ViewerController extends BaseBizController {
     public NormalResponse<ViewLogBo> get(Long id) {
         NormalResponse<ViewLogBo> resp = new NormalResponse<>();
 
-        ViewLogBo viewLogVO = viewLogService.get(id);
+        ViewLogBo viewLogVO = viewLogService.find(id);
         resp.setData(viewLogVO);
 
         return resp;

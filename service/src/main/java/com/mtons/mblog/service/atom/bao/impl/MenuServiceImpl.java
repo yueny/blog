@@ -66,7 +66,7 @@ public class MenuServiceImpl extends AbstractPlusService<MenuBo, Menu, MenuMappe
         for (Long id : ids) {
             // 判断该菜单 id 是否存在子菜单
             if(CollectionUtils.isNotEmpty(findAllByParentId(id))){
-                MenuBo pb = get(id);
+                MenuBo pb = find(id);
                 if(pb !=null){
                     throw new MtonsException("菜单项:「" + pb.getName() + "」 存在子菜单，不可以被删除。");
                 }

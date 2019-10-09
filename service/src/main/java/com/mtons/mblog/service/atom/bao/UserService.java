@@ -81,7 +81,7 @@ public interface UserService extends IPlusBizService<UserBO, User> {
 	 * @return
 	 */
 	@Cacheable(key = "#uid")
-	UserBO get(String uid);
+	UserBO find(String uid);
 
 	UserBO findByUsername(String username);
 

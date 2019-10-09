@@ -117,7 +117,7 @@ public class CallbackController extends BaseBizController {
             model.put("open", openOauth);
             return view(Views.OAUTH_REGISTER);
         }
-        String username = userService.get(thirdToken.getUserId()).getUsername();
+        String username = userService.find(thirdToken.getUserId()).getUsername();
         return login(username, thirdToken.getAccessToken());
     }
 
@@ -186,7 +186,7 @@ public class CallbackController extends BaseBizController {
             model.put("open", openOauth);
             return view(Views.OAUTH_REGISTER);
         }
-        String username = userService.get(thirdToken.getUserId()).getUsername();
+        String username = userService.find(thirdToken.getUserId()).getUsername();
         return login(username, thirdToken.getAccessToken());
     }
 
@@ -260,7 +260,7 @@ public class CallbackController extends BaseBizController {
             model.put("open", openOauth);
             return view(Views.OAUTH_REGISTER);
         }
-        String username = userService.get(thirdToken.getUserId()).getUsername();
+        String username = userService.find(thirdToken.getUserId()).getUsername();
         return login(username, thirdToken.getAccessToken());
 
 
@@ -333,7 +333,7 @@ public class CallbackController extends BaseBizController {
             model.put("open", openOauth);
             return view(Views.OAUTH_REGISTER);
         }
-        String username = userService.get(thirdToken.getUserId()).getUsername();
+        String username = userService.find(thirdToken.getUserId()).getUsername();
         return login(username, thirdToken.getAccessToken());
     }
 
@@ -352,7 +352,7 @@ public class CallbackController extends BaseBizController {
 
         // 已存在：提取用户信息，登录
         if (thirdToken != null) {
-            username = userService.get(thirdToken.getUserId()).getUsername();
+            username = userService.find(thirdToken.getUserId()).getUsername();
         } else { // 不存在：注册新用户，并绑定此token，登录
             UserBO user = userService.findByUsername(username);
             if (user == null) {

@@ -31,7 +31,7 @@ public interface IUserManagerService {
      * @param uid 用户uid
      * @return
      */
-    UserVO get(String uid);
+    UserVO find(String uid);
 
     /**
      * 分页查询

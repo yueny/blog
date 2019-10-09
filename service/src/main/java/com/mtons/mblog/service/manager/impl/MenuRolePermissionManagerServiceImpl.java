@@ -72,7 +72,7 @@ public class MenuRolePermissionManagerServiceImpl
         }
 
         for (MenuTreeVo m : map.values()) {
-            PermissionBO permissionBO = permissionService.get(m.getPermissionId());
+            PermissionBO permissionBO = permissionService.find(m.getPermissionId());
             if(permissionBO == null){
                 logger.warn("权限信息不存在，id:{}.", m.getPermissionId());
                 continue;
@@ -106,7 +106,7 @@ public class MenuRolePermissionManagerServiceImpl
 
         List<MenuVo> list = mapAny(menuBos, MenuVo.class);
         for (MenuVo menuVo : list) {
-            menuVo.setPermission(permissionService.get(menuVo.getPermissionId()));
+            menuVo.setPermission(permissionService.find(menuVo.getPermissionId()));
         }
         return list;
     }
@@ -119,7 +119,7 @@ public class MenuRolePermissionManagerServiceImpl
 
     @Override
     public RolePermissionVO getForVo(long roleId) {
-        return toVO(roleService.get(roleId));
+        return toVO(roleService.find(roleId));
     }
 
     @Override

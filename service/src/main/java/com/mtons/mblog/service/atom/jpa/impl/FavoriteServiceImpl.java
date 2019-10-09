@@ -43,7 +43,7 @@ public class FavoriteServiceImpl extends BaseService implements FavoriteService 
         }
 
         if (postIds.size() > 0) {
-            Map<Long, PostBo> posts = postService.findMapByIds(postIds);
+            Map<Long, PostBo> posts = postService.findMapForAuthorByIds(postIds);
 
             for (FavoriteVO t : rets) {
                 PostBo p = posts.get(t.getPostId());
