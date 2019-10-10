@@ -37,6 +37,11 @@
         <link rel="stylesheet" href="${base}/dist/css/checkbox.css">
         <link rel="stylesheet" href="${base}/dist/js/comp/number-spinner/number-spinner.css">
 
+        <link href="${base}/dist/vendors/layer/skin/layer.css" rel="stylesheet">
+        <link rel="stylesheet" href="${base}/dist/vendors/alertify.js/themes/alertify.core.css" />
+        <link rel="stylesheet" href="${base}/dist/vendors/alertify.js/themes/alertify.default.css" id="toggleCSS" />
+        <link href="${base}/dist/vendors/b.dialog/b.dialog.bootstrap3.css" rel="stylesheet">
+
         <#-- Theme Style -->
         <link href="${base}/theme/admin/dist/css/site.css" rel="stylesheet">
         <link href="${base}/theme/admin/dist/css/site.addons.css" rel="stylesheet">
@@ -99,7 +104,10 @@
         <script src='${base}/dist/vendors/jquery-validation/jquery.validate.min.js'></script>
         <script src='${base}/dist/vendors/jquery-validation/additional-methods.js'></script>
         <script src='${base}/dist/vendors/jquery-validation/localization/messages_zh.min.js'></script>
+
         <script src="${base}/dist/vendors/layer/layer.js"></script>
+        <script src="${base}/dist/vendors/alertify.js/alertify.js"></script>
+        <script src="${base}/dist/vendors/b.dialog/b.dialog.min.js"></script>
 
         <script src="${base}/theme/admin/dist/js/site.js"></script>
         <script src="${base}/theme/admin/dist/js/site.base.js"></script>

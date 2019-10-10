@@ -162,7 +162,9 @@
     var J = jQuery;
 
     function ajaxReload(json){
-        layer.alert(json.message);
+        // layer.in(json.message);
+        alertify.success(json.message);
+        // bDialog.toast(json.message, {});
     }
 
 	$(function () {

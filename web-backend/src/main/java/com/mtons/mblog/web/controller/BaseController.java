@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -33,6 +34,10 @@ class BaseController {
      * 存放当前线程的Model对象
      */
     private final static ThreadLocal<Model> modelThreadLocal = new ThreadLocal<>();
+    /**
+     * 存放当前线程的Model对象
+     */
+    private final static ThreadLocal<ModelMap> modelMapThreadLocal = new ThreadLocal<>();
     /**
      * 日志记录器
      */
@@ -68,6 +73,15 @@ class BaseController {
     }
 
     /**
+     * 获取当前线程的ModelMap对象
+     *
+     * @return 当前线程的 ModelMap 对象
+     */
+    protected ModelMap getModelMap() {
+        return modelMapThreadLocal.get();
+    }
+
+    /**
      * 获取当前线程的HttpServletRequest对象
      *
      * @return 当前线程的HttpServletRequest对象
@@ -83,9 +97,10 @@ class BaseController {
      * @param model
      */
     @ModelAttribute
-    protected void setThreadLocal(final HttpServletRequest request, final Model model) {
+    protected void setThreadLocal(final HttpServletRequest request, final Model model, ModelMap modelMap) {
         httpServletRequestThreadLocal.set(request);
         modelThreadLocal.set(model);
+        modelMapThreadLocal.set(modelMap);
     }
 
     /**
