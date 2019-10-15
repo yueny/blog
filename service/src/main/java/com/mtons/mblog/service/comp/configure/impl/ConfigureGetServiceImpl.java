@@ -21,7 +21,7 @@ import java.util.Set;
  * @DATE 2019/7/8 8:55
  */
 @Component
-public class ConfigureGetService implements IConfigureGetService {
+public class ConfigureGetServiceImpl implements IConfigureGetService {
 
 	@Override
 	public String getKey(String key) {

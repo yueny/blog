@@ -9,24 +9,18 @@
 */
 package com.mtons.mblog.bo;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.mtons.mblog.base.enums.FileSizeType;
 import com.mtons.mblog.base.enums.ResourceType;
-import com.yueny.superclub.api.pojo.IBo;
-import com.yueny.superclub.api.pojo.instance.AbstractBo;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
  * 图片资源实体
  */
-public class ResourceBO extends AbstractBo implements IBo {
-
-	@Getter
-	@Setter
-	private Long id;
-
+public class ResourceBO extends AbstractBo {
 	/**
 	 * 图片资源编号
 	 */
@@ -48,16 +42,32 @@ public class ResourceBO extends AbstractBo implements IBo {
 	@Setter
 	private String path;
 
+	/**
+	 * 文件原始名称
+	 */
+	@Getter
+	@Setter
+	private String fileName;
+	/**
+	 * 文件的大小
+	 */
+	@Getter
+	@Setter
+	private Long fileSize;
+	/**
+	 * 文件大小单位,默认字节
+	 */
+	@Getter
+	@Setter
+	private FileSizeType fileSizeType;
+
 	@Getter
 	@Setter
 	private long amount;
 
 	@Getter
 	@Setter
-	private Date created;
-
-	@Getter
-	@Setter
+	@JSONField(name="updated", serialize = true, format = "yyyy-MM-dd HH:mm:ss")
 	private Date updated;
 
 	/**
@@ -66,5 +76,13 @@ public class ResourceBO extends AbstractBo implements IBo {
 	@Getter
 	@Setter
 	private ResourceType resourceType;
+
+	public String getResourceTypeDesc(){
+		return resourceType.getDesc();
+	}
+
+	public String getFileSizeTypeDesc(){
+		return fileSizeType.getDesc();
+	}
 
 }

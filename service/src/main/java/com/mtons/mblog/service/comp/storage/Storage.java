@@ -7,12 +7,13 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.base.storage;
+package com.mtons.mblog.service.comp.storage;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author langhsu
@@ -48,15 +49,22 @@ public interface Storage {
 	Map.Entry<String, String> storeScale(MultipartFile file, NailPathData nailPath, int width, int height) throws Exception;
 
 	/**
-	 * 存储路径
+	 * 删除文件
 	 * @param storePath
 	 */
 	void deleteFile(String storePath);
 
 	/**
+	 * 只做图片存储操作
 	 *
 	 * @param pathAndFileName 项目内的文件相对路径， 含文件名
 	 * @return  图片资源全局路径
 	 */
 	String writeToStore(byte[] bytes, String pathAndFileName) throws Exception;
+
+	/**
+	 * 获取服务器上的图片列表
+	 * @return  图片地址集合
+	 */
+	Set<String> filesList();
 }

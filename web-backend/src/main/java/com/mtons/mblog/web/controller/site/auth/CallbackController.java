@@ -9,7 +9,7 @@ import com.mtons.mblog.base.consts.StorageConsts;
 import com.mtons.mblog.base.oauth.*;
 import com.mtons.mblog.base.oauth.utils.OpenOauthBean;
 import com.mtons.mblog.base.oauth.utils.TokenUtil;
-import com.mtons.mblog.base.utils.FilePathUtils;
+import com.mtons.mblog.service.util.file.FilePathUtils;
 import com.mtons.mblog.service.manager.IUserManagerService;
 import com.mtons.mblog.service.util.ImageUtils;
 import com.mtons.mblog.model.AccountProfile;

@@ -82,9 +82,10 @@ site:
         theme: classic
         site_logo: /dist/images/logo/logo.png
         site_favicon: /dist/images/logo/m.png
+        # 上传的图片的最大默认size
         storage_max_width: 800
         storage_limit_size: 2
         editor: markdown
+        # 缩略图大小配置：栏目和博文
         thumbnail_channel_size: 200x112
-        # 缩略图大小
         thumbnail_post_size: 360x200

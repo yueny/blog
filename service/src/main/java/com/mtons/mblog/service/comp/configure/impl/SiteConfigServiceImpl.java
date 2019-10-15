@@ -3,15 +3,11 @@ package com.mtons.mblog.service.comp.configure.impl;
 import com.mtons.mblog.service.comp.configure.IConfigureConstant;
 import com.mtons.mblog.service.comp.configure.IConfigureGetService;
 import com.mtons.mblog.service.comp.configure.ISiteConfigService;
-import lombok.Getter;
-import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Properties;
 
 /**
  * 站点服务配置
@@ -21,9 +17,10 @@ import java.util.Properties;
  * @DATE 2019/7/8 8:55
  */
 @Component
-public class SiteConfigService implements ISiteConfigService {
+public class SiteConfigServiceImpl implements ISiteConfigService {
 	@Autowired
 	private IConfigureGetService configureGetService;
+
 
 	/**
 	 * 每日箴言， 通过@Value的形式不能实时获取

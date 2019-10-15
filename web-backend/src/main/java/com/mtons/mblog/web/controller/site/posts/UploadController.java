@@ -10,9 +10,10 @@
 package com.mtons.mblog.web.controller.site.posts;
 
 import com.mtons.mblog.base.consts.Consts;
-import com.mtons.mblog.base.storage.NailPathData;
-import com.mtons.mblog.base.storage.NailType;
-import com.mtons.mblog.base.utils.FileKit;
+import com.mtons.mblog.base.enums.FileSizeType;
+import com.mtons.mblog.service.comp.storage.NailPathData;
+import com.mtons.mblog.service.comp.storage.NailType;
+import com.mtons.mblog.service.util.file.FileKit;
 import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.web.controller.BaseBizController;
 import lombok.Getter;
@@ -53,18 +54,28 @@ public class UploadController extends BaseBizController {
         errorInfo.put("UNKNOWN", "未知错误");
     }
 
-    /**
-     * 文章中的图片上传， 预览图
-     *
-     * @param file 上传的文件
-     * @param nailType 上传类型， blogAttr 博文 | channelThumb、blogThumb、thumb 缩略图 | avatar 头像 | vague 其他
-     * @param request
-     */
-    @PostMapping("/upload")
-    @ResponseBody
-    public UploadResult upload(@RequestParam(value = "file", required = false) MultipartFile file,
-                               @RequestParam(value = "nailType", required = false, defaultValue = "blogAttr") String nailType,
-                               HttpServletRequest request) throws IOException {
+  /**
+   * 文章中的图片上传， 预览图。 如
+   *
+   * <pre>
+   *     '${base}/post/upload?crop=thumbnail_post_size&nailType=blogThumb'
+   *
+   *     crop：是指：获取缩略图允许的像素大小。
+   *           值在配置表options或application.yml中配置，暂时在配置文件中，如 360x200；
+   *        crop可选项：thumbnail_post_size | thumbnail_channel_size | 空
+   *     nailType：上传类型
+   * </pre>
+   *
+   * @param file 上传的文件
+   * @param nailType 上传类型， 默认博文。
+   *                 可选项：blogAttr 博文 | channelThumb、blogThumb、thumb 缩略图 | avatar 头像 | vague 其他
+   * @param request
+   */
+  @PostMapping("/upload")
+  @ResponseBody
+  public UploadResult upload(@RequestParam(value = "file", required = false) MultipartFile file,
+                             @RequestParam(value = "nailType", required = false, defaultValue = "blogAttr") String nailType,
+                             HttpServletRequest request) throws IOException {
         UploadResult result = new UploadResult();
         // 获取缩略图允许的像素大小， 如 360x200
         String crop = request.getParameter("crop");
@@ -75,10 +86,11 @@ public class UploadController extends BaseBizController {
             return result.error(errorInfo.get("NOFILE"));
         }
 
-        String fileName = file.getOriginalFilename();
+        // 返回原来的文件名
+        String originalFilename = file.getOriginalFilename();
 
         // 检查类型
-        if (!FileKit.checkFileType(fileName)) {
+        if (!FileKit.checkFileType(originalFilename)) {
             return result.error(errorInfo.get("TYPE"));
         }
 
@@ -96,6 +108,10 @@ public class UploadController extends BaseBizController {
         NailPathData nailPath = NailPathData.builder()
                 .nailType(NailType.get(nailType))
                 .placeVal(String.valueOf(profile.getId()))
+                .originalFilename(originalFilename)
+                // 返回文件的大小,以字节为单位。
+                .size(file.getSize())
+                .fileSizeType(FileSizeType.BYTE)
                 .build();
 
         // 保存图片
@@ -111,7 +127,7 @@ public class UploadController extends BaseBizController {
                 entry = storageFactory.get().storeScale(file, nailPath, size);
             }
             result.ok(errorInfo.get("SUCCESS"));
-            result.setName(fileName);
+            result.setName(originalFilename);
             result.setPath(entry.getValue());
             result.setThumbnailCode(entry.getKey());
             result.setSize(file.getSize());

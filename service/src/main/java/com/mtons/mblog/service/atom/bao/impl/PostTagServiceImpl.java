@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Author yueny09 <deep_blue_yang@126.com>
  * @Date 2019-08-22 17:19
@@ -32,6 +34,14 @@ public class PostTagServiceImpl extends AbstractPlusService<PostTagVO, PostTag, 
         wrapper.eq(PostTag::getTagId, tagId);
 
         return find(wrapper);
+    }
+
+    @Override
+    public List<PostTagVO> findByPostId(Long postId) {
+        LambdaQueryWrapper<PostTag> wrapper = new QueryWrapper<PostTag>().lambda();
+        wrapper.eq(PostTag::getPostId, postId);
+
+        return findAll(wrapper);
     }
 
     @Override

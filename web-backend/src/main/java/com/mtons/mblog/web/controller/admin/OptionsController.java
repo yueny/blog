@@ -11,7 +11,7 @@ package com.mtons.mblog.web.controller.admin;
 
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.config.ContextStartup;
-import com.mtons.mblog.modules.service.OptionsService;
+import com.mtons.mblog.service.atom.bao.OptionsService;
 import com.mtons.mblog.web.controller.BaseBizController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

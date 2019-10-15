@@ -1,11 +1,12 @@
 package com.mtons.mblog.config;
 
-import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.enums.StatusType;
-import com.mtons.mblog.entity.jpa.Options;
+import com.mtons.mblog.bo.OptionsBo;
+import com.mtons.mblog.entity.bao.Options;
+import com.mtons.mblog.modules.service.EntityService;
+import com.mtons.mblog.service.atom.bao.OptionsService;
 import com.mtons.mblog.service.atom.jpa.ChannelService;
 import com.mtons.mblog.modules.comp.MailService;
-import com.mtons.mblog.modules.service.OptionsService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,8 @@ import java.util.Map;
 public class ContextStartup implements ApplicationRunner, ServletContextAware {
     @Autowired
     private OptionsService optionsService;
+    @Autowired
+    private EntityService entityService;
     @Autowired
     private ChannelService channelService;
     @Autowired
@@ -61,7 +64,7 @@ public class ContextStartup implements ApplicationRunner, ServletContextAware {
      * @param startup 是否重启应用
      */
     public void reloadOptions(boolean startup) {
-        List<Options> options = optionsService.findAll();
+        List<OptionsBo> options = optionsService.findAll();
 
         log.info("find options ({})...", options.size());
 
@@ -69,7 +72,8 @@ public class ContextStartup implements ApplicationRunner, ServletContextAware {
             try {
                 log.info("init options...");
                 Resource resource = new ClassPathResource("/scripts/schema.sql");
-                optionsService.initSettings(resource);
+                entityService.initSettings(resource);
+
                 options = optionsService.findAll();
             } catch (Exception e) {
                 log.error("------------------------------------------------------------");

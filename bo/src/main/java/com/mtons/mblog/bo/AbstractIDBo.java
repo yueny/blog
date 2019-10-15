@@ -9,14 +9,12 @@
 */
 package com.mtons.mblog.bo;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
 import com.yueny.superclub.api.pojo.IBo;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  *
@@ -25,13 +23,9 @@ import java.util.Date;
  * @DATE 2019/6/21 上午10:55
  *
  */
-@Getter
-@Setter
-public abstract class BaseBo extends AbstractMaskBo implements IBo, Serializable {
-
+abstract class AbstractIDBo extends AbstractMaskBo implements IBo, Serializable {
+	@Getter
+	@Setter
 	private Long id;
-
-	@JSONField(name="created", serialize = true, format = "yyyy-MM-dd HH:mm:ss")
-	private Date created;
 
 }

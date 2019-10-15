@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 【文章显示】控制器
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @DATE 2019/6/13 下午12:17
  *
  */
-//@RestController
+@RestController
 public class DemoController extends BaseBizController {
 
 	@Autowired

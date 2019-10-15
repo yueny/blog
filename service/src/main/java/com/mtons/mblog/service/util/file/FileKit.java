@@ -1,8 +1,7 @@
-package com.mtons.mblog.base.utils;
+package com.mtons.mblog.service.util.file;
 
 import org.apache.commons.io.FileUtils;
 
-import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -36,19 +35,36 @@ public class FileKit {
         return false;
     }
 
-    public static String getFilename(@NotNull String filename) {
+    /**
+     * 获取文件名
+     *
+     * @param filename
+     * @return
+     */
+    public static String getFilename(String filename) {
         int pos = filename.lastIndexOf(".");
         return filename.substring(0, pos);
     }
 
+    /**
+     * 获取后缀
+     *
+     * @param filename
+     * @return
+     */
     public static String getSuffix(String filename) {
         int pos = filename.lastIndexOf(".");
         return filename.substring(pos);
     }
 
+
+    /**
+     * 字节数据写入文件
+     *
+     * @return
+     */
     public static void writeByteArrayToFile(byte[] bytes, String dest) throws IOException {
         FileUtils.writeByteArrayToFile(new File(dest), bytes);
     }
-
 
 }

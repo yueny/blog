@@ -47,9 +47,7 @@ public class ResourceManagerServiceImpl extends AbstractPlusService<ResourceBO, 
             resourceBO.setThumbnailCode(UuidUtil.getUUIDForNumber32());
         }
 
-        Resource entry = map(resourceBO, Resource.class);
-
-        int resource = baseMapper.insert(entry);
+        insert(resourceBO);
 
         return resourceBO.getThumbnailCode();
     }

@@ -8,32 +8,6 @@ package com.mtons.mblog.base.consts;
  * 存仓有关的静态常量
  */
 public interface StorageConsts {
-	/**
-	 * 默认文件存储-缩略图目录
-	 */
-	String thumbnailPathForDefault = "/storage/thumbnails";
-	/**
-	 * 渠道缩略图目录
-	 */
-	String thumbnailPathForChannel = thumbnailPathForDefault + "/channel";
-	/**
-	 * 文章缩略图目录
-	 */
-	String thumbnailPathForBlog = thumbnailPathForDefault + "/blog";
-
-	/**
-	 * 文件存储-发布文章目录. %s为用户uid
-	 */
-	String blognailPath = "/storage/blognails/%s";
-
-	/**
-	 * 文件存储-头像目录
-	 */
-	String avatarPath = "/storage/avatars/%s";
-	/**
-	 * 文件存储-不属于上述分类的储存目录
-	 */
-	String vaguePath = "/storage/vague/%s";
 
 	/**
 	 * 默认头像

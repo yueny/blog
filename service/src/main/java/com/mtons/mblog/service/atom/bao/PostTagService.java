@@ -6,6 +6,8 @@ import com.mtons.mblog.service.api.bao.IPlusBizService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  */
 public interface PostTagService extends IPlusBizService<PostTagVO, PostTag> {
@@ -23,6 +25,13 @@ public interface PostTagService extends IPlusBizService<PostTagVO, PostTag> {
      * @return
      */
     PostTagVO findByPostIdAndTagId(Long postId, Long tagId);
+
+    /**
+     *
+     * @param postId
+     * @return
+     */
+    List<PostTagVO> findByPostId(Long postId);
 
     /**
      * 分页查询

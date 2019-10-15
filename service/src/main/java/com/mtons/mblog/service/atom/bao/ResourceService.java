@@ -9,16 +9,16 @@
 */
 package com.mtons.mblog.service.atom.bao;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.mtons.mblog.bo.ResourceBO;
 import com.mtons.mblog.entity.bao.Resource;
+import com.mtons.mblog.service.api.bao.IPlusBizService;
 
 import java.util.List;
 
 /**
  * 图片资源管理
  */
-public interface ResourceService extends IService<Resource> {
+public interface ResourceService extends IPlusBizService<ResourceBO, Resource> {
 	ResourceBO findByMd5(String md5);
 
 	ResourceBO findByThumbnailCode(String thumbnailCode);

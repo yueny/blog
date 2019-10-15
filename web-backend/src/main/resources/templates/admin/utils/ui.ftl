@@ -58,9 +58,7 @@
         </script>
 
         <#-- 1、jQuery -->
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <#--    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>-->
-        <#--    <script src="${base}/dist/js/jquery.min.js"></script>-->
+        <script src="${base}/dist/vendors/jquery/v2.1.4/jquery-2.1.4.min.js"></script>
         <script src="${ctx}/dist/vendors/jquery/jquery-ui.min.js" type="text/javascript"></script>
 
         <#-- 2、Bootstrap -->

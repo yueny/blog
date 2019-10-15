@@ -20,7 +20,7 @@ import lombok.*;
  */
 @Getter
 @Setter
-public class DemoBo extends BaseBo {
+public class DemoBo extends AbstractBo {
 
 	/**
 	 * 资产编号

@@ -7,10 +7,10 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.config.options;
+package com.mtons.mblog.service.config.options;
 
 import com.mtons.mblog.service.comp.configure.IConfigureConstant;
-import com.mtons.mblog.service.comp.configure.impl.ConfigureGetService;
+import com.mtons.mblog.service.comp.configure.impl.ConfigureGetServiceImpl;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -18,7 +18,7 @@ import lombok.ToString;
  * 读取配置中心配置信息
  */
 @ToString
-public abstract class SiteConfigOption {
+public abstract class AbstractSiteConfigOption {
     /**
      * controls
      */
@@ -35,35 +35,35 @@ public abstract class SiteConfigOption {
         private boolean commentAllowAnonymous;
 
         public boolean isRegister() {
-            String val = ConfigureGetService.get(IConfigureConstant.SITE_CONTROLS_REGISTER_KEY);
+            String val = ConfigureGetServiceImpl.get(IConfigureConstant.SITE_CONTROLS_REGISTER_KEY);
             register =  Boolean.valueOf(val);
 
             return register;
         }
 
         public boolean isLogin_show() {
-            String val = ConfigureGetService.get(IConfigureConstant.SITE_CONTROLS_LOGIN_SHOW_KEY);
+            String val = ConfigureGetServiceImpl.get(IConfigureConstant.SITE_CONTROLS_LOGIN_SHOW_KEY);
             login_show = Boolean.valueOf(val);
 
             return login_show;
         }
 
         public boolean isPost() {
-            String val = ConfigureGetService.get(IConfigureConstant.SITE_CONTROLS_POST_KEY);
+            String val = ConfigureGetServiceImpl.get(IConfigureConstant.SITE_CONTROLS_POST_KEY);
             post = Boolean.valueOf(val);
 
             return post;
         }
 
         public boolean isComment() {
-            String val = ConfigureGetService.get(IConfigureConstant.SITE_CONTROLS_COMMENT_KEY);
+            String val = ConfigureGetServiceImpl.get(IConfigureConstant.SITE_CONTROLS_COMMENT_KEY);
             comment = Boolean.valueOf(val);
 
             return comment;
         }
 
         public boolean isCommentAllowAnonymous() {
-            String val = ConfigureGetService.get(IConfigureConstant.SITE_CONTROLS_COMMENT_ALLOW_ANONYMOUS_KEY);
+            String val = ConfigureGetServiceImpl.get(IConfigureConstant.SITE_CONTROLS_COMMENT_ALLOW_ANONYMOUS_KEY);
             commentAllowAnonymous = Boolean.valueOf(val);
 
             return commentAllowAnonymous;
@@ -83,7 +83,7 @@ public abstract class SiteConfigOption {
         private String userAvatar;
 
         public String getUserAvatar() {
-            userAvatar = ConfigureGetService.get(IConfigureConstant.SITE_SETTINGS_USERAVATAR_KEY);
+            userAvatar = ConfigureGetServiceImpl.get(IConfigureConstant.SITE_SETTINGS_USERAVATAR_KEY);
 
             return userAvatar;
         }

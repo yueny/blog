@@ -2,6 +2,7 @@ package com.mtons.mblog.service.atom.bao.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.google.common.collect.Sets;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.PostTagVO;
 import com.mtons.mblog.bo.PostBo;
@@ -11,6 +12,7 @@ import com.mtons.mblog.entity.bao.Tag;
 import com.mtons.mblog.service.atom.bao.PostTagService;
 import com.mtons.mblog.service.atom.bao.TagService;
 import com.mtons.mblog.service.atom.bao.PostService;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -94,6 +96,9 @@ public class TagServiceImpl extends AbstractPlusService<TagBO, Tag, TagMapper>
     @Override
     @Transactional
     public void batchUpdate(String names, long latestPostId) {
+        // 删除博文所拥有的所有标签
+        postTagService.deleteByPostId(latestPostId);
+
         if (StringUtils.isBlank(names.trim())) {
             return;
         }
@@ -106,29 +111,26 @@ public class TagServiceImpl extends AbstractPlusService<TagBO, Tag, TagMapper>
                 continue;
             }
 
-            TagBO po = findByName(name);
-            if (po != null) {
-                PostTagVO pt = postTagService.findByPostIdAndTagId(latestPostId, po.getId());
-                if (null != pt) {
-                    pt.setWeight(System.currentTimeMillis());
-                    postTagService.insert(pt);
-                    continue;
-                }
-                po.setPosts(po.getPosts() + 1);
-                po.setUpdated(current);
+            TagBO tagBo = findByName(name);
+            if (tagBo != null) {
+                // 已经存在的标签
+                tagBo.setPosts(tagBo.getPosts() + 1);
+                tagBo.setUpdated(current);
             } else {
-                po = new TagBO();
-                po.setName(name);
-                po.setCreated(current);
-                po.setUpdated(current);
-                po.setPosts(1);
+                // 新标签，则新增
+                tagBo = new TagBO();
+                tagBo.setName(name);
+                tagBo.setCreated(current);
+                tagBo.setUpdated(current);
+                tagBo.setPosts(1);
             }
-            po.setLatestPostId(latestPostId);
-            saveOrUpdate(po);
+            tagBo.setLatestPostId(latestPostId);
+            // 更新tag的数量
+            saveOrUpdate(tagBo);
 
             PostTagVO pt = new PostTagVO();
             pt.setPostId(latestPostId);
-            pt.setTagId(po.getId());
+            pt.setTagId(tagBo.getId());
             pt.setWeight(System.currentTimeMillis());
             postTagService.insert(pt);
         }

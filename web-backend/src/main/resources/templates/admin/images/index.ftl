@@ -2,18 +2,20 @@
 <@layout>
 
 <section class="content-header">
-    <h1>>${title}</h1>
+    <h1>${title}</h1>
+
     <ol class="breadcrumb">
         <li><a href="${base}/admin">首页</a></li>
         <li class="active">${title}</li>
     </ol>
 </section>
+
 <section class="content container-fluid">
     <div class="row">
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">>${title}列表</h3>
+                    <h3 class="box-title">${title}列表</h3>
                 </div>
                 <div class="box-body">
                     <#-- table -->
@@ -29,7 +31,7 @@
         $(function() {
             $table = $("#table").bootstrapTable({ // 对应table标签的id
                 method: "get",
-                url: '${ctx}/admin/authority/role/list.json', // 获取慢服务表格数据的url
+                url: '${ctx}/admin/images/list.json',
 
                 toolbar: '#toolbar',    //工具按钮用哪个容器
                 cache: false, // 设置为 false 禁用 AJAX 数据缓存， 默认为true
@@ -65,10 +67,6 @@
                 },
                 columns: [
                     {
-                        checkbox: true,
-                        visible: true                  //是否显示复选框
-                    },
-                    {
                         field: 'no',
                         title: '#',
                         width: 40,
@@ -77,46 +75,55 @@
                             return index + 1;}
                     },
                     {
-                        field: 'name',
-                        title: '用户名',
+                        field: 'fileName',
+                        title: '文件名',
                         align: 'left',
                         valign: 'middle'
                     },
                     {
-                        field: 'description',
-                        title: '描述',
+                        field: 'thumbnailCode',
+                        title: '图片资源编号',
+                        align: 'left',
+                        valign: 'middle'
+                    },
+                    {
+                        field: 'md5',
+                        title: 'md5',
                         align: 'center',
                         valign: 'middle'
                     },
                     {
-                        field: 'status',
-                        title: '状态',
+                        field: 'path',
+                        title: '保存路径',
                         align: 'center',
                         valign: 'middle',
-                        formatter: function (value,row,index) {
-                            return row.status;
+                        formatter: function(value, row, index) {
+                            return "<a href='" + value + "' title='单击打开链接' target='_blank'>" + value + "</a>";
                         }
                     },
                     {
-                        field: 'side',
-                        title: '是否为超级管理员',
+                        field: 'resourceType',
+                        title: '附件类型',
                         align: 'center',
                         valign: 'middle',
-                        formatter: function (value,row,index) {
-                            if (value == "Y") {
-                                return '<div class="text-danger">是/' + value + '</div>';
-                            }
-                            return '<div class="text-info">否/' + value + '</div>';
+                        formatter: function(value, row, index) {
+                            return value + '(' + row.resourceTypeDesc + ')';
                         }
                     },
                     {
-                        field: 'permissions',
-                        title: '资源权限数',
-                        align: 'center',
+                        field: 'fileSize',
+                        title: '文件大小',
+                        align: 'left',
                         valign: 'middle',
-                        formatter: function (value,row,index) {
-                            return '<a class="disabled" disabled="">'+ row.permissions.length +'</a>';
+                        formatter: function(value, row, index) {
+                            return value + row.fileSizeTypeDesc;
                         }
+                    },
+                    {
+                        field: 'created',
+                        title: '创建时间',
+                        align: 'center',
+                        valign: 'middle'
                     },
                     {
                         field:'button',
@@ -135,12 +142,22 @@
                     var $textAndPic = $('<div></div>');
 
                     $textAndPic.append('<span>');
-                    $textAndPic.append('name: ');
-                    $textAndPic.append(row.name);
+                    $textAndPic.append('md5: ');
+                    $textAndPic.append(row.md5);
                     $textAndPic.append('</span><br/>');
 
+                    $textAndPic.append('<span>');
+                    $textAndPic.append('保存路径: ');
+                    $textAndPic.append(row.path);
+                    $textAndPic.append('</span><br/>');
+
+                    $textAndPic.append('<div class="avatar">');
+                    $textAndPic.append('预览图: ');
+                    $textAndPic.append('<img src="' + row.path + '">');
+                    $textAndPic.append('</div><br/>');
+
                     BootstrapDialog.show({
-                        title: row.name + "/" + " 明细",
+                        title: row.md5 + "/" + " 明细",
                         message: $textAndPic,
                         size: BootstrapDialog.SIZE_WIDE,
                         draggable: true, // Default value is false，可拖拽
@@ -193,9 +210,9 @@
     <script type="text/javascript">
         var J = jQuery;
 
-        function doDelete(ids) {
-            J.getJSON('${base}/admin/authority/role/delete.json',
-                J.param({'id': ids}, true),
+        function doDelete(ids, md5) {
+            J.getJSON('${base}/admin/images/delete.json',
+                J.param({'thumbnailCodes': ids, 'mds': md5}, true),
                 function(result){
                     if(result.code == 0){
                         refresh.call();
@@ -208,13 +225,16 @@
         window.operateEvents={
             "click a[data-evt=trash]":function (e,value,row,index){
                 var ids = [];
-                ids.push(row.id);
+                ids.push(row.thumbnailCode);
+
+                var md5 = [];
+                md5.push(row.md5);
 
                 layer.confirm('确定删除此项吗?', {
                     btn: ['确定', '取消'], //按钮
                     shade: false //不显示遮罩
                 }, function () {
-                    doDelete(ids);
+                    doDelete(ids, md5);
                 }, function () {
                 });
                 return false;
@@ -225,7 +245,8 @@
         function editorFormatter(value,row,index) {
             <#-- 超级管理员数据不可被修改，其他的均可被修改 -->
                     return[
-                        '<a href="javascript:void(0);" data-evt="trash" class="btn btn-xs btn-primary act_delete" data-id="' + row.id + '">' +
+                        '<a href="javascript:void(0);" data-evt="trash" class="btn btn-xs btn-primary act_delete" ' +
+                        'data-id="' + row.thumbnailCode + '">' +
                         '   <i class="fa fa-bitbucket"></i> 删除' +
                         '</a>'
                     ].join("");

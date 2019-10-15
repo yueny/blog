@@ -15,7 +15,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class MenuBo  extends BaseBo implements IBo {
+public class MenuBo  extends AbstractBo implements IBo {
 
     /** 表修改时间 */
     @JSONField(name="updated", serialize = true, format = "yyyy-MM-dd HH:mm:ss")

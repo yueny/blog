@@ -129,7 +129,7 @@ public interface OptionsKeysConsts {
      */
     String IMAGE_SERVER_LOCATION = "image_server_location";
     /**
-     * 图片存储相对路径， 如 blog/uploads
+     * 图片存储相对路径， 如 blog/uploads 或者 https://static.codealy.com/blog/uploads
      */
     String IMAGE_SERVER_URI = "image_server_uri";
 

@@ -9,14 +9,15 @@
 */
 package com.mtons.mblog.config;
 
-import com.mtons.mblog.config.options.SiteConfigOption;
-import com.mtons.mblog.config.xml.UploadConfigUtil;
+import com.mtons.mblog.service.comp.configure.IUploadConfigConfig;
+import com.mtons.mblog.service.config.options.AbstractSiteConfigOption;
 import com.mtons.mblog.service.comp.configure.IConfigureConstant;
-import com.mtons.mblog.service.comp.configure.impl.ConfigureGetService;
+import com.mtons.mblog.service.comp.configure.impl.ConfigureGetServiceImpl;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -33,7 +34,10 @@ import java.util.Map;
 @Configuration
 @ConfigurationProperties(prefix = "site")
 //@RefreshScope
-public class SiteOptions extends SiteConfigOption {
+public class SiteOptions extends AbstractSiteConfigOption {
+    @Autowired
+    private IUploadConfigConfig uploadConfigConfig;
+
     /**
      * 系统版本号
      */
@@ -56,14 +60,19 @@ public class SiteOptions extends SiteConfigOption {
     @Getter
     private Controls controls = new Controls();
 
-    /**
-     * 属性配置。
-     * 配置由[application.yml] site.options.* 加载
-     * 以及 ContextStartup中读取数据库配置通过map.put增加配置项
-     */
-    @Getter
-    @Setter
-    private Map<String, String> options = new HashMap<>();
+  /**
+   * 属性配置。 配置由[application.yml] site.options.* 加载 以及 ContextStartup中读取数据库配置通过map.put增加配置项
+   *
+   * <pre>
+   *         Map<String, String> map = siteOptions.getOptions();
+   *         options.forEach(opt -> {
+   *             if (StringUtils.isNoneBlank(opt.getKey(), opt.getValue())) {
+   *                 map.put(opt.getKey(), opt.getValue());
+   *             }
+   *         });
+   * </pre>
+   */
+  @Getter @Setter private Map<String, String> options = new HashMap<>();
 
     /**
      * 默认值配置。
@@ -83,7 +92,10 @@ public class SiteOptions extends SiteConfigOption {
     }
 
     public String getLocation() {
-        return UploadConfigUtil.getUploadConfig().getLocation();
+        return uploadConfigConfig.getConfigModelData().getLocation();
+    }
+    public String getLocationUri() {
+        return uploadConfigConfig.getConfigModelData().getLocationUri();
     }
 
     public String getValue(String key) {
@@ -112,12 +124,12 @@ public class SiteOptions extends SiteConfigOption {
     }
 
     @ToString
-    public static class Controls extends SiteConfigOption.Control {
+    public static class Controls extends AbstractSiteConfigOption.Control {
         @Setter
         private boolean register_email_validate;
 
         public boolean isRegister_email_validate() {
-            String val = ConfigureGetService.get(IConfigureConstant.SITE_CONTROLS_REGISTER_EMAIL_VALIDATE_KEY);
+            String val = ConfigureGetServiceImpl.get(IConfigureConstant.SITE_CONTROLS_REGISTER_EMAIL_VALIDATE_KEY);
             register_email_validate =  Boolean.valueOf(val);
 
             return register_email_validate;
@@ -125,7 +137,7 @@ public class SiteOptions extends SiteConfigOption {
     }
 
     @ToString
-    public static class Settings extends SiteConfigOption.Setting {
+    public static class Settings extends AbstractSiteConfigOption.Setting {
         //.
     }
 

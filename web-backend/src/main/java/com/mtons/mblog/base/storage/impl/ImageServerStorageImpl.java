@@ -1,9 +1,10 @@
 package com.mtons.mblog.base.storage.impl;
 
-import com.mtons.mblog.base.consts.OptionsKeysConsts;
-import com.mtons.mblog.base.utils.FileKit;
+import com.mtons.mblog.service.util.file.FileKit;
+import com.mtons.mblog.service.comp.configure.IStorageService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -14,32 +15,30 @@ import java.io.File;
 @Slf4j
 @Component
 public class ImageServerStorageImpl extends AbstractStorage {
-	private static final String image_server_uri   = OptionsKeysConsts.IMAGE_SERVER_URI;
-	private static final String image_server_location = OptionsKeysConsts.IMAGE_SERVER_LOCATION;
+	@Autowired
+	protected IStorageService storageService;
+
+	@Override
+	public String writeToStore(byte[] bytes, String pathAndFileName) throws Exception {
+		String dest = storageService.getLocation() + pathAndFileName;
+		FileKit.writeByteArrayToFile(bytes, dest);
+
+		String nativeDomain = storageService.getLocationUri();
+		if(nativeDomain != null && StringUtils.isNotBlank(nativeDomain)){
+			return nativeDomain + pathAndFileName;
+		}
+		return pathAndFileName;
+	}
 
 	@Override
 	public void deleteFile(String storePath) {
-		String path = options.getValue(image_server_location) + storePath;
-
-		File file = new File(path);
+		File file = new File(storageService.getLocation() + storePath);
 
 		// 文件存在, 且不是目录
 		if (file.exists() && !file.isDirectory()) {
 			file.delete();
 			log.info("fileRepo delete " + storePath);
 		}
-	}
-
-	@Override
-	public String writeToStore(byte[] bytes, String pathAndFileName) throws Exception {
-		String dest = options.getValue(image_server_location) + pathAndFileName;
-		FileKit.writeByteArrayToFile(bytes, dest);
-
-		String nativeDomain = options.getValue(image_server_uri);
-		if(nativeDomain != null && StringUtils.isNotBlank(nativeDomain)){
-			return nativeDomain + pathAndFileName;
-		}
-		return pathAndFileName;
 	}
 
 }

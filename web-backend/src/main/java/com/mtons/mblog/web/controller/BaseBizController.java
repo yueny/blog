@@ -65,6 +65,10 @@ public abstract class BaseBizController extends BaseController {
         return wrapPageable(null);
     }
 
+    protected PageRequest wrapPageable(Sort.Direction direction, String... fields) {
+        return wrapPageable(Sort.by(direction, fields));
+    }
+
     /**
      * 组装分页条件
      */

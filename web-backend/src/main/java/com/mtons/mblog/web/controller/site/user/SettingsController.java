@@ -2,8 +2,8 @@ package com.mtons.mblog.web.controller.site.user;
 
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.consts.Consts;
-import com.mtons.mblog.base.utils.FileKit;
-import com.mtons.mblog.base.utils.FilePathUtils;
+import com.mtons.mblog.service.util.file.FileKit;
+import com.mtons.mblog.service.util.file.FilePathUtils;
 import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.comp.base.IUserPassportService;
 import com.mtons.mblog.service.manager.IAccountProfileService;

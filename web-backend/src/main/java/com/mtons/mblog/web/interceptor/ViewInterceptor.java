@@ -109,14 +109,20 @@ public class ViewInterceptor extends HandlerInterceptorAdapter {
 	private Map<String, String> getRequestParameter(
 			final HttpServletRequest request) {
 		final Map<String, String> requestParam = new HashMap<String, String>();
+
+		if(request.getParameterMap().isEmpty()){
+			return requestParam;
+		}
 		for (final Map.Entry<String, String[]> entry : request.getParameterMap()
 				.entrySet()) {
 			final String key = entry.getKey();
 			if (entry.getValue() == null
+					|| entry.getValue().length == 0
 					|| StringUtils.isBlank(entry.getValue()[0])) {
 				requestParam.put(key, StringUtils.EMPTY);
+			}else{
+				requestParam.put(key, entry.getValue()[0]);
 			}
-			requestParam.put(key, entry.getValue()[0]);
 		}
 		return requestParam;
 	}

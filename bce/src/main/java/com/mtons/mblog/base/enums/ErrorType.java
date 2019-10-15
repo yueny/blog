@@ -25,6 +25,10 @@ public enum ErrorType implements IResultCodeType {
      */
     INVALID_ERROR("1103" , "入参不合法:%s"),
     /**
+     * 图片不存在错误
+     */
+    IMAGE_NOT_FUND_ERROR("1104" , "图片 %s 不存在"),
+    /**
      * 系统异常
      */
     SYSTEM_ERROR("2001" , "系统异常:%s"),

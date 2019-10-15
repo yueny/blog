@@ -18,9 +18,6 @@
         <java.version>1.8</java.version>
 
         <shiro>1.4.0</shiro>
-        <upyun.sdk.version>4.0.1</upyun.sdk.version>
-        <aliyun.sdk.version>2.8.3</aliyun.sdk.version>
-        <qiniu.sdk.version>7.2.18</qiniu.sdk.version>
 
         <logback.ext.spring.version>0.1.4</logback.ext.spring.version>
     </properties>
@@ -75,27 +72,6 @@
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring-boot-web-starter</artifactId>
             <version>${shiro}</version>
-        </dependency>
-
-        <!-- 又拍云SDK -->
-        <dependency>
-            <groupId>com.upyun</groupId>
-            <artifactId>java-sdk</artifactId>
-            <version>${upyun.sdk.version}</version>
-        </dependency>
-
-        <!-- 阿里云SDK-->
-        <dependency>
-            <groupId>com.aliyun.oss</groupId>
-            <artifactId>aliyun-sdk-oss</artifactId>
-            <version>${aliyun.sdk.version}</version>
-        </dependency>
-
-        <!-- 七牛云SDK-->
-        <dependency>
-            <groupId>com.qiniu</groupId>
-            <artifactId>qiniu-java-sdk</artifactId>
-            <version>${qiniu.sdk.version}</version>
         </dependency>
 
         <dependency>
@@ -168,6 +144,7 @@
         </dependency>
 
 
+        <!-- test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

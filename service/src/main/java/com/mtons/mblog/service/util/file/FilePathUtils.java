@@ -1,9 +1,10 @@
 /**
  *
  */
-package com.mtons.mblog.base.utils;
+package com.mtons.mblog.service.util.file;
 
 import com.mtons.mblog.base.consts.StorageConsts;
+import com.mtons.mblog.service.comp.storage.NailType;
 import org.apache.commons.text.RandomStringGenerator;
 
 import java.security.SecureRandom;
@@ -22,13 +23,14 @@ public class FilePathUtils {
 
 
 	/**
-	 * 得到用户的缩略图全路径。
+	 * 得到【用户】的缩略图全路径。
+	 *
 	 * 规则为 /{/storage/avatars}/{uid}/{getAvatar}.jpg， 如 /storage/avatars/50/50_100_192329124.jpg
 	 */
 	public static String getUAvatar(String uid, int size) {
 		StringBuilder sb = new StringBuilder();
 
-		sb.append(String.format(StorageConsts.avatarPath, String.valueOf(uid)));
+		sb.append(String.format(NailType.PathType.avatar.getPath(), String.valueOf(uid)));
 		sb.append(getAvatar(uid, size));
 		sb.append(".jpg");
 
@@ -51,11 +53,12 @@ public class FilePathUtils {
 	}
 
 	/**
-	 * 生成路径和文件名
-	 * 以当前时间开头加4位随机数的文件名
+	 * 生成局部路径和文件名
 	 *
 	 * @param originalFilename 原始文件名
-	 * @return 10位长度文件名+文件后缀
+	 * @param key 新文件名的全局唯一值
+	 *
+	 * @return 含局部路径（固定）的文件名
 	 */
 	public static String wholePathName(String originalFilename, String key) {
 		StringBuilder builder = new StringBuilder(52);
@@ -65,8 +68,17 @@ public class FilePathUtils {
 		return builder.toString();
 	}
 
-	public static String wholePathName(String basePath, String ext, String key) {
-		return basePath + wholePathName(ext, key);
+	/**
+	 * 生成路径和文件名
+	 *
+	 * @param basePath 路径
+	 * @param originalFilename 原始文件名
+	 * @param key 新文件名的全局唯一值
+	 *
+	 * @return 含路径（参数输入+规则配置）的文件名
+	 */
+	public static String wholePathName(String basePath, String originalFilename, String key) {
+		return basePath + wholePathName(originalFilename, key);
 	}
 
 //	public static void main(String[] args) {

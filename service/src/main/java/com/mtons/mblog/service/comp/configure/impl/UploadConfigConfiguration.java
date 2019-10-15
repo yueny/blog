@@ -1,9 +1,10 @@
 /**
  *
  */
-package com.mtons.mblog.config;
+package com.mtons.mblog.service.comp.configure.impl;
 
-import com.mtons.mblog.config.xml.UploadConfigModelData;
+import com.mtons.mblog.service.comp.configure.IUploadConfigConfig;
+import com.mtons.mblog.service.config.options.xml.UploadConfigModelData;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
@@ -12,12 +13,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 import javax.annotation.PostConstruct;
 import javax.xml.bind.*;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Collections;
 
 /**
  * @author yueny09 <deep_blue_yang@163.com>
@@ -28,7 +24,7 @@ import java.util.Collections;
 @Configuration
 @EnableAsync
 @Slf4j
-public class UploadConfigConfiguration {
+public class UploadConfigConfiguration implements IUploadConfigConfig {
 	@Getter
 	private UploadConfigModelData configModelData = null;
 

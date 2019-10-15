@@ -53,7 +53,7 @@
         _MTONS.ALLOW_COMMENT_WITHOUT_LOGIN = '${siterProfile.commentAllowAnonymous}';
     </script>
 
-    <script src="${base}/dist/js/jquery.min.js"></script>
+    <script src="${base}/dist/vendors/jquery/v2.1.4/jquery-2.1.4.min.js"></script>
     <script src="${base}/dist/vendors/layer/layer.js"></script>
     <script src="${base}/dist/vendors/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 

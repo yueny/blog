@@ -12,6 +12,7 @@ package com.mtons.mblog.base.storage;
 import com.mtons.mblog.base.consts.OptionsKeysConsts;
 import com.mtons.mblog.base.storage.impl.*;
 import com.mtons.mblog.config.SiteOptions;
+import com.mtons.mblog.service.comp.storage.Storage;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;

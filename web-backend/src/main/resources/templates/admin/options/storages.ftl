@@ -11,6 +11,20 @@
             </select>
         </div>
     </div>
+    <div class="scheme" data-scheme="native">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">本地图片根目录</label>
+            <div class="col-sm-6">
+                <input type="text" name="image_server_location" class="form-control" value="${options['image_server_location']}" placeholder="本地图片根目录, 非必填">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">本地图片uri</label>
+            <div class="col-sm-6">
+                <input type="text" name="image_server_uri" class="form-control" value="${options['image_server_uri']}" placeholder="本地图片uri, 非必填">
+            </div>
+        </div>
+    </div>
     <div class="scheme" data-scheme="image">
         <div class="form-group">
             <label class="col-sm-2 control-label">图片服务器根目录</label>
