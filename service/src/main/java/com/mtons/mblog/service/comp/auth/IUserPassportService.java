@@ -1,4 +1,4 @@
-package com.mtons.mblog.service.comp.base;
+package com.mtons.mblog.service.comp.auth;
 
 import com.yueny.rapid.lang.exception.invalid.InvalidException;
 

@@ -7,13 +7,13 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.base.storage.impl;
+package com.mtons.mblog.service.storage.impl;
 
-import com.mtons.mblog.service.comp.configure.IStorageService;
+import com.mtons.mblog.service.comp.configure.IStorageConfigService;
 import com.mtons.mblog.service.exception.MtonsException;
-import com.mtons.mblog.service.comp.storage.NailPathData;
-import com.mtons.mblog.service.comp.storage.Storage;
-import com.mtons.mblog.config.SiteOptions;
+import com.mtons.mblog.service.storage.NailPathData;
+import com.mtons.mblog.service.storage.Storage;
+import com.mtons.mblog.service.config.SiteOptions;
 import com.mtons.mblog.bo.ResourceBO;
 import com.mtons.mblog.service.atom.bao.ResourceManagerService;
 import com.mtons.mblog.service.atom.bao.ResourceService;
@@ -42,7 +42,7 @@ public abstract class AbstractStorage implements Storage {
     @Autowired
     protected ResourceManagerService resourceManagerService;
     @Autowired
-    protected IStorageService storageService;
+    protected IStorageConfigService storageService;
 
     protected void validateFile(MultipartFile file) {
         if (file == null || file.isEmpty()) {

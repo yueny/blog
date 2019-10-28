@@ -10,8 +10,7 @@
 package com.mtons.mblog.web.controller;
 
 import com.mtons.mblog.base.lang.Result;
-import com.mtons.mblog.base.storage.StorageFactory;
-import com.mtons.mblog.config.SiteOptions;
+import com.mtons.mblog.service.config.SiteOptions;
 import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.service.manager.IUserManagerService;
 import com.mtons.mblog.service.util.PageHelper;
@@ -35,8 +34,6 @@ import javax.servlet.http.HttpServletRequest;
  * Controller 业务基类
  */
 public abstract class BaseBizController extends BaseController {
-    @Autowired
-    protected StorageFactory storageFactory;
     @Autowired
     protected SiteOptions siteOptions;
     @Autowired

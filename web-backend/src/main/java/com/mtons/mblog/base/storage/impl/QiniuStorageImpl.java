@@ -11,7 +11,9 @@ package com.mtons.mblog.base.storage.impl;
 
 import com.mtons.mblog.base.consts.OptionsKeysConsts;
 import com.mtons.mblog.service.exception.MtonsException;
-import com.mtons.mblog.service.comp.storage.Storage;
+import com.mtons.mblog.service.storage.Storage;
+import com.mtons.mblog.service.storage.StorageType;
+import com.mtons.mblog.service.storage.impl.AbstractStorage;
 import com.mtons.mblog.service.util.file.FileKit;
 import com.qiniu.common.QiniuException;
 import com.qiniu.common.Zone;
@@ -47,7 +49,7 @@ public class QiniuStorageImpl extends AbstractStorage implements Storage {
         String src = options.getValue(oss_src);
 
         if (StringUtils.isAnyBlank(accessKey, secretKey, domain, bucket)) {
-            throw new MtonsException("请先在后台设置阿里云配置信息");
+            throw new MtonsException("请先在后台设置青牛配置信息");
         }
 
         if (StringUtils.isNotBlank(src)) {
@@ -87,7 +89,7 @@ public class QiniuStorageImpl extends AbstractStorage implements Storage {
         String bucket = options.getValue(oss_bucket);
 
         if (StringUtils.isAnyBlank(accessKey, secretKey, domain, bucket)) {
-            throw new MtonsException("请先在后台设置阿里云配置信息");
+            throw new MtonsException("请先在后台设置青牛配置信息");
         }
 
         String path = StringUtils.remove(storePath, domain.trim());
@@ -105,4 +107,8 @@ public class QiniuStorageImpl extends AbstractStorage implements Storage {
         }
     }
 
+    @Override
+    public StorageType getCondition() {
+        return StorageType.QINIU;
+    }
 }

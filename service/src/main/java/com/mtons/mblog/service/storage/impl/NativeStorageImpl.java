@@ -7,10 +7,11 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.base.storage.impl;
+package com.mtons.mblog.service.storage.impl;
 
+import com.mtons.mblog.service.storage.StorageType;
 import com.mtons.mblog.service.util.file.FileKit;
-import com.mtons.mblog.service.comp.configure.IStorageService;
+import com.mtons.mblog.service.comp.configure.IStorageConfigService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 
 /**
+ * 服务器本地存储
+ *
  * @author langhsu
  * @since  3.0
  */
@@ -26,7 +29,7 @@ import java.io.File;
 @Component
 public class NativeStorageImpl extends AbstractStorage {
 	@Autowired
-	protected IStorageService storageService;
+	protected IStorageConfigService storageService;
 
 	@Override
 	public String writeToStore(byte[] bytes, String pathAndFileName) throws Exception {
@@ -51,4 +54,8 @@ public class NativeStorageImpl extends AbstractStorage {
 		}
 	}
 
+	@Override
+	public StorageType getCondition() {
+		return StorageType.NATIVE;
+	}
 }

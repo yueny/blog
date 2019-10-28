@@ -1,6 +1,6 @@
 package com.mtons.mblog.service.comp.configure;
 
-import com.mtons.mblog.service.comp.storage.NailPathData;
+import com.mtons.mblog.service.storage.NailPathData;
 
 /**
  *
@@ -9,7 +9,7 @@ import com.mtons.mblog.service.comp.storage.NailPathData;
  * @Author yueny09 <deep_blue_yang@126.com>
  * @Date 2019-10-11 20:02
  */
-public interface IStorageService extends IConfigureService {
+public interface IStorageConfigService extends IConfigureService {
 	/**
 	 * 获取图片存储的相对路径 ${image_server_location}
 	 *

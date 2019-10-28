@@ -1,7 +1,9 @@
 package com.mtons.mblog.base.storage.impl;
 
+import com.mtons.mblog.service.storage.StorageType;
+import com.mtons.mblog.service.storage.impl.AbstractStorage;
 import com.mtons.mblog.service.util.file.FileKit;
-import com.mtons.mblog.service.comp.configure.IStorageService;
+import com.mtons.mblog.service.comp.configure.IStorageConfigService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,7 @@ import java.io.File;
 @Component
 public class ImageServerStorageImpl extends AbstractStorage {
 	@Autowired
-	protected IStorageService storageService;
+	protected IStorageConfigService storageService;
 
 	@Override
 	public String writeToStore(byte[] bytes, String pathAndFileName) throws Exception {
@@ -41,4 +43,8 @@ public class ImageServerStorageImpl extends AbstractStorage {
 		}
 	}
 
+	@Override
+	public StorageType getCondition() {
+		return StorageType.IMAGE;
+	}
 }

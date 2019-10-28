@@ -1,6 +1,6 @@
-package com.mtons.mblog.service.comp.base.impl;
+package com.mtons.mblog.service.comp.impl;
 
-import com.mtons.mblog.service.comp.base.IAnalyzeService;
+import com.mtons.mblog.service.comp.IAnalyzeService;
 import com.mtons.mblog.service.comp.configure.impl.ConfigureGetServiceImpl;
 import com.mtons.mblog.service.manager.impl.MenuJsonService;
 import org.apache.commons.lang3.StringUtils;

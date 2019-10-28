@@ -1,6 +1,6 @@
-package com.mtons.mblog.service.comp.base.impl;
+package com.mtons.mblog.service.comp.impl;
 
-import com.mtons.mblog.service.comp.base.ICacheService;
+import com.mtons.mblog.service.comp.ICacheService;
 import lombok.Getter;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;

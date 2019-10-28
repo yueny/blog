@@ -73,8 +73,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.yueny.rapid</groupId>
-            <artifactId>rapid-util-strategy</artifactId>
+            <groupId>com.yueny</groupId>
+            <artifactId>rapid-strategy</artifactId>
         </dependency>
 
 

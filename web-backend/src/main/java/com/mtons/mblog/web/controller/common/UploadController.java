@@ -7,18 +7,20 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.web.controller.site.posts;
+package com.mtons.mblog.web.controller.common;
 
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.enums.FileSizeType;
-import com.mtons.mblog.service.comp.storage.NailPathData;
-import com.mtons.mblog.service.comp.storage.NailType;
+import com.mtons.mblog.service.storage.StorageFactory;
+import com.mtons.mblog.service.storage.NailPathData;
+import com.mtons.mblog.service.storage.NailType;
 import com.mtons.mblog.service.util.file.FileKit;
 import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.web.controller.BaseBizController;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,6 +42,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("/post")
 public class UploadController extends BaseBizController {
+    @Autowired
+    protected StorageFactory storageFactory;
+
     public static HashMap<String, String> errorInfo = new HashMap<>();
 
     static {

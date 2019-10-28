@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.config;
+package com.mtons.mblog.service.config;
 
 import com.mtons.mblog.service.comp.configure.IUploadConfigConfig;
 import com.mtons.mblog.service.config.options.AbstractSiteConfigOption;

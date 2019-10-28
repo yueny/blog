@@ -2,11 +2,11 @@ package com.mtons.mblog.config;
 
 import com.mtons.mblog.base.enums.StatusType;
 import com.mtons.mblog.bo.OptionsBo;
-import com.mtons.mblog.entity.bao.Options;
 import com.mtons.mblog.modules.service.EntityService;
 import com.mtons.mblog.service.atom.bao.OptionsService;
 import com.mtons.mblog.service.atom.jpa.ChannelService;
 import com.mtons.mblog.modules.comp.MailService;
+import com.mtons.mblog.service.config.SiteOptions;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

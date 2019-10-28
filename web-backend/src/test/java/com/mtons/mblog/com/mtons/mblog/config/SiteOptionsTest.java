@@ -1,7 +1,7 @@
 package com.mtons.mblog.com.mtons.mblog.config;
 
 import com.mtons.mblog.BootApplication;
-import com.mtons.mblog.config.SiteOptions;
+import com.mtons.mblog.service.config.SiteOptions;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

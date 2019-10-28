@@ -1,4 +1,4 @@
-package com.mtons.mblog.service.comp.base;
+package com.mtons.mblog.service.comp;
 
 /**
  * 分析服务

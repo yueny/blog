@@ -3,10 +3,9 @@ package com.mtons.mblog.service.comp.configure.impl;
 import com.mtons.mblog.base.consts.OptionsKeysConsts;
 import com.mtons.mblog.bo.OptionsBo;
 import com.mtons.mblog.service.atom.bao.OptionsService;
-import com.mtons.mblog.service.comp.configure.IStorageService;
+import com.mtons.mblog.service.comp.configure.IStorageConfigService;
 import com.mtons.mblog.service.comp.configure.IUploadConfigConfig;
-import com.mtons.mblog.service.comp.storage.NailPathData;
-import com.mtons.mblog.service.comp.storage.NailType;
+import com.mtons.mblog.service.storage.NailPathData;
 import com.mtons.mblog.service.util.file.FilePathUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ import org.springframework.stereotype.Component;
  * @Date 2019-10-11 20:03
  */
 @Component
-public class StorageServiceImpl implements IStorageService {
+public class StorageConfigServiceImpl implements IStorageConfigService {
     @Autowired
     private IUploadConfigConfig uploadConfigConfig;
     @Autowired

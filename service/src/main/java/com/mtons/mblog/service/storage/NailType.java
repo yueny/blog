@@ -1,4 +1,4 @@
-package com.mtons.mblog.service.comp.storage;
+package com.mtons.mblog.service.storage;
 
 import com.mtons.mblog.base.enums.ResourceType;
 import lombok.Getter;

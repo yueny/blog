@@ -4,7 +4,7 @@
 package com.mtons.mblog.service.util.file;
 
 import com.mtons.mblog.base.consts.StorageConsts;
-import com.mtons.mblog.service.comp.storage.NailType;
+import com.mtons.mblog.service.storage.NailType;
 import org.apache.commons.text.RandomStringGenerator;
 
 import java.security.SecureRandom;

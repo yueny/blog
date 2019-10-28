@@ -1,6 +1,7 @@
 package com.mtons.mblog.config;
 
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.mtons.mblog.service.config.SiteOptions;
 import com.mtons.mblog.web.interceptor.BaseContextInterceptor;
 import com.mtons.mblog.web.interceptor.SecurityInterceptor;
 import com.mtons.mblog.web.interceptor.StopWatchHandlerInterceptor;

@@ -12,7 +12,7 @@ package com.mtons.mblog.modules.service.impl;
 import com.mtons.mblog.bo.UserSecurityBO;
 import com.mtons.mblog.dao.repository.UserRepository;
 import com.mtons.mblog.service.atom.bao.IUserSecurityService;
-import com.mtons.mblog.service.comp.base.IPasswdService;
+import com.mtons.mblog.service.comp.auth.IPasswdService;
 import com.mtons.mblog.bo.OpenOauthVO;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.jpa.UserOauth;

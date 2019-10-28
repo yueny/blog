@@ -1,4 +1,4 @@
-package com.mtons.mblog.service.comp.base;
+package com.mtons.mblog.service.comp;
 
 /**
  * @author yueny09 <deep_blue_yang@163.com>
