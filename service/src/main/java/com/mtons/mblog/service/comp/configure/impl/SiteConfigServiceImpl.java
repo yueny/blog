@@ -1,8 +1,15 @@
 package com.mtons.mblog.service.comp.configure.impl;
 
+import com.mtons.mblog.base.consts.options.OptionsKeysConsts;
+import com.mtons.mblog.bo.OptionsBo;
+import com.mtons.mblog.service.atom.bao.OptionsService;
 import com.mtons.mblog.service.comp.configure.IConfigureConstant;
-import com.mtons.mblog.service.comp.configure.IConfigureGetService;
+import com.mtons.mblog.service.comp.configure.IConfigureSystemGetService;
 import com.mtons.mblog.service.comp.configure.ISiteConfigService;
+import com.mtons.mblog.service.comp.configure.IUploadXmlConfig;
+import com.mtons.mblog.service.config.SiteOptions;
+import com.mtons.mblog.service.storage.NailPathData;
+import com.mtons.mblog.service.util.file.FilePathUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,7 +17,7 @@ import org.springframework.stereotype.Component;
 import java.io.UnsupportedEncodingException;
 
 /**
- * 站点服务配置
+ * 站点服务配置，取自配置中心或者表 options
  *
  * @author yueny09 <deep_blue_yang@163.com>
  *
@@ -19,8 +26,16 @@ import java.io.UnsupportedEncodingException;
 @Component
 public class SiteConfigServiceImpl implements ISiteConfigService {
 	@Autowired
-	private IConfigureGetService configureGetService;
+	private IConfigureSystemGetService configureGetService;
+	@Autowired
+	private IUploadXmlConfig uploadConfigConfig;
+	@Autowired
+	private OptionsService optionsService;
+	@Autowired
+	private SiteOptions siteOptions;
 
+	private static final String image_server_uri   = OptionsKeysConsts.IMAGE_SERVER_URI;
+	private static final String image_server_location = OptionsKeysConsts.IMAGE_SERVER_LOCATION;
 
 	/**
 	 * 每日箴言， 通过@Value的形式不能实时获取
@@ -50,6 +65,71 @@ public class SiteConfigServiceImpl implements ISiteConfigService {
 		showLocker = configureGetService.getBoolean(IConfigureConstant.SITE_SHOW_LOCKER_KEY);
 
 		return showLocker;
+	}
+
+	@Override
+	public String getLocation() {
+		OptionsBo optionsBo = optionsService.findByKey(image_server_location);
+		if(optionsBo == null || StringUtils.isEmpty(optionsBo.getValue())){
+			// 配置项不存在，则返回本地配置
+			return uploadConfigConfig.getConfigModelData().getLocation();
+		}
+
+		return optionsBo.getValue().trim();
+	}
+
+
+	@Override
+	public String getLocationUri() {
+		OptionsBo optionsBo = optionsService.findByKey(image_server_uri);
+		if(optionsBo == null || StringUtils.isEmpty(optionsBo.getValue())){
+			// 配置项不存在，则返回 空字符串
+			return "";
+		}
+
+		return optionsBo.getValue().trim();
+	}
+
+	@Override
+	public String getWholePathName(NailPathData nailPath, String md5) {
+		String path = FilePathUtils.wholePathName(nailPath.get(), nailPath.getOriginalFilename(), md5);
+
+		return path;
+	}
+
+	@Override
+	public String getValue(String key) {
+		String val = siteOptions.getValue(key);
+
+		if(StringUtils.isEmpty(val)){
+			OptionsBo optionsBo = optionsService.findByKey(key);
+
+			if(optionsBo == null || StringUtils.isEmpty(optionsBo.getValue())){
+				val = "";
+			}else{
+				val = optionsBo.getValue();
+			}
+		}
+
+		return val;
+	}
+
+	@Override
+	public Integer getIntegerValue(String key) {
+		return Integer.parseInt(getValue(key));
+	}
+
+	@Override
+	public Integer[] getIntegerArrayValue(String key, String separator) {
+		//@NotNull
+		String value = getValue(key);
+
+		String[] array = value.split(separator);
+		Integer[] ret = new Integer[array.length];
+		for (int i = 0; i < array.length; i ++) {
+			ret[i] = Integer.parseInt(array[i]);
+		}
+		return ret;
 	}
 
 	/**

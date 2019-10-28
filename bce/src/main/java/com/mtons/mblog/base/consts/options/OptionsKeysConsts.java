@@ -1,4 +1,6 @@
-package com.mtons.mblog.base.consts;
+package com.mtons.mblog.base.consts.options;
+
+import com.mtons.mblog.base.consts.options.IOptionsKeys;
 
 /**
  * Options keys 常量
@@ -8,7 +10,7 @@ package com.mtons.mblog.base.consts;
  * @author yueny09 <deep_blue_yang@163.com>
  * @DATE 2019/6/20 下午8:12
  */
-public interface OptionsKeysConsts {
+public interface OptionsKeysConsts extends IOptionsKeys {
     /**
      * 第三方回调配置
      */

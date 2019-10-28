@@ -9,8 +9,8 @@
 */
 package com.mtons.mblog.service.storage;
 
-import com.mtons.mblog.base.consts.OptionsKeysConsts;
-import com.mtons.mblog.service.config.SiteOptions;
+import com.mtons.mblog.base.consts.options.OptionsKeysConsts;
+import com.mtons.mblog.service.comp.configure.ISiteConfigService;
 import com.mtons.mblog.service.storage.container.IStorageStrategyContainer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,7 +26,7 @@ public class StorageFactory {
     @Autowired
     private IStorageStrategyContainer container;
     @Autowired
-    private SiteOptions siteOptions;
+    private ISiteConfigService siteConfigService;
 
 //    private Map<String, Storage> fileRepoMap = new HashMap<>();
 //
@@ -40,7 +40,7 @@ public class StorageFactory {
 //    }
 
     public Storage get() {
-        String scheme = siteOptions.getValue(OptionsKeysConsts.STORAGE_SCHEME);
+        String scheme = siteConfigService.getValue(OptionsKeysConsts.STORAGE_SCHEME);
         return container.get(scheme);
 //        if (StringUtils.isBlank(scheme)) {
 //            scheme = "native";

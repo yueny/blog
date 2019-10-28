@@ -9,11 +9,10 @@
 */
 package com.mtons.mblog.service.storage.impl;
 
-import com.mtons.mblog.service.comp.configure.IStorageConfigService;
+import com.mtons.mblog.service.comp.configure.ISiteConfigService;
 import com.mtons.mblog.service.exception.MtonsException;
 import com.mtons.mblog.service.storage.NailPathData;
 import com.mtons.mblog.service.storage.Storage;
-import com.mtons.mblog.service.config.SiteOptions;
 import com.mtons.mblog.bo.ResourceBO;
 import com.mtons.mblog.service.atom.bao.ResourceManagerService;
 import com.mtons.mblog.service.atom.bao.ResourceService;
@@ -36,13 +35,11 @@ import java.util.Set;
 @Slf4j
 public abstract class AbstractStorage implements Storage {
     @Autowired
-    protected SiteOptions options;
-    @Autowired
     protected ResourceService resourceService;
     @Autowired
     protected ResourceManagerService resourceManagerService;
     @Autowired
-    protected IStorageConfigService storageService;
+    protected ISiteConfigService siteConfigService;
 
     protected void validateFile(MultipartFile file) {
         if (file == null || file.isEmpty()) {
@@ -90,7 +87,7 @@ public abstract class AbstractStorage implements Storage {
             return new AbstractMap.SimpleEntry<>(resourceBO.getThumbnailCode(), resourceBO.getPath());
         }
 
-        String path = storageService.getWholePathName(nailPath, md5);
+        String path = siteConfigService.getWholePathName(nailPath, md5);
         String fullPath = writeToStore(bytes, path);
 
         // 图片入库存储

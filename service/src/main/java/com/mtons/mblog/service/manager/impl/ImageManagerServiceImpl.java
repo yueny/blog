@@ -5,7 +5,7 @@ import com.mtons.mblog.base.enums.ErrorType;
 import com.mtons.mblog.bo.ResourceBO;
 import com.mtons.mblog.service.BaseService;
 import com.mtons.mblog.service.atom.bao.ResourceService;
-import com.mtons.mblog.service.comp.configure.IStorageConfigService;
+import com.mtons.mblog.service.comp.configure.ISiteConfigService;
 import com.mtons.mblog.service.exception.BizException;
 import com.mtons.mblog.service.manager.IImageManagerService;
 import org.apache.commons.lang3.StringUtils;
@@ -27,7 +27,7 @@ public class ImageManagerServiceImpl extends BaseService implements IImageManage
     @Autowired
     private ResourceService resourceService;
     @Autowired
-    protected IStorageConfigService storageService;
+    protected ISiteConfigService siteConfigService;
 //    @Autowired
 //    protected StorageFactory storageFactory;
 
@@ -60,12 +60,12 @@ public class ImageManagerServiceImpl extends BaseService implements IImageManage
         String path = resourceBO.getPath();
         // 去掉图片服务器域名,
         // 最终应该由 https://a.b.com/blog/uploads/stoe/blognails/C602B2.jpeg 变为 /stoe/blognails/C602B2.jpeg
-        String imageServerUri = storageService.getLocationUri();
+        String imageServerUri = siteConfigService.getLocationUri();
 
         path = StringUtils.substringAfter(path, imageServerUri);
 
         // 首先删除服务器图片
-        String imageServerLocation = storageService.getLocation();
+        String imageServerLocation = siteConfigService.getLocation();
         File imageFile = new File(imageServerLocation + path);
         if(imageFile.isFile() || imageFile.exists()){
            // 文件夹或文件不存在，均结操作

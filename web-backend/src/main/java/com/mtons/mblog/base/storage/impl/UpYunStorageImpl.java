@@ -10,7 +10,7 @@
 package com.mtons.mblog.base.storage.impl;
 
 import com.UpYun;
-import com.mtons.mblog.base.consts.OptionsKeysConsts;
+import com.mtons.mblog.base.consts.options.OptionsKeysConsts;
 import com.mtons.mblog.service.exception.MtonsException;
 import com.mtons.mblog.service.storage.Storage;
 import com.mtons.mblog.service.storage.StorageType;
@@ -38,8 +38,8 @@ public class UpYunStorageImpl extends AbstractStorage implements Storage {
 
     @Override
     public String writeToStore(byte[] bytes, String pathAndFileName) throws Exception {
-        String domain = options.getValue(oss_domain);
-        String src = options.getValue(oss_src);
+        String domain = siteConfigService.getValue(oss_domain);
+        String src = siteConfigService.getValue(oss_src);
 
         if (StringUtils.isAnyBlank(domain)) {
             throw new MtonsException("请先在后台设置又拍云配置信息");
@@ -67,7 +67,7 @@ public class UpYunStorageImpl extends AbstractStorage implements Storage {
 
     @Override
     public void deleteFile(String storePath) {
-        String domain = options.getValue(oss_domain);
+        String domain = siteConfigService.getValue(oss_domain);
         String path = StringUtils.remove(storePath, domain.trim());
         UpYun yun = builder();
         try {
@@ -78,9 +78,9 @@ public class UpYunStorageImpl extends AbstractStorage implements Storage {
     }
 
     private UpYun builder() {
-        String bucket = options.getValue(oss_bucket);
-        String operator = options.getValue(oss_operator);
-        String password = options.getValue(oss_password);
+        String bucket = siteConfigService.getValue(oss_bucket);
+        String operator = siteConfigService.getValue(oss_operator);
+        String password = siteConfigService.getValue(oss_password);
 
         if (StringUtils.isAnyBlank(bucket, operator, password)) {
             throw new MtonsException("请先在后台设置又拍云配置信息");

@@ -4,9 +4,9 @@ import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
-import com.mtons.mblog.base.consts.OptionsKeysConsts;
+import com.mtons.mblog.base.consts.options.OptionsKeysConsts;
+import com.mtons.mblog.service.comp.configure.ISiteConfigService;
 import com.mtons.mblog.service.exception.MtonsException;
-import com.mtons.mblog.service.config.SiteOptions;
 import com.mtons.mblog.modules.comp.MailService;
 import com.yueny.rapid.email.OkEmail;
 import com.yueny.rapid.email.sender.entity.ThreadEmailEntry;
@@ -31,16 +31,16 @@ public class MailServiceImpl implements MailService {
     @Autowired
     private FreeMarkerConfigurer freeMarkerConfigurer;
     @Autowired
-    private SiteOptions siteOptions;
+    protected ISiteConfigService siteConfigService;
     @Autowired
     private ListeningExecutorService commonExecutorService;
 
     @Override
     public void config() {
-        String mailHost = siteOptions.getValue(OptionsKeysConsts.MAIL_SMTP_HOST);
-        String mailUsername = siteOptions.getValue(OptionsKeysConsts.MAIL_SMTP_USERNAME);
-        String mailPassowrd = siteOptions.getValue(OptionsKeysConsts.MAIL_SMTP_PASSWORD);
-        String pwPs = siteOptions.getValue(OptionsKeysConsts.MAIL_PW_PS);
+        String mailHost = siteConfigService.getValue(OptionsKeysConsts.MAIL_SMTP_HOST);
+        String mailUsername = siteConfigService.getValue(OptionsKeysConsts.MAIL_SMTP_USERNAME);
+        String mailPassowrd = siteConfigService.getValue(OptionsKeysConsts.MAIL_SMTP_PASSWORD);
+        String pwPs = siteConfigService.getValue(OptionsKeysConsts.MAIL_PW_PS);
 
         if (StringUtils.isNoneBlank(mailHost, mailUsername, mailPassowrd)) {
             MailSmtpType type = MailSmtpType._126;
@@ -63,7 +63,7 @@ public class MailServiceImpl implements MailService {
     @Override
     public void sendTemplateEmail(String to, String title, String template, Map<String, Object> content) {
         String text = render(template, content);
-        String from = siteOptions.getValue(OptionsKeysConsts.SITE_NAME);
+        String from = siteConfigService.getValue(OptionsKeysConsts.SITE_NAME);
 
         ListenableFuture<Future<ThreadEmailEntry>> task = commonExecutorService.submit(() -> {
             Future<ThreadEmailEntry> future = OkEmail.subject(title)

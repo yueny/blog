@@ -15,6 +15,11 @@ public enum StorageType {
     NATIVE,
 
     /**
+     * 自有图片服务器存储
+     */
+    IMAGE,
+
+    /**
      * 又拍云存储
      */
     UPYUN,
@@ -25,14 +30,9 @@ public enum StorageType {
     ALIYUN,
 
     /**
-     * 青牛存储
+     * 七牛云存储
      */
-    QINIU,
-
-    /**
-     * 自有图片服务器存储
-     */
-    IMAGE;
+    QINIU;
 
     public static StorageType get(StorageType storageType){
         return get(storageType.name());

@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.base.storage.impl;
 
-import com.mtons.mblog.base.consts.OptionsKeysConsts;
+import com.mtons.mblog.base.consts.options.OptionsKeysConsts;
 import com.mtons.mblog.service.exception.MtonsException;
 import com.mtons.mblog.service.storage.Storage;
 import com.mtons.mblog.service.storage.StorageType;
@@ -42,11 +42,11 @@ public class QiniuStorageImpl extends AbstractStorage implements Storage {
 
     @Override
     public String writeToStore(byte[] bytes, String pathAndFileName) throws Exception {
-        String accessKey = options.getValue(oss_key);
-        String secretKey = options.getValue(oss_secret);
-        String domain = options.getValue(oss_domain);
-        String bucket = options.getValue(oss_bucket);
-        String src = options.getValue(oss_src);
+        String accessKey = siteConfigService.getValue(oss_key);
+        String secretKey = siteConfigService.getValue(oss_secret);
+        String domain = siteConfigService.getValue(oss_domain);
+        String bucket = siteConfigService.getValue(oss_bucket);
+        String src = siteConfigService.getValue(oss_src);
 
         if (StringUtils.isAnyBlank(accessKey, secretKey, domain, bucket)) {
             throw new MtonsException("请先在后台设置青牛配置信息");
@@ -83,10 +83,10 @@ public class QiniuStorageImpl extends AbstractStorage implements Storage {
 
     @Override
     public void deleteFile(String storePath) {
-        String accessKey = options.getValue(oss_key);
-        String secretKey = options.getValue(oss_secret);
-        String domain = options.getValue(oss_domain);
-        String bucket = options.getValue(oss_bucket);
+        String accessKey = siteConfigService.getValue(oss_key);
+        String secretKey = siteConfigService.getValue(oss_secret);
+        String domain = siteConfigService.getValue(oss_domain);
+        String bucket = siteConfigService.getValue(oss_bucket);
 
         if (StringUtils.isAnyBlank(accessKey, secretKey, domain, bucket)) {
             throw new MtonsException("请先在后台设置青牛配置信息");

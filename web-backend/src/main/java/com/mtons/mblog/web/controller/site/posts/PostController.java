@@ -44,7 +44,7 @@ public class PostController extends BaseBizController {
 		model.put("channels", channelService.findRootAll(Consts.STATUS_NORMAL));
 		model.put("editing", true);
 
-		String editor = siteOptions.getValue("editor");
+		String editor = siteConfigService.getValue("editor");
 
 		if(StringUtils.isNotEmpty(articleBlogId)){
 			AccountProfile profile = getProfile();

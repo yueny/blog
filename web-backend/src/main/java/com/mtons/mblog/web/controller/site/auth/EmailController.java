@@ -3,7 +3,7 @@ package com.mtons.mblog.web.controller.site.auth;
 import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.comp.ICacheService;
 import com.mtons.mblog.base.consts.Consts;
-import com.mtons.mblog.base.consts.OptionsKeysConsts;
+import com.mtons.mblog.base.consts.options.OptionsKeysConsts;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.bo.UserBO;
@@ -11,7 +11,7 @@ import com.mtons.mblog.modules.comp.MailService;
 import com.mtons.mblog.service.atom.jpa.SecurityCodeService;
 import com.mtons.mblog.service.atom.jpa.UserJpaService;
 import com.mtons.mblog.service.comp.configure.IConfigureConstant;
-import com.mtons.mblog.service.comp.configure.IConfigureGetService;
+import com.mtons.mblog.service.comp.configure.IConfigureSystemGetService;
 import com.mtons.mblog.web.controller.BaseBizController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -36,7 +36,7 @@ public class EmailController extends BaseBizController {
     @Autowired
     private ICacheService cacheService;
     @Autowired
-    private IConfigureGetService getService;
+    private IConfigureSystemGetService getService;
     @Autowired
     private UserJpaService userJpaService;
     @Autowired
@@ -101,7 +101,7 @@ public class EmailController extends BaseBizController {
         Map<String, Object> context = new HashMap<>();
         context.put("code", code);
 
-        String title = MessageFormat.format(EMAIL_TITLE, siteOptions.getValue(OptionsKeysConsts.SITE_NAME));
+        String title = MessageFormat.format(EMAIL_TITLE, siteConfigService.getValue(OptionsKeysConsts.SITE_NAME));
         mailService.sendTemplateEmail(email, title, Consts.EMAIL_TEMPLATE_CODE, context);
         return Result.successMessage("邮件已发送， 如未收到邮件，请联系管理员!");
     }

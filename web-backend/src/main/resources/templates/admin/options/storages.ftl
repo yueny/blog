@@ -3,14 +3,24 @@
         <label class="col-sm-2 control-label">存储方式</label>
         <div class="col-sm-3">
             <select class="form-control" name="storage_scheme" data-select="${options['storage_scheme']}">
-                <option value="native">本地存储</option>
-                <option value="image">自有图片服务器</option>
-                <option value="upyun">又拍云</option>
-                <option value="aliyun">阿里云</option>
-                <option value="qiniu">七牛云</option>
+                <option value="native">本地存储/NATIVE</option>
+                <option value="image">自有图片服务器/IMAGE</option>
+                <option value="upyun">又拍云/UPYUN</option>
+                <option value="aliyun">阿里云/ALIYUN</option>
+                <option value="qiniu">七牛云/QINIU</option>
             </select>
         </div>
     </div>
+
+    <div class="form-group">
+        <label class="form-check-label col-sm-2" for="image_server_force_local">附加本地存储</label>
+        <div class="col-sm-6">
+            <input type="checkbox" class="form-check-input" id="image_server_force_local"
+                name="image_server_force_local"
+                value="${options['image_server_force_local']}">
+        </div>
+    </div>
+
     <div class="scheme" data-scheme="native">
         <div class="form-group">
             <label class="col-sm-2 control-label">本地图片根目录</label>

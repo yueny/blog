@@ -2,6 +2,7 @@ package com.mtons.mblog.web.controller.site.user;
 
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.consts.Consts;
+import com.mtons.mblog.service.storage.StorageFactory;
 import com.mtons.mblog.service.util.file.FileKit;
 import com.mtons.mblog.service.util.file.FilePathUtils;
 import com.mtons.mblog.service.atom.bao.UserService;
@@ -31,6 +32,8 @@ import java.io.IOException;
 @Controller
 @RequestMapping("/settings")
 public class SettingsController extends BaseBizController {
+    @Autowired
+    protected StorageFactory storageFactory;
     @Autowired
     private UserService userService;
     @Autowired

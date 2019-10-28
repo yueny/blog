@@ -37,9 +37,9 @@ public class AliyunStorageImpl extends AbstractStorage implements Storage {
 
     @Override
     public String writeToStore(byte[] bytes, String pathAndFileName) throws Exception {
-        String endpoint = options.getValue(oss_endpoint);
-        String bucket = options.getValue(oss_bucket);
-        String src = options.getValue(oss_src);
+        String endpoint = siteConfigService.getValue(oss_endpoint);
+        String bucket = siteConfigService.getValue(oss_bucket);
+        String src = siteConfigService.getValue(oss_src);
 
         if (StringUtils.isAnyBlank(endpoint, bucket)) {
             throw new MtonsException("请先在后台设置阿里云配置信息");
@@ -66,8 +66,8 @@ public class AliyunStorageImpl extends AbstractStorage implements Storage {
 
     @Override
     public void deleteFile(String storePath) {
-        String bucket = options.getValue(oss_bucket);
-        String endpoint = options.getValue(oss_endpoint);
+        String bucket = siteConfigService.getValue(oss_bucket);
+        String endpoint = siteConfigService.getValue(oss_endpoint);
         String path = StringUtils.remove(storePath, "//" + bucket.trim() + "." + endpoint.trim() + "/");
         OSSClient client = builder();
         try {
@@ -78,9 +78,9 @@ public class AliyunStorageImpl extends AbstractStorage implements Storage {
     }
 
     private OSSClient builder() {
-        String endpoint = options.getValue(oss_endpoint);
-        String accessKeyId = options.getValue(oss_key);
-        String accessKeySecret = options.getValue(oss_secret);
+        String endpoint = siteConfigService.getValue(oss_endpoint);
+        String accessKeyId = siteConfigService.getValue(oss_key);
+        String accessKeySecret = siteConfigService.getValue(oss_secret);
 
         if (StringUtils.isAnyBlank(endpoint, accessKeyId, accessKeySecret)) {
             throw new MtonsException("请先在后台设置阿里云配置信息");
