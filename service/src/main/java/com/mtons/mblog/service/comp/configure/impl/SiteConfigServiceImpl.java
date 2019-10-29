@@ -51,50 +51,26 @@ public class SiteConfigServiceImpl implements ISiteConfigService {
 	private boolean showLocker;
 
 	@Override
-	public String getSiteTalker() {
-		siteTalker = configureGetService.getKey(IConfigureConstant.SITE_TALKER_KEY);
-		if(StringUtils.isEmpty(siteTalker)){
-			return "星光不问赶路人，时光不负有心人";
-		}
-
-		return encode(siteTalker);
+	public SystemGetVo getSystemGetVo() {
+		return SystemGetVo.builder()
+				.siteTalker(getSiteTalker())
+				.showLocker(isShowLocker())
+				.build();
 	}
 
 	@Override
-	public boolean isShowLocker() {
-		showLocker = configureGetService.getBoolean(IConfigureConstant.SITE_SHOW_LOCKER_KEY);
-
-		return showLocker;
-	}
-
-	@Override
-	public String getLocation() {
-		OptionsBo optionsBo = optionsService.findByKey(image_server_location);
-		if(optionsBo == null || StringUtils.isEmpty(optionsBo.getValue())){
-			// 配置项不存在，则返回本地配置
-			return uploadConfigConfig.getConfigModelData().getLocation();
-		}
-
-		return optionsBo.getValue().trim();
+	public ImageLocationVo getImageLocationVo() {
+		return ImageLocationVo.builder()
+				.location(getLocation(image_server_location, uploadConfigConfig.getConfigModelData().getLocation()))
+				.locationUri(getLocation(image_server_uri, ""))
+				.imageServerForceLocal(getLocationInteger(OptionsKeysConsts.IMAGE_SERVER_FORCE_LOCAL, "1"))
+				.build();
 	}
 
 
 	@Override
-	public String getLocationUri() {
-		OptionsBo optionsBo = optionsService.findByKey(image_server_uri);
-		if(optionsBo == null || StringUtils.isEmpty(optionsBo.getValue())){
-			// 配置项不存在，则返回 空字符串
-			return "";
-		}
-
-		return optionsBo.getValue().trim();
-	}
-
-	@Override
-	public String getWholePathName(NailPathData nailPath, String md5) {
-		String path = FilePathUtils.wholePathName(nailPath.get(), nailPath.getOriginalFilename(), md5);
-
-		return path;
+	public String computeWholePathName(NailPathData nailPath, String md5) {
+		return FilePathUtils.wholePathName(nailPath.get(), nailPath.getOriginalFilename(), md5);
 	}
 
 	@Override
@@ -115,12 +91,12 @@ public class SiteConfigServiceImpl implements ISiteConfigService {
 	}
 
 	@Override
-	public Integer getIntegerValue(String key) {
+	public Integer getValueInteger(String key) {
 		return Integer.parseInt(getValue(key));
 	}
 
 	@Override
-	public Integer[] getIntegerArrayValue(String key, String separator) {
+	public Integer[] getValueIntegerArray(String key, String separator) {
 		//@NotNull
 		String value = getValue(key);
 
@@ -130,6 +106,41 @@ public class SiteConfigServiceImpl implements ISiteConfigService {
 			ret[i] = Integer.parseInt(array[i]);
 		}
 		return ret;
+	}
+
+	/**
+	 * 获取每日箴言
+	 */
+	private String getSiteTalker() {
+		siteTalker = configureGetService.getKey(IConfigureConstant.SITE_TALKER_KEY);
+		if(StringUtils.isEmpty(siteTalker)){
+			return "星光不问赶路人，时光不负有心人";
+		}
+
+		return encode(siteTalker);
+	}
+
+	/**
+	 * 是否显示时钟
+	 */
+	private boolean isShowLocker() {
+		showLocker = configureGetService.getBoolean(IConfigureConstant.SITE_SHOW_LOCKER_KEY);
+
+		return showLocker;
+	}
+
+	private String getLocation(String optionsKey, String defaultVal) {
+		OptionsBo optionsBo = optionsService.findByKey(optionsKey);
+		if(optionsBo == null || StringUtils.isEmpty(optionsBo.getValue())){
+			// 配置项不存在，则返回本地配置
+			return defaultVal;
+		}
+
+		return optionsBo.getValue().trim();
+	}
+
+	private Integer getLocationInteger(String optionsKey, String defaultVal) {
+		return Integer.parseInt(getLocation(optionsKey, defaultVal));
 	}
 
 	/**

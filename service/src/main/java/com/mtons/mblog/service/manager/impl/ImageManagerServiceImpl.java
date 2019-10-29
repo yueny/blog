@@ -60,12 +60,12 @@ public class ImageManagerServiceImpl extends BaseService implements IImageManage
         String path = resourceBO.getPath();
         // 去掉图片服务器域名,
         // 最终应该由 https://a.b.com/blog/uploads/stoe/blognails/C602B2.jpeg 变为 /stoe/blognails/C602B2.jpeg
-        String imageServerUri = siteConfigService.getLocationUri();
+        String imageServerUri = siteConfigService.getImageLocationVo().getLocationUri();
 
         path = StringUtils.substringAfter(path, imageServerUri);
 
         // 首先删除服务器图片
-        String imageServerLocation = siteConfigService.getLocation();
+        String imageServerLocation = siteConfigService.getImageLocationVo().getLocation();
         File imageFile = new File(imageServerLocation + path);
         if(imageFile.isFile() || imageFile.exists()){
            // 文件夹或文件不存在，均结操作

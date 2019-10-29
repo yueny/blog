@@ -13,11 +13,13 @@
     </div>
 
     <div class="form-group">
-        <label class="form-check-label col-sm-2" for="image_server_force_local">附加本地存储</label>
-        <div class="col-sm-6">
-            <input type="checkbox" class="form-check-input" id="image_server_force_local"
-                name="image_server_force_local"
-                value="${options['image_server_force_local']}">
+        <label class="col-sm-2 form-check-label">附加本地存储</label>
+        <div class="col-sm-3">
+            <select class="form-control" name="image_server_force_local"
+                    data-select="${options['image_server_force_local']}">
+                <option value="1">附加</option>
+                <option value="0">不附加</option>
+            </select>
         </div>
     </div>
 

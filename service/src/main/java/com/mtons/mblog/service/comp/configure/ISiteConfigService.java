@@ -1,6 +1,10 @@
 package com.mtons.mblog.service.comp.configure;
 
 import com.mtons.mblog.service.storage.NailPathData;
+import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -12,28 +16,14 @@ import com.mtons.mblog.service.storage.NailPathData;
  */
 public interface ISiteConfigService {
 	/**
-	 * 获取每日箴言
+	 * 获取配置中心的配置信息
 	 */
-	String getSiteTalker();
+	SystemGetVo getSystemGetVo();
 
 	/**
-	 * 是否显示时钟
+	 * 获取图片存储的信息
 	 */
-	boolean isShowLocker();
-
-	/**
-	 * 获取图片存储的相对路径 ${image_server_location}
-	 *
-	 * @return
-	 */
-	String getLocation();
-
-	/**
-	 * 获取图片存储的网络地址
-	 *
-	 * @return
-	 */
-	String getLocationUri();
+	ImageLocationVo getImageLocationVo();
 
 	/**
 	 * 获取图片存储的网络地址
@@ -42,17 +32,79 @@ public interface ISiteConfigService {
 	 * @param md5
 	 * @return
 	 */
-	String getWholePathName(NailPathData nailPath, String md5);
+	String computeWholePathName(NailPathData nailPath, String md5);
 
 	/**
-	 * 获取配置的值
+	 * 获取配置的值， 先取 site, 再取 options
 	 *
 	 * @param key
 	 * @return
 	 */
 	String getValue(String key);
 
-	Integer getIntegerValue(String key);
+	/**
+	 * 获取配置的值， 先取 site, 再取 options
+	 *
+	 * @param key
+	 * @return
+	 */
+	Integer getValueInteger(String key);
 
-	Integer[] getIntegerArrayValue(String key, String separator);
+	/**
+	 * 获取配置的值， 先取 site, 再取 options
+	 *
+	 * @param key
+	 * @return
+	 */
+	Integer[] getValueIntegerArray(String key, String separator);
+
+
+
+	/**
+	 * 配置中心的配置信息获取
+	 */
+	@Getter
+	@Setter
+	@Builder
+	class SystemGetVo extends AbstractMaskBo {
+		/**
+		 * 获取每日箴言
+		 */
+		private String siteTalker;
+
+		/**
+		 * 是否显示时钟
+		 */
+		private boolean showLocker;
+	}
+
+	/**
+	 * 图片存储的信息
+	 */
+	@Getter
+	@Setter
+	@Builder
+	class ImageLocationVo extends AbstractMaskBo {
+
+		/**
+		 * 本地/图片服务器根目录 ${image_server_location}
+		 *
+		 * @return
+		 */
+		private String location;
+
+		/**
+		 * 获取图片存储的网络地址/图片服务器uri ${image_server_uri}
+		 *
+		 * @return
+		 */
+		private String locationUri;
+
+		/**
+		 * 附加本地存储方式 ${image_server_force_local}
+		 *
+		 * @return
+		 */
+		private Integer imageServerForceLocal;
+	}
 }

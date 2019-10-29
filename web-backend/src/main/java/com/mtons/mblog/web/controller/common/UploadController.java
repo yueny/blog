@@ -84,7 +84,7 @@ public class UploadController extends BaseBizController {
         UploadResult result = new UploadResult();
         // 获取缩略图允许的像素大小， 如 360x200
         String crop = request.getParameter("crop");
-        int size = ServletRequestUtils.getIntParameter(request, "size", siteConfigService.getIntegerValue(Consts.STORAGE_MAX_WIDTH));
+        int size = ServletRequestUtils.getIntParameter(request, "size", siteConfigService.getValueInteger(Consts.STORAGE_MAX_WIDTH));
 
         // 检查空
         if (null == file || file.isEmpty()) {
@@ -123,7 +123,7 @@ public class UploadController extends BaseBizController {
         try {
             Map.Entry<String, String> entry;
             if (StringUtils.isNotBlank(crop)) {
-                Integer[] imageSize = siteConfigService.getIntegerArrayValue(crop, Consts.SEPARATOR_X);
+                Integer[] imageSize = siteConfigService.getValueIntegerArray(crop, Consts.SEPARATOR_X);
 
                 int width = ServletRequestUtils.getIntParameter(request, "width", imageSize[0]);
                 int height = ServletRequestUtils.getIntParameter(request, "height", imageSize[1]);
