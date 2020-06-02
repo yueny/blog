@@ -2,14 +2,11 @@ package com.mtons.mblog.dao.mybatis.plus;
 
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
-import com.baomidou.mybatisplus.extension.handlers.EnumTypeHandler;
-import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import com.mtons.mblog.dao.mybatis.MapperConst;
-import com.mtons.mblog.dao.mybatis.plus.handler.MysqlMetaObjectHandler;
 import org.apache.ibatis.plugin.Interceptor;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.JdbcType;
+import org.springframework.context.annotation.Bean;
 
 import javax.sql.DataSource;
 
@@ -21,7 +18,8 @@ import javax.sql.DataSource;
  *
  */
 public abstract class AbstractMybatisPlusConfig {
-    protected SqlSessionFactory getAssemblySqlSessionFactory(DataSource dataSource,
+    protected MybatisSqlSessionFactoryBean getAssemblySqlSessionFactory(DataSource dataSource,
+                                                             MybatisConfiguration mybatisConfig,
                                                              GlobalConfig globalConfig,
                                                              Interceptor... interceptors)
             throws Exception {
@@ -29,83 +27,40 @@ public abstract class AbstractMybatisPlusConfig {
         MybatisSqlSessionFactoryBean sqlSessionFactory = new MybatisSqlSessionFactoryBean();
         /* 数据源 */
         sqlSessionFactory.setDataSource(dataSource);
-//        /* 枚举扫描路径定义 */
+//        sqlSessionFactory.setTypeAliasesPackage("com.dal.model");
+        /* 枚举扫描路径定义 */
         sqlSessionFactory.setTypeEnumsPackage(MapperConst.TYPE_ENUMS_PACKAGE);
 
+        sqlSessionFactory.setConfiguration(mybatisConfig);
 
-        /* entity扫描,mybatis的Alias功能 */
-        MybatisConfiguration configuration = new MybatisConfiguration();
-        configuration.setDefaultEnumTypeHandler(EnumTypeHandler.class);
-
-        configuration.setLogImpl(org.apache.ibatis.logging.stdout.StdOutImpl.class);
-        configuration.setJdbcTypeForNull(JdbcType.NULL);
-        /* 驼峰转下划线 */
-        configuration.setMapUnderscoreToCamelCase(true);
-
-        /* 默认添加 乐观锁插件 */
-        configuration.addInterceptor(new OptimisticLockerInterceptor());
-
-        if(interceptors != null){
-            for (Interceptor interceptor: interceptors) {
-                configuration.addInterceptor(interceptor);
-            }
-        }
-
-        sqlSessionFactory.setConfiguration(configuration);
-
-        /* 自动填充插件 */
-        globalConfig.setMetaObjectHandler(new MysqlMetaObjectHandler());
+        // MP 全局配置注入
         sqlSessionFactory.setGlobalConfig(globalConfig);
 
-        /* SQL 逻辑删除注入器 */
-        //globalConfig.setSqlInjector(new LogicSqlInjector());
+        /* 拦截器 */
+        sqlSessionFactory.setPlugins(interceptors);
 
-        return sqlSessionFactory.getObject();
+        return sqlSessionFactory;
     }
 
-//    public static class MyMybatisSqlSessionFactoryBean extends MybatisSqlSessionFactoryBean {
-//        /**
-//         * @param clazz
-//         */
-//        protected Class<?> dealEnumType1(Class<?> clazz) {
-//            if (clazz.isEnum()) {
-//                Field[] fields = clazz.getDeclaredFields();
-//                for (Field f : fields) {
-//                    if (f.getAnnotation(EnumValue.class) == null ||
-//                            f.getAnnotation(com.yueny.superclub.api.annnotation.EnumValue.class) == null) {
-//                        continue;
-//                    }
-//
-//                    f.setAccessible(true);
-//                    EnumAnnotationTypeHandler.addEnumType(clazz, f);
-//                    return clazz;
-//                }
-//            }
-//            return null;
-//        }
-//
-//        /**
-//         * 对原生枚举的处理类，默认{@link EnumOrdinalTypeHandler}
-//         *
-//         * @param typeHandlerRegistry
-//         * @param enumClazz
-//         */
-//        @Override
-//        protected void registerOriginalEnumTypeHandler(TypeHandlerRegistry typeHandlerRegistry, Class<?> enumClazz) {
-//            Class<?> aClass = dealEnumType1(enumClazz);
-//            if (aClass == null) {
-//                super.registerOriginalEnumTypeHandler(typeHandlerRegistry, enumClazz);
-//            } else {
-//                typeHandlerRegistry.register(enumClazz, MyEnumTypeHandler.class);
-//            }
-//        }
-//
-//    }
-//
-//    @MappedJdbcTypes(value = {JdbcType.INTEGER,JdbcType.TINYINT,JdbcType.SMALLINT},includeNullJdbcType = true)
-//    public static class MyEnumTypeHandler<E extends Enum<E>> extends EnumAnnotationTypeHandler<E> {
-//        public MyEnumTypeHandler(Class<E> type) {
-//            super(type);
-//        }
-//    }
+
+    @Bean
+    public MybatisConfiguration mybatisConfig() {
+        MybatisConfiguration mybatisConfiguration = new MybatisConfiguration();
+        // 配置返回数据库(column下划线命名&&返回java实体是驼峰命名)，自动匹配无需as（没开启这个，SQL需要写as： select user_id as userId）
+        mybatisConfiguration.setMapUnderscoreToCamelCase(true);
+        // 全局地开启或关闭配置文件中的所有映射器已经配置的任何缓存，默认为 true
+        mybatisConfiguration.setCacheEnabled(true);
+
+        mybatisConfiguration.setJdbcTypeForNull(JdbcType.NULL);
+        // 懒加载
+        mybatisConfiguration.setAggressiveLazyLoading(true);
+        // 如果查询结果中包含空值的列，则 MyBatis 在映射的时候，不会映射这个字段
+        mybatisConfiguration.setCallSettersOnNulls(true);
+
+        // 这个配置会将执行的sql打印出来，在开发或测试的时候可以用.
+        mybatisConfiguration.setLogImpl(org.apache.ibatis.logging.stdout.StdOutImpl.class);
+
+        return mybatisConfiguration;
+    }
+
 }

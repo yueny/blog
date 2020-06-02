@@ -20,7 +20,7 @@
 
 		<!--数据库操作类库-->
 		<druid.version>1.1.10</druid.version>
-		<mybatis-plus.version>3.3.2</mybatis-plus.version>
+		<baomidou.mybatis-plus.version>3.3.2</baomidou.mybatis-plus.version>
 		<mybatis.boot.version>1.3.2</mybatis.boot.version>
 
 		<commons.lang3>3.8.1</commons.lang3>
@@ -208,23 +208,23 @@
 			<dependency>
 				<groupId>com.baomidou</groupId>
 				<artifactId>mybatis-plus-boot-starter</artifactId>
-				<version>${mybatis-plus.version}</version>
+				<version>${baomidou.mybatis-plus.version}</version>
 			</dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus</artifactId>
-				<version>${mybatis-plus.version}</version>
-                <scope>compile</scope>
-            </dependency>
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus</artifactId>
+				<version>${baomidou.mybatis-plus.version}</version>
+				<scope>compile</scope>
+			</dependency>
 			<dependency>
 				<groupId>com.baomidou</groupId>
 				<artifactId>mybatis-plus-core</artifactId>
-				<version>${mybatis-plus.version}</version>
+				<version>${baomidou.mybatis-plus.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.baomidou</groupId>
 				<artifactId>mybatis-plus-annotation</artifactId>
-				<version>${mybatis-plus.version}</version>
+				<version>${baomidou.mybatis-plus.version}</version>
 			</dependency>
 
 			<dependency>
