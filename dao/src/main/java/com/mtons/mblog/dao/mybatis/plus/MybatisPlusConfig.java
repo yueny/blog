@@ -44,7 +44,8 @@ public class MybatisPlusConfig extends AbstractMybatisPlusConfig {
 
     @Bean(name="mybatisSqlSessionFactory")
     @Primary
-    public MybatisSqlSessionFactoryBean mybatisSqlSessionFactory(GlobalConfig globalConfig, MybatisConfiguration mybatisConfig,
+    public MybatisSqlSessionFactoryBean mybatisSqlSessionFactory(GlobalConfig globalConfig,
+                 MybatisConfiguration mybatisConfig,
                  PaginationInterceptor paginationInterceptor,
                  PerformanceInterceptorX performanceInterceptorX,
                  IgnoreCreateDateFieldInterceptor commonFieldInterceptor,
