@@ -25,15 +25,24 @@ import java.io.InputStreamReader;
 @EnableAsync
 @Slf4j
 public class UploadConfigConfiguration implements IUploadConfigConfig {
-	@Getter
-	private UploadConfigModelData configModelData = null;
+	/**
+	 * 先从配置中心获取。取不到使用默认值
+	 *
+	 * @return
+	 */
+	@Override
+	public UploadConfigModelData getConfigModelData() {
+		return xmlConfigModelData;
+	}
+
+	private UploadConfigModelData xmlConfigModelData = null;
 
 	/**
 	 * 构造方法执行， 先于 InitializingBean.afterPropertiesSet
 	 */
 	@PostConstruct
 	public void loadConfig() {
-		configModelData = uploadConfig("/config/xml/upload.xml");//.getValue();
+		xmlConfigModelData = uploadConfig("/config/xml/upload.xml");//.getValue();
     }
 
 	private UploadConfigModelData uploadConfig(String xmlSettingPaths) {
