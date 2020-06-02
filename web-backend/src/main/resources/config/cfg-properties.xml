@@ -35,6 +35,8 @@
                 <value>blog, db</value>
                 <value>blog, app</value>
                 <value>blog, things</value>
+                <!-- 图片服务器配置 -->
+                <value>blog, image-server</value>
             </list>
         </property>
         <property name="ignoreResourceNotFound" value="true"/>
