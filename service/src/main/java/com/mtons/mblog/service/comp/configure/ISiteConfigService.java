@@ -21,9 +21,14 @@ public interface ISiteConfigService {
 	SystemGetVo getSystemGetVo();
 
 	/**
-	 * 获取图片存储的信息
+	 * 获取 Image 模式下的图片存储的信息
 	 */
 	ImageLocationVo getImageLocationVo();
+
+	/**
+	 * 获取 Native 本地模式下的图片存储的信息
+	 */
+	ImageLocationVo getNativeLocationVo();
 
 	/**
 	 * 获取图片存储的网络地址
@@ -99,12 +104,12 @@ public interface ISiteConfigService {
 		 * @return
 		 */
 		private String locationUri;
-
-		/**
-		 * 附加本地存储方式 ${image_server_force_local}
-		 *
-		 * @return
-		 */
-		private Integer imageServerForceLocal;
+//
+//		/**
+//		 * 附加本地存储方式 ${image_server_force_local}
+//		 *
+//		 * @return
+//		 */
+//		private Integer imageServerForceLocal;
 	}
 }

@@ -126,6 +126,7 @@ public interface OptionsKeysConsts extends IOptionsKeys {
      * qiniu_oss_secret
      */
     String QINIU_OSS_SECRET = "qiniu_oss_secret";
+
     /**
      * 图片存储路径。 如 /Users/yueny/workspace/yueny09/github/mblog/blog/uploads
      */
@@ -134,10 +135,20 @@ public interface OptionsKeysConsts extends IOptionsKeys {
      * 图片存储相对路径， 如 blog/uploads 或者 https://static.codealy.com/blog/uploads
      */
     String IMAGE_SERVER_URI = "image_server_uri";
+//    /**
+//     * 附加本地存储方式， 取值为 1附件 or  0 不附加
+//     */
+//    String IMAGE_SERVER_FORCE_LOCAL = "image_server_force_local";
+
     /**
-     * 附加本地存储方式， 取值为 1附件 or  0 不附加
+     * 图片存储路径。 如 /Users/yueny/workspace/yueny09/github/mblog/blog/uploads
      */
-    String IMAGE_SERVER_FORCE_LOCAL = "image_server_force_local";
+    String NATIVE_SERVER_LOCATION = "native_server_location";
+    /**
+     * 图片存储相对路径， 如 blog/uploads 或者 https://static.codealy.com/blog/uploads
+     */
+    String NATIVE_SERVER_URI = "native_server_uri";
+
 
     /**
      * 图片存储方式， 默认  本地 native

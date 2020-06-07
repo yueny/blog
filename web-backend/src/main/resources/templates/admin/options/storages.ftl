@@ -12,28 +12,29 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="col-sm-2 form-check-label">附加本地存储</label>
-        <div class="col-sm-3">
-            <select class="form-control" name="image_server_force_local"
-                    data-select="${options['image_server_force_local']}">
-                <option value="1">附加</option>
-                <option value="0">不附加</option>
-            </select>
-        </div>
-    </div>
+    <#--&lt;#&ndash; image_server_force_local &ndash;&gt;-->
+    <#--<div class="form-group">-->
+        <#--<label class="col-sm-2 form-check-label">附加本地存储</label>-->
+        <#--<div class="col-sm-3">-->
+            <#--<select class="form-control" name="image_server_force_local"-->
+                    <#--data-select="${options['image_server_force_local']}">-->
+                <#--<option value="1">附加</option>-->
+                <#--<option value="0">不附加</option>-->
+            <#--</select>-->
+        <#--</div>-->
+    <#--</div>-->
 
     <div class="scheme" data-scheme="native">
         <div class="form-group">
             <label class="col-sm-2 control-label">本地图片根目录</label>
             <div class="col-sm-6">
-                <input type="text" name="image_server_location" class="form-control" value="${options['image_server_location']}" placeholder="本地图片根目录, 非必填">
+                <input type="text" name="native_server_location" class="form-control" value="${options['native_server_location']}" placeholder="本地图片根目录, 非必填">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">本地图片uri</label>
             <div class="col-sm-6">
-                <input type="text" name="image_server_uri" class="form-control" value="${options['image_server_uri']}" placeholder="本地图片uri, 非必填">
+                <input type="text" name="native_server_uri" class="form-control" value="${options['native_server_uri']}" placeholder="本地图片uri, 非必填">
             </div>
         </div>
     </div>

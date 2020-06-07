@@ -63,7 +63,14 @@ public class SiteConfigServiceImpl implements ISiteConfigService {
 		return ImageLocationVo.builder()
 				.location(getLocation(image_server_location, uploadConfigConfig.getConfigModelData().getLocation()))
 				.locationUri(getLocation(image_server_uri, ""))
-				.imageServerForceLocal(getLocationInteger(OptionsKeysConsts.IMAGE_SERVER_FORCE_LOCAL, "1"))
+				.build();
+	}
+
+	@Override
+	public ImageLocationVo getNativeLocationVo() {
+		return ImageLocationVo.builder()
+				.location(getLocation(OptionsKeysConsts.NATIVE_SERVER_LOCATION, uploadConfigConfig.getConfigModelData().getLocation()))
+				.locationUri(getLocation(OptionsKeysConsts.NATIVE_SERVER_URI, ""))
 				.build();
 	}
 

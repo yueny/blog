@@ -33,10 +33,10 @@ public class NativeStorageImpl extends AbstractStorage {
 
 	@Override
 	public String writeToStore(byte[] bytes, String pathAndFileName) throws Exception {
-		String dest = siteConfigService.getImageLocationVo().getLocation() + pathAndFileName;
+		String dest = siteConfigService.getNativeLocationVo().getLocation() + pathAndFileName;
 		FileKit.writeByteArrayToFile(bytes, dest);
 
-		String nativeDomain = siteConfigService.getImageLocationVo().getLocationUri();
+		String nativeDomain = siteConfigService.getNativeLocationVo().getLocationUri();
 		if(nativeDomain != null && StringUtils.isNotBlank(nativeDomain)){
 			return nativeDomain + pathAndFileName;
 		}
@@ -45,7 +45,7 @@ public class NativeStorageImpl extends AbstractStorage {
 
 	@Override
 	public void deleteFile(String storePath) {
-		File file = new File(siteConfigService.getImageLocationVo().getLocation() + storePath);
+		File file = new File(siteConfigService.getNativeLocationVo().getLocation() + storePath);
 
 		// 文件存在, 且不是目录
 		if (file.exists() && !file.isDirectory()) {
