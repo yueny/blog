@@ -51,7 +51,7 @@ public interface Storage extends IStrategy<StorageType> {
 
 	/**
 	 * 删除文件
-	 * @param storePath
+	 * @param storePath 文件服务器识别的文件有效目录
 	 */
 	void deleteFile(String storePath);
 

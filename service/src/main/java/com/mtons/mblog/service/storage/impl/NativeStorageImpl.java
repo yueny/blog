@@ -22,6 +22,11 @@ import java.io.File;
 /**
  * 服务器本地存储
  *
+ * <pre>
+ *      image_server_uri=http://localhost:8090/
+ * 		image_server_location=/Users/xiaobai/temp/workspace/yueny09/github/mblog/blog/uploads
+ * </pre>
+ *
  * @author langhsu
  * @since  3.0
  */
@@ -45,11 +50,11 @@ public class NativeStorageImpl extends AbstractStorage {
 
 	@Override
 	public void deleteFile(String storePath) {
-		File file = new File(siteConfigService.getNativeLocationVo().getLocation() + storePath);
+		File imageFile = new File(storePath);
 
 		// 文件存在, 且不是目录
-		if (file.exists() && !file.isDirectory()) {
-			file.delete();
+		if (imageFile.exists() && !imageFile.isDirectory()) {
+			imageFile.delete();
 			log.info("fileRepo delete " + storePath);
 		}
 	}

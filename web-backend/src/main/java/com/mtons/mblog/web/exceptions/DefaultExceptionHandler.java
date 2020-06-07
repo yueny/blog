@@ -42,9 +42,9 @@ public class DefaultExceptionHandler implements HandlerExceptionResolver {
 			HttpServletResponse response, Object handler, Exception ex) {
 
 		if (ex instanceof IllegalArgumentException || ex instanceof IllegalStateException || ex instanceof MtonsException) {
-			log.error(ex.getMessage());
+			log.error("运行时出现异常。错误信息:", ex.getMessage());
 		} else {
-			log.error(ex.getMessage(), ex);
+			log.error("运行时出现异常。错误信息:" +  ex.getMessage(), ex);
 		}
 
 		ModelAndView view = null;

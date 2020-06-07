@@ -63,6 +63,7 @@ public class GlobalDefaultExceptionHandler {
     private <T extends Throwable> String resultFormat(HttpServletRequest req,
                   final HttpServletResponse response, String code, String errorMessage, T e) throws Exception {
         // 添加自己的异常处理逻辑，如日志记录等
+        log.error("运行时出现异常。错误信息：{}/{}, 请求地址：", code, errorMessage, req.getRequestURI());
         e.printStackTrace();
 
         // 如果是json格式的ajax请求

@@ -1,33 +1,37 @@
 package com.mtons.mblog.service.storage;
 
 import com.mtons.mblog.base.enums.FileSizeType;
+import com.yueny.rapid.lang.date.DateFormatUtil;
+import com.yueny.rapid.lang.date.DateUtil;
+import com.yueny.scanner.consts.Consts;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Date;
+
 /**
- * 图片上传的配置信息
+ * 图片上传的配置信息， 以用户、附件类型
  */
 @Builder
 @ToString
 public class NailPathData {
     /**
-     * StorageConsts 里面的路径值
+     * 附件类型， NailType， 如  "/storage/uid/blognails"
      */
     @Getter
+    @NonNull
     private NailType nailType;
 
     /**
-     * nailType 的占位符的值， 可以为空
+     * uid, 如  "uid"
      */
     @Builder.Default
-    private String placeVal = "";
+    @NonNull
+    private String uid = "";
 
-    /**
-     * NailType 占位符之后追加的值
-     */
-    private String nailTypeAppend;
 
     /**
      * 上传的原始文件名
@@ -49,22 +53,23 @@ public class NailPathData {
     /**
      * 获取路径值
      *
-     * @return nailType + placeVal + nailTypeAppend
+     * @return nailType + uid + 年月
      */
     public String get(){
-        String path = "";
+        StringBuffer path = new StringBuffer();
 
         // 如果需要格式化，则拿着占位符数据进行格式化
-        if(nailType.isFormat() && StringUtils.isNotEmpty(placeVal)){
-            path = String.format(nailType.getNailPath(), placeVal);
+        if(nailType.isFormat()){
+            path.append(String.format(nailType.getNailPath(), uid));
         }else{
-            path = nailType.getNailPath();
+            path.append(nailType.getNailPath());
         }
 
-        if(StringUtils.isNotEmpty(nailTypeAppend)){
-            path = path + nailTypeAppend;
+        if(!StringUtils.endsWith(path, Consts.PATH_SEPARATOR)){
+            path.append(Consts.PATH_SEPARATOR);
         }
+        path.append(DateFormatUtil.formatMonth(new Date()));
 
-        return path;
+        return path.toString();
     }
 }

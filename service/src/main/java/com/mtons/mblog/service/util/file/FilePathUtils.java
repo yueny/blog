@@ -5,6 +5,8 @@ package com.mtons.mblog.service.util.file;
 
 import com.mtons.mblog.base.consts.StorageConsts;
 import com.mtons.mblog.service.storage.NailType;
+import com.yueny.scanner.consts.Consts;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.RandomStringGenerator;
 
 import java.security.SecureRandom;
@@ -62,8 +64,10 @@ public class FilePathUtils {
 	 */
 	public static String wholePathName(String originalFilename, String key) {
 		StringBuilder builder = new StringBuilder(52);
-		builder.append("/"+ StorageConsts._signature+"/");
+		// builder.append(StorageConsts._signature+"/"));
 		builder.append(key);
+
+		// 获得文件后缀
 		builder.append(FileKit.getSuffix(originalFilename));
 		return builder.toString();
 	}
@@ -71,24 +75,18 @@ public class FilePathUtils {
 	/**
 	 * 生成路径和文件名
 	 *
-	 * @param basePath 路径
+	 * @param basePath 路径, 如  "/storage/1/blognails/202006/"
 	 * @param originalFilename 原始文件名
 	 * @param key 新文件名的全局唯一值
 	 *
 	 * @return 含路径（参数输入+规则配置）的文件名
 	 */
 	public static String wholePathName(String basePath, String originalFilename, String key) {
+		if(!StringUtils.endsWith(basePath, Consts.PATH_SEPARATOR)){
+			basePath = basePath + Consts.PATH_SEPARATOR;
+		}
+
 		return basePath + wholePathName(originalFilename, key);
 	}
-
-//	public static void main(String[] args) {
-//		String base = FilePathUtils.getAvatar("50", 100);
-//		String uAvatar = FilePathUtils.getUAvatar("50", 100);
-//
-//		String ava100 = String.format(StorageConsts.avatarPath, String.valueOf("50"))
-//				+ base + ".jpg";
-//		System.out.println(ava100);
-//		System.out.println(FilePathUtils.wholePathName("a.jpg", "123"));
-//	}
 
 }

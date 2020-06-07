@@ -112,7 +112,7 @@ public class UploadController extends BaseBizController {
         AccountProfile profile = getProfile();
         NailPathData nailPath = NailPathData.builder()
                 .nailType(NailType.get(nailType))
-                .placeVal(String.valueOf(profile.getId()))
+                .uid(profile.getUid())
                 .originalFilename(originalFilename)
                 // 返回文件的大小,以字节为单位。
                 .size(file.getSize())

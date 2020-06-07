@@ -37,10 +37,10 @@ public class LogUtil {
     }
 
     /**
-     * 服务统计日志(包含所有性能日志)， 级别 info
+     * 服务统计日志(包含所有性能日志)， 级别 debug
      */
     public static void profileLog(String format, Object... arguments) {
-        getProfileLog().info(format, arguments);
+        getProfileLog().debug(format, arguments);
     }
 
     /**

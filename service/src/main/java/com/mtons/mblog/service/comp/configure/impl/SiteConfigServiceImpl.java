@@ -69,8 +69,9 @@ public class SiteConfigServiceImpl implements ISiteConfigService {
 	@Override
 	public ImageLocationVo getNativeLocationVo() {
 		return ImageLocationVo.builder()
+				/* 先查询数据库配置，不存在则查询默认配置文件 */
 				.location(getLocation(OptionsKeysConsts.NATIVE_SERVER_LOCATION, uploadConfigConfig.getConfigModelData().getLocation()))
-				.locationUri(getLocation(OptionsKeysConsts.NATIVE_SERVER_URI, ""))
+				.locationUri(getLocation(OptionsKeysConsts.NATIVE_SERVER_URI, uploadConfigConfig.getConfigModelData().getLocationUri()))
 				.build();
 	}
 
@@ -136,6 +137,10 @@ public class SiteConfigServiceImpl implements ISiteConfigService {
 		return showLocker;
 	}
 
+	/**
+	 * 先查询数据库配置，不存在则查询默认配置文件
+	 *
+	 */
 	private String getLocation(String optionsKey, String defaultVal) {
 		OptionsBo optionsBo = optionsService.findByKey(optionsKey);
 		if(optionsBo == null || StringUtils.isEmpty(optionsBo.getValue())){

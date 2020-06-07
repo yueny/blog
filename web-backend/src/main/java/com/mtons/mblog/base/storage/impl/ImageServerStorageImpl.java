@@ -34,11 +34,11 @@ public class ImageServerStorageImpl extends AbstractStorage {
 
 	@Override
 	public void deleteFile(String storePath) {
-		File file = new File(siteConfigService.getImageLocationVo().getLocation() + storePath);
+		File imageFile = new File(storePath);
 
 		// 文件存在, 且不是目录
-		if (file.exists() && !file.isDirectory()) {
-			file.delete();
+		if (imageFile.exists() && !imageFile.isDirectory()) {
+			imageFile.delete();
 			log.info("fileRepo delete " + storePath);
 		}
 	}

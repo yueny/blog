@@ -87,8 +87,10 @@ public abstract class AbstractStorage implements Storage {
             return new AbstractMap.SimpleEntry<>(resourceBO.getThumbnailCode(), resourceBO.getPath());
         }
 
-        String path = siteConfigService.computeWholePathName(nailPath, md5);
-        String fullPath = writeToStore(bytes, path);
+        // nailPath, 如  "/storage/1/blognails/202006/"
+        // path , 如 "/storage/1/blognails/202006/2V6IJT688C3VMN9L2OMCHH295D.png"
+        String pathAndFileName = siteConfigService.computeWholePathName(nailPath, md5);
+        String fullPath = writeToStore(bytes, pathAndFileName);
 
         // 图片入库存储
         resourceBO = new ResourceBO();
