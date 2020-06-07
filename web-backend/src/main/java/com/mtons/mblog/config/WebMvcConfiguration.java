@@ -120,17 +120,25 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/templates/")
                 .addResourceLocations(location + "/storage/templates/");
 
-        registry.addResourceHandler("/storage/avatars/**")
-                .addResourceLocations(location + "/storage/avatars/");
-
-        registry.addResourceHandler("/storage/thumbnails/**")
-                .addResourceLocations(location + "/storage/thumbnails/");
-
-        registry.addResourceHandler("/storage/blognails/**")
-                .addResourceLocations(location + "/storage/blognails/");
-
-        registry.addResourceHandler("/storage/vague/**")
-                .addResourceLocations(location + "/storage/vague/");
+        /**
+         * 注册存储的文件路径
+         *
+         * http://localhost:8090/storage/1/thumbnails/blog/202006/2V6IJT688C3VMN9L2OMCHH295D.png
+         */
+        registry.addResourceHandler("/storage/**")
+                .addResourceLocations(location + "/storage/");
+//
+//        registry.addResourceHandler("/storage/avatars/**")
+//                .addResourceLocations(location + "/storage/avatars/");
+//
+//        registry.addResourceHandler("/storage/thumbnails/**")
+//                .addResourceLocations(location + "/storage/thumbnails/");
+//
+//        registry.addResourceHandler("/storage/blognails/**")
+//                .addResourceLocations(location + "/storage/blognails/");
+//
+//        registry.addResourceHandler("/storage/vague/**")
+//                .addResourceLocations(location + "/storage/vague/");
     }
 
     @Override
