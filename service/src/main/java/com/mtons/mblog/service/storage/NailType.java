@@ -4,36 +4,33 @@ import com.mtons.mblog.base.enums.ResourceType;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 
-/**
- * 附件类型
- */
 public enum NailType {
     /**
      * 博文中的附件
      */
-    blogAttr("/storage" + "/%s" + PathType.blognail.getPath(), ResourceType.BLOG_ATTR, true),
+    blogAttr(PathType.blognail.getPath() + "/%s", ResourceType.BLOG_ATTR, true),
 
     /**
      * 栏目缩略图
      */
-    channelThumb("/storage" + "/%s" + PathType.thumbnailForChannel.getPath(), ResourceType.THUMB_CHANNEL, true),
+    channelThumb(PathType.thumbnailForChannel.getPath(), ResourceType.THUMB_CHANNEL, false),
     /**
      * 文章缩略图
      */
-    blogThumb("/storage" + "/%s" + PathType.thumbnailForBlog.getPath(), ResourceType.THUMB_BLOG, true),
+    blogThumb(PathType.thumbnailForBlog.getPath(), ResourceType.THUMB_BLOG, false),
     /**
      * 其他部分单独分类的缩略图
      */
-    thumb("/storage" + PathType.thumbnailForDefault.getPath(), ResourceType.THUMB, false),
+    thumb(PathType.thumbnailForDefault.getPath(), ResourceType.THUMB, false),
 
     /**
      * 头像
      */
-    avatar("/storage" + "/%s" + PathType.avatar.getPath(), ResourceType.AVATARS, true),
+    avatar(PathType.avatar.getPath() + "/%s", ResourceType.AVATARS, true),
     /**
      * 不属于上述分类的储存目录
      */
-    vague("/storage" + "/%s" + PathType.vague.getPath(), ResourceType.VAGUE, true),;
+    vague(PathType.vague.getPath() + "/%s", ResourceType.VAGUE, true),;
 
     @Getter
     private String nailPath;
@@ -80,12 +77,12 @@ public enum NailType {
         /**
          * 文件存储-发布文章目录. %s为用户uid
          */
-        blognail("/blognails"),
+        blognail("/storage/blognails"),
 
         /**
          * 默认文件存储-缩略图目录
          */
-        thumbnailForDefault("/thumbnails"),
+        thumbnailForDefault("/storage/thumbnails"),
         /**
          * 渠道栏目缩略图目录
          */
@@ -98,11 +95,11 @@ public enum NailType {
         /**
          * 文件存储-头像目录
          */
-        avatar("/avatars"),
+        avatar("/storage/avatars"),
         /**
          * 文件存储-不属于上述分类的储存目录
          */
-        vague("/vague"),;
+        vague("/storage/vague"),;
 
         @Getter
         private String path;

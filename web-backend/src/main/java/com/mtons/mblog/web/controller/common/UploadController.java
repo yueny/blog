@@ -71,6 +71,8 @@ public class UploadController extends BaseBizController {
    *     nailType：上传类型
    * </pre>
    *
+   * 头像上传单独走 settings/avatar
+   *
    * @param file 上传的文件
    * @param nailType 上传类型， 默认博文。
    *                 可选项：blogAttr 博文 | channelThumb、blogThumb、thumb 缩略图 | avatar 头像 | vague 其他

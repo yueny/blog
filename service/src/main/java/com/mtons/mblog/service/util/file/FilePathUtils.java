@@ -32,7 +32,8 @@ public class FilePathUtils {
 	public static String getUAvatar(String uid, int size) {
 		StringBuilder sb = new StringBuilder();
 
-		sb.append(String.format(NailType.PathType.avatar.getPath(), String.valueOf(uid)));
+//		sb.append(String.format(NailType.PathType.avatar.getPath(), String.valueOf(uid)));
+		sb.append(String.format(NailType.avatar.getNailPath(), String.valueOf(uid)));
 		sb.append(getAvatar(uid, size));
 		sb.append(".jpg");
 

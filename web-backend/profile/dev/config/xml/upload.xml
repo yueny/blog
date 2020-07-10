@@ -2,9 +2,9 @@
 <settings>
 	<!-- mac下本地测试 -->
 	<!-- blog站点的静态资源地址  -->
-	<location>/Users/xiaobai/temp/workspace/yueny09/github/mblog/blog/uploads</location>
+	<location>/Users/yueny/workspace/yueny/git/mblog/blog/uploads</location>
 	<!-- 图片服务器根服务,如 本地项目目录下 /storage/avatars/000/000/001_240.jpg-->
-	<location-uri>http://localhost:8090/</location-uri>
+	<location-uri>http://localhost:8090</location-uri>
 	<!-- 图片上传根文件夹-->
 	<upload-base>uploads</upload-base>
 
