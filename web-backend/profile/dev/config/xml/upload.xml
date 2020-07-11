@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <settings>
-	<!-- mac下本地测试 -->
+	<!-- mac下本地测试， 优先以后台-配置地址路径为准 -->
 	<!-- blog站点的静态资源地址  -->
 	<location>/Users/yueny/workspace/yueny/git/mblog/blog/uploads</location>
 	<!-- 图片服务器根服务,如 本地项目目录下 /storage/avatars/000/000/001_240.jpg-->

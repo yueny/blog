@@ -53,3 +53,7 @@
         });
     });
 </script>
+
+
+<#-- 流量统计 -->
+<#include "/utils/traffic_statistics.ftl"/>

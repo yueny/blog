@@ -6,10 +6,6 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-ul, ol, h1, h2, h3 {
-    list-style: none;
-}
-
 a {
     color: #333;
     text-decoration: none;
