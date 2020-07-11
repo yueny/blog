@@ -7,13 +7,12 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.base.storage.impl;
+package com.mtons.mblog.service.storage.impl;
 
-import com.mtons.mblog.service.comp.configure.IStorageService;
+import com.mtons.mblog.service.comp.configure.ISiteConfigService;
 import com.mtons.mblog.service.exception.MtonsException;
-import com.mtons.mblog.service.comp.storage.NailPathData;
-import com.mtons.mblog.service.comp.storage.Storage;
-import com.mtons.mblog.config.SiteOptions;
+import com.mtons.mblog.service.storage.NailPathData;
+import com.mtons.mblog.service.storage.Storage;
 import com.mtons.mblog.bo.ResourceBO;
 import com.mtons.mblog.service.atom.bao.ResourceManagerService;
 import com.mtons.mblog.service.atom.bao.ResourceService;
@@ -36,13 +35,11 @@ import java.util.Set;
 @Slf4j
 public abstract class AbstractStorage implements Storage {
     @Autowired
-    protected SiteOptions options;
-    @Autowired
     protected ResourceService resourceService;
     @Autowired
     protected ResourceManagerService resourceManagerService;
     @Autowired
-    protected IStorageService storageService;
+    protected ISiteConfigService siteConfigService;
 
     protected void validateFile(MultipartFile file) {
         if (file == null || file.isEmpty()) {
@@ -90,8 +87,10 @@ public abstract class AbstractStorage implements Storage {
             return new AbstractMap.SimpleEntry<>(resourceBO.getThumbnailCode(), resourceBO.getPath());
         }
 
-        String path = storageService.getWholePathName(nailPath, md5);
-        String fullPath = writeToStore(bytes, path);
+        // nailPath, 如  "/storage/1/blognails/202006/"
+        // path , 如 "/storage/1/blognails/202006/2V6IJT688C3VMN9L2OMCHH295D.png"
+        String pathAndFileName = siteConfigService.computeWholePathName(nailPath, md5);
+        String fullPath = writeToStore(bytes, pathAndFileName);
 
         // 图片入库存储
         resourceBO = new ResourceBO();

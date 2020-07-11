@@ -143,7 +143,7 @@ public class PerformanceInterceptorX implements Interceptor {
                 .append(" Time：").append(timing)
                 .append(" ms - ID：").append(ms.getId())
                 .append(StringPool.NEWLINE).append("Execute SQL：")
-//                .append(SqlUtils.sqlFormat(originalSql, format))
+                //                .append(SqlUtils.sqlFormat(originalSql, format))
                 .append(originalSql)
                 .append(StringPool.NEWLINE);
         if (this.getMaxTime() >= 1 && timing > this.getMaxTime()) {

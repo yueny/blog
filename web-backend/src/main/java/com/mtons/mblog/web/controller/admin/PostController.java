@@ -81,7 +81,7 @@ public class PostController extends BaseBizController {
 	 */
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public String toUpdate(String articleBlogId, ModelMap model) {
-		String editor = siteOptions.getValue("editor");
+		String editor = siteConfigService.getValue("editor");
 
 		if(StringUtils.isNotEmpty(articleBlogId)){
 			PostVO view = postManagerService.get(articleBlogId);

@@ -7,7 +7,7 @@ package com.mtons.mblog.service.comp.configure;
  *
  * @DATE 2019/7/8 8:55
  */
-public interface IConfigureGetService extends IConfigureService {
+public interface IConfigureSystemGetService {
 	/**
 	 * 获取key键的配置值
 	 *

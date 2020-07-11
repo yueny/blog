@@ -1,6 +1,6 @@
 package com.mtons.mblog.web.controller.site.auth;
 
-import com.mtons.mblog.base.consts.OptionsKeysConsts;
+import com.mtons.mblog.base.consts.options.OptionsKeysConsts;
 import com.mtons.mblog.model.UserVO;
 import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.exception.MtonsException;
@@ -9,6 +9,7 @@ import com.mtons.mblog.base.consts.StorageConsts;
 import com.mtons.mblog.base.oauth.*;
 import com.mtons.mblog.base.oauth.utils.OpenOauthBean;
 import com.mtons.mblog.base.oauth.utils.TokenUtil;
+import com.mtons.mblog.service.storage.StorageFactory;
 import com.mtons.mblog.service.util.file.FilePathUtils;
 import com.mtons.mblog.service.manager.IUserManagerService;
 import com.mtons.mblog.service.util.ImageUtils;
@@ -43,7 +44,8 @@ import java.io.UnsupportedEncodingException;
 @ConditionalOnProperty(name = "site.controls.register", havingValue = "true", matchIfMissing = true)
 public class CallbackController extends BaseBizController {
     private static final String SESSION_STATE = "_SESSION_STATE_";
-
+    @Autowired
+    protected StorageFactory storageFactory;
     @Autowired
     private OpenOauthService openOauthService;
     @Autowired
@@ -62,9 +64,9 @@ public class CallbackController extends BaseBizController {
     public void callWeibo(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("text/html;charset=utf-8");
         try {
-            APIConfig.getInstance().setOpenid_sina(siteOptions.getValue(OptionsKeysConsts.WEIBO_CLIENT_ID));
-            APIConfig.getInstance().setOpenkey_sina(siteOptions.getValue(OptionsKeysConsts.WEIBO_CLIENT_SERCRET));
-            APIConfig.getInstance().setRedirect_sina(siteOptions.getValue(OptionsKeysConsts.WEIBO_CALLBACK));
+            APIConfig.getInstance().setOpenid_sina(siteConfigService.getValue(OptionsKeysConsts.WEIBO_CLIENT_ID));
+            APIConfig.getInstance().setOpenkey_sina(siteConfigService.getValue(OptionsKeysConsts.WEIBO_CLIENT_SERCRET));
+            APIConfig.getInstance().setRedirect_sina(siteConfigService.getValue(OptionsKeysConsts.WEIBO_CALLBACK));
 
             String state = TokenUtil.randomState();
             request.getSession().setAttribute(SESSION_STATE, state);
@@ -132,9 +134,9 @@ public class CallbackController extends BaseBizController {
     public void callQQ(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("text/html;charset=utf-8");
         try {
-            APIConfig.getInstance().setOpenid_qq(siteOptions.getValue(OptionsKeysConsts.QQ_APP_ID));
-            APIConfig.getInstance().setOpenkey_qq(siteOptions.getValue(OptionsKeysConsts.QQ_APP_KEY));
-            APIConfig.getInstance().setRedirect_qq(siteOptions.getValue(OptionsKeysConsts.QQ_CALLBACK));
+            APIConfig.getInstance().setOpenid_qq(siteConfigService.getValue(OptionsKeysConsts.QQ_APP_ID));
+            APIConfig.getInstance().setOpenkey_qq(siteConfigService.getValue(OptionsKeysConsts.QQ_APP_KEY));
+            APIConfig.getInstance().setRedirect_qq(siteConfigService.getValue(OptionsKeysConsts.QQ_CALLBACK));
 
             String state = TokenUtil.randomState();
             request.getSession().setAttribute(SESSION_STATE, state);
@@ -199,9 +201,9 @@ public class CallbackController extends BaseBizController {
     @RequestMapping("/call_github")
     public void callGithub(HttpServletRequest request, HttpServletResponse response) {
         //设置github的相关
-        APIConfig.getInstance().setOpenid_github(siteOptions.getValue(OptionsKeysConsts.GITHUB_CLIENT_ID));
-        APIConfig.getInstance().setOpenkey_github(siteOptions.getValue(OptionsKeysConsts.GITHUB_SECRET_KEY));
-        APIConfig.getInstance().setRedirect_github(siteOptions.getValue(OptionsKeysConsts.GITHUB_CALLBACK));
+        APIConfig.getInstance().setOpenid_github(siteConfigService.getValue(OptionsKeysConsts.GITHUB_CLIENT_ID));
+        APIConfig.getInstance().setOpenkey_github(siteConfigService.getValue(OptionsKeysConsts.GITHUB_SECRET_KEY));
+        APIConfig.getInstance().setRedirect_github(siteConfigService.getValue(OptionsKeysConsts.GITHUB_CALLBACK));
 
         try {
             response.setContentType("text/html;charset=utf-8");
@@ -277,9 +279,9 @@ public class CallbackController extends BaseBizController {
     public void callDouban(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("text/html;charset=utf-8");
         try {
-            APIConfig.getInstance().setOpenid_douban(siteOptions.getValue(OptionsKeysConsts.DOUBAN_API_KEY));
-            APIConfig.getInstance().setOpenkey_douban(siteOptions.getValue(OptionsKeysConsts.DOUBAN_SECRET_KEY));
-            APIConfig.getInstance().setRedirect_douban(siteOptions.getValue(OptionsKeysConsts.DOUBAN_CALLBACK));
+            APIConfig.getInstance().setOpenid_douban(siteConfigService.getValue(OptionsKeysConsts.DOUBAN_API_KEY));
+            APIConfig.getInstance().setOpenkey_douban(siteConfigService.getValue(OptionsKeysConsts.DOUBAN_SECRET_KEY));
+            APIConfig.getInstance().setRedirect_douban(siteConfigService.getValue(OptionsKeysConsts.DOUBAN_CALLBACK));
 
             String state = TokenUtil.randomState();
             request.getSession().setAttribute(SESSION_STATE, state);

@@ -8,9 +8,11 @@ import com.baomidou.mybatisplus.core.parser.ISqlParser;
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
+import com.mtons.mblog.dao.mybatis.plus.AbstractMybatisPlusConfig;
 import com.mtons.mblog.dao.mybatis.plus.handler.MysqlMetaObjectHandler;
 import com.mtons.mblog.dao.mybatis.plus.interceptor.IgnoreCreateDateFieldInterceptor;
 import com.mtons.mblog.dao.mybatis.plus.interceptor.PerformanceInterceptorX;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -42,18 +44,17 @@ public class MybatisPlusConfig extends AbstractMybatisPlusConfig {
 
     @Bean(name="mybatisSqlSessionFactory")
     @Primary
-    public MybatisSqlSessionFactoryBean mybatisSqlSessionFactory(GlobalConfig globalConfig, MybatisConfiguration mybatisConfig,
-                       PaginationInterceptor paginationInterceptor,
-                       PerformanceInterceptorX performanceInterceptorX,
-                       IgnoreCreateDateFieldInterceptor commonFieldInterceptor,
-                       OptimisticLockerInterceptor optimisticLockerInterceptor)
+    public MybatisSqlSessionFactoryBean mybatisSqlSessionFactory(GlobalConfig globalConfig,
+                 MybatisConfiguration mybatisConfig,
+                 PaginationInterceptor paginationInterceptor,
+                 PerformanceInterceptorX performanceInterceptorX,
+                 IgnoreCreateDateFieldInterceptor commonFieldInterceptor,
+                 OptimisticLockerInterceptor optimisticLockerInterceptor)
             throws Exception {
-
         return getAssemblySqlSessionFactory(dataSource, mybatisConfig, globalConfig,
                 paginationInterceptor, performanceInterceptorX, commonFieldInterceptor,
                 optimisticLockerInterceptor);
     }
-
 
     /**
      * 定义 MP 全局策略
@@ -69,21 +70,19 @@ public class MybatisPlusConfig extends AbstractMybatisPlusConfig {
         globalConfig.setMetaObjectHandler(new MysqlMetaObjectHandler());
 
         GlobalConfig.DbConfig dbConfig = new GlobalConfig.DbConfig();
-
         // 表名下划线命名默认true
         dbConfig.setTableUnderline(true);
         // id类型
         dbConfig.setIdType(IdType.AUTO);
 //        // 逻辑已删除值
 //        dbConfig.setLogicDeleteValue(String.valueOf(DelEnum.DEL.getValue()));
-//        // 逻辑未删除值
+        //        // 逻辑未删除值
 //        dbConfig.setLogicNotDeleteValue(String.valueOf(DelEnum.ACTIVE.getValue()));
 
         globalConfig.setDbConfig(dbConfig);
 
         return globalConfig;
     }
-
 
     /**
      * 乐观锁插件， 配合 @Version    Integer version 使用
@@ -92,7 +91,6 @@ public class MybatisPlusConfig extends AbstractMybatisPlusConfig {
     public OptimisticLockerInterceptor optimisticLockerInterceptor(){
         return new OptimisticLockerInterceptor();
     }
-
 
     @Bean
     public PaginationInterceptor paginationInterceptor() {

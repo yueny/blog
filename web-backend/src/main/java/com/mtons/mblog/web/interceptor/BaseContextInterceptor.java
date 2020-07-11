@@ -65,9 +65,9 @@ public class BaseContextInterceptor extends HandlerInterceptorAdapter {
 		request.setAttribute("siterProfile", siterProfile);
 
 		// 每日箴言
-		request.setAttribute("siteTalker", siteConfigService.getSiteTalker());
+		request.setAttribute("siteTalker", siteConfigService.getSystemGetVo().getSiteTalker());
 		// 是否显示时钟
-		request.setAttribute("siteShowLocker", siteConfigService.isShowLocker());
+		request.setAttribute("siteShowLocker", siteConfigService.getSystemGetVo().isShowLocker());
 
 		interceptorHookManager.postHandle(request,response,handler,modelAndView);
 	}

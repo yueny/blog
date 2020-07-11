@@ -3,25 +3,38 @@
         <label class="col-sm-2 control-label">存储方式</label>
         <div class="col-sm-3">
             <select class="form-control" name="storage_scheme" data-select="${options['storage_scheme']}">
-                <option value="native">本地存储</option>
-                <option value="image">自有图片服务器</option>
-                <option value="upyun">又拍云</option>
-                <option value="aliyun">阿里云</option>
-                <option value="qiniu">七牛云</option>
+                <option value="native">本地存储/NATIVE</option>
+                <option value="image">自有图片服务器/IMAGE</option>
+                <option value="upyun">又拍云/UPYUN</option>
+                <option value="aliyun">阿里云/ALIYUN</option>
+                <option value="qiniu">七牛云/QINIU</option>
             </select>
         </div>
     </div>
+
+    <#--&lt;#&ndash; image_server_force_local &ndash;&gt;-->
+    <#--<div class="form-group">-->
+        <#--<label class="col-sm-2 form-check-label">附加本地存储</label>-->
+        <#--<div class="col-sm-3">-->
+            <#--<select class="form-control" name="image_server_force_local"-->
+                    <#--data-select="${options['image_server_force_local']}">-->
+                <#--<option value="1">附加</option>-->
+                <#--<option value="0">不附加</option>-->
+            <#--</select>-->
+        <#--</div>-->
+    <#--</div>-->
+
     <div class="scheme" data-scheme="native">
         <div class="form-group">
             <label class="col-sm-2 control-label">本地图片根目录</label>
             <div class="col-sm-6">
-                <input type="text" name="image_server_location" class="form-control" value="${options['image_server_location']}" placeholder="本地图片根目录, 非必填">
+                <input type="text" name="native_server_location" class="form-control" value="${options['native_server_location']}" placeholder="本地图片根目录, 非必填">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">本地图片uri</label>
             <div class="col-sm-6">
-                <input type="text" name="image_server_uri" class="form-control" value="${options['image_server_uri']}" placeholder="本地图片uri, 非必填">
+                <input type="text" name="native_server_uri" class="form-control" value="${options['native_server_uri']}" placeholder="本地图片uri, 非必填">
             </div>
         </div>
     </div>

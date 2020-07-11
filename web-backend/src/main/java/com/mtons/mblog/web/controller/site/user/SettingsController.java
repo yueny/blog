@@ -2,10 +2,11 @@ package com.mtons.mblog.web.controller.site.user;
 
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.consts.Consts;
+import com.mtons.mblog.service.storage.StorageFactory;
 import com.mtons.mblog.service.util.file.FileKit;
 import com.mtons.mblog.service.util.file.FilePathUtils;
 import com.mtons.mblog.service.atom.bao.UserService;
-import com.mtons.mblog.service.comp.base.IUserPassportService;
+import com.mtons.mblog.service.comp.auth.IUserPassportService;
 import com.mtons.mblog.service.manager.IAccountProfileService;
 import com.mtons.mblog.service.util.ImageUtils;
 import com.mtons.mblog.model.AccountProfile;
@@ -13,7 +14,7 @@ import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.service.atom.jpa.SecurityCodeService;
 import com.mtons.mblog.web.controller.BaseBizController;
 import com.mtons.mblog.web.controller.site.Views;
-import com.mtons.mblog.web.controller.site.posts.UploadController;
+import com.mtons.mblog.web.controller.common.UploadController;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,8 @@ import java.io.IOException;
 @Controller
 @RequestMapping("/settings")
 public class SettingsController extends BaseBizController {
+    @Autowired
+    protected StorageFactory storageFactory;
     @Autowired
     private UserService userService;
     @Autowired

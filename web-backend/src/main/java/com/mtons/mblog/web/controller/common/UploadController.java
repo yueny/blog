@@ -7,18 +7,20 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.web.controller.site.posts;
+package com.mtons.mblog.web.controller.common;
 
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.enums.FileSizeType;
-import com.mtons.mblog.service.comp.storage.NailPathData;
-import com.mtons.mblog.service.comp.storage.NailType;
+import com.mtons.mblog.service.storage.StorageFactory;
+import com.mtons.mblog.service.storage.NailPathData;
+import com.mtons.mblog.service.storage.NailType;
 import com.mtons.mblog.service.util.file.FileKit;
 import com.mtons.mblog.model.AccountProfile;
 import com.mtons.mblog.web.controller.BaseBizController;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,6 +42,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("/post")
 public class UploadController extends BaseBizController {
+    @Autowired
+    protected StorageFactory storageFactory;
+
     public static HashMap<String, String> errorInfo = new HashMap<>();
 
     static {
@@ -66,6 +71,8 @@ public class UploadController extends BaseBizController {
    *     nailType：上传类型
    * </pre>
    *
+   * 头像上传单独走 settings/avatar
+   *
    * @param file 上传的文件
    * @param nailType 上传类型， 默认博文。
    *                 可选项：blogAttr 博文 | channelThumb、blogThumb、thumb 缩略图 | avatar 头像 | vague 其他
@@ -79,7 +86,7 @@ public class UploadController extends BaseBizController {
         UploadResult result = new UploadResult();
         // 获取缩略图允许的像素大小， 如 360x200
         String crop = request.getParameter("crop");
-        int size = ServletRequestUtils.getIntParameter(request, "size", siteOptions.getIntegerValue(Consts.STORAGE_MAX_WIDTH));
+        int size = ServletRequestUtils.getIntParameter(request, "size", siteConfigService.getValueInteger(Consts.STORAGE_MAX_WIDTH));
 
         // 检查空
         if (null == file || file.isEmpty()) {
@@ -95,7 +102,7 @@ public class UploadController extends BaseBizController {
         }
 
         // 检查大小
-        String limitSize = siteOptions.getValue(Consts.STORAGE_LIMIT_SIZE);
+        String limitSize = siteConfigService.getValue(Consts.STORAGE_LIMIT_SIZE);
         if (StringUtils.isBlank(limitSize)) {
             limitSize = "2";
         }
@@ -107,7 +114,7 @@ public class UploadController extends BaseBizController {
         AccountProfile profile = getProfile();
         NailPathData nailPath = NailPathData.builder()
                 .nailType(NailType.get(nailType))
-                .placeVal(String.valueOf(profile.getId()))
+                .uid(profile.getUid())
                 .originalFilename(originalFilename)
                 // 返回文件的大小,以字节为单位。
                 .size(file.getSize())
@@ -118,7 +125,7 @@ public class UploadController extends BaseBizController {
         try {
             Map.Entry<String, String> entry;
             if (StringUtils.isNotBlank(crop)) {
-                Integer[] imageSize = siteOptions.getIntegerArrayValue(crop, Consts.SEPARATOR_X);
+                Integer[] imageSize = siteConfigService.getValueIntegerArray(crop, Consts.SEPARATOR_X);
 
                 int width = ServletRequestUtils.getIntParameter(request, "width", imageSize[0]);
                 int height = ServletRequestUtils.getIntParameter(request, "height", imageSize[1]);

@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.modules.comp.impl;
 
-import com.mtons.mblog.config.SiteOptions;
+import com.mtons.mblog.service.config.SiteOptions;
 import com.mtons.mblog.modules.comp.ISiteOptionsGetService;
 import com.mtons.mblog.model.SiteOptionsControlsVO;
 import org.dozer.Mapper;

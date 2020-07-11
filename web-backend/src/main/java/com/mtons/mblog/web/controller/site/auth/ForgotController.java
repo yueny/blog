@@ -5,7 +5,7 @@ import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.atom.jpa.SecurityCodeService;
-import com.mtons.mblog.service.comp.base.IUserPassportService;
+import com.mtons.mblog.service.comp.auth.IUserPassportService;
 import com.mtons.mblog.web.controller.BaseBizController;
 import com.mtons.mblog.web.controller.site.Views;
 import org.springframework.beans.factory.annotation.Autowired;

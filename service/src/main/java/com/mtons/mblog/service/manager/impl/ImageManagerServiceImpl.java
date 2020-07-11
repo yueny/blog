@@ -5,15 +5,15 @@ import com.mtons.mblog.base.enums.ErrorType;
 import com.mtons.mblog.bo.ResourceBO;
 import com.mtons.mblog.service.BaseService;
 import com.mtons.mblog.service.atom.bao.ResourceService;
-import com.mtons.mblog.service.comp.configure.IStorageService;
+import com.mtons.mblog.service.comp.configure.ISiteConfigService;
 import com.mtons.mblog.service.exception.BizException;
 import com.mtons.mblog.service.manager.IImageManagerService;
+import com.mtons.mblog.service.storage.StorageFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.File;
 import java.util.Set;
 
 /**
@@ -27,9 +27,9 @@ public class ImageManagerServiceImpl extends BaseService implements IImageManage
     @Autowired
     private ResourceService resourceService;
     @Autowired
-    protected IStorageService storageService;
-//    @Autowired
-//    protected StorageFactory storageFactory;
+    protected ISiteConfigService siteConfigService;
+    @Autowired
+    protected StorageFactory storageFactory;
 
     @Override
     public boolean delete(String thumbnailCode, String md5) throws BizException {
@@ -58,18 +58,23 @@ public class ImageManagerServiceImpl extends BaseService implements IImageManage
         }
 
         String path = resourceBO.getPath();
-        // 去掉图片服务器域名,
-        // 最终应该由 https://a.b.com/blog/uploads/stoe/blognails/C602B2.jpeg 变为 /stoe/blognails/C602B2.jpeg
-        String imageServerUri = storageService.getLocationUri();
 
-        path = StringUtils.substringAfter(path, imageServerUri);
+        // 如果存在域名设置，则获取服务器根目录下的相对路径为 pathName 的值
+        String filePath = path;
+        // 去掉图片服务器域名, 最终应该由 https://a.b.com/blog/uploads/stoe/blognails/C602B2.jpeg 变为 /stoe/blognails/C602B2.jpeg
+        String imageServerUri = siteConfigService.getImageLocationVo().getLocationUri();
+        if(StringUtils.isNotBlank(imageServerUri)){
+            if(StringUtils.startsWith(path, imageServerUri)){
+                filePath = StringUtils.substringAfter(path, imageServerUri);
+            }
+        }
 
         // 首先删除服务器图片
-        String imageServerLocation = storageService.getLocation();
-        File imageFile = new File(imageServerLocation + path);
-        if(imageFile.isFile() || imageFile.exists()){
-           // 文件夹或文件不存在，均结操作
-        }
-        return false;
+        String imageServerLocation = siteConfigService.getImageLocationVo().getLocation();
+
+        storageFactory.get().deleteFile(imageServerLocation + filePath);
+
+        return true;
     }
+
 }

@@ -7,7 +7,7 @@
  * Authors:
  *   leiwen <chrisredfield1985@126.com> , boyan <killme2008@gmail.com>
  */
-package com.mtons.mblog.service.comp.base;
+package com.mtons.mblog.service.comp.auth;
 
 /**
  * 密码服务 

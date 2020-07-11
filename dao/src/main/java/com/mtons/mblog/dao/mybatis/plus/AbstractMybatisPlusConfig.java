@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import com.mtons.mblog.dao.mybatis.MapperConst;
 import org.apache.ibatis.plugin.Interceptor;
-import org.apache.ibatis.type.JdbcType;
 import org.springframework.context.annotation.Bean;
 
 import javax.sql.DataSource;
@@ -19,9 +18,9 @@ import javax.sql.DataSource;
  */
 public abstract class AbstractMybatisPlusConfig {
     protected MybatisSqlSessionFactoryBean getAssemblySqlSessionFactory(DataSource dataSource,
-                                                             MybatisConfiguration mybatisConfig,
-                                                             GlobalConfig globalConfig,
-                                                             Interceptor... interceptors)
+                                                                        MybatisConfiguration mybatisConfig,
+                                                                        GlobalConfig globalConfig,
+                                                                        Interceptor... interceptors)
             throws Exception {
 
         MybatisSqlSessionFactoryBean sqlSessionFactory = new MybatisSqlSessionFactoryBean();
@@ -51,7 +50,6 @@ public abstract class AbstractMybatisPlusConfig {
         // 全局地开启或关闭配置文件中的所有映射器已经配置的任何缓存，默认为 true
         mybatisConfiguration.setCacheEnabled(true);
 
-        mybatisConfiguration.setJdbcTypeForNull(JdbcType.NULL);
         // 懒加载
         mybatisConfiguration.setAggressiveLazyLoading(true);
         // 如果查询结果中包含空值的列，则 MyBatis 在映射的时候，不会映射这个字段

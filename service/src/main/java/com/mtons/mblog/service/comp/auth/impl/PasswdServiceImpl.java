@@ -7,9 +7,9 @@
  * Authors:
  *   leiwen <chrisredfield1985@126.com> , boyan <killme2008@gmail.com>
  */
-package com.mtons.mblog.service.comp.base.impl;
+package com.mtons.mblog.service.comp.auth.impl;
 
-import com.mtons.mblog.service.comp.base.IPasswdService;
+import com.mtons.mblog.service.comp.auth.IPasswdService;
 import com.yueny.superclub.util.crypt.core.PBECoder;
 import com.yueny.superclub.util.crypt.core.group.MD5Util;
 import org.springframework.stereotype.Service;

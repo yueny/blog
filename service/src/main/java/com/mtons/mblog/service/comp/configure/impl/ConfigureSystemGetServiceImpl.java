@@ -2,7 +2,7 @@ package com.mtons.mblog.service.comp.configure.impl;
 
 import com.google.common.base.Splitter;
 import com.mtons.mblog.service.comp.configure.IConfigureConstant;
-import com.mtons.mblog.service.comp.configure.IConfigureGetService;
+import com.mtons.mblog.service.comp.configure.IConfigureSystemGetService;
 import com.taobao.diamond.extend.DynamicProperties;
 import com.yueny.superclub.api.constant.Constants;
 import org.apache.commons.lang3.StringUtils;
@@ -21,7 +21,7 @@ import java.util.Set;
  * @DATE 2019/7/8 8:55
  */
 @Component
-public class ConfigureGetServiceImpl implements IConfigureGetService {
+public class ConfigureSystemGetServiceImpl implements IConfigureSystemGetService {
 
 	@Override
 	public String getKey(String key) {

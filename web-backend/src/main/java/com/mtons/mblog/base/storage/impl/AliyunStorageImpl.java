@@ -11,7 +11,9 @@ package com.mtons.mblog.base.storage.impl;
 
 import com.aliyun.oss.OSSClient;
 import com.mtons.mblog.service.exception.MtonsException;
-import com.mtons.mblog.service.comp.storage.Storage;
+import com.mtons.mblog.service.storage.Storage;
+import com.mtons.mblog.service.storage.StorageType;
+import com.mtons.mblog.service.storage.impl.AbstractStorage;
 import com.mtons.mblog.service.util.file.FileKit;
 import com.upyun.UpYunUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -35,9 +37,9 @@ public class AliyunStorageImpl extends AbstractStorage implements Storage {
 
     @Override
     public String writeToStore(byte[] bytes, String pathAndFileName) throws Exception {
-        String endpoint = options.getValue(oss_endpoint);
-        String bucket = options.getValue(oss_bucket);
-        String src = options.getValue(oss_src);
+        String endpoint = siteConfigService.getValue(oss_endpoint);
+        String bucket = siteConfigService.getValue(oss_bucket);
+        String src = siteConfigService.getValue(oss_src);
 
         if (StringUtils.isAnyBlank(endpoint, bucket)) {
             throw new MtonsException("请先在后台设置阿里云配置信息");
@@ -64,8 +66,8 @@ public class AliyunStorageImpl extends AbstractStorage implements Storage {
 
     @Override
     public void deleteFile(String storePath) {
-        String bucket = options.getValue(oss_bucket);
-        String endpoint = options.getValue(oss_endpoint);
+        String bucket = siteConfigService.getValue(oss_bucket);
+        String endpoint = siteConfigService.getValue(oss_endpoint);
         String path = StringUtils.remove(storePath, "//" + bucket.trim() + "." + endpoint.trim() + "/");
         OSSClient client = builder();
         try {
@@ -76,13 +78,18 @@ public class AliyunStorageImpl extends AbstractStorage implements Storage {
     }
 
     private OSSClient builder() {
-        String endpoint = options.getValue(oss_endpoint);
-        String accessKeyId = options.getValue(oss_key);
-        String accessKeySecret = options.getValue(oss_secret);
+        String endpoint = siteConfigService.getValue(oss_endpoint);
+        String accessKeyId = siteConfigService.getValue(oss_key);
+        String accessKeySecret = siteConfigService.getValue(oss_secret);
 
         if (StringUtils.isAnyBlank(endpoint, accessKeyId, accessKeySecret)) {
             throw new MtonsException("请先在后台设置阿里云配置信息");
         }
         return new OSSClient(endpoint, accessKeyId, accessKeySecret);
+    }
+
+    @Override
+    public StorageType getCondition() {
+        return StorageType.ALIYUN;
     }
 }

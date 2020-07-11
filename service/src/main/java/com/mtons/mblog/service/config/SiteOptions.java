@@ -7,12 +7,12 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.config;
+package com.mtons.mblog.service.config;
 
-import com.mtons.mblog.service.comp.configure.IUploadConfigConfig;
+import com.mtons.mblog.service.comp.configure.IUploadXmlConfig;
 import com.mtons.mblog.service.config.options.AbstractSiteConfigOption;
 import com.mtons.mblog.service.comp.configure.IConfigureConstant;
-import com.mtons.mblog.service.comp.configure.impl.ConfigureGetServiceImpl;
+import com.mtons.mblog.service.comp.configure.impl.ConfigureSystemGetServiceImpl;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -26,7 +26,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 读取 yml 配置信息
+ * 读取 yml 配置信息， 该服务不允许直接调用
+ *
  * @author : langhsu
  * @version : 1.0
  * @date : 2019/01/18
@@ -36,7 +37,7 @@ import java.util.Map;
 //@RefreshScope
 public class SiteOptions extends AbstractSiteConfigOption {
     @Autowired
-    private IUploadConfigConfig uploadConfigConfig;
+    private IUploadXmlConfig uploadConfigConfig;
 
     /**
      * 系统版本号
@@ -129,7 +130,7 @@ public class SiteOptions extends AbstractSiteConfigOption {
         private boolean register_email_validate;
 
         public boolean isRegister_email_validate() {
-            String val = ConfigureGetServiceImpl.get(IConfigureConstant.SITE_CONTROLS_REGISTER_EMAIL_VALIDATE_KEY);
+            String val = ConfigureSystemGetServiceImpl.get(IConfigureConstant.SITE_CONTROLS_REGISTER_EMAIL_VALIDATE_KEY);
             register_email_validate =  Boolean.valueOf(val);
 
             return register_email_validate;

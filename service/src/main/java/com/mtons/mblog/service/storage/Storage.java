@@ -7,8 +7,9 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.service.comp.storage;
+package com.mtons.mblog.service.storage;
 
+import com.yueny.superclub.util.strategy.IStrategy;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -19,7 +20,7 @@ import java.util.Set;
  * @author langhsu
  *
  */
-public interface Storage {
+public interface Storage extends IStrategy<StorageType> {
 
 	/**
 	 * 存储图片
@@ -50,7 +51,7 @@ public interface Storage {
 
 	/**
 	 * 删除文件
-	 * @param storePath
+	 * @param storePath 文件服务器识别的文件有效目录
 	 */
 	void deleteFile(String storePath);
 

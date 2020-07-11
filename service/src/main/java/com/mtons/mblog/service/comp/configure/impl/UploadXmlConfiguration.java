@@ -3,7 +3,7 @@
  */
 package com.mtons.mblog.service.comp.configure.impl;
 
-import com.mtons.mblog.service.comp.configure.IUploadConfigConfig;
+import com.mtons.mblog.service.comp.configure.IUploadXmlConfig;
 import com.mtons.mblog.service.config.options.xml.UploadConfigModelData;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +16,8 @@ import javax.xml.bind.*;
 import java.io.InputStreamReader;
 
 /**
+ * xml 配置文件
+ *
  * @author yueny09 <deep_blue_yang@163.com>
  *
  * @DATE 2016年9月22日 下午5:22:52
@@ -24,7 +26,7 @@ import java.io.InputStreamReader;
 @Configuration
 @EnableAsync
 @Slf4j
-public class UploadConfigConfiguration implements IUploadConfigConfig {
+public class UploadXmlConfiguration implements IUploadXmlConfig {
 	/**
 	 * 先从配置中心获取。取不到使用默认值
 	 *
@@ -51,7 +53,7 @@ public class UploadConfigConfiguration implements IUploadConfigConfig {
 		// load configuration
 		InputStreamReader reader = null;
 		try {
-			reader = new InputStreamReader(UploadConfigConfiguration.class.getResourceAsStream(xmlSettingPaths), "UTF-8");
+			reader = new InputStreamReader(UploadXmlConfiguration.class.getResourceAsStream(xmlSettingPaths), "UTF-8");
 
 			uploadConfig = JAXB.unmarshal(reader, UploadConfigModelData.class);
 			log.debug("uploadConfig 配置: {}.", uploadConfig);
