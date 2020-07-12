@@ -5,7 +5,7 @@ import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.mtons.mblog.base.consts.options.OptionsKeysConsts;
-import com.mtons.mblog.service.comp.configure.ISiteConfigService;
+import com.mtons.mblog.service.ability.ISiteOptionsAbilityService;
 import com.mtons.mblog.service.exception.MtonsException;
 import com.mtons.mblog.modules.comp.MailService;
 import com.yueny.rapid.email.OkEmail;
@@ -31,7 +31,7 @@ public class MailServiceImpl implements MailService {
     @Autowired
     private FreeMarkerConfigurer freeMarkerConfigurer;
     @Autowired
-    protected ISiteConfigService siteConfigService;
+    protected ISiteOptionsAbilityService siteConfigService;
     @Autowired
     private ListeningExecutorService commonExecutorService;
 

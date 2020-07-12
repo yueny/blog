@@ -3,7 +3,7 @@ package com.mtons.mblog.service.atom.bao;
 import com.mtons.mblog.bo.PostTagVO;
 import com.mtons.mblog.bo.TagBO;
 import com.mtons.mblog.entity.bao.Tag;
-import com.mtons.mblog.service.api.bao.IPlusBizService;
+import com.mtons.mblog.service.core.api.bao.IPlusBizService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

@@ -9,8 +9,8 @@
 */
 package com.mtons.mblog.service.configuration.site;
 
-import com.mtons.mblog.service.comp.configure.IConfigureConstant;
-import com.mtons.mblog.service.comp.config.impl.DiamondConfigGetServiceImpl;
+import com.mtons.mblog.service.core.ConfigKeysConstant;
+import com.mtons.mblog.service.ability.impl.DiamondConfigAbilityServiceImpl;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -35,35 +35,35 @@ public abstract class AbstractSiteConfigOption {
         private boolean commentAllowAnonymous;
 
         public boolean isRegister() {
-            String val = DiamondConfigGetServiceImpl.get(IConfigureConstant.SITE_CONTROLS_REGISTER_KEY);
+            String val = DiamondConfigAbilityServiceImpl.get(ConfigKeysConstant.SITE_CONTROLS_REGISTER_KEY);
             register =  Boolean.valueOf(val);
 
             return register;
         }
 
         public boolean isLogin_show() {
-            String val = DiamondConfigGetServiceImpl.get(IConfigureConstant.SITE_CONTROLS_LOGIN_SHOW_KEY);
+            String val = DiamondConfigAbilityServiceImpl.get(ConfigKeysConstant.SITE_CONTROLS_LOGIN_SHOW_KEY);
             login_show = Boolean.valueOf(val);
 
             return login_show;
         }
 
         public boolean isPost() {
-            String val = DiamondConfigGetServiceImpl.get(IConfigureConstant.SITE_CONTROLS_POST_KEY);
+            String val = DiamondConfigAbilityServiceImpl.get(ConfigKeysConstant.SITE_CONTROLS_POST_KEY);
             post = Boolean.valueOf(val);
 
             return post;
         }
 
         public boolean isComment() {
-            String val = DiamondConfigGetServiceImpl.get(IConfigureConstant.SITE_CONTROLS_COMMENT_KEY);
+            String val = DiamondConfigAbilityServiceImpl.get(ConfigKeysConstant.SITE_CONTROLS_COMMENT_KEY);
             comment = Boolean.valueOf(val);
 
             return comment;
         }
 
         public boolean isCommentAllowAnonymous() {
-            String val = DiamondConfigGetServiceImpl.get(IConfigureConstant.SITE_CONTROLS_COMMENT_ALLOW_ANONYMOUS_KEY);
+            String val = DiamondConfigAbilityServiceImpl.get(ConfigKeysConstant.SITE_CONTROLS_COMMENT_ALLOW_ANONYMOUS_KEY);
             commentAllowAnonymous = Boolean.valueOf(val);
 
             return commentAllowAnonymous;
@@ -83,7 +83,7 @@ public abstract class AbstractSiteConfigOption {
         private String userAvatar;
 
         public String getUserAvatar() {
-            userAvatar = DiamondConfigGetServiceImpl.get(IConfigureConstant.SITE_SETTINGS_USERAVATAR_KEY);
+            userAvatar = DiamondConfigAbilityServiceImpl.get(ConfigKeysConstant.SITE_SETTINGS_USERAVATAR_KEY);
 
             return userAvatar;
         }

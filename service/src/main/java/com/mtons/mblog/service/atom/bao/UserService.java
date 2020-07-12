@@ -13,7 +13,7 @@ import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.enums.StatusType;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.bao.User;
-import com.mtons.mblog.service.api.bao.IPlusBizService;
+import com.mtons.mblog.service.core.api.bao.IPlusBizService;
 import com.yueny.rapid.lang.exception.invalid.InvalidException;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;

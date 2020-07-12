@@ -13,7 +13,7 @@ import com.mtons.mblog.base.enums.BlogFeaturedType;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.bo.PostBo;
 import com.mtons.mblog.entity.bao.Post;
-import com.mtons.mblog.service.api.bao.IPlusBizService;
+import com.mtons.mblog.service.core.api.bao.IPlusBizService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.mtons.mblog.service.api.bao.IPlusBizService;
+import com.mtons.mblog.service.core.api.bao.IPlusBizService;
 import com.mtons.mblog.service.util.PKUtil;
 import com.mtons.mblog.service.util.PageHelper;
 import com.mtons.mblog.util.IdFieldSetterUtil;

@@ -2,7 +2,7 @@ package com.mtons.mblog.service.atom.bao;
 
 import com.mtons.mblog.bo.RolePermissionBo;
 import com.mtons.mblog.entity.bao.RolePermission;
-import com.mtons.mblog.service.api.bao.IPlusBizService;
+import com.mtons.mblog.service.core.api.bao.IPlusBizService;
 
 import java.util.List;
 import java.util.Set;

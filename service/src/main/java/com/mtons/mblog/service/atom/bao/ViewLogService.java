@@ -12,7 +12,7 @@ package com.mtons.mblog.service.atom.bao;
 import com.mtons.mblog.bo.ViewLogBo;
 import com.mtons.mblog.condition.ViewerQueryCondition;
 import com.mtons.mblog.entity.bao.ViewLogEntry;
-import com.mtons.mblog.service.api.bao.IPlusBizService;
+import com.mtons.mblog.service.core.api.bao.IPlusBizService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

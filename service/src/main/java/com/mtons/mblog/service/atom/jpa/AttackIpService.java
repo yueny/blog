@@ -11,7 +11,7 @@ package com.mtons.mblog.service.atom.jpa;
 
 import com.mtons.mblog.bo.AttackIpBo;
 import com.mtons.mblog.entity.jpa.AttackIpEntry;
-import com.mtons.mblog.service.api.jpa.IJpaBizService;
+import com.mtons.mblog.service.core.api.jpa.IJpaBizService;
 
 import java.util.Set;
 

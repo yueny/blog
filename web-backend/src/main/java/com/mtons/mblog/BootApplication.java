@@ -17,8 +17,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableCaching
 @EnableJpaAuditing
 @ImportResource(locations = { "classpath:/config/cfg-properties.xml",
-        "classpath:/config/spring-jpa.xml",
-        "classpath:/config/spring-bean.xml"})
+        "classpath:/config/spring-jpa.xml"})
 @EnableScheduling
 public class BootApplication {
 

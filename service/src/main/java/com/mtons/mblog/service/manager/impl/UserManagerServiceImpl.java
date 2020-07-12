@@ -25,7 +25,7 @@ import com.mtons.mblog.service.atom.bao.ResourceService;
 import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.atom.bao.UserRoleService;
 import com.mtons.mblog.service.atom.jpa.UserJpaService;
-import com.mtons.mblog.service.comp.auth.IPasswdService;
+import com.mtons.mblog.service.internal.IPasswdService;
 import com.mtons.mblog.service.manager.IMenuRolePermissionManagerService;
 import com.mtons.mblog.service.manager.IUserManagerService;
 import com.mtons.mblog.service.seq.SeqType;

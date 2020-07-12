@@ -9,9 +9,9 @@
 */
 package com.mtons.mblog.service.configuration.site;
 
-import com.mtons.mblog.service.comp.configure.IUploadXmlConfig;
-import com.mtons.mblog.service.comp.configure.IConfigureConstant;
-import com.mtons.mblog.service.comp.config.impl.DiamondConfigGetServiceImpl;
+import com.mtons.mblog.service.ability.IUploadXmlAbilityService;
+import com.mtons.mblog.service.core.ConfigKeysConstant;
+import com.mtons.mblog.service.ability.impl.DiamondConfigAbilityServiceImpl;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -36,14 +36,14 @@ import java.util.Map;
 //@RefreshScope
 public class SiteOptionsConfiguration extends AbstractSiteConfigOption {
     @Autowired
-    private IUploadXmlConfig uploadConfigConfig;
+    private IUploadXmlAbilityService uploadXmlAbilityService;
 
     /**
      * 系统版本号
      */
     @Getter
     @Setter
-    @Value("${"+ IConfigureConstant.SITE_VERSION_KEY +"}")
+    @Value("${"+ ConfigKeysConstant.SITE_VERSION_KEY +"}")
     private String version;
 
     /**
@@ -92,10 +92,10 @@ public class SiteOptionsConfiguration extends AbstractSiteConfigOption {
     }
 
     public String getLocation() {
-        return uploadConfigConfig.getConfigModelData().getLocation();
+        return uploadXmlAbilityService.getConfigModelData().getLocation();
     }
     public String getLocationUri() {
-        return uploadConfigConfig.getConfigModelData().getLocationUri();
+        return uploadXmlAbilityService.getConfigModelData().getLocationUri();
     }
 
     public String getValue(String key) {
@@ -129,7 +129,7 @@ public class SiteOptionsConfiguration extends AbstractSiteConfigOption {
         private boolean register_email_validate;
 
         public boolean isRegister_email_validate() {
-            String val = DiamondConfigGetServiceImpl.get(IConfigureConstant.SITE_CONTROLS_REGISTER_EMAIL_VALIDATE_KEY);
+            String val = DiamondConfigAbilityServiceImpl.get(ConfigKeysConstant.SITE_CONTROLS_REGISTER_EMAIL_VALIDATE_KEY);
             register_email_validate =  Boolean.valueOf(val);
 
             return register_email_validate;

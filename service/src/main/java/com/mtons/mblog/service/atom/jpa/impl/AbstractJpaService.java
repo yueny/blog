@@ -1,7 +1,7 @@
 package com.mtons.mblog.service.atom.jpa.impl;
 
 import com.mtons.mblog.service.BaseService;
-import com.mtons.mblog.service.api.jpa.IJpaBizService;
+import com.mtons.mblog.service.core.api.jpa.IJpaBizService;
 import com.mtons.mblog.util.IdFieldSetterUtil;
 import com.yueny.kapo.api.pojo.IEntry;
 import com.yueny.rapid.lang.util.collect.CollectionUtil;

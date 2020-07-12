@@ -1,6 +1,6 @@
 package com.mtons.mblog.base.storage.impl;
 
-import com.mtons.mblog.service.comp.configure.ISiteConfigService;
+import com.mtons.mblog.service.ability.ISiteOptionsAbilityService;
 import com.mtons.mblog.service.storage.StorageType;
 import com.mtons.mblog.service.storage.impl.AbstractStorage;
 import com.mtons.mblog.service.util.file.FileKit;
@@ -18,7 +18,7 @@ import java.io.File;
 @Component
 public class ImageServerStorageImpl extends AbstractStorage {
 	@Autowired
-	protected ISiteConfigService siteConfigService;
+	protected ISiteOptionsAbilityService siteConfigService;
 
 	@Override
 	public String writeToStore(byte[] bytes, String pathAndFileName) throws Exception {

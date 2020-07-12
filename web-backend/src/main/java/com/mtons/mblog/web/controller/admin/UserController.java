@@ -16,7 +16,7 @@ import com.mtons.mblog.model.UserVO;
 import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.atom.bao.RoleService;
 import com.mtons.mblog.service.atom.bao.UserRoleService;
-import com.mtons.mblog.service.comp.auth.IUserPassportService;
+import com.mtons.mblog.service.internal.IUserPassportService;
 import com.mtons.mblog.service.manager.IUserManagerService;
 import com.mtons.mblog.service.util.PKUtil;
 import com.mtons.mblog.web.controller.BaseBizController;

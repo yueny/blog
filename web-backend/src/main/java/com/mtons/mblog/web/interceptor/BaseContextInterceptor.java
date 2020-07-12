@@ -14,7 +14,7 @@ import com.mtons.mblog.model.SiterProfile;
 import com.mtons.mblog.modules.comp.ISiteOptionsGetService;
 import com.mtons.mblog.model.SiteOptionsControlsVO;
 import com.mtons.mblog.modules.hook.interceptor.InterceptorHookManager;
-import com.mtons.mblog.service.comp.configure.ISiteConfigService;
+import com.mtons.mblog.service.ability.ISiteOptionsAbilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
@@ -39,7 +39,7 @@ public class BaseContextInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	private ISiteOptionsGetService siteOptionsGetService;
 	@Autowired
-	private ISiteConfigService siteConfigService;
+	private ISiteOptionsAbilityService siteConfigService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

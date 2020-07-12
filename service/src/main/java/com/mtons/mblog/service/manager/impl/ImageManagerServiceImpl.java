@@ -5,7 +5,7 @@ import com.mtons.mblog.base.enums.ErrorType;
 import com.mtons.mblog.bo.ResourceBO;
 import com.mtons.mblog.service.BaseService;
 import com.mtons.mblog.service.atom.bao.ResourceService;
-import com.mtons.mblog.service.comp.configure.ISiteConfigService;
+import com.mtons.mblog.service.ability.ISiteOptionsAbilityService;
 import com.mtons.mblog.service.exception.BizException;
 import com.mtons.mblog.service.manager.IImageManagerService;
 import com.mtons.mblog.service.storage.StorageFactory;
@@ -27,7 +27,7 @@ public class ImageManagerServiceImpl extends BaseService implements IImageManage
     @Autowired
     private ResourceService resourceService;
     @Autowired
-    protected ISiteConfigService siteConfigService;
+    protected ISiteOptionsAbilityService siteConfigService;
     @Autowired
     protected StorageFactory storageFactory;
 

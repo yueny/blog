@@ -4,7 +4,7 @@ import com.mtons.mblog.base.enums.FuncType;
 import com.mtons.mblog.bo.PermissionBO;
 import com.mtons.mblog.model.PermissionTreeVo;
 import com.mtons.mblog.entity.bao.Permission;
-import com.mtons.mblog.service.api.bao.IPlusBizService;
+import com.mtons.mblog.service.core.api.bao.IPlusBizService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;

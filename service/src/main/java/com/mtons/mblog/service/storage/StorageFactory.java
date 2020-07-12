@@ -10,7 +10,7 @@
 package com.mtons.mblog.service.storage;
 
 import com.mtons.mblog.base.consts.options.OptionsKeysConsts;
-import com.mtons.mblog.service.comp.configure.ISiteConfigService;
+import com.mtons.mblog.service.ability.ISiteOptionsAbilityService;
 import com.mtons.mblog.service.storage.container.IStorageStrategyContainer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,7 +26,7 @@ public class StorageFactory {
     @Autowired
     private IStorageStrategyContainer container;
     @Autowired
-    private ISiteConfigService siteConfigService;
+    private ISiteOptionsAbilityService siteConfigService;
 
 //    private Map<String, Storage> fileRepoMap = new HashMap<>();
 //

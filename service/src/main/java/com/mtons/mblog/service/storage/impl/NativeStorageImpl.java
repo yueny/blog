@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.service.storage.impl;
 
-import com.mtons.mblog.service.comp.configure.ISiteConfigService;
+import com.mtons.mblog.service.ability.ISiteOptionsAbilityService;
 import com.mtons.mblog.service.storage.StorageType;
 import com.mtons.mblog.service.util.file.FileKit;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +34,7 @@ import java.io.File;
 @Component
 public class NativeStorageImpl extends AbstractStorage {
 	@Autowired
-	protected ISiteConfigService siteConfigService;
+	protected ISiteOptionsAbilityService siteConfigService;
 
 	@Override
 	public String writeToStore(byte[] bytes, String pathAndFileName) throws Exception {
