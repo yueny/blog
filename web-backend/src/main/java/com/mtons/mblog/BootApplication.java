@@ -10,14 +10,15 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
-` * SprintBootApplication
+ * SprintBootApplication
  */
 @Slf4j
 @SpringBootApplication
 @EnableCaching
 @EnableJpaAuditing
-@ImportResource(locations = { "classpath:/config/cfg-properties.xml",
-        "classpath:/config/spring-jpa.xml"})
+@ImportResource(locations = { "classpath:/config/cfg-properties.xml"
+//        "classpath:/config/spring-jpa.xml"
+})
 @EnableScheduling
 public class BootApplication {
 
