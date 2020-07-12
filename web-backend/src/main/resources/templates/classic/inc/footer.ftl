@@ -17,7 +17,8 @@
                     mblog
                 </span>
 
-                <a href="${base}/admin" target="_blank">
+                <#--  控制台  href="${base}/admin" target="_blank" -->
+                <a>
                     <i class="glyphicon glyphicon-font" title="控制台"></i>
                 </a>
                 <i class="tooltip-icon-version glyphicon glyphicon-gbp"></i>
