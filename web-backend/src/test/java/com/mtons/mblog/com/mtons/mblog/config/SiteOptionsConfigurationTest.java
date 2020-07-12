@@ -1,7 +1,7 @@
 package com.mtons.mblog.com.mtons.mblog.config;
 
 import com.mtons.mblog.BootApplication;
-import com.mtons.mblog.service.config.SiteOptions;
+import com.mtons.mblog.service.configuration.site.SiteOptionsConfiguration;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,14 +15,14 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = BootApplication.class)
-public class SiteOptionsTest {
+public class SiteOptionsConfigurationTest {
     @Autowired
-    private SiteOptions siteOptions;
+    private SiteOptionsConfiguration siteOptionsConfiguration;
 
     @Test
     public void testRunner() {
-        Assert.assertNotNull(siteOptions);
+        Assert.assertNotNull(siteOptionsConfiguration);
 
-        System.out.println(siteOptions.getSettings());
+        System.out.println(siteOptionsConfiguration.getSettings());
     }
 }

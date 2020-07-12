@@ -1,0 +1,14 @@
+# prod 环境配置
+
+
+##日志配置
+logging:
+  config: classpath:logback-spring-blog.xml
+  level:
+    org.springframework: WARN
+    org.hibernate: WARN
+
+logs:
+  runtime:
+    # 自定义日志路径
+    home: /data/var/logs/javalog/blog/runtime/mblog

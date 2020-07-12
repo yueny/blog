@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.modules.comp.impl;
 
-import com.mtons.mblog.service.config.SiteOptions;
+import com.mtons.mblog.service.configuration.site.SiteOptionsConfiguration;
 import com.mtons.mblog.modules.comp.ISiteOptionsGetService;
 import com.mtons.mblog.model.SiteOptionsControlsVO;
 import org.dozer.Mapper;
@@ -27,20 +27,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class SiteOptionsGetServiceImpl implements ISiteOptionsGetService {
 	@Autowired
-	private SiteOptions siteOptions;
+	private SiteOptionsConfiguration siteOptionsConfiguration;
 	/** */
 	@Autowired
 	private Mapper mapper;
 
 	@Override
 	public SiteOptionsControlsVO getControls() {
-		SiteOptions.Controls controls = siteOptions.getControls();
+		SiteOptionsConfiguration.Controls controls = siteOptionsConfiguration.getControls();
 
 		return mapper.map(controls, SiteOptionsControlsVO.class);
 	}
 
 	@Override
 	public String getVersion() {
-		return siteOptions.getVersion();
+		return siteOptionsConfiguration.getVersion();
 	}
 }

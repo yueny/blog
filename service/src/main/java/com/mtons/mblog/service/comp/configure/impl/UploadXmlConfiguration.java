@@ -4,8 +4,7 @@
 package com.mtons.mblog.service.comp.configure.impl;
 
 import com.mtons.mblog.service.comp.configure.IUploadXmlConfig;
-import com.mtons.mblog.service.config.options.xml.UploadConfigModelData;
-import lombok.Getter;
+import com.mtons.mblog.service.configuration.data.xml.UploadConfigModelData;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.context.annotation.Configuration;

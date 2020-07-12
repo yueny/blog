@@ -49,7 +49,7 @@ public class RegisterController extends BaseBizController {
 		String view = view(Views.REGISTER);
 
 		// 是否放开了注册
-		if (!siteOptions.getControls().isRegister()) {
+		if (!siteOptionsConfiguration.getControls().isRegister()) {
 			// 其实注册未放开~
 			model.put("data", Result.failure("暂未开放注册，敬请期待~"));
 			return view;
@@ -57,7 +57,7 @@ public class RegisterController extends BaseBizController {
 
 		try {
 			// 注册开启邮箱验证
-			if (siteOptions.getControls().isRegister_email_validate()) {
+			if (siteOptionsConfiguration.getControls().isRegister_email_validate()) {
 				String code = request.getParameter("code");
 				Assert.state(StringUtils.isNotBlank(post.getEmail()), "请输入邮箱地址");
 				Assert.state(StringUtils.isNotBlank(code), "请输入邮箱验证码");

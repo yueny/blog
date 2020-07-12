@@ -1,6 +1,6 @@
 package com.mtons.mblog.service.comp.configure;
 
-import com.mtons.mblog.service.config.options.xml.UploadConfigModelData;
+import com.mtons.mblog.service.configuration.data.xml.UploadConfigModelData;
 
 /**
  * xml 配置文件

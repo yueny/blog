@@ -6,10 +6,13 @@ server:
         worker-threads: 32
         buffer-size: 1024
         directBuffers: true
+
 spring:
     profiles:
         # 引入 pom中的 profileActive
         active: mysql
+        # application.yml文件中用@@引用maven的pom.xml文件中的属性
+        include: "@profileActive@"
     devtools:
         enabled: true
     cache:
@@ -50,6 +53,8 @@ spring:
         baseline-on-migrate: true
         encoding: UTF-8
         locations: classpath:scripts/migration
+
+
 shiro:
     web:
         enabled: true
@@ -64,13 +69,6 @@ shiro:
     rememberMeManager:
         cookie:
             maxAge: 604800
-
-#日志配置
-logging:
-    #config: classpath:logback-spring.xml
-    level:
-        org.springframework: WARN
-        org.hibernate: WARN
 
 # site.options.theme: [default|classic]
 site:
@@ -89,3 +87,4 @@ site:
         # 缩略图大小配置：栏目和博文
         thumbnail_channel_size: 200x112
         thumbnail_post_size: 360x200
+

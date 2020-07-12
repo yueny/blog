@@ -11,7 +11,7 @@ import com.mtons.mblog.modules.comp.MailService;
 import com.mtons.mblog.service.atom.jpa.SecurityCodeService;
 import com.mtons.mblog.service.atom.jpa.UserJpaService;
 import com.mtons.mblog.service.comp.configure.IConfigureConstant;
-import com.mtons.mblog.service.comp.configure.IConfigureSystemGetService;
+import com.mtons.mblog.service.comp.config.IConfigGetService;
 import com.mtons.mblog.web.controller.BaseBizController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -36,7 +36,7 @@ public class EmailController extends BaseBizController {
     @Autowired
     private ICacheService cacheService;
     @Autowired
-    private IConfigureSystemGetService getService;
+    private IConfigGetService getService;
     @Autowired
     private UserJpaService userJpaService;
     @Autowired

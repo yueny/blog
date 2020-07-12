@@ -6,7 +6,7 @@ import com.mtons.mblog.modules.service.EntityService;
 import com.mtons.mblog.service.atom.bao.OptionsService;
 import com.mtons.mblog.service.atom.jpa.ChannelService;
 import com.mtons.mblog.modules.comp.MailService;
-import com.mtons.mblog.service.config.SiteOptions;
+import com.mtons.mblog.service.configuration.site.SiteOptionsConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class ContextStartup implements ApplicationRunner, ServletContextAware {
     @Autowired
     private MailService mailService;
     @Autowired
-    private SiteOptions siteOptions;
+    private SiteOptionsConfiguration siteOptionsConfiguration;
 
     private ServletContext servletContext;
 
@@ -85,19 +85,19 @@ public class ContextStartup implements ApplicationRunner, ServletContextAware {
         }
 
         // 获取站点相关的配置， 将数据库的配置信息存入站点配置集合中
-        Map<String, String> map = siteOptions.getOptions();
+        Map<String, String> map = siteOptionsConfiguration.getOptions();
         options.forEach(opt -> {
             if (StringUtils.isNoneBlank(opt.getKey(), opt.getValue())) {
                 map.put(opt.getKey(), opt.getValue());
             }
         });
         servletContext.setAttribute("options", map);
-        servletContext.setAttribute("site", siteOptions);
+        servletContext.setAttribute("site", siteOptionsConfiguration);
 
         // 邮件配置重置
         mailService.config();
 
-        System.setProperty("site.location", siteOptions.getLocation());
+        System.setProperty("site.location", siteOptionsConfiguration.getLocation());
     }
 
     public void resetChannels() {

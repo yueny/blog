@@ -1,9 +1,12 @@
-package com.mtons.mblog.service.config.redis;
+package com.mtons.mblog.service.configuration.redis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mtons.mblog.service.configuration.data.RedisConfigData;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +29,6 @@ import redis.clients.jedis.JedisPoolConfig;
  *
  */
 @Configuration
-@EnableCaching //开启缓存注解， 注解 @Cacheable、@CacheEvict、@CachePut
 public class RedisConfiguration {
     @Value("${redis.client.host}")
     private String host;
@@ -53,15 +55,22 @@ public class RedisConfiguration {
     @Value("${redis.client.config.testOnBorrow}")
     private boolean testOnBorrow;
 
+    @Autowired
+    private RedisConfigData redisConfigData;
+
     @Bean
-    @ConfigurationProperties("redis.client")
+//    @ConfigurationProperties("redis.client")
     public JedisConnectionFactory jedisConnectionFactory(@Qualifier("jedisPoolConfig") JedisPoolConfig jedisPoolConfig){
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(jedisPoolConfig);
-        jedisConnectionFactory.setDatabase(this.db);
-        jedisConnectionFactory.setHostName(this.host);
-        jedisConnectionFactory.setPassword(this.password);
-        jedisConnectionFactory.setPort(this.port);
+        jedisConnectionFactory.setDatabase(redisConfigData.getDb());
+        jedisConnectionFactory.setHostName(host);
+        jedisConnectionFactory.setPassword(password);
+        jedisConnectionFactory.setPort(port);
         jedisConnectionFactory.setTimeout(connectionTimeout.intValue());
+//        jedisConnectionFactory.setHostName(this.redisConfigData.getHost());
+//        jedisConnectionFactory.setPassword(this.redisConfigData.getPassword());
+//        jedisConnectionFactory.setPort(this.redisConfigData.getPort());
+//        jedisConnectionFactory.setTimeout(redisConfigData.getConnectionTimeout().intValue());
 
         return jedisConnectionFactory;
     }

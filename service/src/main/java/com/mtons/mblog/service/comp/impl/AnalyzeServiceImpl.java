@@ -1,7 +1,7 @@
 package com.mtons.mblog.service.comp.impl;
 
 import com.mtons.mblog.service.comp.IAnalyzeService;
-import com.mtons.mblog.service.comp.configure.impl.ConfigureSystemGetServiceImpl;
+import com.mtons.mblog.service.comp.config.impl.DiamondConfigGetServiceImpl;
 import com.mtons.mblog.service.manager.impl.MenuJsonService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class AnalyzeServiceImpl implements IAnalyzeService {
         }
 
         // 攻击行为地址标签
-        Set<String> attackUrl = ConfigureSystemGetServiceImpl.getSecurityAttackUrl();
+        Set<String> attackUrl = DiamondConfigGetServiceImpl.getSecurityAttackUrl();
 
         for (String attack: attackUrl) {
             //  此处为地址包含关系

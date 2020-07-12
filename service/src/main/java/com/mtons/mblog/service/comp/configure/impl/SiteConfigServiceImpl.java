@@ -4,10 +4,10 @@ import com.mtons.mblog.base.consts.options.OptionsKeysConsts;
 import com.mtons.mblog.bo.OptionsBo;
 import com.mtons.mblog.service.atom.bao.OptionsService;
 import com.mtons.mblog.service.comp.configure.IConfigureConstant;
-import com.mtons.mblog.service.comp.configure.IConfigureSystemGetService;
+import com.mtons.mblog.service.comp.config.IConfigGetService;
 import com.mtons.mblog.service.comp.configure.ISiteConfigService;
 import com.mtons.mblog.service.comp.configure.IUploadXmlConfig;
-import com.mtons.mblog.service.config.SiteOptions;
+import com.mtons.mblog.service.configuration.site.SiteOptionsConfiguration;
 import com.mtons.mblog.service.storage.NailPathData;
 import com.mtons.mblog.service.util.file.FilePathUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -26,13 +26,13 @@ import java.io.UnsupportedEncodingException;
 @Component
 public class SiteConfigServiceImpl implements ISiteConfigService {
 	@Autowired
-	private IConfigureSystemGetService configureGetService;
+	private IConfigGetService configureGetService;
 	@Autowired
 	private IUploadXmlConfig uploadConfigConfig;
 	@Autowired
 	private OptionsService optionsService;
 	@Autowired
-	private SiteOptions siteOptions;
+	private SiteOptionsConfiguration siteOptionsConfiguration;
 
 	private static final String image_server_uri   = OptionsKeysConsts.IMAGE_SERVER_URI;
 	private static final String image_server_location = OptionsKeysConsts.IMAGE_SERVER_LOCATION;
@@ -83,7 +83,7 @@ public class SiteConfigServiceImpl implements ISiteConfigService {
 
 	@Override
 	public String getValue(String key) {
-		String val = siteOptions.getValue(key);
+		String val = siteOptionsConfiguration.getValue(key);
 
 		if(StringUtils.isEmpty(val)){
 			OptionsBo optionsBo = optionsService.findByKey(key);

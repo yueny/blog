@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.mtons.mblog.service.config.options.xml;
+package com.mtons.mblog.service.configuration.data.xml;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.common.collect.Maps;

@@ -12,7 +12,7 @@ package com.mtons.mblog.web.controller;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.service.comp.configure.ISiteConfigService;
 import com.mtons.mblog.model.AccountProfile;
-import com.mtons.mblog.service.config.SiteOptions;
+import com.mtons.mblog.service.configuration.site.SiteOptionsConfiguration;
 import com.mtons.mblog.service.manager.IUserManagerService;
 import com.mtons.mblog.service.util.PageHelper;
 import org.apache.commons.lang3.StringUtils;
@@ -38,7 +38,7 @@ public abstract class BaseBizController extends BaseController {
     @Autowired
     protected ISiteConfigService siteConfigService;
     @Autowired
-    protected SiteOptions siteOptions;
+    protected SiteOptionsConfiguration siteOptionsConfiguration;
 
     @Autowired
     private IUserManagerService userManagerService;

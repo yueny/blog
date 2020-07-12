@@ -1,4 +1,4 @@
-package com.mtons.mblog.service.comp.configure;
+package com.mtons.mblog.service.comp.config;
 
 /**
  * 配置中心配置动态获取
@@ -7,7 +7,7 @@ package com.mtons.mblog.service.comp.configure;
  *
  * @DATE 2019/7/8 8:55
  */
-public interface IConfigureSystemGetService {
+public interface IConfigGetService {
 	/**
 	 * 获取key键的配置值
 	 *

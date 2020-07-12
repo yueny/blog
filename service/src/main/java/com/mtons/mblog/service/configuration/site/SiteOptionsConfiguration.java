@@ -7,12 +7,11 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.service.config;
+package com.mtons.mblog.service.configuration.site;
 
 import com.mtons.mblog.service.comp.configure.IUploadXmlConfig;
-import com.mtons.mblog.service.config.options.AbstractSiteConfigOption;
 import com.mtons.mblog.service.comp.configure.IConfigureConstant;
-import com.mtons.mblog.service.comp.configure.impl.ConfigureSystemGetServiceImpl;
+import com.mtons.mblog.service.comp.config.impl.DiamondConfigGetServiceImpl;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -35,7 +34,7 @@ import java.util.Map;
 @Configuration
 @ConfigurationProperties(prefix = "site")
 //@RefreshScope
-public class SiteOptions extends AbstractSiteConfigOption {
+public class SiteOptionsConfiguration extends AbstractSiteConfigOption {
     @Autowired
     private IUploadXmlConfig uploadConfigConfig;
 
@@ -130,7 +129,7 @@ public class SiteOptions extends AbstractSiteConfigOption {
         private boolean register_email_validate;
 
         public boolean isRegister_email_validate() {
-            String val = ConfigureSystemGetServiceImpl.get(IConfigureConstant.SITE_CONTROLS_REGISTER_EMAIL_VALIDATE_KEY);
+            String val = DiamondConfigGetServiceImpl.get(IConfigureConstant.SITE_CONTROLS_REGISTER_EMAIL_VALIDATE_KEY);
             register_email_validate =  Boolean.valueOf(val);
 
             return register_email_validate;

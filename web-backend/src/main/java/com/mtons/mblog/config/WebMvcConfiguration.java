@@ -1,7 +1,7 @@
 package com.mtons.mblog.config;
 
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import com.mtons.mblog.service.config.SiteOptions;
+import com.mtons.mblog.service.configuration.site.SiteOptionsConfiguration;
 import com.mtons.mblog.web.interceptor.BaseContextInterceptor;
 import com.mtons.mblog.web.interceptor.SecurityInterceptor;
 import com.mtons.mblog.web.interceptor.StopWatchHandlerInterceptor;
@@ -37,7 +37,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Autowired
     private FastJsonHttpMessageConverter fastJsonHttpMessageConverter;
     @Autowired
-    private SiteOptions siteOptions;
+    private SiteOptionsConfiguration siteOptionsConfiguration;
 
     /**
      * 全局的静态资源和文件地址
@@ -112,7 +112,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        String location = "file:///" + siteOptions.getLocation();
+        String location = "file:///" + siteOptionsConfiguration.getLocation();
         registry.addResourceHandler("/dist/**")
                 .addResourceLocations("classpath:/static/dist/");
 

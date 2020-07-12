@@ -1,8 +1,8 @@
-package com.mtons.mblog.service.comp.configure.impl;
+package com.mtons.mblog.service.comp.config.impl;
 
 import com.google.common.base.Splitter;
 import com.mtons.mblog.service.comp.configure.IConfigureConstant;
-import com.mtons.mblog.service.comp.configure.IConfigureSystemGetService;
+import com.mtons.mblog.service.comp.config.IConfigGetService;
 import com.taobao.diamond.extend.DynamicProperties;
 import com.yueny.superclub.api.constant.Constants;
 import org.apache.commons.lang3.StringUtils;
@@ -14,14 +14,14 @@ import java.util.Set;
 
 
 /**
- * 配置中心配置动态获取
+ * diamond 配置中心配置动态获取
  *
  * @author yueny09 <deep_blue_yang@163.com>
  *
  * @DATE 2019/7/8 8:55
  */
 @Component
-public class ConfigureSystemGetServiceImpl implements IConfigureSystemGetService {
+public class DiamondConfigGetServiceImpl implements IConfigGetService {
 
 	@Override
 	public String getKey(String key) {

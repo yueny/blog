@@ -1,7 +1,7 @@
 package com.mtons.mblog.web.interceptor;
 
 import com.mtons.mblog.service.atom.jpa.AttackIpService;
-import com.mtons.mblog.service.comp.configure.impl.ConfigureSystemGetServiceImpl;
+import com.mtons.mblog.service.comp.config.impl.DiamondConfigGetServiceImpl;
 import com.mtons.mblog.service.util.LogUtil;
 import com.mtons.mblog.service.util.formatter.JsonUtils;
 import com.yueny.rapid.data.resp.pojo.response.BaseResponse;
@@ -49,7 +49,7 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 		String clientIp = IpUtil.getClientIp(request);
 
 		//得到配置中心白名单配置
-		Set<String> ips =  ConfigureSystemGetServiceImpl.getSecurityIpWhite();
+		Set<String> ips =  DiamondConfigGetServiceImpl.getSecurityIpWhite();
 
 		// 白名单， 放行
 		if(ips.contains(clientIp)){

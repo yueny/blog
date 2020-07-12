@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.mtons.mblog.service.config.options.xml;
+package com.mtons.mblog.service.configuration.data.xml;
 
 import lombok.Getter;
 import lombok.Setter;
