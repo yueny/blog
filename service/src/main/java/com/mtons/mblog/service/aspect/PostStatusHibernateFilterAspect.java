@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  */
 @Aspect
 @Component
-public class HibernateFilterAspect {
+public class PostStatusHibernateFilterAspect {
 
     private static final String FILTER_NAME = "POST_STATUS_FILTER";
 

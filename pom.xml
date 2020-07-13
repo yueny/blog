@@ -32,7 +32,7 @@
 		<alibaba.fastjson>1.2.55</alibaba.fastjson>
 		<apache.lucene>5.5.5</apache.lucene>
 		<coobird.thumbnailator>0.4.8</coobird.thumbnailator>
-		<cfg.diamond.client.version>3.4-GA-SNAPSHOT</cfg.diamond.client.version>
+		<cfg.diamond.client.version>3.5-GA-SNAPSHOT</cfg.diamond.client.version>
 		<commonmark.version>0.12.1</commonmark.version>
 		<flyway.version>5.2.4</flyway.version>
 		<org.jsoup>1.9.2</org.jsoup>

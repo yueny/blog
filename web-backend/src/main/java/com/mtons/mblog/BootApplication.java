@@ -1,5 +1,6 @@
 package com.mtons.mblog;
 
+import com.taobao.diamond.annotation.EnableDiamond;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,10 +17,11 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableCaching
 @EnableJpaAuditing
-@ImportResource(locations = { "classpath:/config/cfg-properties.xml"
-//        "classpath:/config/spring-jpa.xml"
+@ImportResource(locations = { "classpath:/config/cfg-properties.xml",
+        "classpath:/config/spring-jpa.xml"
 })
 @EnableScheduling
+@EnableDiamond
 public class BootApplication {
 
     public static void main(String[] args) {
