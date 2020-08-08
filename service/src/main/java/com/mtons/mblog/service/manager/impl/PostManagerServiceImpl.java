@@ -63,8 +63,13 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 	}
 
 	@Override
-	public Page<PostVO> paging4Admin(Pageable pageable, int channelId, String title) {
-		Page<PostBo> page = postService.paging4AdminForAuthor(pageable, channelId, title);
+	public Page<PostVO> paging4Admin(Pageable pageable, Set<Integer> channelIds, String title) {
+		// 此处功能注释。允许为空。为空则查询所有
+//		if (CollectionUtils.isEmpty(channelIds)) {
+//			return new PageImpl<>(Collections.emptyList(), pageable, Consts.ZERO);
+//		}
+
+		Page<PostBo> page = postService.paging4AdminForAuthor(pageable, channelIds, title);
 
 		return new PageImpl<>(toPosts(page.getContent()), pageable, page.getTotalElements());
 	}

@@ -28,7 +28,15 @@ public interface PostManagerService {
 	 */
 	Page<PostVO> paging(Pageable pageable, Set<Integer> channelIds, Set<Integer> excludeChannelIds);
 
-	Page<PostVO> paging4Admin(Pageable pageable, int channelId, String title);
+	/**
+	 * 后台系统 分页查询所有文章
+	 *
+	 * @param pageable
+	 * @param channelIds
+	 * @param title
+	 * @return
+	 */
+	Page<PostVO> paging4Admin(Pageable pageable, Set<Integer> channelIds, String title);
 	
 //	/**
 //	 * 查询个人发布文章

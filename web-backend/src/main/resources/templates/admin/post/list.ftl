@@ -26,19 +26,40 @@
                 <div class="box-body">
                     <form id="qForm" class="form-inline search-row">
                         <input type="hidden" name="pageNo" value="${page.number + 1}"/>
-                        <div class="form-group">
-                            <select class="selectpicker show-tick form-control" name="channelId">
-                                <option value="0">所有栏目</option>
+
+                        <div class="input-group">
+                            <span class="input-group-addon">栏目</span>
+                            <select class="selectpicker show-tick"
+                                    name="channelIdSels" data-style="btn-info"
+                                    multiple  data-max-options="3"
+                                    data-live-search-placeholder="搜索"
+                                    data-live-search="true"
+                                    data-none-Selected-Text="请选择"
+                                    data-actions-box="true">
+<#--                            <option value="0">所有栏目</option>-->
                                 <#list channels as channel>
-                                    <option value="${channel.id}" <#if (channelId == channel.id)> selected </#if>>${channel.name}</option>
+                                    <option value="${channel.id}"
+                                        <#if channelIdArrays?seq_contains(channel.id)?string("yes", "no") == "yes"> selected </#if>
+<#--                                            <#if (channelIdQuery == channel.id)> selected </#if>-->
+                                    >${channel.name}</option>
                                 </#list>
                             </select>
+                            <input type="hidden" id="channelIds" name="channelIds" value="${channelIdVal}">
                         </div>
-                        <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon">模糊关键字</span>
                             <input type="text" name="title" class="form-control" value="${title}" placeholder="请输入标题关键字">
                         </div>
-                        <button type="submit" class="btn btn-default">查询</button>
+
+                        <div class="input-group">
+                            <span class="input-group-addon">查询</span>
+                            <button type="submit" class="btn btn-default">go!</button>
+                            <#--                        <button type="button" class="btn btn-default" onclick="ajaxReload()">查询</button>-->
+<#--                            <button type="reset">重置</button>-->
+                        </div>
+
                     </form>
+
                     <div class="table-responsive">
                         <table id="dataGrid" class="table table-striped table-bordered"
                                style="word-break:break-all; word-wrap:break-all;">
@@ -53,6 +74,7 @@
                                 <th width="60">访问数</th>
                                 <th width="60">评论数</th>
                                 <th width="80">状态</th>
+                                <th width="60">栏目</th>
                                 <th width="60">发布</th>
                                 <th width="180">操作</th>
                             </tr>
@@ -88,9 +110,17 @@
                                     <td>
                                         <#if (article.featured.value = 1)>
                                             <span class="label label-danger">推荐</span>
-                                        </#if>
-                                        <#if (article.weight > 0)>
+                                        <#elseif (article.weight > 0)>
                                             <span class="label label-warning">置顶</span>
+                                        <#else>
+                                            <span>~</span>
+                                        </#if>
+                                    </td>
+                                    <td>
+                                        <#if (article.channel != null)>
+                                            <span>${article.channel.name}</span>
+                                        <#else>
+                                            <span>~</span>
                                         </#if>
                                     </td>
                                     <td>
@@ -141,15 +171,21 @@
         </div>
     </div>
 </section>
+
 <script type="text/javascript">
 var J = jQuery;
+
+function ajaxReload(){
+    $('#qForm').submit();
+}
 
 function ajaxReload(json){
     if(json.code >= 0){
         if(json.message != null && json.message != ''){
 			layer.msg(json.message, {icon: 1});
         }
-        $('#qForm').submit();
+
+        ajaxReload();
     }else{
 		layer.msg(json.message, {icon: 2});
     }
@@ -168,6 +204,24 @@ function doUpdateWeight(id, weight) {
 }
 
 $(function() {
+    // 选中事件
+    $('.selectpicker').on('changed.bs.select',function(e){
+        // 获取到下拉框说所有选中项
+        var checkParam = $('.selectpicker').find('option:selected');
+        // 选中的ID集合
+        var channelIdArrays = [];
+        // 选中的文本值集合
+        var checkText = [];
+        for (var i=0;i<checkParam.length;i++) {
+            channelIdArrays.push(checkParam[i].value);
+        }
+        for (var i=0;i<checkParam.length;i++) {
+            checkText.push(checkParam[i].textContent);
+        }
+
+        $('#channelIds').val(channelIdArrays);
+    });
+
 	// 删除
     $('#dataGrid a[rel="delete"]').bind('click', function(){
         var that = $(this);

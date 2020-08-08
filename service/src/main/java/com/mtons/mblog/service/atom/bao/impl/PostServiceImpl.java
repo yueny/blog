@@ -41,6 +41,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -117,12 +118,17 @@ public class PostServiceImpl extends AbstractPlusService<PostBo, Post, PostMappe
 
 	@Override
 	@Deprecated
-	public Page<PostBo> paging4AdminForAuthor(Pageable pageable, int channelId, String title) {
+	public Page<PostBo> paging4AdminForAuthor(Pageable pageable, Set<Integer> channelIds, String title) {
 		Page<Post> page = postRepository.findAll((root, query, builder) -> {
             Predicate predicate = builder.conjunction();
-			if (channelId > Consts.ZERO) {
-				predicate.getExpressions().add(
-						builder.equal(root.get("channelId").as(Integer.class), channelId));
+			if (CollectionUtils.isNotEmpty(channelIds)) {
+				Expression<Integer> channelIdsExp = root.get("channelId");
+				// 往in中添加所有id 实现in 查询
+				predicate.getExpressions().add(channelIdsExp.in(channelIds));
+
+				// 单个数据的查询
+//				predicate.getExpressions().add(
+//						builder.in(root.get("channelId").as(Integer.class), channelId));
 			}
 			if (StringUtils.isNotBlank(title)) {
 				predicate.getExpressions().add(

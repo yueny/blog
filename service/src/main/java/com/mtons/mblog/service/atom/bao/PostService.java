@@ -46,11 +46,20 @@ public interface PostService extends IPlusBizService<PostBo, Post> {
 	 * 
 	 * @param pageable
 	 * @param channelIds 分组Id
+	 * @param excludeChannelIds 排除的查询
 	 */
 	@Cacheable
 	Page<PostBo> pagingForAuthor(Pageable pageable, Set<Integer> channelIds, Set<Integer> excludeChannelIds);
 
-	Page<PostBo> paging4AdminForAuthor(Pageable pageable, int channelId, String title);
+	/**
+	 * 后台系统 分页查询所有文章
+	 *
+	 * @param pageable
+	 * @param channelIds
+	 * @param title
+	 * @return
+	 */
+	Page<PostBo> paging4AdminForAuthor(Pageable pageable, Set<Integer>  channelIds, String title);
 
 	/**
 	 * 查询最近更新 - 按发布时间排序

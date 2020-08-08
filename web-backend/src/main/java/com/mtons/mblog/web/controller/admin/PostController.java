@@ -9,6 +9,7 @@
 */
 package com.mtons.mblog.web.controller.admin;
 
+import com.google.common.base.Splitter;
 import com.google.common.collect.Sets;
 import com.mtons.mblog.base.enums.BlogFeaturedType;
 import com.mtons.mblog.base.consts.Consts;
@@ -34,8 +35,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author langhsu
@@ -57,15 +57,27 @@ public class PostController extends BaseBizController {
 	@RequestMapping("/list")
 	public String list(String title, ModelMap model, HttpServletRequest request) {
 		//long id = ServletRequestUtils.getLongParameter(request, "id", Consts.ZERO);
-		int channelId = ServletRequestUtils.getIntParameter(request, "channelId", Consts.ZERO);
+		String channelIdVal = ServletRequestUtils.getStringParameter(request, "channelIds", "");
+
+		Set<Integer> channelIds = new HashSet<>();
+		if(StringUtils.isNotEmpty(channelIdVal)){
+			Iterable<String> channelIdData = Splitter.on(",").split(channelIdVal);
+			if(channelIdData != null){
+				channelIdData.forEach(data -> {
+					channelIds.add(Integer.valueOf(data));
+				});
+			}
+		}
 
 		Pageable pageable = wrapPageable(Sort.by(Sort.Direction.DESC, "weight", "created"));
-		Page<PostVO> page = postManagerService.paging4Admin(pageable, channelId, title);
+		Page<PostVO> page = postManagerService.paging4Admin(pageable, channelIds, title);
 
 		model.put("page", page);
 		model.put("title", title);
-//		model.put("id", id);
-		model.put("channelId", channelId);
+
+		model.put("channelIdArrays", channelIds);
+		model.put("channelIdVal", channelIdVal);
+
 		model.put("channels", channelService.findRootAll(Consts.IGNORE));
 
 		model.put("featuredTypes", BlogFeaturedType.values());
