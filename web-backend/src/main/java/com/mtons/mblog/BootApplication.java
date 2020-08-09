@@ -20,6 +20,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @ImportResource(locations = { "classpath:/config/cfg-properties.xml",
         "classpath:/config/spring-jpa.xml"
 })
+// 开启定时任务
 @EnableScheduling
 @EnableDiamond
 public class BootApplication {

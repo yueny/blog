@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.model;
+package com.mtons.mblog.vo;
 
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.enums.BlogFeaturedType;

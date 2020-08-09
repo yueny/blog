@@ -64,7 +64,7 @@
                     <span>
 <#--                        <i class="icon-comment"></i>-->
                         <i class="icon-bubble"></i>
-                        <a href="#chat">${view.comments}</a>
+                        <a href="#chat">${view.featureStatisticsPost.comments}</a>
                     </span>
                 </div>
 

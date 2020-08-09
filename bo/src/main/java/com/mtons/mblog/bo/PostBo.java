@@ -60,16 +60,16 @@ public class PostBo extends AbstractMaskBo implements IBo, Serializable {
 
 	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	private Date created;
-
-	/**
-	 * 收藏数（不同用户）
-	 */
-	private int favors;
-
-	/**
-	 * 评论数
-	 */
-	private int comments;
+//
+//	/**
+//	 * 收藏数（不同用户）
+//	 */
+//	private int favors;
+//
+//	/**
+//	 * 评论数
+//	 */
+//	private int comments;
 
 	/**
 	 * 阅读数
@@ -103,6 +103,7 @@ public class PostBo extends AbstractMaskBo implements IBo, Serializable {
 	 */
 	private String thumbnail;
 
+	@Deprecated
 	private UserBO author;
 
 	public String[] getTagsArray() {

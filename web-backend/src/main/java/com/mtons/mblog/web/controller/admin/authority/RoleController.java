@@ -9,7 +9,7 @@ import com.mtons.mblog.base.enums.StatusType;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.bo.PermissionBO;
 import com.mtons.mblog.bo.RoleBO;
-import com.mtons.mblog.model.RolePermissionVO;
+import com.mtons.mblog.vo.RolePermissionVO;
 import com.mtons.mblog.service.atom.bao.PermissionService;
 import com.mtons.mblog.service.atom.bao.RoleService;
 import com.mtons.mblog.service.manager.IMenuRolePermissionManagerService;

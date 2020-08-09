@@ -9,7 +9,7 @@ import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.internal.IUserPassportService;
 import com.mtons.mblog.service.manager.IAccountProfileService;
 import com.mtons.mblog.service.util.ImageUtils;
-import com.mtons.mblog.model.AccountProfile;
+import com.mtons.mblog.vo.AccountProfile;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.service.atom.jpa.SecurityCodeService;
 import com.mtons.mblog.web.controller.BaseBizController;

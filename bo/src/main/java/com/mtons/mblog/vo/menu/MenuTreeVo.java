@@ -1,4 +1,4 @@
-package com.mtons.mblog.model.menu;
+package com.mtons.mblog.vo.menu;
 
 import lombok.Getter;
 import lombok.Setter;

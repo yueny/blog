@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mtons.mblog.base.enums.FuncType;
 import com.mtons.mblog.bo.PermissionBO;
-import com.mtons.mblog.model.PermissionTreeVo;
+import com.mtons.mblog.vo.PermissionTreeVo;
 import com.mtons.mblog.entity.bao.Permission;
 import com.mtons.mblog.dao.mapper.PermissionMapper;
 import com.mtons.mblog.service.atom.bao.MenuService;
@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 

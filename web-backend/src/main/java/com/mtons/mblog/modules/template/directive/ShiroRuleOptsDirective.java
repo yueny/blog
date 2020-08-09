@@ -1,6 +1,6 @@
 package com.mtons.mblog.modules.template.directive;
 
-import com.mtons.mblog.model.AccountProfile;
+import com.mtons.mblog.vo.AccountProfile;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.template.TemplateDirective;
 import com.yueny.rapid.lang.common.enums.YesNoType;

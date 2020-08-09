@@ -1,6 +1,6 @@
 package com.mtons.mblog.web.controller.site;
 
-import com.mtons.mblog.model.PostVO;
+import com.mtons.mblog.vo.PostVO;
 import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.service.util.MarkdownUtils;
 import com.mtons.mblog.bo.DemoBo;

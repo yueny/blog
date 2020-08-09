@@ -155,7 +155,8 @@ public interface PostService extends IPlusBizService<PostBo, Post> {
 	 * 批量删除文章, 且刷新缓存
 	 *
 	 * @param articleBlogIds
-	 * @return 删除的主键列表
+	 *
+	 * @return 删除的主键列表 postIds
 	 */
 	@CacheEvict(allEntries = true)
 	@Deprecated
@@ -168,36 +169,37 @@ public interface PostService extends IPlusBizService<PostBo, Post> {
 	 */
 	@CacheEvict(key = "'view_' + #articleBlogId")
 	void identityViews(String articleBlogId);
-	
-	/**
-	 * 自增评论数
-	 * @param articleBlogId  博文id
-	 */
-	@CacheEvict(key = "'view_' + #articleBlogId")
-	void identityComments(String articleBlogId);
 
-	/**
-	* 自增评论数， 评论数既会增加也会减少
-	*
-	* @param articleBlogId 博文id
-	* @param plus 是否为自增步进。 true为自增步进。
-	*     自增步进（IDENTITY_STEP=1）还是递减（DECREASE_STEP=-1）
-	*/
-	void identityComments(String articleBlogId, boolean plus);
-
-	/**
-	 * 喜欢文章
-	 * @param uid
-	 * @param articleBlogId
-	 */
-	@CacheEvict(key = "'view_' + #articleBlogId")
-	void favor(String uid, String articleBlogId);
-
-	/**
-	 * 取消喜欢文章
-	 * @param uid
-	 * @param articleBlogId
-	 */
-	@CacheEvict(key = "'view_' + #articleBlogId")
-	void unfavor(String uid, String articleBlogId);
+//	/**
+//	 * 自增评论数
+//	 * @param articleBlogId  博文id
+//	 */
+//	@CacheEvict(key = "'view_' + #articleBlogId")
+//	@Deprecated
+//	void identityComments(String articleBlogId);
+//
+//	/**
+//	* 自增评论数， 评论数既会增加也会减少
+//	*
+//	* @param articleBlogId 博文id
+//	* @param plus 是否为自增步进。 true为自增步进。
+//	*     自增步进（IDENTITY_STEP=1）还是递减（DECREASE_STEP=-1）
+//	*/
+//	void identityComments(String articleBlogId, boolean plus);
+//
+//	/**
+//	 * 喜欢文章
+//	 * @param uid
+//	 * @param articleBlogId
+//	 */
+//	@CacheEvict(key = "'view_' + #articleBlogId")
+//	void favor(String uid, String articleBlogId);
+//
+//	/**
+//	 * 取消喜欢文章
+//	 * @param uid
+//	 * @param articleBlogId
+//	 */
+//	@CacheEvict(key = "'view_' + #articleBlogId")
+//	void unfavor(String uid, String articleBlogId);
 }

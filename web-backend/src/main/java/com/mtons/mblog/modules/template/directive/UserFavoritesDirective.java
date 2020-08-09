@@ -3,10 +3,10 @@
  */
 package com.mtons.mblog.modules.template.directive;
 
-import com.mtons.mblog.bo.FavoriteVO;
+import com.mtons.mblog.service.manager.IFavoriteManagerService;
+import com.mtons.mblog.vo.FavoriteVO;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.service.atom.bao.UserService;
-import com.mtons.mblog.service.atom.jpa.FavoriteService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.template.TemplateDirective;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserFavoritesDirective extends TemplateDirective {
     @Autowired
-	private FavoriteService favoriteService;
+	private IFavoriteManagerService favoriteManagerService;
     @Autowired
     private UserService userService;
 
@@ -39,7 +39,7 @@ public class UserFavoritesDirective extends TemplateDirective {
         Pageable pageable = wrapPageable(handler);
 
         UserBO userBO = userService.find(userId);
-        Page<FavoriteVO> result = favoriteService.pagingByUserId(pageable, userBO.getUid());
+        Page<FavoriteVO> result = favoriteManagerService.findByUserId(pageable, userBO.getUid());
         handler.put(RESULTS, result).render();
     }
 

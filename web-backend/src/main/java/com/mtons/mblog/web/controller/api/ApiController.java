@@ -15,7 +15,7 @@ import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.bo.CommentBo;
 import com.mtons.mblog.service.atom.bao.CommentService;
 import com.mtons.mblog.service.util.BeanMapUtils;
-import com.mtons.mblog.model.PostVO;
+import com.mtons.mblog.vo.PostVO;
 import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.web.controller.BaseBizController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +51,7 @@ public class ApiController extends BaseBizController {
     public Page<PostVO> posts(HttpServletRequest request) {
         String order = ServletRequestUtils.getStringParameter(request, "order", Consts.order.NEWEST);
         int channelId = ServletRequestUtils.getIntParameter(request, "channelId", 0);
-        return postManagerService.paging(wrapPageable(Sort.by(Sort.Direction.DESC, BeanMapUtils.postOrder(order))), Sets.newHashSet(channelId), null);
+        return postManagerService.findByPaging(wrapPageable(Sort.by(Sort.Direction.DESC, BeanMapUtils.postOrder(order))), Sets.newHashSet(channelId), null);
     }
 
     /**

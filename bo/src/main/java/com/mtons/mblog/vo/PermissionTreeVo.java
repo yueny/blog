@@ -1,7 +1,6 @@
-package com.mtons.mblog.model;
+package com.mtons.mblog.vo;
 
 import com.mtons.mblog.bo.PermissionBO;
-import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
 import lombok.Getter;
 import lombok.Setter;
 

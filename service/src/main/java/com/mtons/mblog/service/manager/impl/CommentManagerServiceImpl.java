@@ -3,9 +3,8 @@ package com.mtons.mblog.service.manager.impl;
 import com.mtons.mblog.bo.CommentBo;
 import com.mtons.mblog.service.BaseService;
 import com.mtons.mblog.service.atom.bao.CommentService;
-import com.mtons.mblog.service.atom.bao.PostService;
+import com.mtons.mblog.service.atom.bao.FeatureStatisticsPostAtomService;
 import com.mtons.mblog.service.manager.ICommentManagerService;
-import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.service.watcher.executor.UserEventExecutor;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +23,11 @@ import java.util.Set;
 @Service
 public class CommentManagerServiceImpl extends BaseService implements ICommentManagerService {
     @Autowired
-    private PostManagerService postManagerService;
-    @Autowired
-    private PostService postService;
-    @Autowired
     private CommentService commentService;
     @Autowired
     private UserEventExecutor userEventExecutor;
+    @Autowired
+    private FeatureStatisticsPostAtomService featureStatisticsPostAtomService;
 
     @Override
     @Transactional
@@ -44,7 +41,7 @@ public class CommentManagerServiceImpl extends BaseService implements ICommentMa
                 // 评论删除后， 重置该用户的博文评论总数
                 userEventExecutor.identityComment(bo.getUid(), false);
                 // 博文删除后， 重新统计评论所在文章的评论总数
-                postService.identityComments(bo.getArticleBlogId(), false);
+                featureStatisticsPostAtomService.identityComments(bo.getId(), bo.getUid(), false);
             });
         }
 
@@ -60,7 +57,7 @@ public class CommentManagerServiceImpl extends BaseService implements ICommentMa
         // 评论删除后， 重置该用户的博文评论总数
         userEventExecutor.identityComment(uid, false);
         // 博文删除后， 重新统计评论所在文章的评论总数
-        postService.identityComments(commentBo.getArticleBlogId(), false);
+        featureStatisticsPostAtomService.identityComments(commentBo.getPostId(), commentBo.getUid(), false);
 
         commentService.delete(id, uid);
     }
@@ -76,7 +73,7 @@ public class CommentManagerServiceImpl extends BaseService implements ICommentMa
                 uids.add(commentBo.getUid());
 
                 // 博文删除后， 重新统计评论所在文章的评论总数
-                postService.identityComments(commentBo.getArticleBlogId(), false);
+                featureStatisticsPostAtomService.identityComments(commentBo.getPostId(), commentBo.getUid(), false);
             });
 
             // 评论删除后， 重置该用户的博文评论总数

@@ -6,7 +6,7 @@ package com.mtons.mblog.web.controller.site.auth;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.consts.StorageConsts;
-import com.mtons.mblog.model.AccountProfile;
+import com.mtons.mblog.vo.AccountProfile;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.service.atom.jpa.SecurityCodeService;
 import com.mtons.mblog.service.manager.IUserManagerService;

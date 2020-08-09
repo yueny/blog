@@ -1,7 +1,7 @@
 package com.mtons.mblog.modules.hook.interceptor.impl;
 
-import com.mtons.mblog.model.AccountProfile;
-import com.mtons.mblog.model.PostVO;
+import com.mtons.mblog.vo.AccountProfile;
+import com.mtons.mblog.vo.PostVO;
 import com.mtons.mblog.modules.hook.interceptor.InterceptorHookSupport;
 import com.mtons.mblog.service.atom.bao.CommentService;
 import com.mtons.mblog.web.controller.site.ChannelController;
@@ -72,7 +72,7 @@ public class HidenContentPugin extends InterceptorHookSupport {
             if (profile.getId() == userId) {
                 return false;
             }
-            return commentService.countByAuthorIdAndPostId(profile.getId(), id) <= 0;
+            return commentService.countBy(profile.getId(), id) <= 0;
         }
         return true;
     }

@@ -7,12 +7,11 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.model;
+package com.mtons.mblog.vo;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.mtons.mblog.base.enums.NeedChangeType;
 import com.mtons.mblog.bo.ResourceBO;
-import com.mtons.mblog.bo.RoleBO;
 import com.mtons.mblog.bo.UserBO;
 import lombok.Getter;
 import lombok.Setter;

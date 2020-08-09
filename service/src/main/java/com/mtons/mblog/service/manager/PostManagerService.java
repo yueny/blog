@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.service.manager;
 
-import com.mtons.mblog.model.PostVO;
+import com.mtons.mblog.vo.PostVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -26,7 +26,7 @@ public interface PostManagerService {
 	 * @param pageable
 	 * @param channelIds 分组Id
 	 */
-	Page<PostVO> paging(Pageable pageable, Set<Integer> channelIds, Set<Integer> excludeChannelIds);
+	Page<PostVO> findByPaging(Pageable pageable, Set<Integer> channelIds, Set<Integer> excludeChannelIds);
 
 	/**
 	 * 后台系统 分页查询所有文章
@@ -36,7 +36,7 @@ public interface PostManagerService {
 	 * @param title
 	 * @return
 	 */
-	Page<PostVO> paging4Admin(Pageable pageable, Set<Integer> channelIds, String title);
+	Page<PostVO> findByPaging4Admin(Pageable pageable, Set<Integer> channelIds, String title);
 	
 //	/**
 //	 * 查询个人发布文章

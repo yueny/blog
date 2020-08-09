@@ -14,8 +14,8 @@ import com.google.common.collect.Sets;
 import com.mtons.mblog.base.enums.BlogFeaturedType;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.lang.Result;
-import com.mtons.mblog.model.AccountProfile;
-import com.mtons.mblog.model.PostVO;
+import com.mtons.mblog.vo.AccountProfile;
+import com.mtons.mblog.vo.PostVO;
 import com.mtons.mblog.service.atom.jpa.ChannelService;
 import com.mtons.mblog.service.atom.bao.PostService;
 import com.mtons.mblog.service.manager.PostManagerService;
@@ -70,7 +70,7 @@ public class PostController extends BaseBizController {
 		}
 
 		Pageable pageable = wrapPageable(Sort.by(Sort.Direction.DESC, "weight", "created"));
-		Page<PostVO> page = postManagerService.paging4Admin(pageable, channelIds, title);
+		Page<PostVO> page = postManagerService.findByPaging4Admin(pageable, channelIds, title);
 
 		model.put("page", page);
 		model.put("title", title);

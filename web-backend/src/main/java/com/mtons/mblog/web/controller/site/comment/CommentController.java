@@ -8,7 +8,7 @@ import com.mtons.mblog.base.enums.AuthoredType;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.bo.CommentBo;
 import com.mtons.mblog.modules.comp.ISiteOptionsGetService;
-import com.mtons.mblog.model.AccountProfile;
+import com.mtons.mblog.vo.AccountProfile;
 import com.mtons.mblog.bo.PostBo;
 import com.mtons.mblog.service.atom.bao.CommentService;
 import com.mtons.mblog.service.manager.ICommentManagerService;

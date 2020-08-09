@@ -5,7 +5,7 @@ import com.mtons.mblog.service.internal.ICacheService;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.consts.options.OptionsKeysConsts;
 import com.mtons.mblog.base.lang.Result;
-import com.mtons.mblog.model.AccountProfile;
+import com.mtons.mblog.vo.AccountProfile;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.modules.comp.MailService;
 import com.mtons.mblog.service.atom.jpa.SecurityCodeService;

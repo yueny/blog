@@ -14,15 +14,20 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 异步任务使用的线程信息定义
+ *
+ * @Async(value = "taskJobExecutor")
+ *
  * @Author yueny09 <deep_blue_yang@163.com>
  * @Date 2019-07-08 11:18
  */
 @Configuration
+// 启用异步任务
 @EnableAsync
-public class AsyncTaskConfig {
+public class SpringAsyncTaskConfig {
     @Bean
     public ListeningExecutorService taskJobExecutor() {
-        NamedThreadFactory threadFactory = new NamedThreadFactory("task-pool");
+        NamedThreadFactory threadFactory = new NamedThreadFactory("biz-task-pool");
 
         ExecutorService es = new MonitorThreadPoolExecutor(2, 8,
                 60L, TimeUnit.MILLISECONDS,

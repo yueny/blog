@@ -4,7 +4,7 @@ import com.mtons.mblog.service.AbstractService;
 import com.mtons.mblog.service.manager.ICommentManagerService;
 import com.mtons.mblog.service.watcher.event.PostUpdateEvent;
 import com.mtons.mblog.service.atom.bao.CommentService;
-import com.mtons.mblog.service.atom.jpa.FavoriteService;
+import com.mtons.mblog.service.atom.bao.IFavoriteService;
 import com.mtons.mblog.service.atom.jpa.MessageService;
 import com.mtons.mblog.service.atom.bao.TagService;
 import com.mtons.mblog.base.enums.watcher.PostUpdateType;
@@ -29,7 +29,7 @@ public class PostUpdateEventHandler extends AbstractService
     @Autowired
     private UserEventExecutor userEventExecutor;
     @Autowired
-    private FavoriteService favoriteService;
+    private IFavoriteService favoriteService;
     @Autowired
     private CommentService commentService;
     @Autowired

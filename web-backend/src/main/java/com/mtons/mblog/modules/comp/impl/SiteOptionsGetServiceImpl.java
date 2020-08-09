@@ -11,7 +11,7 @@ package com.mtons.mblog.modules.comp.impl;
 
 import com.mtons.mblog.service.configuration.site.SiteOptionsConfiguration;
 import com.mtons.mblog.modules.comp.ISiteOptionsGetService;
-import com.mtons.mblog.model.SiteOptionsControlsVO;
+import com.mtons.mblog.vo.SiteOptionsControlsVO;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

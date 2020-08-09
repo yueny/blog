@@ -11,7 +11,7 @@ package com.mtons.mblog.web.controller.site.user;
 
 import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.exception.MtonsException;
-import com.mtons.mblog.model.AccountProfile;
+import com.mtons.mblog.vo.AccountProfile;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.service.atom.jpa.MessageService;
 import com.mtons.mblog.service.manager.IAccountProfileService;

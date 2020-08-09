@@ -222,13 +222,20 @@ public class CommentServiceImpl extends AbstractPlusService<CommentBo, Comment, 
 	}
 
 	@Override
-	public int countByAuthorIdAndPostId(long authorId, long toId) {
+	public int countBy(long authorId, long postId) {
 		LambdaQueryWrapper<Comment> queryWrapper = new QueryWrapper<Comment>().lambda();
 		queryWrapper.eq(Comment::getAuthorId, authorId);
-		queryWrapper.eq(Comment::getPostId, toId);
+		queryWrapper.eq(Comment::getPostId, postId);
 
 		return count(queryWrapper);
-//		return commentRepository.countByAuthorIdAndPostId(authorId, toId);
+	}
+
+	@Override
+	public int countBy(long postId) {
+		LambdaQueryWrapper<Comment> queryWrapper = new QueryWrapper<Comment>().lambda();
+		queryWrapper.eq(Comment::getPostId, postId);
+
+		return count(queryWrapper);
 	}
 
 	private void buildUsers(Collection<CommentBo> comments, Set<Long> authorIds) {

@@ -15,7 +15,7 @@ import com.mtons.mblog.service.storage.StorageFactory;
 import com.mtons.mblog.service.storage.NailPathData;
 import com.mtons.mblog.service.storage.NailType;
 import com.mtons.mblog.service.util.file.FileKit;
-import com.mtons.mblog.model.AccountProfile;
+import com.mtons.mblog.vo.AccountProfile;
 import com.mtons.mblog.web.controller.BaseBizController;
 import lombok.Getter;
 import lombok.Setter;

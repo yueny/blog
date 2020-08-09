@@ -12,7 +12,7 @@ package com.mtons.mblog.web.controller.admin;
 import com.mtons.mblog.base.enums.StatusType;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.bo.UserBO;
-import com.mtons.mblog.model.UserVO;
+import com.mtons.mblog.vo.UserVO;
 import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.atom.bao.RoleService;
 import com.mtons.mblog.service.atom.bao.UserRoleService;

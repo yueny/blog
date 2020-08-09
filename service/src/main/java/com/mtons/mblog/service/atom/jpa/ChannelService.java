@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.service.atom.jpa;
 
-import com.mtons.mblog.model.ChannelTreeVO;
+import com.mtons.mblog.vo.ChannelTreeVO;
 import com.mtons.mblog.bo.ChannelVO;
 
 import java.util.Collection;

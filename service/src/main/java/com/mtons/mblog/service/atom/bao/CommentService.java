@@ -80,5 +80,20 @@ public interface CommentService extends IPlusBizService<CommentBo, Comment> {
 	 */
 	void deleteByPostId(String articleBlogId);
 
-	int countByAuthorIdAndPostId(long authorId, long postId);
+	/**
+	 * 根据条件统计该用户的该博文留言数
+	 *
+	 * @param authorId
+	 * @param postId
+	 * @return
+	 */
+	int countBy(long authorId, long postId);
+
+	/**
+	 * 根据条件统计该博文的留言数
+	 *
+	 * @param postId
+	 * @return
+	 */
+	int countBy(long postId);
 }

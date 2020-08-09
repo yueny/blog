@@ -1,6 +1,6 @@
 package com.mtons.mblog.shiro;
 
-import com.mtons.mblog.model.AccountProfile;
+import com.mtons.mblog.vo.AccountProfile;
 import com.mtons.mblog.service.atom.jpa.UserJpaService;
 import com.mtons.mblog.service.manager.IAccountProfileService;
 import lombok.extern.slf4j.Slf4j;

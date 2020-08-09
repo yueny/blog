@@ -7,12 +7,9 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.model;
+package com.mtons.mblog.vo;
 
-import com.mtons.mblog.bo.ChannelVO;
-import com.mtons.mblog.bo.PostBo;
-import com.mtons.mblog.bo.ResourceBO;
-import com.mtons.mblog.bo.TagBO;
+import com.mtons.mblog.bo.*;
 import com.yueny.superclub.api.pojo.IBo;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,8 +24,15 @@ import java.util.List;
 @Getter
 @Setter
 public class PostVO extends PostBo implements IBo {
-	// 扩展
+	/**
+	 * 图片资源
+	 */
 	private ResourceBO resource;
+
+	/**
+	 * 博文特征表
+	 */
+	private FeatureStatisticsPostBo featureStatisticsPost;
 
 	private ChannelVO channel;
 
@@ -37,6 +41,10 @@ public class PostVO extends PostBo implements IBo {
 //	 */
 //	private List<TagBO> tagsList = new ArrayList<>();
 
+
+// ############################
+// ######### PostAttribute 数据
+// ############################
 	/**
 	 * 编辑器
 	 */
@@ -45,12 +53,5 @@ public class PostVO extends PostBo implements IBo {
 	 * 内容
 	 */
 	private String content;
-
-//	/**
-//	 * editor和content已在上面赋值， 此处注释
-//	 */
-//	@JSONField(serialize = false)
-//	private PostAttribute attribute;
-
 
 }

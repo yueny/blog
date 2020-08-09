@@ -6,6 +6,7 @@ package com.mtons.mblog.modules.template.directive;
 import com.google.common.collect.Sets;
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.enums.StatusType;
+import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.service.util.BeanMapUtils;
 import com.mtons.mblog.bo.ChannelVO;
 import com.mtons.mblog.bo.PostBo;
@@ -13,6 +14,7 @@ import com.mtons.mblog.service.atom.bao.PostService;
 import com.mtons.mblog.service.atom.jpa.ChannelService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.template.TemplateDirective;
+import com.mtons.mblog.vo.PostVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,6 +44,8 @@ import java.util.Set;
 public class ContentsDirective extends TemplateDirective {
     @Autowired
     private PostService postService;
+    @Autowired
+    private PostManagerService postManagerService;
     @Autowired
     private ChannelService channelService;
 
@@ -74,7 +78,9 @@ public class ContentsDirective extends TemplateDirective {
         }
 
         Pageable pageable = wrapPageable(handler, Sort.by(Sort.Direction.DESC, BeanMapUtils.postOrder(order)));
-        Page<PostBo> result = postService.pagingForAuthor(pageable, channelIds, excludeChannelIds);
-        handler.put(RESULTS, result).render();
+
+//        Page<PostBo> result = postService.pagingForAuthor(pageable, channelIds, excludeChannelIds);
+        Page<PostVO> resultVos = postManagerService.findByPaging(pageable, channelIds, excludeChannelIds);
+        handler.put(RESULTS, resultVos).render();
     }
 }

@@ -1,4 +1,4 @@
-package com.mtons.mblog.model;
+package com.mtons.mblog.vo;
 
 import com.mtons.mblog.bo.MenuBo;
 import com.mtons.mblog.bo.PermissionBO;

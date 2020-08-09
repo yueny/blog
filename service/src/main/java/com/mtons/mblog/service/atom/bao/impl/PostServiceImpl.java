@@ -11,7 +11,6 @@ package com.mtons.mblog.service.atom.bao.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -21,6 +20,7 @@ import com.mtons.mblog.base.enums.StatusType;
 import com.mtons.mblog.bo.ResourceBO;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.dao.mapper.PostMapper;
+import com.mtons.mblog.service.atom.bao.IFavoriteService;
 import com.mtons.mblog.service.atom.bao.ResourceService;
 import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.atom.jpa.*;
@@ -60,7 +60,7 @@ public class PostServiceImpl extends AbstractPlusService<PostBo, Post, PostMappe
 	@Autowired
 	private UserService userService;
 	@Autowired
-	private FavoriteService favoriteService;
+	private IFavoriteService favoriteService;
 	@Autowired
 	private ChannelService channelService;
 	@Autowired
@@ -134,6 +134,7 @@ public class PostServiceImpl extends AbstractPlusService<PostBo, Post, PostMappe
 				predicate.getExpressions().add(
 						builder.like(root.get("title").as(String.class), "%" + title + "%"));
 			}
+
             return predicate;
         }, pageable);
 
@@ -334,37 +335,37 @@ public class PostServiceImpl extends AbstractPlusService<PostBo, Post, PostMappe
 		baseMapper.updateViews(articleBlogId, Consts.IDENTITY_STEP);
 	}
 
-	@Override
-	@Transactional
-	public void identityComments(String articleBlogId) {
-		identityComments(articleBlogId, true);
-	}
+//	@Override
+//	@Transactional
+//	public void identityComments(String articleBlogId) {
+//		identityComments(articleBlogId, true);
+//	}
 
-	@Override
-	public void identityComments(String articleBlogId, boolean plus) {
-		if(plus){
-			baseMapper.updateComments(articleBlogId, Consts.IDENTITY_STEP);
-		}else{
-			// 减
-			baseMapper.updateComments(articleBlogId, Consts.DECREASE_STEP);
-		}
-	}
+//	@Override
+//	public void identityComments(String articleBlogId, boolean plus) {
+////		if(plus){
+////			baseMapper.updateComments(articleBlogId, Consts.IDENTITY_STEP);
+////		}else{
+////			// 减
+////			baseMapper.updateComments(articleBlogId, Consts.DECREASE_STEP);
+////		}
+//	}
 
-	@Override
-	@Transactional
-	public void favor(String uid, String articleBlogId) {
-		baseMapper.updateFavors(articleBlogId, Consts.IDENTITY_STEP);
-
-		favoriteService.add(uid, articleBlogId);
-	}
-
-	@Override
-	@Transactional
-	public void unfavor(String uid, String articleBlogId) {
-		baseMapper.updateFavors(articleBlogId,  Consts.DECREASE_STEP);
-
-		favoriteService.delete(uid, articleBlogId);
-	}
+//	@Override
+//	@Transactional
+//	public void favor(String uid, String articleBlogId) {
+//		baseMapper.updateFavors(articleBlogId, Consts.IDENTITY_STEP);
+//
+//		favoriteService.add(uid, articleBlogId);
+//	}
+//
+//	@Override
+//	@Transactional
+//	public void unfavor(String uid, String articleBlogId) {
+//		baseMapper.updateFavors(articleBlogId,  Consts.DECREASE_STEP);
+//
+//		favoriteService.delete(uid, articleBlogId);
+//	}
 
 	@Override
 	@PostStatusFilter

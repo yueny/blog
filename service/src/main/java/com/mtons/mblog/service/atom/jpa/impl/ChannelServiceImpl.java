@@ -10,7 +10,7 @@
 package com.mtons.mblog.service.atom.jpa.impl;
 
 import com.mtons.mblog.base.consts.Consts;
-import com.mtons.mblog.model.ChannelTreeVO;
+import com.mtons.mblog.vo.ChannelTreeVO;
 import com.mtons.mblog.bo.ChannelVO;
 import com.mtons.mblog.bo.ResourceBO;
 import com.mtons.mblog.dao.repository.ChannelRepository;

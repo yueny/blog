@@ -11,7 +11,7 @@ package com.mtons.mblog.web.controller;
 
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.service.ability.ISiteOptionsAbilityService;
-import com.mtons.mblog.model.AccountProfile;
+import com.mtons.mblog.vo.AccountProfile;
 import com.mtons.mblog.service.configuration.site.SiteOptionsConfiguration;
 import com.mtons.mblog.service.manager.IUserManagerService;
 import com.mtons.mblog.service.util.PageHelper;

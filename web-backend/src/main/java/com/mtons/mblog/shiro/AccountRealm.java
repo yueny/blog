@@ -1,9 +1,9 @@
 package com.mtons.mblog.shiro;
 
 import com.mtons.mblog.base.enums.StatusType;
-import com.mtons.mblog.model.AccountProfile;
+import com.mtons.mblog.vo.AccountProfile;
 import com.mtons.mblog.bo.UserBO;
-import com.mtons.mblog.model.RolePermissionVO;
+import com.mtons.mblog.vo.RolePermissionVO;
 import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.atom.bao.UserRoleService;
 import com.mtons.mblog.service.atom.jpa.UserJpaService;

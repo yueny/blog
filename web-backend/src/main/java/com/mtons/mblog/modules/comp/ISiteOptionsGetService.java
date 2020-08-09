@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.modules.comp;
 
-import com.mtons.mblog.model.SiteOptionsControlsVO;
+import com.mtons.mblog.vo.SiteOptionsControlsVO;
 
 /**
  * 配置获取

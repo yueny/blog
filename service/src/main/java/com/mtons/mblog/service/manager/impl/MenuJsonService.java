@@ -1,7 +1,7 @@
 package com.mtons.mblog.service.manager.impl;
 
 import com.alibaba.fastjson.JSONArray;
-import com.mtons.mblog.model.menu.MenuTreeVo;
+import com.mtons.mblog.vo.menu.MenuTreeVo;
 import com.mtons.mblog.service.BaseService;
 import com.mtons.mblog.service.manager.IMenuJsonService;
 import com.mtons.mblog.service.manager.IMenuRolePermissionManagerService;

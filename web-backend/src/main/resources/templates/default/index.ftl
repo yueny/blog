@@ -44,7 +44,7 @@
                 <#list results.content as row>
                     <li class="list-group-item media col-md-6" style="margin-top: 0px;">
                         <a class="reply_last_time hidden-xs meta" href="${base}/article/${row.articleBlogId}.html">
-                            <span class="stress">${row.views}</span> 浏览<span> ⋅ </span>${row.comments} 回复
+                            <span class="stress">${row.views}</span> 浏览<span> ⋅ </span>${row.featureStatisticsPost.comments?if_exists} 回复
                         </a>
 
                         <div class="avatar pull-left">

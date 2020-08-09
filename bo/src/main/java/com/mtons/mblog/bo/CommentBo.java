@@ -40,7 +40,6 @@ public class CommentBo extends AbstractMaskBo implements IBo, Serializable {
 	/**
 	 * 所属博文的ID
 	 */
-	@Deprecated
 	private long postId;
 	/**
 	 * 文章扩展ID

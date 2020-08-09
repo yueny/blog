@@ -1,6 +1,6 @@
 package com.mtons.mblog.config;
 
-import com.mtons.mblog.model.MenuVo;
+import com.mtons.mblog.vo.MenuVo;
 import com.mtons.mblog.service.manager.IMenuRolePermissionManagerService;
 import com.mtons.mblog.shiro.AccountRealm;
 import com.mtons.mblog.shiro.AccountSubjectFactory;

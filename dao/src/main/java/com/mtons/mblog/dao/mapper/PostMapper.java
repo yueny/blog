@@ -53,16 +53,16 @@ public interface PostMapper extends BaseMapper<Post> {
     @Update("update mto_post set views = views + #{increment} where article_blog_id = #{articleBlogId}")
     void updateViews(@Param("articleBlogId") String articleBlogId, @Param("increment") int increment);
 
-    /**
-     * 喜欢文章
-     */
-    @Update("update mto_post set favors = favors + #{increment} where article_blog_id = #{articleBlogId}")
-    void updateFavors(@Param("articleBlogId") String articleBlogId, @Param("increment") int increment);
+//    /**
+//     * 喜欢文章
+//     */
+//    @Update("update mto_post set favors = favors + #{increment} where article_blog_id = #{articleBlogId}")
+//    void updateFavors(@Param("articleBlogId") String articleBlogId, @Param("increment") int increment);
 
-    /**
-     * 自增评论数
-     */
-    @Update("update mto_post set comments = comments + #{increment} where article_blog_id = #{articleBlogId}")
-    void updateComments(@Param("articleBlogId") String articleBlogId, @Param("increment") int increment);
+//    /**
+//     * 自增评论数
+//     */
+//    @Update("update mto_post set comments = comments + #{increment} where article_blog_id = #{articleBlogId}")
+//    void updateComments(@Param("articleBlogId") String articleBlogId, @Param("increment") int increment);
 
 }

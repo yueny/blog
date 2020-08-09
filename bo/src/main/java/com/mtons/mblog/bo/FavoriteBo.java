@@ -1,20 +1,15 @@
 package com.mtons.mblog.bo;
 
-import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
 import com.yueny.superclub.api.pojo.IBo;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
-import java.util.Date;
-
 /**
- * @author langhsu on 2015/8/31.
+ * 收藏记录
  */
 @Getter
 @Setter
-public class FavoriteVO extends AbstractMaskBo implements IBo, Serializable {
-    private long id;
+public class FavoriteBo extends AbstractBo implements IBo {
 
     /**
      * 所属用户
@@ -33,10 +28,4 @@ public class FavoriteVO extends AbstractMaskBo implements IBo, Serializable {
      * 文章扩展ID
      */
     private String articleBlogId;
-
-    private Date created;
-
-
-    // extend
-    private PostBo post;
 }

@@ -10,8 +10,8 @@
 package com.mtons.mblog.service.manager;
 
 import com.mtons.mblog.bo.UserBO;
-import com.mtons.mblog.model.RolePermissionVO;
-import com.mtons.mblog.model.UserVO;
+import com.mtons.mblog.vo.RolePermissionVO;
+import com.mtons.mblog.vo.UserVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

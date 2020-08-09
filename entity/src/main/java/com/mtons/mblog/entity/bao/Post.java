@@ -111,16 +111,16 @@ public class Post extends com.yueny.kapo.api.pojo.instance.Entity //extends Abst
 	@Field
 	@Column(name = "uid")
 	private String uid;
+//
+//	/**
+//	 * 收藏数
+//	 */
+//	private int favors;
 
-	/**
-	 * 收藏数
-	 */
-	private int favors;
-
-	/**
-	 * 评论数
-	 */
-	private int comments;
+//	/**
+//	 * 评论数
+//	 */
+//	private int comments;
 
 	/**
 	 * 阅读次数

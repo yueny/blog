@@ -32,7 +32,7 @@
                         <li class="ico-time" title="${datetimeMinute(row.created)}"><i class="icon-clock"></i>${timeAgo(row.created)}</li>
                         <li class="ico-eye hidden-xs"><i class="icon-book-open"></i>${row.views}</li>
                         <#-- 评论数 -->
-                        <li class="ico-like hidden-xs"><i class="icon-bubble"></i>${row.comments}</li>
+                        <li class="ico-like hidden-xs"><i class="icon-bubble"></i>${row.featureStatisticsPost.comments?if_exists}</li>
                     </ul>
                 </div>
 
@@ -63,7 +63,7 @@
                         <li class="ico-cat"><@utils.showChannel row/></li>
                         <li class="ico-time" title="${datetimeMinute(row.created)}"><i class="icon-clock"></i>${timeAgo(row.created)}</li>
                         <li class="ico-eye hidden-xs"><i class="icon-book-open"></i>${row.views}</li>
-                        <li class="ico-like hidden-xs"><i class="icon-bubble"></i>${row.comments}</li>
+                        <li class="ico-like hidden-xs"><i class="icon-bubble"></i>${row.featureStatisticsPost.comments?if_exists}</li>
                     </ul>
                 </div>
 

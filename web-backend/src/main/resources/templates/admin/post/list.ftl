@@ -103,24 +103,28 @@
                                     </td>
                                     <td>
                                         <span class="label label-default
-                                            <#if (article.comments > 0)>bg-green</#if>">
-                                            ${article.comments}
+                                            <#if (article.featureStatisticsPost.comments > 0)>bg-green</#if>">
+                                            ${article.featureStatisticsPost.comments}
                                         </span>
                                     </td>
                                     <td>
                                         <#if (article.featured.value = 1)>
                                             <span class="label label-danger">推荐</span>
-                                        <#elseif (article.weight > 0)>
+                                        <#else>
+                                            <span> </span>
+                                        </#if>
+
+                                        <#if (article.weight > 0)>
                                             <span class="label label-warning">置顶</span>
                                         <#else>
-                                            <span>~</span>
+                                            <span> </span>
                                         </#if>
                                     </td>
                                     <td>
                                         <#if (article.channel != null)>
                                             <span>${article.channel.name}</span>
                                         <#else>
-                                            <span>~</span>
+                                            <span> </span>
                                         </#if>
                                     </td>
                                     <td>
@@ -175,17 +179,13 @@
 <script type="text/javascript">
 var J = jQuery;
 
-function ajaxReload(){
-    $('#qForm').submit();
-}
-
 function ajaxReload(json){
     if(json.code >= 0){
         if(json.message != null && json.message != ''){
 			layer.msg(json.message, {icon: 1});
         }
 
-        ajaxReload();
+        $('#qForm').submit();
     }else{
 		layer.msg(json.message, {icon: 2});
     }

@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.model;
+package com.mtons.mblog.vo;
 
 import com.yueny.superclub.api.pojo.IBo;
 import lombok.*;

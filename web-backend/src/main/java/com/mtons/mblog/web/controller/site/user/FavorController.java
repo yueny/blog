@@ -2,8 +2,9 @@ package com.mtons.mblog.web.controller.site.user;
 
 import com.mtons.mblog.base.enums.watcher.MessageActionType;
 import com.mtons.mblog.base.lang.Result;
-import com.mtons.mblog.model.AccountProfile;
+import com.mtons.mblog.vo.AccountProfile;
 import com.mtons.mblog.bo.PostBo;
+import com.mtons.mblog.service.atom.bao.FeatureStatisticsPostAtomService;
 import com.mtons.mblog.service.watcher.event.BlogMessageEvent;
 import com.mtons.mblog.service.atom.bao.PostService;
 import com.mtons.mblog.web.controller.BaseBizController;
@@ -22,6 +23,8 @@ public class FavorController extends BaseBizController {
     @Autowired
     private PostService postService;
     @Autowired
+    private FeatureStatisticsPostAtomService featureStatisticsPostAtomService;
+    @Autowired
     private ApplicationContext applicationContext;
 
     /**
@@ -35,7 +38,9 @@ public class FavorController extends BaseBizController {
         if (StringUtils.isNotEmpty(articleBlogId)) {
             try {
                 AccountProfile up = getProfile();
-                postService.favor(up.getUid(), articleBlogId);
+
+                PostBo postBo = postService.getByArticleBlogId(articleBlogId);
+                featureStatisticsPostAtomService.favor(postBo.getId(), up.getUid());
 
                 PostBo postBO = postService.getForAuthor(articleBlogId);
                 publicMessage(up.getUid(), postBO.getId(), articleBlogId);
@@ -60,7 +65,9 @@ public class FavorController extends BaseBizController {
         if (StringUtils.isNotEmpty(articleBlogId)) {
             try {
                 AccountProfile up = getProfile();
-                postService.unfavor(up.getUid(), articleBlogId);
+
+                PostBo postBo = postService.getByArticleBlogId(articleBlogId);
+                featureStatisticsPostAtomService.unfavor(postBo.getId(), up.getUid());
                 data = Result.success();
             } catch (Exception e) {
                 data = Result.failure(e.getMessage());

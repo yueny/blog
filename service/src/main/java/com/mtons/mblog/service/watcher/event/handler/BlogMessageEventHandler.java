@@ -6,6 +6,7 @@ import com.mtons.mblog.bo.MessageVO;
 import com.mtons.mblog.bo.PostBo;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.service.AbstractService;
+import com.mtons.mblog.service.atom.bao.FeatureStatisticsPostAtomService;
 import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.watcher.event.BlogMessageEvent;
 import com.mtons.mblog.service.atom.jpa.MessageService;
@@ -27,6 +28,8 @@ public class BlogMessageEventHandler extends AbstractService
     private PostService postService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private FeatureStatisticsPostAtomService featureStatisticsPostAtomService;
 
     @Async
     @Override
@@ -54,7 +57,7 @@ public class BlogMessageEventHandler extends AbstractService
             nt.setUserId(p2.getAuthorId());
 
             // 自增评论数
-            postService.identityComments(p2.getArticleBlogId());
+            featureStatisticsPostAtomService.identityComments(p2.getId(), p2.getUid());
         }else{
             nt.setUserId(userService.find(event.getToUid()).getId());
         }

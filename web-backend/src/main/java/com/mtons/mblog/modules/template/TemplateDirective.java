@@ -1,7 +1,7 @@
 package com.mtons.mblog.modules.template;
 
 import com.mtons.mblog.base.consts.Consts;
-import com.mtons.mblog.model.AccountProfile;
+import com.mtons.mblog.vo.AccountProfile;
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;

@@ -4,9 +4,9 @@ import com.mtons.mblog.bo.MenuBo;
 import com.mtons.mblog.bo.PermissionBO;
 import com.mtons.mblog.bo.RoleBO;
 import com.mtons.mblog.bo.RolePermissionBo;
-import com.mtons.mblog.model.MenuVo;
-import com.mtons.mblog.model.RolePermissionVO;
-import com.mtons.mblog.model.menu.MenuTreeVo;
+import com.mtons.mblog.vo.MenuVo;
+import com.mtons.mblog.vo.RolePermissionVO;
+import com.mtons.mblog.vo.menu.MenuTreeVo;
 import com.mtons.mblog.service.BaseService;
 import com.mtons.mblog.service.atom.bao.MenuService;
 import com.mtons.mblog.service.atom.bao.PermissionService;
@@ -130,8 +130,8 @@ public class MenuRolePermissionManagerServiceImpl
         }
 
         Map<Long, RolePermissionVO> ret = new LinkedHashMap<>();
-        list.forEach(po -> {
-            RolePermissionVO vo = toVO(po);
+        list.forEach(role -> {
+            RolePermissionVO vo = toVO(role);
             ret.put(vo.getId(), vo);
         });
 
@@ -150,14 +150,15 @@ public class MenuRolePermissionManagerServiceImpl
         return list;
     }
 
-    private RolePermissionVO toVO(RoleBO po) {
-        if(po == null){
+    private RolePermissionVO toVO(RoleBO role) {
+        if(role == null){
             return null;
         }
 
-        RolePermissionVO r = mapAny(po, RolePermissionVO.class);
+        RolePermissionVO rolePermissionVO = mapAny(role, RolePermissionVO.class);
 
-        r.setPermissions(findAllPermByRoleId(r.getId()));
-        return r;
+        // 查询权限
+        rolePermissionVO.setPermissions(findAllPermByRoleId(rolePermissionVO.getId()));
+        return rolePermissionVO;
     }
 }

@@ -1,6 +1,6 @@
 package com.mtons.mblog.service.manager;
 
-import com.mtons.mblog.model.menu.MenuTreeVo;
+import com.mtons.mblog.vo.menu.MenuTreeVo;
 
 import java.util.List;
 

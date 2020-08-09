@@ -1,7 +1,7 @@
 package com.mtons.mblog.modules.template.directive;
 
 import com.mtons.mblog.base.consts.Consts;
-import com.mtons.mblog.model.menu.MenuTreeVo;
+import com.mtons.mblog.vo.menu.MenuTreeVo;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.template.TemplateDirective;
 import com.mtons.mblog.service.manager.impl.MenuJsonService;

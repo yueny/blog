@@ -1,7 +1,7 @@
 package com.mtons.mblog.web.controller.site.auth;
 
 import com.mtons.mblog.base.consts.options.OptionsKeysConsts;
-import com.mtons.mblog.model.UserVO;
+import com.mtons.mblog.vo.UserVO;
 import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.exception.MtonsException;
 import com.mtons.mblog.base.lang.Result;
@@ -13,7 +13,7 @@ import com.mtons.mblog.service.storage.StorageFactory;
 import com.mtons.mblog.service.util.file.FilePathUtils;
 import com.mtons.mblog.service.manager.IUserManagerService;
 import com.mtons.mblog.service.util.ImageUtils;
-import com.mtons.mblog.model.AccountProfile;
+import com.mtons.mblog.vo.AccountProfile;
 import com.mtons.mblog.bo.OpenOauthVO;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.modules.service.OpenOauthService;

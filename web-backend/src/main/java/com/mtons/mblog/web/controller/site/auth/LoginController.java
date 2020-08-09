@@ -10,7 +10,7 @@
 package com.mtons.mblog.web.controller.site.auth;
 
 import com.mtons.mblog.base.lang.Result;
-import com.mtons.mblog.model.AccountProfile;
+import com.mtons.mblog.vo.AccountProfile;
 import com.mtons.mblog.web.controller.BaseBizController;
 import com.mtons.mblog.web.controller.site.Views;
 import org.apache.commons.lang3.StringUtils;

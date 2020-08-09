@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.model;
+package com.mtons.mblog.vo;
 
 import com.mtons.mblog.bo.BadgesCount;
 import com.yueny.rapid.lang.common.enums.YesNoType;

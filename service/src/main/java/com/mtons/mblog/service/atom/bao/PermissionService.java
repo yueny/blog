@@ -2,7 +2,7 @@ package com.mtons.mblog.service.atom.bao;
 
 import com.mtons.mblog.base.enums.FuncType;
 import com.mtons.mblog.bo.PermissionBO;
-import com.mtons.mblog.model.PermissionTreeVo;
+import com.mtons.mblog.vo.PermissionTreeVo;
 import com.mtons.mblog.entity.bao.Permission;
 import com.mtons.mblog.service.core.api.bao.IPlusBizService;
 import org.springframework.data.domain.Page;

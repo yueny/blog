@@ -1,6 +1,6 @@
 package com.mtons.mblog.service.manager;
 
-import com.mtons.mblog.model.AccountProfile;
+import com.mtons.mblog.vo.AccountProfile;
 
 /**
  * AccountProfile 服务

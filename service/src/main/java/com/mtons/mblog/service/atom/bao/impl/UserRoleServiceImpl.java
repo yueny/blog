@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mtons.mblog.bo.UserRoleBo;
 import com.mtons.mblog.dao.mapper.UserRoleMapper;
 import com.mtons.mblog.entity.bao.UserRole;
-import com.mtons.mblog.model.RolePermissionVO;
+import com.mtons.mblog.vo.RolePermissionVO;
 import com.mtons.mblog.service.atom.bao.UserRoleService;
 import com.mtons.mblog.service.manager.IMenuRolePermissionManagerService;
 import org.springframework.beans.factory.annotation.Autowired;

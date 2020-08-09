@@ -1,11 +1,11 @@
 package com.mtons.mblog.web.controller.site;
 
-import com.mtons.mblog.model.PostVO;
+import com.mtons.mblog.service.manager.IFavoriteManagerService;
+import com.mtons.mblog.vo.PostVO;
 import com.mtons.mblog.service.manager.PostManagerService;
 import com.mtons.mblog.service.util.MarkdownUtils;
-import com.mtons.mblog.model.AccountProfile;
-import com.mtons.mblog.bo.FavoriteVO;
-import com.mtons.mblog.service.atom.jpa.FavoriteService;
+import com.mtons.mblog.vo.AccountProfile;
+import com.mtons.mblog.vo.FavoriteVO;
 import com.mtons.mblog.service.atom.bao.PostService;
 import com.mtons.mblog.web.controller.BaseBizController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class ArticleBlogDetailShowActionController extends BaseBizController {
 	@Autowired
 	private PostService postService;
 	@Autowired
-	private FavoriteService favoriteService;
+	private IFavoriteManagerService favoriteManagerService;
 
 	/**
 	 * 查看 html 文章详情
@@ -55,7 +55,7 @@ public class ArticleBlogDetailShowActionController extends BaseBizController {
 
 		AccountProfile accountProfile = getProfile();
 		if(accountProfile != null){
-			FavoriteVO favoriteVO = favoriteService.findByUidAndArticleBlogId(accountProfile.getUid(), articleBlogId);
+			FavoriteVO favoriteVO = favoriteManagerService.findByUid(accountProfile.getUid(), articleBlogId);
 			// 1表示文章已收藏， 0表示未收藏或者未登录无法判断
 			getModel().addAttribute("isFavorite", (favoriteVO != null) ? 1: 0);
 		}else{

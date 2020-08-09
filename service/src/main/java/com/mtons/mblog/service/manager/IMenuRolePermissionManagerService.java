@@ -1,9 +1,9 @@
 package com.mtons.mblog.service.manager;
 
 import com.mtons.mblog.bo.PermissionBO;
-import com.mtons.mblog.model.MenuVo;
-import com.mtons.mblog.model.RolePermissionVO;
-import com.mtons.mblog.model.menu.MenuTreeVo;
+import com.mtons.mblog.vo.MenuVo;
+import com.mtons.mblog.vo.RolePermissionVO;
+import com.mtons.mblog.vo.menu.MenuTreeVo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

@@ -5,9 +5,9 @@ package com.mtons.mblog.web.controller.site.posts;
 
 import com.mtons.mblog.base.consts.Consts;
 import com.mtons.mblog.base.lang.Result;
-import com.mtons.mblog.model.AccountProfile;
+import com.mtons.mblog.vo.AccountProfile;
 import com.mtons.mblog.bo.PostBo;
-import com.mtons.mblog.model.PostVO;
+import com.mtons.mblog.vo.PostVO;
 import com.mtons.mblog.service.atom.jpa.ChannelService;
 import com.mtons.mblog.service.atom.bao.PostService;
 import com.mtons.mblog.service.manager.PostManagerService;

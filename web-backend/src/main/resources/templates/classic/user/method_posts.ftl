@@ -7,7 +7,7 @@
     </div>
     <div class="col-xs-12 col-md-9 side-right">
         <div class="panel panel-default">
-            <div class="panel-heading">发表的文章</div>
+            <div class="panel-heading">发表的文章1</div>
             <@user_contents userId=user.id pageNo=pageNo>
                 <div class="panel-body">
                     <ul class="list-group">
@@ -15,9 +15,9 @@
                             <li class="list-group-item" el="loop-${row.id}">
                                 <a href="${base}/article/${row.articleBlogId}.html" class="remove-padding-left">${row.title}</a>
                                 <span class="meta">
-                                    ${row.favors} 点赞
+                                    ${row.featureStatisticsPost.favors} 1点赞
                                     <span> ⋅ </span>
-                                    ${row.comments} 回复
+                                    ${row.featureStatisticsPost.comments} 1回复
                                     <span> ⋅ </span>
                                     <span class="timeago" title="${datetimeMinute(row.created)}">${timeAgo(row.created)}</span>
                                 </span>
