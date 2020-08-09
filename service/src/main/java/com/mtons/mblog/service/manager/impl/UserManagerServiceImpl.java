@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mtons.mblog.base.consts.EntityStatus;
 import com.mtons.mblog.base.enums.NeedChangeType;
+import com.mtons.mblog.base.enums.StatusType;
 import com.mtons.mblog.bo.ResourceBO;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.bo.UserSecurityBO;
@@ -24,7 +25,6 @@ import com.mtons.mblog.service.atom.bao.IUserSecurityService;
 import com.mtons.mblog.service.atom.bao.ResourceService;
 import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.atom.bao.UserRoleService;
-import com.mtons.mblog.service.atom.jpa.UserJpaService;
 import com.mtons.mblog.service.internal.IPasswdService;
 import com.mtons.mblog.service.manager.IMenuRolePermissionManagerService;
 import com.mtons.mblog.service.manager.IUserManagerService;
@@ -53,8 +53,6 @@ import java.util.*;
 public class UserManagerServiceImpl extends BaseService implements IUserManagerService {
 	@Autowired
     private IUserSecurityService userSecurityService;
-    @Autowired
-    private UserJpaService userJpaService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -100,7 +98,7 @@ public class UserManagerServiceImpl extends BaseService implements IUserManagerS
 
     @Override
     public Page<UserVO> paging(Pageable pageable, String name) {
-        Page<UserBO> page = userJpaService.paging(pageable, name);
+        Page<UserBO> page = userService.findPagingByName(pageable, name);
 
         List<Long> userIds = new ArrayList<>();
         page.getContent().forEach(item -> {
@@ -187,6 +185,21 @@ public class UserManagerServiceImpl extends BaseService implements IUserManagerS
         }
 
         return passwdService.encode(tryPassword, "");
+    }
+
+    @Override
+    public UserBO getLogin(String username, String cryptPassword) {
+        UserBO userBO = userService.findByUsername(username);
+
+        Assert.notNull(userBO, "账户不存在");
+		Assert.state(userBO.getStatus() != StatusType.CLOSED.getValue(), "您的账户已被封禁");
+
+        Assert.state(StringUtils.equals(userBO.getPassword(), cryptPassword), "密码错误");
+
+        userBO.setLastLogin(Calendar.getInstance().getTime());
+        userService.update(userBO);
+
+        return userBO;
     }
 
     @Override

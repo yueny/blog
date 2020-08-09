@@ -11,6 +11,7 @@ package com.mtons.mblog.service.atom.bao.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.util.DefaultMojoFactory;
 import com.mtons.mblog.bo.CommentBo;
 import com.mtons.mblog.bo.PostBo;
@@ -19,7 +20,6 @@ import com.mtons.mblog.entity.bao.Comment;
 import com.mtons.mblog.dao.mapper.CommentMapper;
 import com.mtons.mblog.service.atom.bao.CommentService;
 import com.mtons.mblog.service.atom.bao.PostService;
-import com.mtons.mblog.service.atom.jpa.UserJpaService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ import java.util.*;
 public class CommentServiceImpl extends AbstractPlusService<CommentBo, Comment, CommentMapper>
 		implements CommentService {
 	@Autowired
-	private UserJpaService userService;
+	private UserService userService;
 	@Autowired
 	private PostService postService;
 	

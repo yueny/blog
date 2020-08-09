@@ -35,13 +35,11 @@ public interface Consts {
 
 	int ZERO = 0;
 
+
 	/*  */
 	int STATUS_NORMAL = 0;
-
-
 //	/* 状态-锁定 */
 //	int STATUS_LOCKED = 1;
-//
 //	int STATUS_HIDDEN = 1;
 
 	/**

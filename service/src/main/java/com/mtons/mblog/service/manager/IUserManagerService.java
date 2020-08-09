@@ -12,6 +12,7 @@ package com.mtons.mblog.service.manager;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.vo.RolePermissionVO;
 import com.mtons.mblog.vo.UserVO;
+import com.yueny.rapid.lang.exception.invalid.InvalidException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -50,9 +51,19 @@ public interface IUserManagerService {
      * 尝试登录动作
      * @param username 用户名
      * @param tryPassword 尝试的密码明文， 不代表真实密码
+     *
      * @return 尝试密码的加密密码， 不校验与实际密码的正确性
      */
     String tryLogin(String username, String tryPassword);
+
+    /**
+     * 当前用户名和密文密码登陆动作， 成功登陆后记录最后一次登陆时间
+     *
+     * @param username
+     * @param cryptPassword 密文密码
+     * @return
+     */
+    UserBO getLogin(String username, String cryptPassword);
 
     /**
      * 查询用户已有的角色 和 权限清单

@@ -6,7 +6,6 @@ import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.vo.RolePermissionVO;
 import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.atom.bao.UserRoleService;
-import com.mtons.mblog.service.atom.jpa.UserJpaService;
 import com.mtons.mblog.service.manager.IAccountProfileService;
 import com.mtons.mblog.service.manager.IUserManagerService;
 import org.apache.shiro.SecurityUtils;
@@ -22,8 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 public class AccountRealm extends AuthorizingRealm {
-    @Autowired
-    private UserJpaService userJpaService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -63,7 +60,7 @@ public class AccountRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        AccountProfile profile = getAccount(userJpaService, token);
+        AccountProfile profile = getAccount(userManagerService, token);
 
         if (profile.getStatus() == StatusType.CLOSED.getValue()) {
             throw new LockedAccountException(profile.getName());
@@ -75,9 +72,9 @@ public class AccountRealm extends AuthorizingRealm {
         return info;
     }
 
-    protected AccountProfile getAccount(UserJpaService userService, AuthenticationToken token) {
+    protected AccountProfile getAccount(IUserManagerService userManagerService, AuthenticationToken token) {
         UsernamePasswordToken upToken = (UsernamePasswordToken) token;
-        UserBO userBO = userService.login(upToken.getUsername(), String.valueOf(upToken.getPassword()));
+        UserBO userBO = userManagerService.getLogin(upToken.getUsername(), String.valueOf(upToken.getPassword()));
 
         return accountProfileService.find(userBO.getId());
     }

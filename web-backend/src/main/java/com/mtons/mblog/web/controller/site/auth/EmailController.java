@@ -9,7 +9,6 @@ import com.mtons.mblog.vo.AccountProfile;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.modules.comp.MailService;
 import com.mtons.mblog.service.atom.jpa.SecurityCodeService;
-import com.mtons.mblog.service.atom.jpa.UserJpaService;
 import com.mtons.mblog.service.core.ConfigKeysConstant;
 import com.mtons.mblog.service.ability.IConfigAbilityService;
 import com.mtons.mblog.web.controller.BaseBizController;
@@ -37,8 +36,6 @@ public class EmailController extends BaseBizController {
     private ICacheService cacheService;
     @Autowired
     private IConfigAbilityService getService;
-    @Autowired
-    private UserJpaService userJpaService;
     @Autowired
     private UserService userService;
     @Autowired

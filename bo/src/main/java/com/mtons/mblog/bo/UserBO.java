@@ -32,12 +32,17 @@ public class UserBO extends AbstractMaskBo implements Serializable {
 	/** 表修改时间 */
 	private Date updated;
 
+	/**
+	 * 用户唯一标示
+	 */
+	private String uid;
 
 	private String username;
 
-	@JSONField(serialize = false)
-	@Mask
-	private String password;
+	/**
+	 * 昵称
+	 */
+	private String name;
 
 	/**
 	 * 用户头像路径。如果为空，由 thumbnailCode 代替
@@ -49,33 +54,32 @@ public class UserBO extends AbstractMaskBo implements Serializable {
 	 */
 	private String thumbnailCode;
 
-	private String name;
+	private String email;
+
+	@JSONField(serialize = false)
+	@Mask
+	private String password;
+
+	/**
+	 * 0 激活， 1禁用
+	 */
+	private int status;
+
+	private Date lastLogin;
 
 	/**
 	 * 性别, 1男， 2女， 0未知
 	 */
 	private GenderType gender;
 
+	private int posts; // 文章数
+	private int comments; // 发布评论数
+
+	private String signature; // 个性签名
+
 	/**
 	 * 自定义个性域名
 	 */
 	private String domainHack;
-	/**
-	 * 用户唯一标示
-	 */
-	private String uid;
-
-	private String email;
-
-	private int posts; // 文章数
-	private int comments; // 发布评论数
-
-	private Date lastLogin;
-	private String signature; // 个性签名
-
-	/**
-	 * 0 激活， 1禁用
-	 */
-	private int status;
 
 }

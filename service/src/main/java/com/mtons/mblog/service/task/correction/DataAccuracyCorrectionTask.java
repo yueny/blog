@@ -15,10 +15,9 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * 数据准确性订正
  *
- * 1、标签的文章数、mto_post、mto_post_tag、mto_tag 【】
- * 2、每篇文章的留言数和关注 修正、mto_post、mto_comment 【】
- * 3、我的发布、mto_post、mto_user 【】
- * 4、我的收藏、mto_favorite 【】
+ * 1、文章的留言数和关注 修正、mto_post、mto_comment 【DataAccuracyCorrectionType.POST】
+ * 2、标签的文章数、mto_post、mto_post_tag、mto_tag 【DataAccuracyCorrectionType.TAGS】
+ * 3、我的发布|我的收藏、mto_post、mto_user、mto_favorite 【】
  *
  * [图片分布暂不考虑]
  */
@@ -28,8 +27,6 @@ public class DataAccuracyCorrectionTask extends AbstractService {
     };
 
     /**
-     * 2、每篇文章的留言数和关注 修正
-     *
      * 每天0-4点执行
      */
     @Scheduled(fixedRateString="20000")//每20秒执行一次

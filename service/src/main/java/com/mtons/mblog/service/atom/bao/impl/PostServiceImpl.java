@@ -56,8 +56,6 @@ public class PostServiceImpl extends AbstractPlusService<PostBo, Post, PostMappe
 	@Autowired
 	private PostRepository postRepository;
 	@Autowired
-	private UserJpaService userJpaService;
-	@Autowired
 	private UserService userService;
 	@Autowired
 	private IFavoriteService favoriteService;
@@ -420,7 +418,7 @@ public class PostServiceImpl extends AbstractPlusService<PostBo, Post, PostMappe
 	}
 
 	private void buildUsers(Collection<PostBo> posts, Set<Long> uids) {
-		Map<Long, UserBO> userMap = userJpaService.findMapByIds(uids);
+		Map<Long, UserBO> userMap = userService.findMapByIds(uids);
 		posts.forEach(p -> p.setAuthor(userMap.get(p.getAuthorId())));
 	}
 

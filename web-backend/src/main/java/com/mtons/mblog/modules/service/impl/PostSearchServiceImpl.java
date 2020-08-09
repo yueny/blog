@@ -1,5 +1,6 @@
 package com.mtons.mblog.modules.service.impl;
 
+import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.util.BeanMapUtils;
 import com.mtons.mblog.bo.PostBo;
 import com.mtons.mblog.service.BaseService;
@@ -7,7 +8,6 @@ import com.mtons.mblog.service.aspect.PostStatusFilter;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.bao.Post;
 import com.mtons.mblog.modules.service.PostSearchService;
-import com.mtons.mblog.service.atom.jpa.UserJpaService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
@@ -43,9 +43,8 @@ import java.util.stream.Collectors;
 public class PostSearchServiceImpl extends BaseService implements PostSearchService {
     @Autowired
     private EntityManager entityManager;
-
     @Autowired
-    private UserJpaService userJpaService;
+    private UserService userService;
 
     @Override
     @PostStatusFilter
@@ -111,7 +110,7 @@ public class PostSearchServiceImpl extends BaseService implements PostSearchServ
 
         HashSet<Long> uids = new HashSet<>();
         list.forEach(n -> uids.add(n.getAuthorId()));
-        Map<Long, UserBO> userMap = userJpaService.findMapByIds(uids);
+        Map<Long, UserBO> userMap = userService.findMapByIds(uids);
 
         list.forEach(p -> p.setAuthor(userMap.get(p.getAuthorId())));
     }

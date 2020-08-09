@@ -4,7 +4,6 @@ import com.mtons.mblog.bo.FeatureStatisticsPostBo;
 import com.mtons.mblog.bo.PostBo;
 import com.mtons.mblog.service.BaseService;
 import com.mtons.mblog.service.atom.bao.*;
-import com.mtons.mblog.service.manager.IFavoriteManagerService;
 import com.mtons.mblog.service.task.correction.DataAccuracyCorrectionType;
 import com.mtons.mblog.service.task.correction.DataAccuracyResult;
 import com.mtons.mblog.service.util.PageHelper;
@@ -17,6 +16,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+/**
+ * 博文维度的统计和特征数据
+ *
+ * 文章的留言数和关注 修正、mto_post、mto_comment 【DataAccuracyCorrectionType.POST】
+ */
 @Service
 public class PostAccuracyStrategy extends BaseService implements IAccuracyStrategy {
     @Autowired
@@ -25,12 +29,6 @@ public class PostAccuracyStrategy extends BaseService implements IAccuracyStrate
     private CommentService commentService;
     @Autowired
     private IFavoriteService favoriteService;
-    @Autowired
-    private IFavoriteManagerService favoriteManagerService;
-    @Autowired
-    private PostTagService postTagService;
-    @Autowired
-    private TagService tagService;
     @Autowired
     private FeatureStatisticsPostAtomService featureStatisticsPostAtomService;
 

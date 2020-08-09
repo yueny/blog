@@ -10,22 +10,19 @@
 package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.bo.UserSecurityBO;
-import com.mtons.mblog.dao.repository.UserRepository;
 import com.mtons.mblog.service.atom.bao.IUserSecurityService;
+import com.mtons.mblog.service.atom.bao.UserService;
 import com.mtons.mblog.service.internal.IPasswdService;
 import com.mtons.mblog.bo.OpenOauthVO;
 import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.entity.jpa.UserOauth;
-import com.mtons.mblog.entity.bao.User;
 import com.mtons.mblog.modules.service.OpenOauthService;
-import com.mtons.mblog.service.util.BeanMapUtils;
 import com.mtons.mblog.dao.repository.UserOauthRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 
 /**
  * 第三方登录授权管理
@@ -37,7 +34,7 @@ public class OpenOauthServiceImpl implements OpenOauthService {
     @Autowired
     private UserOauthRepository userOauthRepository;
     @Autowired
-    private UserRepository userMapper;
+    private UserService userService;
     @Autowired
     private IPasswdService passwdService;
     @Autowired
@@ -46,8 +43,9 @@ public class OpenOauthServiceImpl implements OpenOauthService {
     @Override
     public UserBO getUserByOauthToken(String oauth_token) {
         UserOauth thirdToken = userOauthRepository.findByAccessToken(oauth_token);
-        Optional<User> po = userMapper.findById(thirdToken.getId());
-        return BeanMapUtils.copy(po.get());
+
+        UserBO po = userService.find(thirdToken.getId());
+        return po;
     }
 
     @Override
@@ -76,15 +74,14 @@ public class OpenOauthServiceImpl implements OpenOauthService {
     public boolean checkIsOriginalPassword(long userId) {
         UserOauth po = userOauthRepository.findByUserId(userId);
         if (po != null) {
-            Optional<User> optional = userMapper.findById(userId);
+            UserBO userBO = userService.find(userId);
 
             // 判断用户密码 和 登录状态
-            if (optional.isPresent()) {
-                User user = optional.get();
-                UserSecurityBO us = userSecurityService.getByUid(user.getUid());
+            if (userBO !=null) {
+                UserSecurityBO us = userSecurityService.getByUid(userBO.getUid());
                 String pwd = passwdService.encode(po.getAccessToken(), us.getSalt());
 
-                if (pwd.equals(user.getPassword())) {
+                if (pwd.equals(userBO.getPassword())) {
                     return true;
                 }
             }

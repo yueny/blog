@@ -18,7 +18,10 @@ import com.yueny.rapid.lang.exception.invalid.InvalidException;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -30,27 +33,6 @@ import java.util.Set;
  */
 @CacheConfig(cacheNames = Consts.CACHE_USER)
 public interface UserService extends IPlusBizService<UserBO, User> {
-//	/**
-//	 * 登录
-//	 * @param username
-//	 * @param password
-//	 * @return
-//	 */
-//	AccountProfile login(String username, String password);
-//
-//	/**
-//	 * 登录,用于记住登录时获取用户信息
-//	 * @param id
-//	 * @return
-//	 */
-//	AccountProfile findProfile(Long id);
-
-	/**
-	 * 注册
-	 * @param user
-	 */
-	UserBO register(UserBO user);
-
 	/**
 	 * 修改用户信息
 	 * @param user
@@ -66,6 +48,12 @@ public interface UserService extends IPlusBizService<UserBO, User> {
 	 */
 	@CacheEvict(key = "#id")
 	boolean updateEmail(long id, String email);
+
+	/**
+	 * 注册
+	 * @param user
+	 */
+	UserBO register(UserBO user);
 
 	//	/**
 //	 * 查询单个用户
@@ -91,6 +79,21 @@ public interface UserService extends IPlusBizService<UserBO, User> {
 	 * 查询个性化域名的所有人信息. 不存在则返回null
 	 */
 	UserBO findByDomainHack(String domainHack);
+
+	/**
+	 * 分页查询
+	 *
+	 * @param pageable
+	 * @param name
+	 */
+	Page<UserBO> findPagingByName(Pageable pageable, String name);
+
+	/**
+	 * 根据用户主键列表查询用户信息列表
+	 * @param ids
+	 * @return
+	 */
+	Map<Long, UserBO> findMapByIds(Set<Long> ids);
 
 	/**
 	 * 修改头像
@@ -129,6 +132,7 @@ public interface UserService extends IPlusBizService<UserBO, User> {
 
 	/**
 	 * 批量自增评论数
+	 *
 	 * @param uids
 	 * @param plus
 	 */

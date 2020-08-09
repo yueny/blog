@@ -8,16 +8,15 @@ import com.mtons.mblog.bo.UserBO;
 import com.mtons.mblog.dao.mapper.UserMapper;
 import com.mtons.mblog.entity.bao.User;
 import com.mtons.mblog.service.atom.bao.UserService;
-import com.mtons.mblog.service.atom.jpa.MessageService;
 import com.mtons.mblog.service.exception.MtonsException;
 import com.yueny.rapid.lang.exception.invalid.InvalidException;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @Author yueny09 <deep_blue_yang@126.com>
@@ -108,6 +107,44 @@ public class UserServiceImpl extends AbstractPlusService<UserBO, User, UserMappe
         queryWrapper.eq(User::getDomainHack, domainHack);
 
         return find(queryWrapper);
+    }
+
+    @Override
+    public Page<UserBO> findPagingByName(Pageable pageable, String name) {
+        LambdaQueryWrapper<User> queryWrapper = new QueryWrapper<User>().lambda();
+
+        if (StringUtils.isNoneBlank(name)) {
+            queryWrapper.like(User::getName, name);
+            // builder.like(root.get("name"), "%" + name + "%"));
+        }
+        queryWrapper.orderByDesc(User::getId);
+
+        Page<UserBO> pageList = findAll(pageable, queryWrapper);
+
+        pageList.getContent().forEach(userBO -> {
+            userBO.setPassword("");
+        });
+
+        //return new PageImpl<>(rets, pageable, page.getTotalElements());
+        return pageList;
+    }
+
+    @Override
+    public Map<Long, UserBO> findMapByIds(Set<Long> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return Collections.emptyMap();
+        }
+
+        List<UserBO> userBOList = findAllById(ids);
+
+        Map<Long, UserBO> maps = new HashMap<>();
+        userBOList.forEach(userBO -> {
+            userBO.setPassword("");
+
+            maps.put(userBO.getId(), userBO);
+        });
+
+        return maps;
     }
 
     @Override
