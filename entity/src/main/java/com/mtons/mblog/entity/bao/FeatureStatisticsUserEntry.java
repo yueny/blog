@@ -1,19 +1,20 @@
 package com.mtons.mblog.entity.bao;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
 
 /**
- * Table 博文特征表    Blog post Feature Statistics
+ * Table 用户特征表， 用户维度    User Feature Statistics
  */
 @Entity
-@TableName("feature_statistics_post")
+@TableName("feature_statistics_user")
 @Getter
 @Setter
-public class FeatureStatisticsPostEntry extends AbstractUpdatePlusEntry {
+public class FeatureStatisticsUserEntry extends AbstractUpdatePlusEntry {
     /**
      * 文章id
      */
@@ -43,4 +44,5 @@ public class FeatureStatisticsPostEntry extends AbstractUpdatePlusEntry {
      */
     @TableField
     private Integer status;
+
 }

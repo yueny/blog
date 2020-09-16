@@ -15,9 +15,15 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * 数据准确性订正
  *
- * 1、文章的留言数和关注 修正、mto_post、mto_comment 【DataAccuracyCorrectionType.POST】
- * 2、标签的文章数、mto_post、mto_post_tag、mto_tag 【DataAccuracyCorrectionType.TAGS】
- * 3、我的发布|我的收藏、mto_post、mto_user、mto_favorite 【】
+ * 1、文章的留言数和文章收藏数（收藏该文章的用户数）, 存储于 feature_statistics_post，
+ *      涉及表： mto_post、mto_comment、mto_favorite 【DataAccuracyCorrectionType.POST】
+ *
+ * 2、标签的文章数, 存储于 xxx，
+ *      涉及表： mto_post、mto_post_tag、mto_tag 【DataAccuracyCorrectionType.TAGS】
+ *
+ * 3、我的发布文章数、我的收藏数、我的发布评论数, 存储于 feature_statistics_user，
+ *      涉及表： mto_post、mto_user、mto_comment、mto_favorite 【DataAccuracyCorrectionType.USER】
+ *
  *
  * [图片分布暂不考虑]
  */

@@ -12,6 +12,7 @@ package com.mtons.mblog.bo;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.yueny.rapid.lang.common.enums.GenderType;
 import com.yueny.rapid.lang.mask.annotation.Mask;
+import com.yueny.rapid.lang.mask.annotation.Maskble;
 import com.yueny.rapid.lang.mask.pojo.instance.AbstractMaskBo;
 import lombok.Getter;
 import lombok.Setter;
@@ -57,7 +58,7 @@ public class UserBO extends AbstractMaskBo implements Serializable {
 	private String email;
 
 	@JSONField(serialize = false)
-	@Mask
+	@Maskble
 	private String password;
 
 	/**
@@ -72,7 +73,13 @@ public class UserBO extends AbstractMaskBo implements Serializable {
 	 */
 	private GenderType gender;
 
+	/**
+	 * 我的发布文章数
+	 */
 	private int posts; // 文章数
+	/**
+	 * 我的发布评论数
+	 */
 	private int comments; // 发布评论数
 
 	private String signature; // 个性签名

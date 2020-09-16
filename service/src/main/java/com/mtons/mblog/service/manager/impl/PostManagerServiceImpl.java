@@ -98,7 +98,7 @@ public class PostManagerServiceImpl extends BaseService implements PostManagerSe
 
 		// 增加特征数据
 		FeatureStatisticsPostBo featureStatisticsPostBo = new FeatureStatisticsPostBo();
-		featureStatisticsPostBo.setPostAuthorUid(post.getUid());
+		featureStatisticsPostBo.setUserUid(post.getUid());
 		featureStatisticsPostBo.setPostId(post.getId());
 		featureStatisticsPostBo.setStatus(EnableType.ENABLE);
 		featureStatisticsPostAtomService.insert(featureStatisticsPostBo);

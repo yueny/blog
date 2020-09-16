@@ -12,12 +12,12 @@ public interface FeatureStatisticsPostMapper extends BaseMapper<FeatureStatistic
     /**
      * 喜欢文章
      */
-    @Update("update feature_statistics_post set favors = favors + #{increment} where post_id = #{postId} and uid = #{uid}")
+    @Update("update feature_statistics_post set favors = favors + #{increment} where post_id = #{postId} and user_uid = #{uid}")
     void updateFavors(@Param("postId") Long postId, @Param("uid") String uid, @Param("increment") int increment);
 
     /**
      * 自增评论数
      */
-    @Update("update feature_statistics_post set comments = comments + #{increment} where post_id = #{postId} and uid = #{uid}")
+    @Update("update feature_statistics_post set comments = comments + #{increment} where post_id = #{postId} and user_uid = #{uid}")
     void updateComments(@Param("postId") Long postId, @Param("uid") String uid, @Param("increment") int increment);
 }

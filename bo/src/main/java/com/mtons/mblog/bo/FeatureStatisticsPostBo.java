@@ -27,7 +27,7 @@ public class FeatureStatisticsPostBo extends AbstractBo implements IBo {
     /**
      * 文章所属人uid
      */
-    private String postAuthorUid; // 作者
+    private String userUid; // 作者
 
     /**
      * 文章评论数。 默认0
@@ -35,7 +35,7 @@ public class FeatureStatisticsPostBo extends AbstractBo implements IBo {
     private Integer comments = 0;
 
     /**
-     * 文章收藏数（不同用户）. 默认0
+     * 文章收藏数（收藏该文章的用户数）. 默认0
      */
     private Integer favors = 0;
 

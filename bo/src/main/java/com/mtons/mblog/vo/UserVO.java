@@ -37,6 +37,9 @@ public class UserVO extends UserBO implements Serializable {
 	 */
 	private NeedChangeType needChangePw;
 
+	/**
+	 * 用户拥有的菜单权限列表
+	 */
 	@JSONField(serialize = false)
 	private List<RolePermissionVO> roles = new ArrayList<>();
 

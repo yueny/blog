@@ -85,10 +85,16 @@ public class User extends AbstractUpdatePlusEntry implements Serializable {
 
 	// role_id 已经删除
 
+	/**
+	 * 我的发布文章数
+	 */
 	@NumericField
 	@TableField
 	private Integer posts; // 文章数
 
+	/**
+	 * 我的发布评论数
+	 */
 	@NumericField
 	@TableField
 	private Integer comments; // 发布评论数

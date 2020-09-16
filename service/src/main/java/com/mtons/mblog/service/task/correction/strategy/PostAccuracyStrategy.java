@@ -19,7 +19,8 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * 博文维度的统计和特征数据
  *
- * 文章的留言数和关注 修正、mto_post、mto_comment 【DataAccuracyCorrectionType.POST】
+ * 1、文章的留言数和文章收藏数（收藏该文章的用户数）, 存储于 feature_statistics_post，
+ *       涉及表： mto_post、mto_comment、mto_favorite 【DataAccuracyCorrectionType.POST】
  */
 @Service
 public class PostAccuracyStrategy extends BaseService implements IAccuracyStrategy {
@@ -79,7 +80,7 @@ public class PostAccuracyStrategy extends BaseService implements IAccuracyStrate
                 featureStatisticsPostBo.setComments(newCommentsCount);
                 featureStatisticsPostBo.setFavors(newFavorsCount);
                 featureStatisticsPostBo.setPostId(post.getId());
-                featureStatisticsPostBo.setPostAuthorUid(post.getUid());
+                featureStatisticsPostBo.setUserUid(post.getUid());
 
                 featureStatisticsPostAtomService.insert(featureStatisticsPostBo);
 
